@@ -20,6 +20,7 @@ jobs:
 
     - name: Add target repo as a remote
       run: |
+        ls -a
         git remote add target https://github.com/chathushkaayash/Smart-Shopper-Frontend.git
 
       env:
