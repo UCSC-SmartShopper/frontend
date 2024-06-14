@@ -1,33 +1,28 @@
-name: Push to another repo
+
+name: Automatic Push to Another Repository
 
 on:
   push:
-    branches:
-      - master  # Change this to the branch you want to trigger on
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
-  push_code:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout source repo
-      uses: actions/checkout@v3
-
-    - name: Set up Git
-      run: |
-        git config --global user.name 'chathushkaayash'
-        git config --global user.email 'chathushkaayash@gmail.com'
-
-    - name: Add target repo as a remote
-      run: |
-        ls -a
-        git remote add target https://github.com/chathushkaayash/Smart-Shopper-Frontend.git
-
-      env:
-        TARGET_REPO_TOKEN: ${{ secrets.API_TOKEN_GITHUB}}
-
-    - name: Push to target repo
-      run: |
-        git push -u target master --force
-      env:
-        TARGET_REPO_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+      - uses: actions/checkout@v2
+      - name: Pushes to another repository
+        id: push_directory
+        uses: cpina/github-action-push-to-another-repository@target-branch
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: .
+          destination-github-username: 'chathushkaayash'
+          destination-repository-name: 'Smart-Shopper-Frontend'
+          user-email: chathushkaayash@gmail.com
+          commit-message: See ORIGIN_COMMIT 
+          target-branch: master
+      - name: Test get variable exported by push-to-another-repository
+        run: echo gbj
