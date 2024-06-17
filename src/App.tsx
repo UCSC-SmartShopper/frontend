@@ -16,8 +16,8 @@ function App() {
     <>
       <Navbar />
       
-      <Login />
-      {/* <Landing/> */}
+      {/* <Login /> */}
+      <Landing/>
     </>
   );
 }

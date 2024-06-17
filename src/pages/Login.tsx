@@ -18,7 +18,7 @@ import GoogleIcon from "../assets/social-media-icons/google.svg";
 
 import LoginButton from "../components/Buttons/LoginButton";
 import LoginInput from "../components/Inputs/LoginInput";
-import MiddleContainer from "../components/MiddleContainer";
+import MiddleContainer from "../components/Containers/MiddleContainer";
 import SubmitButton from "../components/Buttons/SubmitButton";
 
 const Login = () => {
