@@ -29,7 +29,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/cart" element={<CartDetails />} />
+        <Route path="/landing" element={<Landing />} />
       </Routes>
       
     </Router>
