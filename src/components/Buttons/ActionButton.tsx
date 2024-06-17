@@ -1,4 +1,6 @@
+import React from "react";
 import { Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 interface Props {
   children: React.ReactNode;
@@ -6,6 +8,8 @@ interface Props {
   inverted?: boolean;
   className?: string;
   expanding?: boolean;
+  url?: string;
+  
   onClick?: () => void;
 }
 
@@ -15,12 +19,13 @@ const ActionButton = ({
   inverted = false,
   expanding = false,
   className,
+  url, // Added url prop
   onClick,
 }: Props) => {
   const primaryColor = inverted ? "primary" : "white";
   const whiteColor = inverted ? "white" : "primary";
 
-  return (
+  const button = (
     <Button
       size={size}
       width={expanding ? "100%" : "fit-content"}
@@ -45,6 +50,8 @@ const ActionButton = ({
       {children}
     </Button>
   );
+
+  return url ? <Link to={url}>{button}</Link> : button;
 };
 
 export default ActionButton;

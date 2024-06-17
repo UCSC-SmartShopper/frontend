@@ -24,6 +24,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import LoginButton from "../components/Buttons/LoginButton";
+import SubmitButton from "../components/Buttons/SubmitButton";
 // import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
@@ -100,9 +101,7 @@ const SignUp = () => {
             />
             {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
 
-            <Button type="submit" width="full" bg="#E9893B" mt={3}>
-              Sign Up
-            </Button>
+            <SubmitButton className="my-3">Sign Up</SubmitButton>
           </form>
 
           <Text mt={3}>
@@ -111,7 +110,7 @@ const SignUp = () => {
               Login
             </Button>
           </Text>
-          
+
           <Flex align="center" mt={3}>
             <Box flex="1" h="1px" bg="gray.300"></Box>
             <Box px={2}>or</Box>
