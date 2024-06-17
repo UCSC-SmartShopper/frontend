@@ -21,10 +21,11 @@ function App() {
 
       <Navbar /> 
       {/* <Login /> */}
-      <SignUp/>
+      <Landing />
+      {/* <SignUp/> */}
 
      
-      <ProductDetail />
+      {/* <ProductDetail /> */}
 
     </>
   );

@@ -6,6 +6,7 @@ import image3 from "../assets/landing/online-ads-animate.svg";
 import HorizontalScrollContainer from "../components/Containers/HorizontalScroller";
 import SmartLists from "../components/Landing/Slides/SmartLists";
 import FastDelivery from "../components/Landing/Slides/FastDelivery";
+import { useState } from "react";
 
 export interface ProductQuery {
   genreId?: number;
@@ -15,10 +16,11 @@ export interface ProductQuery {
 }
 
 const Landing = () => {
+
   return (
     <>
-      <FastDelivery  />
-      <SmartLists  />
+      <FastDelivery />
+      <SmartLists />
 
       {/* <Image src={image1} width={400} />
       <Image src={image2} width={400} />

@@ -13,7 +13,7 @@ import { IoPersonSharp } from "react-icons/io5";
 
 import GroceryImage from "../assets/login/grocery-shopping-amico.svg";
 
-import MiddleContainer from "../components/MiddleContainer";
+import MiddleContainer from "../components/Containers/MiddleContainer";
 import LoginInput from "../components/Inputs/LoginInput";
 
 import { useForm } from "react-hook-form";

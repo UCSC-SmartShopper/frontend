@@ -6,6 +6,7 @@ interface Props {
   inverted?: boolean;
   className?: string;
   expanding?: boolean;
+  onClick?: () => void;
 }
 
 const ActionButton = ({
@@ -14,6 +15,7 @@ const ActionButton = ({
   inverted = false,
   expanding = false,
   className,
+  onClick,
 }: Props) => {
   const primaryColor = inverted ? "primary" : "white";
   const whiteColor = inverted ? "white" : "primary";
@@ -38,6 +40,7 @@ const ActionButton = ({
         borderColor: primaryColor,
       }}
       className={className}
+      onClick={onClick}
     >
       {children}
     </Button>
