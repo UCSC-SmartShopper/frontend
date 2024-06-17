@@ -20,6 +20,7 @@ import LoginButton from "../components/Buttons/LoginButton";
 import LoginInput from "../components/Inputs/LoginInput";
 import MiddleContainer from "../components/MiddleContainer";
 import { useForm } from "react-hook-form";
+import SubmitButton from "../components/Buttons/SubmitButton";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -62,9 +63,16 @@ const Login = () => {
               label="Password"
             />
 
-            <Button type="submit" width="full" bg="#E9893B" mt={3}>
+            {/* <Button
+              type="submit"
+              width="full"
+              bg="secondary"
+              mt={3}
+              color="white"
+            >
               Login
-            </Button>
+            </Button> */}
+            <SubmitButton className="my-3">Login</SubmitButton>
           </form>
 
           <Text mt={3}>
