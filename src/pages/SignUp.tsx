@@ -27,10 +27,6 @@ import LoginButton from "../components/Buttons/LoginButton";
 // import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
-  name: z
-    .string()
-    .min(3, { message: "name must be at least 3 characters" })
-    .max(50),
   email: z.string().email(),
   password: z.string().min(6),
   confirmPassword: z.string().min(6),
@@ -68,15 +64,6 @@ const SignUp = () => {
           </VStack>
 
           <form onSubmit={handleSubmit((data) => console.log(data))}>
-            <LoginInput
-              // {...register('name')}
-              register={register("name", { required: true, minLength: 3 })}
-              type="text"
-              placeholder="Name"
-              icon={IoPersonSharp}
-              // label="Name"
-            />
-            {errors.name && <p>{errors.name.message}</p>}
 
             <LoginInput
               register={register("email")}
