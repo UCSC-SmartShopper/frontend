@@ -1,11 +1,18 @@
 
 import "./App.css";
 import Navbar from "./components/Navbar";
+
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+
+import CartDetails from "./pages/CartDetails";
+
 import ProductDetail from "./pages/ProductDetail";
-import ProductGrid from "./components/ProductGrid";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Test from "./pages/Test";
+
+
 
 export interface ProductQuery {
   genreId?: number;
@@ -14,15 +21,26 @@ export interface ProductQuery {
   searchText: string;
 }
 
+
 function App() {
 
   return (
     <>
 
-      <Navbar /> 
-      {/* <Login /> */}
-      <SignUp/>    
-      {/* <ProductDetail /> */}
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/cart" element={<CartDetails />} />
+        <Route path="/landing" element={<Landing />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/test" element={<Test />} />
+      </Routes>
+      
+    </Router>
+      
+
 
     </>
   );

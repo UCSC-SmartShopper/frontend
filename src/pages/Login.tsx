@@ -16,14 +16,14 @@ import GroceryImage from "../assets/login/grocery-shopping-amico.svg";
 import FacebookIcon from "../assets/social-media-icons/facebook.svg";
 import GoogleIcon from "../assets/social-media-icons/google.svg";
 
-import LoginButton from "../components/Buttons/LoginButton";
-import LoginInput from "../components/Inputs/LoginInput";
-import MiddleContainer from "../components/MiddleContainer";
 import { useForm } from "react-hook-form";
+import LoginButton from "../components/Buttons/LoginButton";
 import SubmitButton from "../components/Buttons/SubmitButton";
+import MiddleContainer from "../components/Containers/MiddleContainer";
+import LoginInput from "../components/Inputs/LoginInput";
 
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
+import { z } from "zod";
 // import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
@@ -34,7 +34,11 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const Login = () => {
-  const { register, handleSubmit,formState: { errors } } = useForm<FormData>({ resolver: zodResolver(schema) });
+  const {
+    register,
+    handleSubmit,
+    formState: {  },
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
   return (
     <MiddleContainer>
       <Grid gridTemplateColumns="1fr 1fr" h="100%">
@@ -74,15 +78,6 @@ const Login = () => {
               // label="Password"
             />
 
-            {/* <Button
-              type="submit"
-              width="full"
-              bg="secondary"
-              mt={3}
-              color="white"
-            >
-              Login
-            </Button> */}
             <SubmitButton className="my-3">Login</SubmitButton>
           </form>
 
