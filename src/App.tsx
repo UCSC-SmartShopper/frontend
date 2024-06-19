@@ -11,6 +11,7 @@ import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Test from "./pages/Test";
+import ConsumerProfile from "./pages/ConsumerProfile";
 
 
 
@@ -30,12 +31,13 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/cart" element={<CartDetails />} />
-        <Route path="/landing" element={<Landing />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/ConsumerProfile" element={<ConsumerProfile />} />
       </Routes>
       
     </Router>
