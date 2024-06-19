@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardBody,
@@ -14,6 +15,7 @@ import {
   Tooltip,
   Icon,
 } from "@chakra-ui/react";
+
 import { Product } from "../../hooks/useProducts";
 import FavouriteButton from "../Buttons/FavouriteButton";
 import AddToCartIconBtn from "../Buttons/AddToCartIconBtn";
