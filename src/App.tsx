@@ -13,15 +13,12 @@ import SignUp from "./pages/SignUp";
 import Test from "./pages/Test";
 import Reviews from "./pages/Reviews";
 
-
-
 export interface ProductQuery {
   genreId?: number;
   platformId?: number;
   sortOrder: string;
   searchText: string;
 }
-
 
 function App() {
 
