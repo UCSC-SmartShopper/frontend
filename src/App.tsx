@@ -12,8 +12,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Test from "./pages/Test";
 import ConsumerProfile from "./pages/ConsumerProfile";
-
-
+import Reviews from "./pages/Reviews";
 
 export interface ProductQuery {
   genreId?: number;
@@ -21,7 +20,6 @@ export interface ProductQuery {
   sortOrder: string;
   searchText: string;
 }
-
 
 function App() {
 
@@ -38,6 +36,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/ConsumerProfile" element={<ConsumerProfile />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/reviews" element={<Reviews />} />
       </Routes>
       
     </Router>

@@ -16,18 +16,20 @@ import GroceryImage from "../assets/login/grocery-shopping-amico.svg";
 import FacebookIcon from "../assets/social-media-icons/facebook.svg";
 import GoogleIcon from "../assets/social-media-icons/google.svg";
 
-import { useForm } from "react-hook-form";
 import LoginButton from "../components/Buttons/LoginButton";
 import SubmitButton from "../components/Buttons/SubmitButton";
 import MiddleContainer from "../components/Containers/MiddleContainer";
 import LoginInput from "../components/Inputs/LoginInput";
 
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
+import LinkButton from "../components/Buttons/LinkButton";
+import ErrorText from "../components/Errors/ErrorText";
 // import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
-  email: z.string().email(),
+  email: z.string().email("Invalid email address"),
   password: z.string().min(6),
 });
 
@@ -37,7 +39,8 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: {  },
+
+    formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   return (
     <MiddleContainer>
@@ -54,7 +57,7 @@ const Login = () => {
               {" "}
               Welcome to
             </Text>
-            <Box display="inline" fontSize="2xl" fontWeight="bold">
+            <Box display="inline" fontSize="4xl" fontWeight="bold">
               <Text as="span">Smart</Text>
               <Text color="primary" as="span">
                 Shopper
@@ -70,6 +73,7 @@ const Login = () => {
               icon={FaEnvelope}
               // label="Email"
             />
+            {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
             <LoginInput
               register={register("password")}
               type="password"
@@ -77,13 +81,29 @@ const Login = () => {
               icon={FaLock}
               // label="Password"
             />
+            {errors.password && (
+              <ErrorText>{errors.password.message}</ErrorText>
+            )}
+
+            <LinkButton
+              to="/forgot-password"
+              className="mt-3 ml-1"
+              fontSize={14}
+            >
+              Forgot Password?
+            </LinkButton>
 
             <SubmitButton className="my-3">Login</SubmitButton>
           </form>
 
-          <Text mt={3}>
+          <Text ml={2} fontSize={14}>
             Don't have an account?{" "}
-            <Button variant="link" color="primary">
+            <Button
+              variant="link"
+              color="primary"
+              fontSize={14}
+              fontWeight={700}
+            >
               Register
             </Button>
           </Text>
@@ -95,8 +115,8 @@ const Login = () => {
           </Flex>
 
           <HStack marginTop={2}>
-            <LoginButton text="Login with Google" image={GoogleIcon} />
-            <LoginButton text="Login with Facebook" image={FacebookIcon} />
+            <LoginButton text="Google" image={GoogleIcon} />
+            <LoginButton text="Facebook" image={FacebookIcon} />
           </HStack>
         </GridItem>
       </Grid>
