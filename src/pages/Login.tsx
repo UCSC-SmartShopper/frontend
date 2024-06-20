@@ -25,6 +25,8 @@ import LoginInput from "../components/Inputs/LoginInput";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import { z } from "zod";
+import { Link } from "react-router-dom";
+import LinkButton from "../components/Buttons/LinkButton";
 // import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
@@ -38,6 +40,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   return (
@@ -55,7 +58,7 @@ const Login = () => {
               {" "}
               Welcome to
             </Text>
-            <Box display="inline" fontSize="2xl" fontWeight="bold">
+            <Box display="inline" fontSize="4xl" fontWeight="bold">
               <Text as="span">Smart</Text>
               <Text color="primary" as="span">
                 Shopper
@@ -64,30 +67,36 @@ const Login = () => {
           </VStack>
 
           <form onSubmit={handleSubmit((data) => console.log(data))}>
-            <LoginInput
-              register={register("email")}
-              type="email"
-              placeholder="Email"
-              icon={FaEnvelope}
-              // label="Email"
-            />
-            {errors.email && <p>{errors.email.message}</p>}
+            <VStack spacing={2} mt={5}>
+              <LoginInput
+                register={register("email")}
+                type="email"
+                placeholder="Email"
+                icon={FaEnvelope}
+                // label="Email"
+              />
+              {errors.email && <p>{errors.email.message}</p>}
+              <LoginInput
+                register={register("password")}
+                type="password"
+                placeholder="Password"
+                icon={FaLock}
+                // label="Password"
+              />
+               {errors.password && <p>{errors.password.message}</p>}
+            </VStack>
 
-            <LoginInput
-              register={register("password")}
-              type="password"
-              placeholder="Password"
-              icon={FaLock}
-              // label="Password"
-            />
-            {errors.password && <p>{errors.password.message}</p>}
+            <LinkButton to="/forgot-password" className="mt-3 ml-1" fontSize={14}>
+              Forgot Password?
+            </LinkButton>
+
 
             <SubmitButton className="my-3">Login</SubmitButton>
           </form>
 
-          <Text mt={3}>
+          <Text ml={2} fontSize={14}>
             Don't have an account?{" "}
-            <Button variant="link" color="primary">
+            <Button variant="link" color="primary" fontSize={14} fontWeight={700}>
               Register
             </Button>
           </Text>
@@ -99,8 +108,8 @@ const Login = () => {
           </Flex>
 
           <HStack marginTop={2}>
-            <LoginButton text="Login with Google" image={GoogleIcon} />
-            <LoginButton text="Login with Facebook" image={FacebookIcon} />
+            <LoginButton text="Google" image={GoogleIcon} />
+            <LoginButton text="Facebook" image={FacebookIcon} />
           </HStack>
         </GridItem>
       </Grid>

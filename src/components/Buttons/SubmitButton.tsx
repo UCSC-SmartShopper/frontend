@@ -39,6 +39,9 @@ const SubmitButton = ({
       width={width}
       bg={color}
       color="white"
+      borderColor='primary' 
+      // border="1px solid black"
+      _hover={{ bg: "white", color: "primary",border:'2px'}}
       className={className}
       disabled={false}
     >
