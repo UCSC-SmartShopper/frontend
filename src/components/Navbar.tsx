@@ -5,14 +5,17 @@ import {
   Icon,
   Image,
   Text,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
-import Banner from '../assets/smart-shopper-banner.svg';
+import { useLocation } from "react-router-dom";
+import Banner from "../assets/smart-shopper-banner.svg";
+import ActionButton from "./Buttons/ActionButton";
 
 const Navbar = () => {
-  const [user] = useState("User1");
+  const [user] = useState("");
+  const location = useLocation();
 
   return (
     <>
@@ -37,9 +40,15 @@ const Navbar = () => {
           </Box> */}
           <Image src={Banner} />
 
-          <Text fontSize="lg">Home</Text>
-          <Text fontSize="lg">Supermarkets</Text>
-          <Text fontSize="lg">About Us</Text>
+          <Text fontSize="lg" fontWeight="bold">
+            Home
+          </Text>
+          <Text fontSize="lg" fontWeight="bold">
+            Supermarkets
+          </Text>
+          <Text fontSize="lg" fontWeight="bold">
+            About Us
+          </Text>
         </HStack>
 
         {user ? (
@@ -49,14 +58,19 @@ const Navbar = () => {
               src="https://bit.ly/dan-abramov"
               boxSize={10}
             />
-            <Text fontSize="lg">{user}</Text>
-            <Icon as={FaCartShopping} w={8} h={8} color='black' />
+            <Text fontSize="lg" fontWeight="bold">
+              {user}
+            </Text>
+            <Icon as={FaCartShopping} w={8} h={8} color="black" />
           </HStack>
         ) : (
-          <HStack marginX={10}>
-            <Text fontSize="lg">Login</Text>
-            <Text fontSize="lg">Register</Text>
-            
+          <HStack paddingX={0}>
+            {location.pathname !== "/login" ? (
+              <ActionButton url="/login">Login</ActionButton>
+            ) : null}
+            {location.pathname !== "/signup" ? (
+              <ActionButton url="/signup">Register</ActionButton>
+            ) : null}
           </HStack>
         )}
       </Flex>
