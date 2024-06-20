@@ -5,6 +5,7 @@ interface Props {
   color?: string;
   width?: "full" | "fit-content";
   borderRadius?: number;
+  disabled?: boolean;
   className?: string;
 }
 
@@ -14,7 +15,23 @@ const SubmitButton = ({
   width = "full",
   className,
   borderRadius,
+  disabled = false,
 }: Props) => {
+  if (disabled) {
+    return (
+      <Button
+        type="submit"
+        borderRadius={borderRadius}
+        width={width}
+        bg="gray.400"
+        color="white"
+        className={className}
+        disabled={true}
+      >
+        {children}
+      </Button>
+    );
+  }
   return (
     <Button
       type="submit"
@@ -23,6 +40,7 @@ const SubmitButton = ({
       bg={color}
       color="white"
       className={className}
+      disabled={false}
     >
       {children}
     </Button>

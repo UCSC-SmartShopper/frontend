@@ -16,18 +16,19 @@ import GroceryImage from "../assets/login/grocery-shopping-amico.svg";
 import FacebookIcon from "../assets/social-media-icons/facebook.svg";
 import GoogleIcon from "../assets/social-media-icons/google.svg";
 
-import { useForm } from "react-hook-form";
+
 import LoginButton from "../components/Buttons/LoginButton";
 import SubmitButton from "../components/Buttons/SubmitButton";
 import MiddleContainer from "../components/Containers/MiddleContainer";
 import LoginInput from "../components/Inputs/LoginInput";
 
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import { z } from "zod";
 // import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
-  email: z.string().email(),
+  email: z.string().email("Invalid email address"),
   password: z.string().min(6),
 });
 
@@ -37,7 +38,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: {  },
+    formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   return (
     <MiddleContainer>
@@ -70,6 +71,8 @@ const Login = () => {
               icon={FaEnvelope}
               // label="Email"
             />
+            {errors.email && <p>{errors.email.message}</p>}
+
             <LoginInput
               register={register("password")}
               type="password"
@@ -77,6 +80,7 @@ const Login = () => {
               icon={FaLock}
               // label="Password"
             />
+            {errors.password && <p>{errors.password.message}</p>}
 
             <SubmitButton className="my-3">Login</SubmitButton>
           </form>
