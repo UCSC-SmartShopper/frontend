@@ -61,14 +61,14 @@ const ProductCard = ({ product }: Props) => {
         </Stack>
         {/* <Text fontSize="sm" color="gray.500">(589 Reviews)</Text> */}
       </CardBody>
-      <CardFooter>
+      {/* <CardFooter>
         <Flex justify="space-between" align="center" gap={5}>
           
           <FavouriteButton onClick={() => {}} isFavourite={true} />
           <AddToCartIconBtn onClick={() =>{}} />
           
         </Flex>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 };
