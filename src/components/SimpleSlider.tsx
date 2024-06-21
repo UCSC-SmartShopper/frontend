@@ -1,16 +1,33 @@
-import React from "react";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import Slider from "react-slick";
 
 import { Box } from "@chakra-ui/react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
-interface Props {
-  children: React.ReactNode;
+export interface SliderMethods {
+  next: () => void;
+  previous: () => void;
 }
 
-export default function SimpleSlider({ children }: Props) {
-  const settings = {
+interface Props {
+  children: React.ReactNode;
+  config?: any;
+}
+
+const SimpleSlider = forwardRef(({ children, config }: Props, ref) => {
+  const sliderRef = useRef<Slider | null>(null);
+
+  useImperativeHandle(ref, () => ({
+    next() {
+      sliderRef.current?.slickNext();
+    },
+    previous() {
+      sliderRef.current?.slickPrev();
+    },
+  }));
+
+  const settings = config || {
     dots: true,
     arrows: false,
     pauseOnHover: false,
@@ -20,11 +37,15 @@ export default function SimpleSlider({ children }: Props) {
     autoplay: true,
     autoplaySpeed: 4000,
     speed: 1200,
-    // fade: true,
   };
+
   return (
     <Box paddingBottom={10} bg="background">
-      <Slider {...settings}>{children}</Slider>
+      <Slider ref={sliderRef} {...settings}>
+        {children}
+      </Slider>
     </Box>
   );
-}
+});
+
+export default SimpleSlider;
