@@ -1,15 +1,4 @@
-import {
-  Box,
-  Center,
-  Flex,
-  HStack,
-  Icon,
-  IconButton,
-  Image,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Center, HStack, IconButton, Image, Text } from "@chakra-ui/react";
 import { useRef } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import SimpleSlider, { SliderMethods } from "../SimpleSlider";
@@ -36,7 +25,7 @@ const BrowseByCategory = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 6,
-    slidesToScroll: 1,
+    swipeToSlide: true,
   };
 
   const categories = [
@@ -73,8 +62,8 @@ const BrowseByCategory = () => {
 
   return (
     <Section
-      title="Browse by Category"
       heading="Categories"
+      title="Browse by Category"
       rightSide={rightSide}
     >
       <Box w="full">
@@ -85,6 +74,7 @@ const BrowseByCategory = () => {
                 height={120}
                 margin={2}
                 border="1px solid"
+                // borderColor='primary'
                 borderRadius="lg"
                 padding={5}
                 flexDirection="column"
