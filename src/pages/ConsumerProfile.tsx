@@ -1,11 +1,11 @@
-import MiddleContainer from "../components/Containers/MiddleContainer";
+import { Flex } from "@chakra-ui/react";
 import ProfileDetail from "../components/ProfileDetail";
 
 const ConsumerProfile = () => {
   return (
-    <MiddleContainer >
+    <Flex bg="background">
         <ProfileDetail />
-    </MiddleContainer>
+    </Flex>
   );
 }
 
