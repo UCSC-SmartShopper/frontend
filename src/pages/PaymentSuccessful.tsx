@@ -12,9 +12,10 @@ import {
 
 import PaymentImage from "../assets/Payment-successful/payment.svg";
 import BarcodeImage from "../assets/Payment-successful/clarity_qr-code-line.svg"
+import MiddleContainer from "../components/Containers/MiddleContainer";
 
 
-import MiddleContainer from "../components/MiddleContainer";
+
 
 const PaymentSuccessful = () => {
   return (

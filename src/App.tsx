@@ -32,10 +32,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/cart" element={<CartDetails />} />
-        <Route path="/landing" element={<Landing />} />
+        <Route path="/" element={<Landing />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/test" element={<Test />} />
         <Route path="/reviews" element={<Reviews />} />
+        <Route path="/paymentSuccessful" element={<PaymentSuccessful />} />
+        <Route path="/Footer" element={<Footer />} />
       </Routes>
       
     </Router>
