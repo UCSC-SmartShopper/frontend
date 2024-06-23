@@ -9,7 +9,8 @@ import CartDetails from "./pages/CartDetails";
 import ProductDetail from "./pages/ProductDetail";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import PaymentSuccessful from "./pages/PaymentSuccessful";
+import Footer from "./components/Footer";import SignUp from "./pages/SignUp";
 import Test from "./pages/Test";
 import ConsumerProfile from "./pages/ConsumerProfile";
 import Reviews from "./pages/Reviews";
@@ -38,6 +39,8 @@ function App() {
         <Route path="/ConsumerProfile" element={<ConsumerProfile />} />
         <Route path="/ShippingAddress" element={<ShippingAddress />} />
         <Route path="/reviews" element={<Reviews />} />
+        <Route path="/paymentSuccessful" element={<PaymentSuccessful />} />
+        <Route path="/Footer" element={<Footer />} />
         <Route path="/test" element={<Test />} />
       </Routes>
       
