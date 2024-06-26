@@ -66,35 +66,6 @@ import {
         </Flex>
         <FormControl mb={10}>
           <Grid templateColumns="repeat(2, 1fr)" gap={4}>
-            <GridItem colSpan={1}>
-              <FormControl id="country">
-                <FormLabel>Country / Region</FormLabel>
-                <Select
-                  variant="outline"
-                  placeholder="Sri Lanka"
-                  bg="background"
-                  isReadOnly={!isEditable}
-                  isDisabled={!isEditable}
-                />
-              </FormControl>
-            </GridItem>
-            <GridItem colSpan={2}>
-              <FormControl id="contact-info">
-                <FormLabel>Contact Information</FormLabel>
-                <HStack>
-                  <Input
-                    placeholder="Contact name"
-                    bg="background"
-                    isReadOnly={!isEditable}
-                  />
-                  <Input
-                    placeholder="Contact number"
-                    bg="background"
-                    isReadOnly={!isEditable}
-                  />
-                </HStack>
-              </FormControl>
-            </GridItem>
             <GridItem colSpan={2}>
               <FormControl id="default-address">
                 <FormLabel>Default Address</FormLabel>
@@ -135,7 +106,7 @@ import {
               </Box>
               </FormControl>
             </GridItem>
-            <GridItem colSpan={2}>
+            {/* <GridItem colSpan={2}>
               <FormControl id="second-address">
                 <FormLabel>Second Address</FormLabel>
                 <HStack pb={4}>
@@ -174,7 +145,7 @@ import {
                 />
               </Box>
               </FormControl>
-            </GridItem>
+            </GridItem> */}
           </Grid>
         </FormControl>
         <Flex justifyContent="flex-end">
