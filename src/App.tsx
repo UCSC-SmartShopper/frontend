@@ -27,7 +27,7 @@ export interface ProductQuery {
 function App() {
   return (
     <>
-      {/* <Router>
+      <Router>
         <Navbar />
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -42,7 +42,7 @@ function App() {
           <Route path="/Footer" element={<Footer />} />
           <Route path="/test" element={<Test />} />
         </Routes>
-      </Router> */}
+      </Router>
       <BottomNav />
     </>
   );

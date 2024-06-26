@@ -51,21 +51,22 @@ const BottomNav = () => {
           <Box
             className={`${
               active === index
-                ? "-translate-y-10 opacity-100"
-                : "translate-y-2 opacity-0"
-            } duration-700 bg-primary border-4 border-transparent border-gray-900 w-16 h-16 absolute   rounded-full -z-10 `}
+                ? "-translate-y-6 opacity-100"
+                : " opacity-0"
+            } duration-700 bg-primary border-4 border-transparent border-gray-900 w-12 h-12 absolute   rounded-full -z-10 `}
           ></Box>
           <Box
             className={`duration-500 ${
-              active === index ? " -translate-y-10" : ""
+              active === index ? " -translate-y-6" : ""
             }`}
           >
             {icon.icon}
           </Box>
           <Text
+          fontSize={12}
             className={` absolute ${
               active === index
-                ? "translate-y-1 duration-700 opacity-100"
+                ? "translate-y-2 duration-700 opacity-100"
                 : " opacity-0 translate-y-10"
             }`}
           >
