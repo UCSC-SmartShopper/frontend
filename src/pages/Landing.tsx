@@ -9,6 +9,8 @@ import BestPricesImage from "../assets/landing/online-ads-animate.svg";
 import BrowseByCategory from "../components/Landing/BrowseByCategory";
 import BestSellingProducts from "../components/Landing/BestSellingProducts";
 import AdvertisementGrid from "../components/Landing/AdvertisementGrid";
+import Footer from "../components/Footer";
+import TextWithLineBreaks from "../components/Containers/TextWithLineBreaks";
 
 export interface ProductQuery {
   genreId?: number;
@@ -35,13 +37,13 @@ const Landing = () => {
         bg="background"
         gap={0}
         pt="5vh"
-        
       >
         <BrowseByCategory />
         <BestSellingProducts />
         <ProductGrid productQuery={{} as ProductQuery} />
         <AdvertisementGrid />
       </VStack>
+      <Footer />
     </>
   );
 };
