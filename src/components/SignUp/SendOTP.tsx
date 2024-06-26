@@ -12,7 +12,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import GroceryImage from "../../assets/login/grocery-shopping-amico.svg";
-import SubmitButton from "../Buttons/SubmitButton";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
@@ -32,7 +31,7 @@ const SendOTP = () => {
   const handleChange = (value: string) => {
     setPin(value);
   };
-  const isOtpComplete = pin.length === 6;
+
 
   return (
     <Grid gridTemplateColumns="1fr 1fr" h="100%">
@@ -73,9 +72,7 @@ const SendOTP = () => {
             </PinInput>
             {/* </Center> */}
           </HStack>
-          <SubmitButton className="my-3" disabled={!isOtpComplete}>
-            Confirm
-          </SubmitButton>
+         
         </form>
 
         <Text mt={3}>
