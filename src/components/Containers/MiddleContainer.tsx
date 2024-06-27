@@ -15,7 +15,7 @@ const MiddleContainer = ({ children }: Props) => {
     >
       <Box
         width="70vw"
-        height="80vh"
+        minHeight="80vh"
         borderRadius={20}
         bg="white"
         overflow="hidden"

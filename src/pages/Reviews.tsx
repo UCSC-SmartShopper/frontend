@@ -15,21 +15,30 @@ import {
   import {FaStar} from "react-icons/fa";
 
   import SupermarketLogo from "../assets/Reviews/superMarketLogo.png";
+  import creamcracker from "../assets/creamcracker.svg"
 
-  import MiddleContainer from "../components/MiddleContainer";
+  import MiddleContainer from "../components/Containers/MiddleContainer";
   import Feedback from "../components/Feedback";
 
   const Reviews = () => {
     return (
-        <MiddleContainer >
+        <MiddleContainer>
         <Grid gridTemplateColumns={{base:"1fr",xl:"2fr 3fr"}} >
 
           <GridItem px={85} py={10} >
 
           <VStack alignItems="flex-start">
-
-              <Box display="inline" fontSize="3xl" fontWeight="650">
-                <Text as="span">Reviews</Text>,
+          
+          <Box p='1' fontSize={{base:"2xl",md:"3xl"}} fontWeight="650">
+          Munchee Cream Cracker
+          </Box>
+          
+          <Box pr={5} >
+          <Image src={SupermarketLogo} w={70} h={30} />
+          </Box>
+          
+            <Box pr={5} pt={5}>
+              <Image src={creamcracker} w={{base:"300px",xl:"200px"}} h={{base:"300px",xl:"200px"}} />
               </Box>
 
               <HStack fontSize={{base:"2xl",md:"3xl"}} spacing={2} color="yellow.400" mt={4}>
@@ -69,18 +78,12 @@ import {
   
           <GridItem px={5} py={10}>
 
-          <Flex>
-          <Box p='1' fontSize={{base:"2xl",md:"3xl"}} fontWeight="650" mb={10}>
-          Munchee Cream Cracker
+          <Box display="inline" fontSize="3xl" fontWeight="650" mb={20}>
+                <Text as="span">Reviews</Text>
           </Box>
-          <Spacer />
-          <Box pr={5} pt={5}>
-          <Image src={SupermarketLogo} w={70} h={30} />
-          </Box>
-          </Flex>
 
           <Feedback />
-             
+
           </GridItem>
         </Grid>
       </MiddleContainer>
