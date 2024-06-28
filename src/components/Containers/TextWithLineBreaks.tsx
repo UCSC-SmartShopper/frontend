@@ -1,4 +1,4 @@
-import { Stack, Text, ResponsiveValue, Flex } from "@chakra-ui/react";
+import { Flex, ResponsiveValue, Text } from "@chakra-ui/react";
 import React from "react";
 
 interface TextWithLineBreaksProps {
@@ -16,7 +16,7 @@ const TextWithLineBreaks: React.FC<TextWithLineBreaksProps> = ({
   fontSize = "md",
   fontWeight,
   className,
-  align="flex-start"
+  align = "flex-start",
 }) => {
   const lines = children.split("\\n");
 
@@ -25,7 +25,7 @@ const TextWithLineBreaks: React.FC<TextWithLineBreaksProps> = ({
       flexDirection="column"
       gap={gap}
       className={className}
-      alignItems={align }
+      alignItems={align}
     >
       {lines.map((line, index) => (
         <Text
