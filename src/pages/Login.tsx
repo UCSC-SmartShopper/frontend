@@ -26,6 +26,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import LinkButton from "../components/Buttons/LinkButton";
 import ErrorText from "../components/Errors/ErrorText";
+import { Link } from "react-router-dom";
 // import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
@@ -98,6 +99,7 @@ const Login = () => {
 
           <Text ml={2} fontSize={14}>
             Don't have an account?{" "}
+            <Link to="/signup">
             <Button
               variant="link"
               color="primary"
@@ -106,6 +108,7 @@ const Login = () => {
             >
               Register
             </Button>
+            </Link>
           </Text>
 
           <Flex align="center" mt={3}>

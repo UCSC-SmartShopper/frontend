@@ -23,6 +23,7 @@ import LoginInput from "../Inputs/LoginInput";
 import SubmitButton from "../Buttons/SubmitButton";
 import LoginButton from "../Buttons/LoginButton";
 import ErrorText from "../Errors/ErrorText";
+import { Link } from "react-router-dom";
 
 const schema = z
   .object({
@@ -100,9 +101,11 @@ const SendEmail = ({ setStage }: Props) => {
 
         <Text mt={3}>
           Do you have an account?{" "}
-          <Button variant="link" color="primary">
+          <Link to="/login">
+          <Button  variant="link" color="primary">
             Login
           </Button>
+          </Link>
         </Text>
 
         <Flex align="center" mt={3}>
