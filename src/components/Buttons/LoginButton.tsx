@@ -1,4 +1,4 @@
-import { Button, Image, Show, useBreakpointValue } from "@chakra-ui/react";
+import { Button, Image, useBreakpointValue } from "@chakra-ui/react";
 
 interface Props {
   text: string | { base?: string; sm?: string; md?: string; lg?: string };
