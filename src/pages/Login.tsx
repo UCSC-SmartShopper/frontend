@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Center,
   Flex,
   Grid,
@@ -27,7 +26,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import LinkButton from "../components/Buttons/LinkButton";
 import ErrorText from "../components/Errors/ErrorText";
-import { Link } from "react-router-dom";
 // import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
@@ -56,11 +54,13 @@ const Login = () => {
       >
         <GridItem h={{ base: "35vh", md: "100%" }}>
           <Center h="100%" p="2vw">
-            <Image src={GroceryImage} w={{ base: "60vw", md: "full" }} />
+            <Image src={GroceryImage} />
+            {/* <Image src={GroceryImage} w={{ base: "60vw", md: "full" }} /> */}
           </Center>
         </GridItem>
 
-        <GridItem px="2vw">
+        <GridItem px={55} py={10}>
+        {/* <GridItem px="2vw"> */}
           <Stack
             h={{ base: "auto", md: "full" }}
             w={{ base: "80vw", md: "full" }}
@@ -71,7 +71,7 @@ const Login = () => {
               <Text fontSize="lg" fontWeight="bold">
                 Welcome to
               </Text>
-              <Box display="inline" fontSize="4xl" fontWeight="bold">
+              <Box display="inline" fontSize="2xl" fontWeight="bold">
                 <Text as="span">Smart</Text>
                 <Text color="primary" as="span">
                   Shopper
@@ -110,19 +110,12 @@ const Login = () => {
               <SubmitButton className="my-3">Login</SubmitButton>
             </form>
 
-          <Text ml={2} fontSize={14}>
-            Don't have an account?{" "}
-            <Link to="/signup">
-            <Button
-              variant="link"
-              color="primary"
-              fontSize={14}
-              fontWeight={700}
-            >
-              Register
-            </Button>
-            </Link>
-          </Text>
+            <Text ml={2} fontSize={14}>
+              Don't have an account?{" "}
+              <LinkButton to="/signup" className="mt-3 ml-1" fontSize={14}>
+                Register
+              </LinkButton>
+            </Text>
 
             <Flex align="center" mt={3}>
               <Box flex="1" h="1px" bg="gray.300"></Box>
