@@ -44,8 +44,8 @@ const Landing = () => {
           <BrowseByCategory />
           <BestSellingProducts />
           <Section
-            heading="This Month"
-            title="Best Selling Products"
+            heading="New Arrivals"
+            title="Product for you"
           >
             <ProductGrid productQuery={{} as ProductQuery} />
           </Section>

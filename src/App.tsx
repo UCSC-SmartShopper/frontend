@@ -29,9 +29,9 @@ function App() {
   return (
     <>
       <Router>
-        {/* <Show above="md"> */}
+        <Show above="md">
           <Navbar />
-        {/* </Show> */}
+        </Show>
 
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -48,7 +48,7 @@ function App() {
         </Routes>
       </Router>
       <Show below="md">
-        <BottomNav />
+        {/* <BottomNav /> */}
       </Show>
     </>
   );
