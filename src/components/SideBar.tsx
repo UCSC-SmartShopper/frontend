@@ -8,7 +8,7 @@ import { TbTransactionDollar } from "react-icons/tb";
 import { RiAdvertisementFill } from "react-icons/ri";
 import { IoSettings } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
-import React,{ useState } from "react";
+import { useState } from "react";
 
 const SideBar = () => {
     const [activeItem, setActiveItem] = useState<number | null>(null);

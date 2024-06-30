@@ -32,7 +32,7 @@ const BarGraph: React.FC = () => {
         text: 'Monthly Sales',
       },
     },
-    maintainAspectRatio: false, // Allow custom height and width
+    maintainAspectRatio: false, 
   };
 
   return (
@@ -41,9 +41,9 @@ const BarGraph: React.FC = () => {
         Monthly Sales
       </Heading>
       <Heading as='h3' size='sm' mb={4}>
-        350000 LKR
+        Total Revenue - 350000 LKR
       </Heading>
-      <Box height="250px" width="600px"> {/* Adjust the height and width as needed */}
+      <Box height="200px" width={"auto"}> 
         <Bar data={data} options={options} />
       </Box>
     </Box>
