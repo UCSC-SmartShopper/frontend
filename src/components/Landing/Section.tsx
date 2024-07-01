@@ -10,9 +10,15 @@ interface Props {
 
 const Section = ({ children, title, heading, rightSide }: Props) => {
   return (
-    <Stack w="full" px="14vw" my="5vh">
+    <Stack
+      w="full"
+      px={{ base: "5vw", sm: "14vw" }}
+      my="5vh"
+      py='2vh'
+      className="snap-start"
+    >
       <HStack>
-        <Box w={5} h={45} bg="primary" borderRadius="md"></Box>
+        <Box w={2} h={45} bg="primary" borderRadius="sm"></Box>
         <Text fontSize="lg" fontWeight={600} color="primary">
           {heading}
         </Text>
