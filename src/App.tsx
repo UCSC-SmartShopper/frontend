@@ -13,6 +13,7 @@ import SignUp from "./pages/SignUp";
 import Test from "./pages/Test";
 import Reviews from "./pages/Reviews";
 import AdminOverview from "./pages/AdminOverview";
+import AdminCustomers from "./pages/AdminCustomers";
 
 
 
@@ -39,7 +40,11 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/test" element={<Test />} />
         <Route path="/reviews" element={<Reviews />} />
-        <Route path="/adminOverview" element={<AdminOverview />} />
+        <Route path="/admin-Overview" element={<AdminOverview />} />
+        <Route path="/admin-Customers" element={<AdminCustomers />} />
+        {/* <Route path="/admin-SuperMarkets" element={<AdminSuperMarkets />} />
+        <Route path="/admin-CourierServices" element={<AdminCourierServices />} /> */}
+
       </Routes>
       
     </Router>

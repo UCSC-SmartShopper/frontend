@@ -64,35 +64,46 @@ const AdminOverview = () => {
 
   <Center>
         <HStack spacing={70}>
+
           <Card>
-            <CardHeader>
-              <Icon as={CgWebsite}  boxSize={8}/>
-            </CardHeader>
             <CardBody>
+                <Flex gap={10}>
               <Heading size="md">Total Visits</Heading>
+              <Icon as={CgWebsite}  boxSize={8} color="purple" bg="purple.100" borderRadius={5}/> 
+              </Flex>
+              <Text>5.8 k</Text>
+              <Box mt={2}>
+                <Text></Text>
+               </Box>
+            </CardBody>
+          </Card>
+
+          <Card>
+            <CardBody>
+                <Flex gap={10}>
+              <Heading size="md">Total Customers</Heading>
+              <Icon as={IoMdPeople}  boxSize={8} color="primary" bg="orange.100" borderRadius={5}/> 
+              </Flex>
               <Text>10.8 k</Text>
+              <Box mt={2}>
+                <Text></Text>
+               </Box>
             </CardBody>
           </Card>
 
           <Card>
-          <CardHeader>
-              <Icon as={IoMdPeople}  boxSize={8}/>
-            </CardHeader>
             <CardBody>
-            <Heading size="md">Total Customers</Heading>
-            <Text>5.8 k</Text>
+                <Flex gap={10}>
+              <Heading size="md">Total Sales</Heading>
+              <Icon as={FcSalesPerformance}  boxSize={8} bg="yellow.100" borderRadius={5}/> 
+              </Flex>
+              <Text>102,000 Rupees</Text>
+              <Box mt={2}>
+                <Text></Text>
+               </Box>
             </CardBody>
           </Card>
-
-          <Card>
-          <CardHeader>
-              <Icon as={FcSalesPerformance}  boxSize={8}/>
-            </CardHeader>
-            <CardBody>
-            <Heading size="md">Total Sales</Heading>
-            <Text>102,000 Rupees</Text>
-            </CardBody>
-          </Card>
+          
         </HStack>
       </Center>
 
