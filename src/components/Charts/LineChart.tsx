@@ -1,12 +1,12 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import { Box ,Heading} from '@chakra-ui/react';
+import { Box ,Heading,Center} from '@chakra-ui/react';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, Tooltip, Legend } from 'chart.js';
 
 
 ChartJS.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend);
 
-interface Props  {
+interface Props{
   topic: string;
 };
 
@@ -35,9 +35,14 @@ const options = {
 
 const LineChart: React.FC<Props> = ({ topic }) => {
   return (
-    <Box w="100%" maxWidth="900px" h="450px" p="10"  bg="white" boxShadow="md" borderRadius="md">
-      <Heading size="lg">{topic}</Heading>
+    <Box w="100%" width="900px" minHeight="450px" px="10" py={2}  bg="white" boxShadow="md" borderRadius="md">
+      <Heading size="lg" pb={1}>{topic}</Heading>
+
+      <Center>
       <Line data={data} options={options} />
+      </Center>
+      
+      
     </Box>
   );
 };

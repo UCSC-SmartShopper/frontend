@@ -33,13 +33,13 @@ const AdminCustomers = () => {
   </GridItem>
   <GridItem pl='2' my={5} area={'head'}>
 
-  <Box m={2} p={5} bg="">
+  <Box  p={5} bg="">
 
   <Center>
-        <HStack spacing={70}>
-          <Card>
+        <HStack spacing={150}>
+          <Card px={3}>
             <CardBody>
-                <Flex gap={5}>
+              <Flex gap={20} >
               <Heading size="md">Total Customers</Heading>
               <Icon as={IoMdPeople}  boxSize={8} color="primary" bg="orange.100" borderRadius={5}/> 
               </Flex>
@@ -51,9 +51,9 @@ const AdminCustomers = () => {
             </CardBody>
           </Card>
 
-          <Card>
+          <Card px={3}>
               <CardBody>
-                <Flex gap={5}>
+                <Flex gap={20}>
                 <Heading size="md">Current Customers</Heading>
                 <Icon as={IoMdPeople}  boxSize={8} color="red" bg="red.100" borderRadius={5}/>
                 </Flex>
@@ -65,16 +65,16 @@ const AdminCustomers = () => {
             </CardBody>
           </Card>
 
-          <Card>
+          <Card px={3}>
               <CardBody>
-                <Flex gap={5}>
+                <Flex gap={20}>
                 <Heading size="md">New Customers</Heading>
                 <Icon as={IoMdPeople}  boxSize={8} color="green" bg="green.100" borderRadius={5}/>
                 </Flex>
             <Text>5.8 k</Text>
             <Flex mt={2}>
               <Icon as={AiOutlineFall}  boxSize={5} color="red.400"  borderRadius={5}/>
-                <Text fontSize="sm" color="red.400" pl={2}>8.5% Dpwn from yesterday</Text>
+                <Text fontSize="sm" color="red.400" pl={2}>8.5% Down from yesterday</Text>
                </Flex>
             </CardBody>
           </Card>
@@ -88,7 +88,7 @@ const AdminCustomers = () => {
   </GridItem>
 
   <GridItem pl='2' bg={''} area={'main'}>
-    <Center>
+    <Center >
     <LineChart topic="Customer Engagement"/>
     </Center>
     </GridItem>
