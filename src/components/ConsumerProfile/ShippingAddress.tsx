@@ -1,7 +1,13 @@
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Grid, GridItem } from "@chakra-ui/react";
 import { useState } from "react";
 
-const ShippingAddress = () => {
+const ShippingAddress = ({
+  addressLine1= "123 Main St",
+    addressLine2=  "Apt 4B",
+    district= "Downtown",
+    city= "Metropolis",
+    phoneNumber= "123-456-7890",
+}) => {
   const [isEditable, setIsEditable] = useState(false);
 
   const toggleEdit = () => {
@@ -15,17 +21,18 @@ const ShippingAddress = () => {
       borderRadius="lg"
       boxShadow="lg"
       bg="white"
+      p={5}
     >
       <Flex justifyContent="space-between" alignItems="center" mb={4}>
-        <Heading size="md" color="primary" pl={6}>
+        <Text color="primary" size="xl" fontWeight="semibold" fontSize={20} pl={5}>
           Shipping Address
-        </Heading>
+        </Text>
         <Flex>
           {!isEditable && (
             <Button
               w={190}
               mr={4}
-              mt={10}
+              mt={4}
               onClick={toggleEdit}
               variant="outline"
               color="white"
@@ -48,25 +55,48 @@ const ShippingAddress = () => {
           )}
         </Flex>
       </Flex>
-      <Flex justifyContent="center" alignItems="center">
-        <Box p={5} textColor="black.100">
+      <Grid templateColumns="auto 1fr" gap={4} pl={10}>
+        <GridItem>
           <Text fontSize="18px" fontWeight="semibold">
-            Address Line 1: John
+            Address Line 1:
           </Text>
-          <Text fontSize="18px" fontWeight="semibold" mt={4}>
-            Address Line 2: john.doe@example.com
+        </GridItem>
+        <GridItem>
+          <Text fontSize="18px">{addressLine1}</Text>
+        </GridItem>
+        <GridItem>
+          <Text fontSize="18px" fontWeight="semibold">
+            Address Line 2:
           </Text>
-          <Text fontSize="18px" fontWeight="semibold" mt={4}>
-            District: 123-456-7890
+        </GridItem>
+        <GridItem>
+          <Text fontSize="18px">{addressLine2}</Text>
+        </GridItem>
+        <GridItem>
+          <Text fontSize="18px" fontWeight="semibold">
+            District:
           </Text>
-          <Text fontSize="18px" fontWeight="semibold" mt={4}>
-            City: United States
+        </GridItem>
+        <GridItem>
+          <Text fontSize="18px">{district}</Text>
+        </GridItem>
+        <GridItem>
+          <Text fontSize="18px" fontWeight="semibold">
+            City:
           </Text>
-          <Text fontSize="18px" fontWeight="semibold" mt={4}>
-            Phone Number: 123-456-7890
+        </GridItem>
+        <GridItem>
+          <Text fontSize="18px">{city}</Text>
+        </GridItem>
+        <GridItem>
+          <Text fontSize="18px" fontWeight="semibold">
+            Phone Number:
           </Text>
-        </Box>
-      </Flex>
+        </GridItem>
+        <GridItem>
+          <Text fontSize="18px">{phoneNumber}</Text>
+        </GridItem>
+      </Grid>
     </Box>
   );
 };
