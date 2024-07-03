@@ -35,7 +35,7 @@ const AdminTransactions = () => {
   <GridItem pl='2' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem pl='2' area={'main'} m={5}>
+  <GridItem  area={'main'} m={5} mx={10}>
     <Grid templateAreas={{
         base: `"main1"
               "main2"`,
@@ -170,9 +170,9 @@ const AdminTransactions = () => {
     
    
   </GridItem>
-  <GridItem pl='2' area={'footer'}>
+  <GridItem pl='2' area={'footer'} mx={10}>
 
-  <Box p={2} shadow='md' borderWidth='1px' m={10}>
+  <Box p={2} shadow='md' borderWidth='1px'>
     <Flex justifyContent="space-between" px={20} py={10}>
     <Heading as='h3' size='lg' >
       Transaction Details

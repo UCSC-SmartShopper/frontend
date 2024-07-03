@@ -2,7 +2,6 @@ import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,
     ,Heading,Text,TableContainer,
     HStack,Circle} from "@chakra-ui/react"
   import AdminNavBar from "../components/AdminNavBar"
-  import LineChart from "../components/Charts/LineChart"
   import SideBar from "../components/SideBar"
   import LoginButton from "../components/Buttons/LoginButton"
   import ActionButton from "../components/Buttons/ActionButton"
@@ -37,7 +36,7 @@ const AdminOrders = () => {
   <GridItem pl='2' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem pl='2' area={'main'} m={5}>
+  <GridItem pl='2' area={'main'} m={5} mx={10}>
     <Grid templateAreas={{
         base: `"main1"
               "main2"`,
@@ -48,7 +47,7 @@ const AdminOrders = () => {
             gridTemplateColumns={{ base: '70%', lg: '67% 30%' }}
             gap={10}
     >
-        <GridItem pl='2' area={'main1'} pb={2}>
+        <GridItem area={'main1'} pb={2}>
     <PieChart title='Orders by Supermarkets'/>
   </GridItem>
   <GridItem pl='2'  area={'main2'}>
@@ -161,9 +160,9 @@ const AdminOrders = () => {
     
    
   </GridItem>
-  <GridItem pl='2' area={'footer'}>
+  <GridItem pl='2' area={'footer'} mx={10}>
 
-  <Box p={2} shadow='md' borderWidth='1px' m={10}>
+  <Box p={2} shadow='md' borderWidth='1px' >
     <Flex justifyContent="space-between" px={20} py={10}>
     <Heading as='h3' size='lg' >
     Order Details

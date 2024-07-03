@@ -31,7 +31,7 @@ const AdminCustomers = () => {
   <GridItem pl='2' bg='' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem pl='2' my={5} area={'head'} mx={5}>
+  <GridItem pl='2' my={5} area={'head'} mx={10}>
 
   <Box  p={5} bg="">
 
@@ -94,7 +94,7 @@ const AdminCustomers = () => {
   </GridItem>
 
 
-  <GridItem pl='2' bg={''} area={'footer'} mt={10} mx={5}>
+  <GridItem pl='2' bg={''} area={'footer'} mt={10} mx={10}>
 
   <Box p={2} shadow='md' borderWidth='1px' m={10}>
     <Flex justifyContent="space-between" px={20} py={10}>
@@ -130,7 +130,7 @@ const AdminCustomers = () => {
         <Tbody>
           <Tr>
             <Td>
-            <Flex>
+            <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
@@ -140,7 +140,7 @@ const AdminCustomers = () => {
                   mr={4}
                 />
                 <Text>Kaveesha Hettige</Text>
-              </Flex>
+              </HStack>
             </Td>
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>0766245650</Td>
@@ -149,7 +149,7 @@ const AdminCustomers = () => {
           </Tr>
           <Tr>
             <Td> 
-            <Flex>
+            <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
@@ -159,7 +159,7 @@ const AdminCustomers = () => {
                   mr={4}
                 />
                 <Text>Kaveesha Hettige</Text>
-              </Flex>
+              </HStack>
             </Td>
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>0766245650</Td>
@@ -170,7 +170,7 @@ const AdminCustomers = () => {
         <Tfoot>
           <Tr>
             <Td>
-            <Flex>
+            <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
@@ -180,7 +180,7 @@ const AdminCustomers = () => {
                   mr={4}
                 />
                 <Text>Kaveesha Hettige</Text>
-              </Flex>
+              </HStack>
             </Td>
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>0766245650</Td>

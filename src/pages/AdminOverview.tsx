@@ -1,6 +1,6 @@
 import { GridItem,Grid,Box,Table,TableContainer,Thead,Th,Tr,Tbody,
   Td,Tfoot,Heading,HStack,Card,CardBody,Center,Image,
-  Text,Icon,Flex} from "@chakra-ui/react"
+  Text,Icon,Flex,Button} from "@chakra-ui/react"
 import SideBar from "../components/SideBar"
 import BarGraph from "../components/Charts/BarGraph"
 import DoughnutChart from "../components/Charts/DoughnutChart"  
@@ -29,7 +29,7 @@ const AdminOverview = () => {
   <GridItem pl='2' bg='' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem pl='2' area={'main'} mx={5}>
+  <GridItem pl='2' area={'main'} mx={10}>
     
     {/* <Flex p={10} >
     <BarGraph/>
@@ -80,18 +80,18 @@ const AdminOverview = () => {
     </Grid>
     
   </GridItem>
-  <GridItem pl='2' my={5} area={'footer'} mx={5}>
+  <GridItem pl='2' my={5} area={'footer'} mx={10}>
 
-  <Box m={2} p={5} shadow='md' borderWidth='1px'>
+    <Box mb={10}>
 
-  <Center>
+    <Center>
         <HStack spacing={70}>
 
           <Card>
             <CardBody>
                 <Flex gap={10}>
               <Heading size="md">Total Visits</Heading>
-              <Icon as={CgWebsite}  boxSize={8} color="purple" bg="purple.100" borderRadius={5}/> 
+              <Icon as={CgWebsite}  boxSize={10} color="purple" bg="purple.100" borderRadius={5} p={2}/> 
               </Flex>
               <Text>5.8 k</Text>
               <Box mt={2}>
@@ -104,7 +104,7 @@ const AdminOverview = () => {
             <CardBody>
                 <Flex gap={10}>
               <Heading size="md">Total Customers</Heading>
-              <Icon as={IoMdPeople}  boxSize={8} color="primary" bg="orange.100" borderRadius={5}/> 
+              <Icon as={IoMdPeople}  boxSize={10} color="primary" bg="orange.100" borderRadius={5} p={2}/> 
               </Flex>
               <Text>10.8 k</Text>
               <Box mt={2}>
@@ -117,7 +117,7 @@ const AdminOverview = () => {
             <CardBody>
                 <Flex gap={10}>
               <Heading size="md">Total Sales</Heading>
-              <Icon as={FcSalesPerformance}  boxSize={8} bg="yellow.100" borderRadius={5}/> 
+              <Icon as={FcSalesPerformance}  boxSize={10} bg="yellow.100" borderRadius={5} p={2}/> 
               </Flex>
               <Text>102,000 Rupees</Text>
               <Box mt={2}>
@@ -129,12 +129,16 @@ const AdminOverview = () => {
         </HStack>
       </Center>
 
-    <Heading as='h3' size='lg' fontWeight="500" my={4}>
+    </Box>
+
+  <Box m={2} p={5} shadow='md' borderWidth='1px'>
+
+    <Heading as='h3' size='lg' my={4}>
       Top Products
     </Heading>
     
 
-    <TableContainer width={{ base: "100%", lg: "80%" }} ml={{ base: '0%', lg: '10%' }} mt={10}>
+    <TableContainer width={{ base: "100%", lg: "90%" }} ml={{ base: '0%', lg: '5%' }} mt={10}>
       <Table size='lg'>
         <Thead>
           <Tr>
@@ -147,16 +151,16 @@ const AdminOverview = () => {
         <Tbody>
           <Tr>
             <Td>
-            <Flex>
+            <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
-                  boxSize='50px'
+                  boxSize='40px'
                   objectFit='cover'
-                  mr={4}
+                  mr={2}
                 />
                 <Text>Munchee Cream Cracker</Text>
-              </Flex>
+              </HStack>
             </Td>
             <Td>45</Td>
             <Td>140</Td>
@@ -164,16 +168,16 @@ const AdminOverview = () => {
           </Tr>
           <Tr>
             <Td> 
-              <Flex>
+              <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
-                  boxSize='50px'
+                  boxSize='40px'
                   objectFit='cover'
-                  mr={4}
+                  mr={2}
                 />
                 <Text>Munchee Cream Cracker</Text>
-              </Flex></Td>
+              </HStack></Td>
             <Td>45</Td>
             <Td>140</Td>
             <Td>300 Rupees</Td>
@@ -182,16 +186,16 @@ const AdminOverview = () => {
         <Tfoot>
           <Tr>
             <Td>
-              <Flex>
+              <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
-                  boxSize='50px'
+                  boxSize='40px'
                   objectFit='cover'
-                  mr={4}
+                  mr={2}
                 />
                 <Text>Munchee Cream Cracker</Text>
-              </Flex>
+              </HStack>
             </Td>
             <Td>45</Td>
             <Td>140</Td>
@@ -200,7 +204,19 @@ const AdminOverview = () => {
         </Tfoot>
       </Table>
     </TableContainer>
+    <Center>
+    <Box display='flex' justifyContent='flex-end' mr='60px' my={2}>
+    <Button bg='primary' size='sm'>
+    See More
+  </Button>
+    
     </Box>
+
+    </Center>
+    
+    </Box>
+
+    
     
   
 

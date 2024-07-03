@@ -1,5 +1,6 @@
 import { GridItem,Grid,Box,Table,TableContainer,Thead,Th,Tr,Tbody,
-    Td,Tfoot,Heading,Image,Text,Flex,Select} from "@chakra-ui/react"
+    Td,Tfoot,Heading,Image,Text,Flex,Select,
+    HStack} from "@chakra-ui/react"
   import SideBar from "../components/SideBar"
   import PieChart from "../components/Charts/PieChart" 
 import LineChart from "../components/Charts/LineChart";
@@ -25,7 +26,7 @@ const AdminSuperMarkets = () => {
   <GridItem pl='2' bg='' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem pl='2' area={'main'} mx={5}>
+  <GridItem pl='2' area={'main'} mx={10}>
     
     {/* <Flex p={10} >
     <BarGraph/>
@@ -40,8 +41,8 @@ const AdminSuperMarkets = () => {
              "main2"`,     
       lg: `"main1 main2"`
     }}
-  gridTemplateColumns={{base:'1fr',lg:'30% 70%'}}
-  gap={10}
+  gridTemplateColumns={{base:'1fr',lg:'30% 60%'}}
+  gap={4}
   >
 
   <GridItem  bg='' area={'main1'}>
@@ -58,9 +59,9 @@ const AdminSuperMarkets = () => {
     </Grid>
     
   </GridItem>
-  <GridItem pl='2' bg={''} area={'footer'} mt={10}>
+  <GridItem pl='2' bg={''} area={'footer'} mt={10} mx={10}>
 
-  <Box p={2} shadow='md' borderWidth='1px' m={2} mr="70px" mx={5}>
+  <Box p={2} shadow='md' borderWidth='1px'  mr="70px" >
     <Flex justifyContent="space-between" px={20} py={10}>
     <Heading as='h3' size='lg' >
       Super Market Details
@@ -95,7 +96,7 @@ const AdminSuperMarkets = () => {
         <Tbody>
           <Tr>
             <Td>
-            <Flex>
+            <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
@@ -105,7 +106,7 @@ const AdminSuperMarkets = () => {
                   mr={4}
                 />
                 <Text>Keells</Text>
-              </Flex>
+              </HStack>
             </Td>
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>Kaveesha Hettige</Td>
@@ -115,7 +116,7 @@ const AdminSuperMarkets = () => {
           </Tr>
           <Tr>
             <Td> 
-            <Flex>
+            <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
@@ -125,7 +126,7 @@ const AdminSuperMarkets = () => {
                   mr={4}
                 />
                 <Text>Keells</Text>
-              </Flex>
+              </HStack>
             </Td>
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>Kaveesha Hettige</Td>
@@ -137,7 +138,7 @@ const AdminSuperMarkets = () => {
         <Tfoot>
           <Tr>
             <Td>
-            <Flex>
+            <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
@@ -147,7 +148,7 @@ const AdminSuperMarkets = () => {
                   mr={4}
                 />
                 <Text>Keells</Text>
-              </Flex>
+              </HStack>
             </Td>
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>Kaveesha Hettige</Td>

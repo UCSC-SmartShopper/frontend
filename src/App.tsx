@@ -18,6 +18,7 @@ import AdminSuperMarkets from "./pages/AdminSuperMarkets";
 import AdminCourierServices from "./pages/AdminCourierServices";
 import AdminOrders from "./pages/AdminOrders";
 import AdminTransactions from "./pages/AdminTransactions";
+import AdminAdvertisements from "./pages/AdminAdvertisements";
 
 
 export interface ProductQuery {
@@ -49,6 +50,7 @@ function App() {
         <Route path="/admin-CourierServices" element={<AdminCourierServices />} />
         <Route path="/admin-Orders" element={<AdminOrders/>} />
         <Route path="/admin-Transactions" element={<AdminTransactions />} />
+        <Route path="/admin-Advertisements" element={<AdminAdvertisements />} />
         
 
       </Routes>

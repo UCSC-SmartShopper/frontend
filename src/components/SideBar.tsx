@@ -28,9 +28,9 @@ const SideBar: React.FC = () => {
     { icon: TbTruckDelivery, label: 'Courier Services', path: '/admin-CourierServices' },
     { icon: FaCartFlatbed, label: 'Orders', path: '/admin-Orders' },
     { icon: TbTransactionDollar, label: 'Transactions', path: '/admin-Transactions' },
-    { icon: RiAdvertisementFill, label: 'Advertisements', path: '/advertisements' },
-    { icon: IoSettings, label: 'Settings', path: '/settings' },
-    { icon: FiLogOut, label: 'Logout', path: '/logout' },
+    { icon: RiAdvertisementFill, label: 'Advertisements', path: '/admin-Advertisements' },
+    { icon: IoSettings, label: 'Settings', path: '/admin-Settings' },
+    { icon: FiLogOut, label: 'Logout', path: '/' },
   ];
 
   const getIndexFromPath = (path: string): number => {
