@@ -20,7 +20,8 @@ const theme = extendTheme({
     secondary: "#E9893B",  //Light Orange
     // background: "#EFF2F6",  //Light Gray
     background: "#EFF2F6",  //Light Gray
-    
+    ready: "#1CD4E0",
+    active: "#F3B30E",
   },
 });
 
