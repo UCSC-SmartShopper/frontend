@@ -19,6 +19,7 @@ import Test from "./pages/Test";
 import LoginRegister from "./pages/DriverApp/LoginRegister/LoginRegister";
 import DriverLogin from "./pages/DriverApp/LoginRegister/Login/DriverLogin";
 import Orders from "./pages/ConsumerOrders";
+import ViewOrders from "./pages/ViewOrders";
 
 export interface ProductQuery {
   genreId?: number;
@@ -50,6 +51,7 @@ function App() {
           <Route path="/driver/login_register" element={<LoginRegister />} />
           <Route path="/driver/login" element={<DriverLogin />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/vieworders" element={<ViewOrders />} />
 
         </Routes>
 
