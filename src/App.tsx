@@ -1,11 +1,7 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
 
-import {
-  Route,
-  BrowserRouter as Router,
-  Routes
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import CartDetails from "./pages/CartDetails";
 
@@ -21,6 +17,7 @@ import ProductDetail from "./pages/ProductDetail";
 import Reviews from "./pages/Reviews";
 import SignUp from "./pages/SignUp";
 import Test from "./pages/Test";
+import TableElement from "./components/TableElement";
 
 export interface ProductQuery {
   genreId?: number;
@@ -48,7 +45,7 @@ function App() {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/paymentSuccessful" element={<PaymentSuccessful />} />
           <Route path="/Footer" element={<Footer />} />
-          <Route path="/test" element={<Test />} />
+          <Route path="/test" element={<TableElement />} />
         </Routes>
 
         <Show below="md">
