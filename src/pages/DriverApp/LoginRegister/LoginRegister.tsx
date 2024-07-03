@@ -1,4 +1,4 @@
-import { Box,  Flex, Image, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Image, Text, VStack } from "@chakra-ui/react";
 import Driver from "../../../assets/signup-login/take-away-animate.svg";
 import Logo from "../../../assets/logo.svg";
 import { Link } from "react-router-dom";
@@ -28,8 +28,7 @@ const LoginRegister = () => {
         alignItems="flex-end"
         justifyContent="flex-end"
       >
-        {/* <Image src={Driver} className="translate-x-[-18vw]" minW="120vw" /> */}
-        <Image src={Driver} className="translate-x-[-20vw]" minW="120vw" />
+        <Image src={Driver} className="translate-x-[-8vw]"  width="360px" />
       </Flex>
 
       <Box>
@@ -42,12 +41,12 @@ const LoginRegister = () => {
         </Text>
       </Box>
 
-      <VStack w="full" mt="5vh" >
+      <VStack w="full" mt="5vh">
         <Link to="/driver/register">
           <LoginButton text="Sign Up" width="80vw" color="primary" />
         </Link>
         <Link to="/driver/login">
-        <LoginButton text="Login" width="80vw" />
+          <LoginButton text="Login" width="80vw" />
         </Link>
       </VStack>
     </VStack>
