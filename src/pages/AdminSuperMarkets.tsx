@@ -15,8 +15,8 @@ const AdminSuperMarkets = () => {
       lg: `"nav main"
            "nav footer"`
     }}
-  gridTemplateRows={'2fr 1fr'}
-  gridTemplateColumns={{base:'1fr',lg:'280px 1fr'}}
+    gridTemplateRows={{ base: 'auto auto auto', lg: 'auto 1fr' }}
+    gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
   h='200px'
   gap='1'
   color='blackAlpha.700'
@@ -25,7 +25,7 @@ const AdminSuperMarkets = () => {
   <GridItem pl='2' bg='' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem pl='2' area={'main'}>
+  <GridItem pl='2' area={'main'} mx={5}>
     
     {/* <Flex p={10} >
     <BarGraph/>
@@ -41,15 +41,16 @@ const AdminSuperMarkets = () => {
       lg: `"main1 main2"`
     }}
   gridTemplateColumns={{base:'1fr',lg:'30% 70%'}}
+  gap={10}
   >
 
-  <GridItem p='2' bg='' area={'main1'}>
+  <GridItem  bg='' area={'main1'}>
     <Heading size={'lg'} my={4}>Super Market Earnings</Heading>
 
     <PieChart title=''/>
   </GridItem>
 
-  <GridItem p='2' bg='' area={'main2'}>
+  <GridItem  bg='' area={'main2'}>
     <LineChart topic=""/>
   </GridItem>
 
@@ -59,7 +60,7 @@ const AdminSuperMarkets = () => {
   </GridItem>
   <GridItem pl='2' bg={''} area={'footer'} mt={10}>
 
-  <Box p={2} shadow='md' borderWidth='1px' m={10}>
+  <Box p={2} shadow='md' borderWidth='1px' m={2} mr="70px" mx={5}>
     <Flex justifyContent="space-between" px={20} py={10}>
     <Heading as='h3' size='lg' >
       Super Market Details

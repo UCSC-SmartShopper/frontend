@@ -40,20 +40,10 @@ const options = {
 const DoughnutChart: React.FC = () => {
   return (
     
-    <Box p={5} shadow='md' borderWidth='1px'>
-      
-      <Heading as='h3' size='lg' >
-        Customers
-      </Heading>
-
-
-      <Center>
-      <Box height="250px" width={"auto"}> 
+    
+      <Box height="250px" > 
       <Doughnut data={data} options={options} />
       </Box>
-      </Center>
-      
-    </Box>
     
    
   );

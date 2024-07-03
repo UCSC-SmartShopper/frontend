@@ -31,7 +31,7 @@ const AdminCustomers = () => {
   <GridItem pl='2' bg='' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem pl='2' my={5} area={'head'}>
+  <GridItem pl='2' my={5} area={'head'} mx={5}>
 
   <Box  p={5} bg="">
 
@@ -89,12 +89,12 @@ const AdminCustomers = () => {
 
   <GridItem pl='2' bg={''} area={'main'}>
     <Center >
-    <LineChart topic="Customer Engagement"/>
+    <LineChart topic="Customer Engagement" />
     </Center>
-    </GridItem>
+  </GridItem>
 
 
-  <GridItem pl='2' bg={''} area={'footer'} mt={10}>
+  <GridItem pl='2' bg={''} area={'footer'} mt={10} mx={5}>
 
   <Box p={2} shadow='md' borderWidth='1px' m={10}>
     <Flex justifyContent="space-between" px={20} py={10}>

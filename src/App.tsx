@@ -15,6 +15,8 @@ import Reviews from "./pages/Reviews";
 import AdminOverview from "./pages/AdminOverview";
 import AdminCustomers from "./pages/AdminCustomers";
 import AdminSuperMarkets from "./pages/AdminSuperMarkets";
+import AdminCourierServices from "./pages/AdminCourierServices";
+import AdminOrders from "./pages/AdminOrders";
 
 
 
@@ -44,6 +46,8 @@ function App() {
         <Route path="/admin-Overview" element={<AdminOverview />} />
         <Route path="/admin-Customers" element={<AdminCustomers />} />
         <Route path="/admin-SuperMarkets" element={<AdminSuperMarkets />} />
+        <Route path="/admin-CourierServices" element={<AdminCourierServices />} />
+        <Route path="/admin-Orders" element={<AdminOrders/>} />
 
       </Routes>
       

@@ -26,7 +26,7 @@ const SideBar: React.FC = () => {
     { icon: IoMdPeople, label: 'Customers', path: '/admin-Customers' },
     { icon: FaShop, label: 'Super Markets', path: '/admin-SuperMarkets' },
     { icon: TbTruckDelivery, label: 'Courier Services', path: '/admin-CourierServices' },
-    { icon: FaCartFlatbed, label: 'Orders', path: '/orders' },
+    { icon: FaCartFlatbed, label: 'Orders', path: '/admin-Orders' },
     { icon: TbTransactionDollar, label: 'Transactions', path: '/transactions' },
     { icon: RiAdvertisementFill, label: 'Advertisements', path: '/advertisements' },
     { icon: IoSettings, label: 'Settings', path: '/settings' },

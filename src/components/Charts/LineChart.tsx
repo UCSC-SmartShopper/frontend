@@ -35,11 +35,12 @@ const options = {
 
 const LineChart: React.FC<Props> = ({ topic }) => {
   return (
-    <Box w="100%" width="900px" minHeight="450px" px="10" py={2}  bg="white" boxShadow="md" borderRadius="md">
+    <Box  px="10" width="900px" py={2}  bg="white" boxShadow="md" borderRadius="md" mt={5}>
+      {/* <Box w="100%" width="900px" minHeight="450px" px="10" py={2}  bg="white" boxShadow="md" borderRadius="md"></Box> */}
       <Heading size="lg" pb={1}>{topic}</Heading>
 
       <Center>
-      <Line data={data} options={options} />
+      <Line data={data} options={options}/>
       </Center>
       
       

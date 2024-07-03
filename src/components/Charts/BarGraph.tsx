@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading, useTheme } from "@chakra-ui/react";
+import { Box, useTheme } from "@chakra-ui/react";
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { ChartData, ChartOptions } from 'chart.js';
@@ -36,17 +36,10 @@ const BarGraph: React.FC = () => {
   };
 
   return (
-    <Box p={5} shadow='md' borderWidth='1px'>
-      <Heading as='h3' size='lg' mb={4}>
-        Monthly Sales
-      </Heading>
-      <Heading as='h3' size='sm' mb={4}>
-        Total Revenue - 350000 LKR
-      </Heading>
-      <Box height="200px" width={"auto"}> 
-        <Bar data={data} options={options} />
+      <Box height="200px"> 
+        <Bar data={data} options={options} /> 
       </Box>
-    </Box>
+
   );
 }
 

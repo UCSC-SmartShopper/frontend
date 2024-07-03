@@ -18,17 +18,18 @@ const AdminOverview = () => {
       lg: `"nav main"
            "nav footer"`
     }}
-  gridTemplateRows={'2fr 1fr'}
-  gridTemplateColumns={{base:'1fr',lg:'280px 1fr'}}
+    gridTemplateRows={{ base: 'auto auto auto', lg: 'auto 1fr' }}
+    gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
   h='200px'
-  gap='1'
+  gap='1em'
   color='blackAlpha.700'
   fontWeight='bold'
+  
 >
   <GridItem pl='2' bg='' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem pl='2' area={'main'}>
+  <GridItem pl='2' area={'main'} mx={5}>
     
     {/* <Flex p={10} >
     <BarGraph/>
@@ -43,22 +44,43 @@ const AdminOverview = () => {
              "main2"`,     
       lg: `"main1 main2"`
     }}
-  gridTemplateColumns={{base:'1fr',lg:'70% 30%'}}
+  gridTemplateColumns={{base:'1fr',lg:'60% 40%'}}
   >
 
   <GridItem p='2' bg='' area={'main1'}>
-    <BarGraph/>
+    
+    <Box p={5} shadow='md' borderWidth='1px'>
+      <Heading as='h3' size='lg' mb={4}>
+        Monthly Sales
+      </Heading>
+      <Heading as='h3' size='sm' mb={4}>
+        Total Revenue - 350000 LKR
+      </Heading>
+      <BarGraph/>
+    </Box>
   </GridItem>
 
-  <GridItem p='2' bg='' area={'main2'}>
+  <GridItem p='2'  area={'main2'}>
+  <Box p={5} shadow='md' borderWidth='1px'>
+      
+      <Heading as='h3' size='lg' >
+        Customers
+      </Heading>
+
+
+      <Center>
     <DoughnutChart/>
+    </Center>
+
+    </Box>
+    
   </GridItem>
 
 
     </Grid>
     
   </GridItem>
-  <GridItem pl='2' my={5} area={'footer'}>
+  <GridItem pl='2' my={5} area={'footer'} mx={5}>
 
   <Box m={2} p={5} shadow='md' borderWidth='1px'>
 
