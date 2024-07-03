@@ -1,6 +1,6 @@
 
 import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
-  ,Heading,Text,TableContainer} from "@chakra-ui/react"
+  ,Heading,Text,TableContainer,HStack} from "@chakra-ui/react"
 import AdminNavBar from "../components/AdminNavBar"
 import LineChart from "../components/Charts/LineChart"
 import SideBar from "../components/SideBar"
@@ -48,7 +48,7 @@ const AdminCourierServices = () => {
             gap={0}
     >
         <GridItem pl='2' area={'main1'} pb={2}>
-    <LineChart topic=''/>
+    <LineChart topic='Courier Company Earnings'/>
   </GridItem>
   <GridItem pl='2'  area={'main2'}>
   <Card>
@@ -64,30 +64,30 @@ const AdminCourierServices = () => {
     </Box>
     <Box mb={5}>
       <Flex>
-        <Box px={3}>
+      <HStack px={3}>
         <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
                   boxSize='40px'
                   objectFit='cover'
                 />
-        </Box>
-        <Box px={3} py={2}>Island Cabs</Box>
+                <Box px={3} py={2}>Island cabs</Box>
+        </HStack>
         <Spacer/>
         <Box px={10} py={2}>12</Box>
       </Flex>
     </Box>
     <Box mb={5}>
     <Flex>
-        <Box px={3}>
+    <HStack px={3}>
         <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
                   boxSize='40px'
                   objectFit='cover'
                 />
-        </Box>
-        <Box px={3} py={2}>Pronto</Box>
+                <Box px={3} py={2}>Pronto</Box>
+        </HStack>
         <Spacer/>
         <Box px={10} py={2}>35</Box>
       </Flex>
@@ -95,15 +95,15 @@ const AdminCourierServices = () => {
 
     <Box mb={5}>
     <Flex>
-        <Box px={3}>
+    <HStack px={3}>
         <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
                   boxSize='40px'
                   objectFit='cover'
                 />
-        </Box>
-        <Box px={3} py={2}>Pick me</Box>
+                <Box px={3} py={2}>Pick me</Box>
+        </HStack>
         <Spacer/>
         <Box px={10} py={2}>20</Box>
       </Flex>
@@ -111,15 +111,15 @@ const AdminCourierServices = () => {
 
     <Box mb={5}>
     <Flex>
-        <Box px={3}>
+    <HStack px={3}>
         <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
                   boxSize='40px'
                   objectFit='cover'
                 />
-        </Box>
-        <Box px={3} py={2}>Pick me</Box>
+                <Box px={3} py={2}>Pick me</Box>
+        </HStack>
         <Spacer/>
         <Box px={10} py={2}>20</Box>
       </Flex>
@@ -127,15 +127,16 @@ const AdminCourierServices = () => {
 
     <Box mb={5}>
     <Flex>
-        <Box px={3}>
+        <HStack px={3}>
         <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
                   boxSize='40px'
                   objectFit='cover'
                 />
-        </Box>
-        <Box px={3} py={2}>Pick me</Box>
+                <Box px={3} py={2}>Pick me</Box>
+        </HStack>
+        
         <Spacer/>
         <Box px={10} py={2}>20</Box>
       </Flex>
@@ -143,7 +144,7 @@ const AdminCourierServices = () => {
 
     <Box>
       <Center>
-      <LoginButton text="View All" image=""/>
+      <LoginButton text="View More" image=""/>
       </Center>
    
     </Box>
@@ -193,7 +194,7 @@ const AdminCourierServices = () => {
         <Tbody>
           <Tr>
             <Td>
-            <Flex>
+            <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
@@ -203,7 +204,7 @@ const AdminCourierServices = () => {
                   mr={4}
                 />
                 <Text>Kaveesha Hettige</Text>
-              </Flex>
+              </HStack>
             </Td>
             <Td>Island Cabs</Td>
             <Td>0766245650</Td>
@@ -213,7 +214,7 @@ const AdminCourierServices = () => {
           </Tr>
           <Tr>
           <Td>
-            <Flex>
+          <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
@@ -223,7 +224,7 @@ const AdminCourierServices = () => {
                   mr={4}
                 />
                 <Text>Kaveesha Hettige</Text>
-              </Flex>
+              </HStack>
             </Td>
             <Td>Island Cabs</Td>
             <Td>0766245650</Td>
@@ -235,7 +236,7 @@ const AdminCourierServices = () => {
         <Tfoot>
           <Tr>
           <Td>
-            <Flex>
+          <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
@@ -245,7 +246,7 @@ const AdminCourierServices = () => {
                   mr={4}
                 />
                 <Text>Kaveesha Hettige</Text>
-              </Flex>
+              </HStack>
             </Td>
             <Td>Island Cabs</Td>
             <Td>0766245650</Td>
