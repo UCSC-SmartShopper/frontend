@@ -1,5 +1,4 @@
 import { Box, Center } from "@chakra-ui/react";
-import { dot } from "node:test/reporters";
 
 interface Props {
   current: number;
