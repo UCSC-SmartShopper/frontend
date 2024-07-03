@@ -59,9 +59,9 @@ const AdminSuperMarkets = () => {
     </Grid>
     
   </GridItem>
-  <GridItem pl='2' bg={''} area={'footer'} mt={10} mx={10}>
+  <GridItem pl='2' bg={''} area={'footer'} mt={10} mx={10} my={10}>
 
-  <Box p={2} shadow='md' borderWidth='1px'  mr="70px" >
+  <Box p={2} shadow='md' borderWidth='1px'  mr="70px">
     <Flex justifyContent="space-between" px={20} py={10}>
     <Heading as='h3' size='lg' >
       Super Market Details

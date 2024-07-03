@@ -1,10 +1,10 @@
-import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
-    ,Heading,Text,TableContainer,HStack,Circle} from "@chakra-ui/react"
+import { Grid, GridItem,Card,CardBody,Heading,Flex,Box,Center,Text,VStack,Select,
+  Icon,Spacer,Button,Image} from "@chakra-ui/react"
   import AdminNavBar from "../components/AdminNavBar"
-  import LineChart from "../components/Charts/LineChart"
   import SideBar from "../components/SideBar"
-  import LoginButton from "../components/Buttons/LoginButton"
-  import ActionButton from "../components/Buttons/ActionButton"
+  import { CiImageOn } from "react-icons/ci";
+
+
 
 const AdminAdvertisements = () => {
   return (
@@ -35,20 +35,84 @@ const AdminAdvertisements = () => {
   <GridItem pl='2' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem  area={'main'} m={5} mx={10}>
-    <Card>
+  <GridItem  area={'main'} my={5} mx={10}>
+    <Heading size='lg' my={4}>Publish New</Heading>
+    <Card p={10}>
         <CardBody>
-            1st card
+            <Flex>
+              <Box borderRadius="8%" borderWidth="1px" borderColor={'primary'} px={'100px'} py={'60px'}>
+                <Center>
+                  <VStack>
+                  <Icon as={CiImageOn} boxSize={8} color={'primary'}/>
+                  <Text fontSize='md'>Upload banner here</Text>
+                  </VStack>
+                </Center>
+              </Box>
+              <Spacer />
+
+              <Box>
+              <Text fontSize='md'>From :</Text>
+
+              <Select placeholder='Select option'>
+                <option value='option1'>Option 1</option>
+                <option value='option2'>Option 2</option>
+                <option value='option3'>Option 3</option>
+              </Select>
+
+              </Box>
+              <Spacer />
+
+              <Box>
+              <Text fontSize='md'>To :</Text>
+
+              <Select placeholder='Select option'>
+                <option value='option1'>Option 1</option>
+                <option value='option2'>Option 2</option>
+                <option value='option3'>Option 3</option>
+              </Select>
+
+              </Box>
+              <Spacer />
+              <Box>
+              <Text fontSize='md'>Prority :</Text>
+
+              <Select placeholder='Select option'>
+              <option value='option1'>Low</option>
+              <option value='option2'>Medium</option>
+              <option value='option3'>High</option>
+              </Select>
+              </Box>
+
+              <Spacer />
+              <Box>
+              <Button bg='primary' size='md' mt={6}>
+                  Publish
+              </Button>
+              </Box>
+
+              
+
+
+            </Flex>
         </CardBody>
     </Card>
    
   </GridItem>
-  <GridItem  area={'footer'} mx={10}>
+  <GridItem  area={'footer'} my={5} mx={10}>
   <Card>
         <CardBody>
-            2nd card
+            <Image src='https://via.placeholder.com/150'
+                  alt='Product Image'  
+                  objectFit='cover'
+                  m={4} />
         </CardBody>
+        <Flex justifyContent={'flex-end'} my={1} mx={10}>
+              <Button bg='primary' size='md' mt={6}>
+                  Edit
+              </Button>
+              </Flex>
     </Card>
+    
     
   </GridItem>
 </Grid>

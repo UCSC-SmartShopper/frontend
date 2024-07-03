@@ -160,7 +160,7 @@ const AdminOrders = () => {
     
    
   </GridItem>
-  <GridItem pl='2' area={'footer'} mx={10}>
+  <GridItem pl='2' area={'footer'} mx={10} my={10}>
 
   <Box p={2} shadow='md' borderWidth='1px' >
     <Flex justifyContent="space-between" px={20} py={10}>
