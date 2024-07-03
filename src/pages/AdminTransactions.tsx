@@ -1,14 +1,12 @@
 import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
-    ,Heading,Text,TableContainer,
-    HStack,Circle} from "@chakra-ui/react"
+    ,Heading,Text,TableContainer,HStack,Circle} from "@chakra-ui/react"
   import AdminNavBar from "../components/AdminNavBar"
   import LineChart from "../components/Charts/LineChart"
   import SideBar from "../components/SideBar"
   import LoginButton from "../components/Buttons/LoginButton"
   import ActionButton from "../components/Buttons/ActionButton"
-import PieChart from "../components/Charts/PieChart"
 
-const AdminOrders = () => {
+const AdminTransactions = () => {
   return (
     <>
     <Grid
@@ -45,11 +43,24 @@ const AdminOrders = () => {
        
     }}
     gridTemplateRows={{ base: 'auto auto', lg: '1fr' }}
-            gridTemplateColumns={{ base: '70%', lg: '67% 30%' }}
-            gap={10}
+            gridTemplateColumns={{ base: '70%', lg: '70% 30%' }}
+            gap={0}
     >
         <GridItem pl='2' area={'main1'} pb={2}>
-    <PieChart title='Orders by Supermarkets'/>
+        <Flex>
+        <Box px={2}>
+        <Select placeholder='Select option' >
+        <option value='option3' selected>3 Month</option>
+        <option value='option1'>6 Month</option>
+        <option value='option2'>1 Month</option>
+        
+    </Select>
+
+        </Box>
+
+        </Flex>
+            
+    <LineChart topic='Money Flow'/>
   </GridItem>
   <GridItem pl='2'  area={'main2'}>
   <Card>
@@ -57,23 +68,23 @@ const AdminOrders = () => {
     
  
     <Box mb={10}>
+        <Heading fontSize="20px" mb={4}>Top Buyers</Heading>
       <Flex>
-        <Box px={3}>Item</Box>
+        <Box px={3}>Customer</Box>
         <Spacer/>
-        <Box px={10}>Items Sold</Box>
+        <Box px={10}>Items Purchased</Box>
       </Flex>
     </Box>
     <Box mb={5}>
       <Flex>
-        <HStack px={3}>
+      <HStack px={3}>
         <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
                   boxSize='40px'
                   objectFit='cover'
                 />
-        
-        <Box px={3} py={2}>Munchee Super Cream Cracker</Box>
+                <Box px={3} py={2}>Kaveesha Hettige</Box>
         </HStack>
         <Spacer/>
         <Box px={10} py={2}>12</Box>
@@ -81,14 +92,14 @@ const AdminOrders = () => {
     </Box>
     <Box mb={5}>
     <Flex>
-        <HStack px={3}>
+    <HStack px={3}>
         <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
                   boxSize='40px'
                   objectFit='cover'
                 />
-        <Box px={3} py={2}>Anchor 1kg</Box>
+                <Box px={3} py={2}>Kaveesha Hettige</Box>
         </HStack>
         <Spacer/>
         <Box px={10} py={2}>35</Box>
@@ -97,6 +108,38 @@ const AdminOrders = () => {
 
     <Box mb={5}>
     <Flex>
+    <HStack px={3}>
+        <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='40px'
+                  objectFit='cover'
+                />
+                <Box px={3} py={2}>Kaveesha Hettige</Box>
+        </HStack>
+        <Spacer/>
+        <Box px={10} py={2}>20</Box>
+      </Flex>
+    </Box>
+
+    <Box mb={5}>
+    <Flex>
+    <HStack px={3}>
+        <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='40px'
+                  objectFit='cover'
+                />
+                <Box px={3} py={2}>Kaveesha Hettige</Box>
+        </HStack>
+        <Spacer/>
+        <Box px={10} py={2}>20</Box>
+      </Flex>
+    </Box>
+
+    <Box mb={5}>
+    <Flex>
         <HStack px={3}>
         <Image
                   src='https://via.placeholder.com/150'
@@ -104,43 +147,9 @@ const AdminOrders = () => {
                   boxSize='40px'
                   objectFit='cover'
                 />
-                <Box px={3} py={2}>Sugar 500g</Box>
+                <Box px={3} py={2}>Kaveesha Hettige</Box>
         </HStack>
         
-        <Spacer/>
-        <Box px={10} py={2}>20</Box>
-      </Flex>
-    </Box>
-
-    <Box mb={5}>
-    <Flex>
-    <HStack px={3}>
-        <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='40px'
-                  objectFit='cover'
-                />
-        
-        <Box px={3} py={2}>Dull 1kg</Box>
-        </HStack>
-        <Spacer/>
-        <Box px={10} py={2}>20</Box>
-      </Flex>
-    </Box>
-
-    <Box mb={5}>
-    <Flex>
-    <HStack px={3}>
-        <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='40px'
-                  objectFit='cover'
-                />
-        
-        <Box px={3} py={2}>Basmathi Rice</Box>
-        </HStack>
         <Spacer/>
         <Box px={10} py={2}>20</Box>
       </Flex>
@@ -166,7 +175,7 @@ const AdminOrders = () => {
   <Box p={2} shadow='md' borderWidth='1px' m={10}>
     <Flex justifyContent="space-between" px={20} py={10}>
     <Heading as='h3' size='lg' >
-    Order Details
+      Transaction Details
     </Heading>
     <Flex>
         <Box px={2}>
@@ -187,11 +196,11 @@ const AdminOrders = () => {
       <Table size='md'>
         <Thead>
           <Tr>
-            <Th>Customer</Th>
-            <Th>Order ID</Th>
-            <Th>Date</Th>
-            <Th>Status</Th>
-            <Th>Cost</Th>
+            <Th>Name</Th>
+            <Th>Type</Th>
+            <Th>Contact Number</Th>
+            <Th>Deliveries Completed</Th>
+            <Th>Earning</Th>
             <Th></Th>
           </Tr>
         </Thead>
@@ -210,22 +219,20 @@ const AdminOrders = () => {
                 <Text>Kaveesha Hettige</Text>
               </HStack>
             </Td>
-            <Td>#1234</Td>
-            <Td>2024.06.12</Td>
+            <Td>customer</Td>
+            <Td>2024.06.01</Td>
             <Td>
-                <HStack>
-                <Circle bg='primary' size='10px'></Circle>
-                <Text>Delivered</Text>
+            <HStack>
+                <Circle bg='red' size='10px'></Circle>
+                <Text>Cancelled</Text>
                 </HStack>
-                </Td>
-
-                   
+            </Td>
             <Td>Rs.2000</Td>
             <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
           </Tr>
           <Tr>
           <Td>
-            <HStack>
+          <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
@@ -234,17 +241,17 @@ const AdminOrders = () => {
                   borderRadius="50%"
                   mr={4}
                 />
-                <Text>Kaveesha Hettige</Text>
+               <Text>Kaveesha Hettige</Text>
               </HStack>
             </Td>
-            <Td>#1234</Td>
-            <Td>2024.06.12</Td>
+            <Td>Super Market</Td>
+            <Td>2024.06.01</Td>
             <Td>
-                <HStack>
-                <Circle bg='red' size='10px'></Circle>
-                <Text>Cancelled</Text>
+            <HStack>
+                <Circle bg='yellow' size='10px'></Circle>
+                <Text>Delivered</Text>
                 </HStack>
-                </Td>
+            </Td>
             <Td>Rs.2000</Td>
             <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
           </Tr>
@@ -252,7 +259,7 @@ const AdminOrders = () => {
         <Tfoot>
           <Tr>
           <Td>
-            <HStack>
+          <HStack>
                 <Image
                   src='https://via.placeholder.com/150'
                   alt='Product Image'
@@ -264,12 +271,12 @@ const AdminOrders = () => {
                 <Text>Kaveesha Hettige</Text>
               </HStack>
             </Td>
-            <Td>#1234</Td>
-            <Td>2024.06.12</Td>
+            <Td>customer</Td>
+            <Td>2024.06.01</Td>
             <Td>
             <HStack>
-                <Circle bg='yellow' size='10px'></Circle>
-                <Text>Collected</Text>
+                <Circle bg='primary' size='10px'></Circle>
+                <Text>Delivered</Text>
                 </HStack>
             </Td>
             <Td>Rs.2000</Td>
@@ -284,7 +291,8 @@ const AdminOrders = () => {
   </GridItem>
 </Grid>
     </>
+    
   )
 }
 
-export default AdminOrders
+export default AdminTransactions
