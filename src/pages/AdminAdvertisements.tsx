@@ -2,7 +2,7 @@ import { Grid, GridItem,Card,CardBody,Heading,Flex,Box,Center,Text,VStack,Select
   Icon,Spacer,Button,Image} from "@chakra-ui/react"
   import AdminNavBar from "../components/AdminNavBar"
   import SideBar from "../components/SideBar"
-  import { CiImageOn } from "react-icons/ci";
+  import { CiImageOn,CiEdit } from "react-icons/ci";
 
 
 
@@ -35,11 +35,11 @@ const AdminAdvertisements = () => {
   <GridItem pl='2' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem  area={'main'} my={5} mx={10}>
+  <GridItem  pl='2' area={'main'} my={1} mx={10}>
     <Heading size='lg' my={4}>Publish New</Heading>
-    <Card p={10}>
+    <Card px={10} py={1}>
         <CardBody>
-            <Flex>
+            <Center>
               <Box borderRadius="8%" borderWidth="1px" borderColor={'primary'} px={'100px'} py={'60px'}>
                 <Center>
                   <VStack>
@@ -93,13 +93,28 @@ const AdminAdvertisements = () => {
               
 
 
-            </Flex>
+            </Center>
         </CardBody>
     </Card>
    
   </GridItem>
-  <GridItem  area={'footer'} my={5} mx={10}>
-  <Card>
+  <GridItem pl='2' area={'footer'} my={1} mx={10}>
+  <Heading size='lg' my={4}>Advertisements</Heading>
+  <Flex my={4}>
+  <Box>
+
+              <Select placeholder='Select option'>
+                <option value='option1'>Option 1</option>
+                <option value='option2'>Option 2</option>
+                <option value='option3'>Option 3</option>
+              </Select>
+
+              </Box>
+
+  </Flex>
+  
+
+  <Card px={10} py={1}>
         <CardBody>
             <Image src='https://via.placeholder.com/150'
                   alt='Product Image'  
@@ -107,10 +122,12 @@ const AdminAdvertisements = () => {
                   m={4} />
         </CardBody>
         <Flex justifyContent={'flex-end'} my={1} mx={10}>
-              <Button bg='primary' size='md' mt={6}>
-                  Edit
+              <Button bg='primary' size='md'>
+              <Icon as={CiEdit}/>
+                  <Text px={2}>Edit</Text>
               </Button>
-              </Flex>
+        </Flex>
+        
     </Card>
     
     
