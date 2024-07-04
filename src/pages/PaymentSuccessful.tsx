@@ -9,13 +9,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-
 import PaymentImage from "../assets/Payment-successful/payment.svg";
-import BarcodeImage from "../assets/Payment-successful/clarity_qr-code-line.svg"
+import BarcodeImage from "../assets/Payment-successful/clarity_qr-code-line.svg";
 import MiddleContainer from "../components/Containers/MiddleContainer";
-
-
-
 
 const PaymentSuccessful = () => {
   return (
@@ -29,11 +25,12 @@ const PaymentSuccessful = () => {
 
         <GridItem px={55} py={10}>
           <VStack alignItems="flex-start" mt="10%">
-            <Text lineHeight= "1.1em" fontSize="5xl" fontWeight="bold" m={0}>
+            <Text lineHeight="1.1em" fontSize="5xl" fontWeight="bold" m={0}>
               {" "}
-              Thanks for placing <br/>Order with us!
+              Thanks for placing <br />
+              Order with us!
             </Text>
-           
+
             <Box display="inline" fontSize="2xl" fontWeight="">
               <Text as="span">Smart list.</Text>
               <Text color="primary" as="span">
@@ -43,18 +40,13 @@ const PaymentSuccessful = () => {
             </Box>
           </VStack>
 
-          
           <Center my="10%">
             <Image src={BarcodeImage} />
           </Center>
-          
 
-         
-
-            <Button type="submit" width="full" bg="primary" color="white" mt={3}>
-              Track your Oder
-            </Button>
-         
+          <Button type="submit" width="full" bg="primary" color="white" mt={3}>
+            Track your Oder
+          </Button>
         </GridItem>
       </Grid>
     </MiddleContainer>

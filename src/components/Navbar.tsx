@@ -14,8 +14,12 @@ import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
 
 const Navbar = () => {
-  const [user] = useState("");
+  const [user] = useState("Courier Company");
   const location = useLocation();
+  const consumerNavItems = ["Home", "Supermarkets", "About Us"];
+  const courierNavItems = ["Home", "Request", "Deliveries"];
+  const navItems =
+    user === "Courier Company" ? courierNavItems : consumerNavItems;
 
   return (
     <>
@@ -40,15 +44,11 @@ const Navbar = () => {
           </Box> */}
           <Image src={Banner} />
 
-          <Text fontSize="lg" fontWeight="bold">
-            Home
-          </Text>
-          <Text fontSize="lg" fontWeight="bold">
-            Supermarkets
-          </Text>
-          <Text fontSize="lg" fontWeight="bold">
-            About Us
-          </Text>
+          {navItems.map((item) => (
+            <Text fontSize="lg" fontWeight="bold">
+              {item}
+            </Text>
+          ))}
         </HStack>
 
         {user ? (

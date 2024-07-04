@@ -13,6 +13,10 @@ import PaymentSuccessful from "./pages/PaymentSuccessful";
 import Footer from "./components/Footer";import SignUp from "./pages/SignUp";
 import Test from "./pages/Test";
 import Reviews from "./pages/Reviews";
+import Request from "./pages/CourierCompanyManager/Request";
+import Deliveries from "./pages/CourierCompanyManager/Deliveries";
+
+
 
 export interface ProductQuery {
   genreId?: number;
@@ -38,6 +42,8 @@ function App() {
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/paymentSuccessful" element={<PaymentSuccessful />} />
         <Route path="/Footer" element={<Footer />} />
+        <Route path="/request" element={<Request/>} />
+        <Route path="/deliveries" element={<Deliveries/>} />
       </Routes>
       
     </Router>
