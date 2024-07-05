@@ -1,36 +1,39 @@
 import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
     ,Heading,Text,TableContainer,
-    HStack,Circle,Button} from "@chakra-ui/react"
-  import AdminNavBar from "../../components/AdminNavBar"
+    HStack,Circle,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
+    VStack,Icon} from "@chakra-ui/react"
   import SideBar from "../../components/SideBar"
   import LoginButton from "../../components/Buttons/LoginButton"
 import PieChart from "../../components/Charts/PieChart"
+  import { MdPayment } from "react-icons/md";
+  import { FaShoppingBag } from "react-icons/fa";
+  import { GiStorkDelivery } from "react-icons/gi";
 
 const AdminOrders = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
     <Grid
   templateAreas={{
-                base:`"header"
+                base:`
                         "nav"
                       "main"
                       "footer"`,
 
 
-                lg:`"header header"
+                lg:`
                   "nav main"
                   "nav footer"`,
                 
                 }}
-                gridTemplateRows={{ base: 'auto auto auto', lg: 'auto 1fr 1fr' }}
+                gridTemplateRows={{ base: 'auto auto auto', lg: 'auto auto' }}
                 gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
-  h='200px'
   gap='1'
   color='blackAlpha.700'
   fontWeight='bold'
 >
   <GridItem pl='2' bg='lightblue' area={'header'}>
-    <AdminNavBar/>
+    {/* <AdminNavBar/> */}
   </GridItem>
   <GridItem pl='2' area={'nav'}>
     <SideBar/>
@@ -43,14 +46,18 @@ const AdminOrders = () => {
        
     }}
     gridTemplateRows={{ base: 'auto auto', lg: '1fr' }}
-            gridTemplateColumns={{ base: '70%', lg: '67% 30%' }}
-            gap={10}
+            gridTemplateColumns={{ base: '70%', lg: '65% 33%' }}
+            gap={5}
     >
         <GridItem area={'main1'} pb={2}>
-    <PieChart title='Orders by Supermarkets'/>
+          <Heading size='lg' my={4}>Orders by Supermarkets</Heading>
+        <Box pt={10} boxShadow={'md'}>
+    <PieChart title=''/>
+    </Box>
+    
   </GridItem>
-  <GridItem pl='2'  area={'main2'}>
-  <Card>
+  <GridItem pl='2'  area={'main2'} mt={12}>
+  <Card py={6} mt={4}>
   <CardBody>
     
  
@@ -105,40 +112,6 @@ const AdminOrders = () => {
                 <Box px={3} py={2}>Sugar 500g</Box>
         </HStack>
         
-        <Spacer/>
-        <Box px={10} py={2}>20</Box>
-      </Flex>
-    </Box>
-
-    <Box mb={5}>
-    <Flex>
-    <HStack px={3}>
-        <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='40px'
-                  objectFit='cover'
-                />
-        
-        <Box px={3} py={2}>Dull 1kg</Box>
-        </HStack>
-        <Spacer/>
-        <Box px={10} py={2}>20</Box>
-      </Flex>
-    </Box>
-
-    <Box mb={5}>
-    <Flex>
-    <HStack px={3}>
-        <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='40px'
-                  objectFit='cover'
-                />
-        
-        <Box px={3} py={2}>Basmathi Rice</Box>
-        </HStack>
         <Spacer/>
         <Box px={10} py={2}>20</Box>
       </Flex>
@@ -218,7 +191,7 @@ const AdminOrders = () => {
 
                    
             <Td>Rs.2000</Td>
-            <Td><Button bg='primary' size='sm'>View More</Button></Td>
+            <Td><Button bg='primary' size='sm' onClick={onOpen}>View More</Button></Td>
           </Tr>
           <Tr>
           <Td>
@@ -279,6 +252,79 @@ const AdminOrders = () => {
    
     
   </GridItem>
+  <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <Box borderBottomWidth={'1px'} p={2} >
+            <VStack>
+            <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='100px'
+                  objectFit='cover'
+                  borderRadius="50%"
+                  mr={4}
+                />
+              <Text fontSize={'xl'}>Kaveesha Hettige</Text>
+              <Text fontSize={'sm'}>kaveesha.hettige@gmail.com</Text>
+            </VStack>
+            </Box>
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody >
+            <Center borderBottomWidth={'1px'}>
+
+            <HStack >
+            
+            
+              <Box mr={1} >
+                
+                <VStack>
+                  <Box mb={8}>
+                  <Icon as={MdPayment} boxSize={5} color={'primary'}/>
+                  </Box>
+                  <Box mb={7}>
+                  <Icon as={GiStorkDelivery} boxSize={5} color={'primary'} />
+                  </Box>
+                  <Box mb={7}>
+                  <Icon as={FaShoppingBag} boxSize={5} color={'primary'} />
+                  </Box>
+
+                </VStack>
+
+              </Box>
+              <Box ml={1}>
+              <VStack>
+                  
+              <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Price</Text>
+                  <Text fontSize={'sm'}>Rs 4000</Text>
+                  </VStack>
+                  <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Delivery Type</Text>
+                  <Text fontSize={'sm'}>Collected</Text>
+                  </VStack>
+                  <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>No of Items</Text>
+                  <Text fontSize={'sm'}>4</Text>
+                  </VStack>
+                </VStack>
+                
+              </Box>
+              
+            </HStack>
+            </Center>
+
+          </ModalBody>
+
+          <ModalFooter>
+            <Button bg="primary" color='white' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 </Grid>
     </>
   )

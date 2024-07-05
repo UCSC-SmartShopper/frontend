@@ -226,17 +226,17 @@ const AdminCustomers = () => {
               <Box mr={1}>
                 
                 <VStack>
-                  <Box mb={8}>
-                  <Icon as={FaLocationDot} boxSize={6} color={'primary'}/>
+                  <Box mb={9}>
+                  <Icon as={FaLocationDot} boxSize={5} color={'primary'}/>
                   </Box >
                   <Box mb={8}>
-                  <Icon as={MdPayment} boxSize={6} color={'primary'}/>
+                  <Icon as={MdPayment} boxSize={5} color={'primary'}/>
                   </Box>
                   <Box mb={7}>
-                  <Icon as={FaCartFlatbed} boxSize={6} color={'primary'} />
+                  <Icon as={FaCartFlatbed} boxSize={5} color={'primary'} />
                   </Box>
                   <Box mb={7}>
-                  <Icon as={FaCartFlatbed} boxSize={6} color={'primary'} />
+                  <Icon as={FaCartFlatbed} boxSize={5} color={'primary'} />
                   </Box>
 
                 </VStack>

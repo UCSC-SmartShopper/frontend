@@ -1,38 +1,44 @@
 
 import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
-  ,Heading,Text,TableContainer,HStack,Button} from "@chakra-ui/react"
-import AdminNavBar from "../../components/AdminNavBar"
+  ,Heading,Text,TableContainer,HStack,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
+  VStack,Icon} from "@chakra-ui/react"
 import LineChart from "../../components/Charts/LineChart"
 import SideBar from "../../components/SideBar"
 import LoginButton from "../../components/Buttons/LoginButton"
+  import { IoStarSharp,IoBusiness ,IoCall} from "react-icons/io5";
+  import { SiCashapp } from "react-icons/si";
+  import { TbTruckDelivery } from "react-icons/tb";
+  import { MdFeedback } from "react-icons/md";
+
 
 const AdminCourierServices = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
     <Grid
   templateAreas={{
-                base:`"header"
+                base:`
                         "nav"
                       "main"
                       "footer"`,
 
 
-                lg:`"header header"
+                lg:`
                   "nav main"
                   "nav footer"`,
                 
                 }}
-                gridTemplateRows={{ base: 'auto auto auto', lg: 'auto 1fr 1fr' }}
+                gridTemplateRows={{ base: 'auto auto auto', lg: 'auto auto' }}
                 gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
-  h='200px'
   gap='1'
   color='blackAlpha.700'
   fontWeight='bold'
 >
   <GridItem pl='2' bg='lightblue' area={'header'}>
-    <AdminNavBar/>
+    {/* <AdminNavBar/> */}
   </GridItem>
-  <GridItem pl='2' area={'nav'}>
+  {/* position={'fixed'} */}
+  <GridItem pl='2' area={'nav'}>  
     <SideBar/>
   </GridItem>
   <GridItem pl='2' area={'main'} m={5} mx={10}>
@@ -43,14 +49,14 @@ const AdminCourierServices = () => {
        
     }}
     gridTemplateRows={{ base: 'auto auto', lg: '1fr' }}
-            gridTemplateColumns={{ base: '70%', lg: '70% 30%' }}
-            gap={0}
+            gridTemplateColumns={{base:'1fr',lg:'65% 33%'}}
+  gap={5}
     >
-        <GridItem pl='2' area={'main1'} pb={2}>
+        <GridItem  area={'main1'} pb={2} >
     <LineChart topic='Courier Company Earnings'/>
   </GridItem>
-  <GridItem pl='2'  area={'main2'}>
-  <Card>
+  <GridItem   area={'main2'} mt={5}>
+  <Card py={5}>
   <CardBody>
     
  
@@ -124,23 +130,6 @@ const AdminCourierServices = () => {
       </Flex>
     </Box>
 
-    <Box mb={5}>
-    <Flex>
-        <HStack px={3}>
-        <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='40px'
-                  objectFit='cover'
-                />
-                <Box px={3} py={2}>Pick me</Box>
-        </HStack>
-        
-        <Spacer/>
-        <Box px={10} py={2}>20</Box>
-      </Flex>
-    </Box>
-
     <Box>
       <Center>
       <LoginButton text="View More" image=""/>
@@ -209,7 +198,7 @@ const AdminCourierServices = () => {
             <Td>0766245650</Td>
             <Td>45</Td>
             <Td>Rs.2000</Td>
-            <Td><Button bg='primary' size='sm'>View More</Button></Td>
+            <Td><Button bg='primary' size='sm' onClick={onOpen}>View More</Button></Td>
           </Tr>
           <Tr>
           <Td>
@@ -260,6 +249,111 @@ const AdminCourierServices = () => {
    
     
   </GridItem>
+  <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <Box borderBottomWidth={'1px'} p={2} >
+            <VStack>
+            <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='100px'
+                  objectFit='cover'
+                  borderRadius="50%"
+                  mr={4}
+                />
+              <Text fontSize={'xl'}>Kaveesha Hettige</Text>
+              <Flex>
+              <Icon as={IoBusiness} boxSize={5} color={'primary'}/>
+              <Text fontSize={'sm'} ml={2}>Uber Deliveries</Text>
+              </Flex>
+
+              <Box>
+              <HStack fontSize={{base:"sm",md:"md"}} spacing={2} color="yellow.400">
+              {Array(5).fill("").map((_, i) => (
+              <IoStarSharp key={i} />
+                ))}
+              </HStack>
+              </Box>     
+
+            </VStack>
+            </Box>
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Center>
+
+            <HStack>
+            
+              <Box mr={1}>
+                
+                <VStack>
+                  <Box mb={8}>
+                  <Icon as={SiCashapp} boxSize={5} color={'primary'}/>
+                  </Box >
+                  <Box mb={8}>
+                  <Icon as={IoCall} boxSize={5} color={'primary'}/>
+                  </Box>
+                  <Box mb={9}>
+                  <Icon as={TbTruckDelivery} boxSize={5} color={'primary'} />
+                  </Box>
+                  <Box mb={7}>
+                  <Icon as={MdFeedback} boxSize={5} color={'primary'} />
+                  </Box>
+                  <Box mb={7}>
+                  <Icon as={IoStarSharp} boxSize={5} color={'primary'} />
+                  </Box>
+
+                </VStack>
+
+              </Box>
+              <Box ml={1}>
+              <VStack>
+                  
+              <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Earning</Text>
+                  <Text fontSize={'sm'}>Rs 134 000</Text>
+                  </VStack>
+                  <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Contact Number</Text>
+                  <Text fontSize={'sm'}>076 63451236</Text>
+                  </VStack>
+                  <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Deliveries completed</Text>
+                  <Text fontSize={'sm'}>80</Text>
+                  </VStack>
+                  
+                  <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Feedbacks</Text>
+                  <HStack>
+                    <Text fontSize={'sm'}>23</Text>
+                    <Button bg='primary' color='white' size='xs' ml={5}>View</Button>
+
+                    </HStack>
+                  </VStack>
+                  <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Rating</Text>
+                  <Text fontSize={'sm'}>5/5</Text>
+                  </VStack>
+
+                </VStack>
+                
+              </Box>
+              
+            </HStack>
+            </Center>
+
+          </ModalBody>
+
+          <ModalFooter>
+            <Button bg="primary" color='white' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+ 
 </Grid>
     </>
   )
