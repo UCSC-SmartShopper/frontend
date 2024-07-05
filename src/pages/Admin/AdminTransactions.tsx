@@ -1,13 +1,12 @@
-
 import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
-  ,Heading,Text,TableContainer,HStack} from "@chakra-ui/react"
-import AdminNavBar from "../components/AdminNavBar"
-import LineChart from "../components/Charts/LineChart"
-import SideBar from "../components/SideBar"
-import LoginButton from "../components/Buttons/LoginButton"
-import ActionButton from "../components/Buttons/ActionButton"
+    ,Heading,Text,TableContainer,HStack,Circle,Button} from "@chakra-ui/react"
+  import AdminNavBar from "../../components/AdminNavBar"
+  import LineChart from "../../components/Charts/LineChart"
+  import SideBar from "../../components/SideBar"
+  import LoginButton from "../../components/Buttons/LoginButton"
 
-const AdminCourierServices = () => {
+
+const AdminTransactions = () => {
   return (
     <>
     <Grid
@@ -36,7 +35,7 @@ const AdminCourierServices = () => {
   <GridItem pl='2' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem pl='2' area={'main'} m={5} mx={10}>
+  <GridItem  area={'main'} m={5} mx={10}>
     <Grid templateAreas={{
         base: `"main1"
               "main2"`,
@@ -48,7 +47,20 @@ const AdminCourierServices = () => {
             gap={0}
     >
         <GridItem pl='2' area={'main1'} pb={2}>
-    <LineChart topic='Courier Company Earnings'/>
+        <Flex>
+        <Box px={2}>
+        <Select placeholder='Select option' >
+        <option value='option3' selected>3 Month</option>
+        <option value='option1'>6 Month</option>
+        <option value='option2'>1 Month</option>
+        
+    </Select>
+
+        </Box>
+
+        </Flex>
+            
+    <LineChart topic='Money Flow'/>
   </GridItem>
   <GridItem pl='2'  area={'main2'}>
   <Card>
@@ -56,10 +68,11 @@ const AdminCourierServices = () => {
     
  
     <Box mb={10}>
+        <Heading fontSize="20px" mb={4}>Top Buyers</Heading>
       <Flex>
-        <Box px={3}>Company</Box>
+        <Box px={3}>Customer</Box>
         <Spacer/>
-        <Box px={10}>No of Drivers</Box>
+        <Box px={10}>Items Purchased</Box>
       </Flex>
     </Box>
     <Box mb={5}>
@@ -71,7 +84,7 @@ const AdminCourierServices = () => {
                   boxSize='40px'
                   objectFit='cover'
                 />
-                <Box px={3} py={2}>Island cabs</Box>
+                <Box px={3} py={2}>Kaveesha Hettige</Box>
         </HStack>
         <Spacer/>
         <Box px={10} py={2}>12</Box>
@@ -86,7 +99,7 @@ const AdminCourierServices = () => {
                   boxSize='40px'
                   objectFit='cover'
                 />
-                <Box px={3} py={2}>Pronto</Box>
+                <Box px={3} py={2}>Kaveesha Hettige</Box>
         </HStack>
         <Spacer/>
         <Box px={10} py={2}>35</Box>
@@ -102,7 +115,7 @@ const AdminCourierServices = () => {
                   boxSize='40px'
                   objectFit='cover'
                 />
-                <Box px={3} py={2}>Pick me</Box>
+                <Box px={3} py={2}>Kaveesha Hettige</Box>
         </HStack>
         <Spacer/>
         <Box px={10} py={2}>20</Box>
@@ -118,7 +131,7 @@ const AdminCourierServices = () => {
                   boxSize='40px'
                   objectFit='cover'
                 />
-                <Box px={3} py={2}>Pick me</Box>
+                <Box px={3} py={2}>Kaveesha Hettige</Box>
         </HStack>
         <Spacer/>
         <Box px={10} py={2}>20</Box>
@@ -134,7 +147,7 @@ const AdminCourierServices = () => {
                   boxSize='40px'
                   objectFit='cover'
                 />
-                <Box px={3} py={2}>Pick me</Box>
+                <Box px={3} py={2}>Kaveesha Hettige</Box>
         </HStack>
         
         <Spacer/>
@@ -162,7 +175,7 @@ const AdminCourierServices = () => {
   <Box p={2} shadow='md' borderWidth='1px'>
     <Flex justifyContent="space-between" px={20} py={10}>
     <Heading as='h3' size='lg' >
-      Delivery Person Details
+      Transaction Details
     </Heading>
     <Flex>
         <Box px={2}>
@@ -184,7 +197,7 @@ const AdminCourierServices = () => {
         <Thead>
           <Tr>
             <Th>Name</Th>
-            <Th>Company</Th>
+            <Th>Type</Th>
             <Th>Contact Number</Th>
             <Th>Deliveries Completed</Th>
             <Th>Earning</Th>
@@ -206,11 +219,16 @@ const AdminCourierServices = () => {
                 <Text>Kaveesha Hettige</Text>
               </HStack>
             </Td>
-            <Td>Island Cabs</Td>
-            <Td>0766245650</Td>
-            <Td>45</Td>
+            <Td>customer</Td>
+            <Td>2024.06.01</Td>
+            <Td>
+            <HStack>
+                <Circle bg='red' size='10px'></Circle>
+                <Text>Cancelled</Text>
+                </HStack>
+            </Td>
             <Td>Rs.2000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
           <Tr>
           <Td>
@@ -223,14 +241,19 @@ const AdminCourierServices = () => {
                   borderRadius="50%"
                   mr={4}
                 />
-                <Text>Kaveesha Hettige</Text>
+               <Text>Kaveesha Hettige</Text>
               </HStack>
             </Td>
-            <Td>Island Cabs</Td>
-            <Td>0766245650</Td>
-            <Td>45</Td>
+            <Td>Super Market</Td>
+            <Td>2024.06.01</Td>
+            <Td>
+            <HStack>
+                <Circle bg='yellow' size='10px'></Circle>
+                <Text>Delivered</Text>
+                </HStack>
+            </Td>
             <Td>Rs.2000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tbody>
         <Tfoot>
@@ -248,11 +271,16 @@ const AdminCourierServices = () => {
                 <Text>Kaveesha Hettige</Text>
               </HStack>
             </Td>
-            <Td>Island Cabs</Td>
-            <Td>0766245650</Td>
-            <Td>45</Td>
+            <Td>customer</Td>
+            <Td>2024.06.01</Td>
+            <Td>
+            <HStack>
+                <Circle bg='primary' size='10px'></Circle>
+                <Text>Delivered</Text>
+                </HStack>
+            </Td>
             <Td>Rs.2000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tfoot>
       </Table>
@@ -263,7 +291,8 @@ const AdminCourierServices = () => {
   </GridItem>
 </Grid>
     </>
+    
   )
 }
 
-export default AdminCourierServices
+export default AdminTransactions

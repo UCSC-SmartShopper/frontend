@@ -12,13 +12,14 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Test from "./pages/Test";
 import Reviews from "./pages/Reviews";
-import AdminOverview from "./pages/AdminOverview";
-import AdminCustomers from "./pages/AdminCustomers";
-import AdminSuperMarkets from "./pages/AdminSuperMarkets";
-import AdminCourierServices from "./pages/AdminCourierServices";
-import AdminOrders from "./pages/AdminOrders";
-import AdminTransactions from "./pages/AdminTransactions";
-import AdminAdvertisements from "./pages/AdminAdvertisements";
+import AdminOverview from "./pages/Admin/AdminOverview";
+import AdminCustomers from "./pages/Admin/AdminCustomers";
+import AdminSuperMarkets from "./pages/Admin/AdminSuperMarkets";
+import AdminCourierServices from "./pages/Admin/AdminCourierServices";
+import AdminOrders from "./pages/Admin/AdminOrders";
+import AdminTransactions from "./pages/Admin/AdminTransactions";
+import AdminAdvertisements from "./pages/Admin/AdminAdvertisements";
+import AdminSettings from "./pages/Admin/AdminSettings";
 
 
 export interface ProductQuery {
@@ -51,6 +52,7 @@ function App() {
         <Route path="/admin-Orders" element={<AdminOrders/>} />
         <Route path="/admin-Transactions" element={<AdminTransactions />} />
         <Route path="/admin-Advertisements" element={<AdminAdvertisements />} />
+        <Route path="/admin-Settings" element={<AdminSettings/>}/>
         
 
       </Routes>

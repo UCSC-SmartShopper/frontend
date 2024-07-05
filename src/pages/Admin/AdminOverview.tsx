@@ -1,12 +1,13 @@
 import { GridItem,Grid,Box,Table,TableContainer,Thead,Th,Tr,Tbody,
   Td,Tfoot,Heading,HStack,Card,CardBody,Center,Image,
   Text,Icon,Flex,Button} from "@chakra-ui/react"
-import SideBar from "../components/SideBar"
-import BarGraph from "../components/Charts/BarGraph"
-import DoughnutChart from "../components/Charts/DoughnutChart"  
+import SideBar from "../../components/SideBar"
+import BarGraph from "../../components/Charts/BarGraph"
+import DoughnutChart from "../../components/Charts/DoughnutChart"  
 import { CgWebsite } from "react-icons/cg";
 import {IoMdPeople} from "react-icons/io";
 import { FcSalesPerformance } from "react-icons/fc";
+import { AiOutlineRise ,AiOutlineFall} from "react-icons/ai";
 
 const AdminOverview = () => {
   return (
@@ -20,7 +21,6 @@ const AdminOverview = () => {
     }}
     gridTemplateRows={{ base: 'auto auto auto', lg: 'auto 1fr' }}
     gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
-  h='200px'
   gap='1em'
   color='blackAlpha.700'
   fontWeight='bold'
@@ -90,10 +90,14 @@ const AdminOverview = () => {
           <Card>
             <CardBody>
                 <Flex gap={10}>
-              <Heading size="md">Total Visits</Heading>
+              <Heading size="lg">Total Visits</Heading>
               <Icon as={CgWebsite}  boxSize={10} color="purple" bg="purple.100" borderRadius={5} p={2}/> 
               </Flex>
-              <Text>5.8 k</Text>
+              <Text fontSize="lg">5.8 k</Text>
+              <Flex mt={2}>
+              <Icon as={AiOutlineRise}  boxSize={5} color="green.400"  borderRadius={5}/>
+                <Text fontSize="sm" color="green.400" pl={2}>8.5% Up from yesterday</Text>
+               </Flex>
               <Box mt={2}>
                 <Text></Text>
                </Box>
@@ -103,10 +107,14 @@ const AdminOverview = () => {
           <Card>
             <CardBody>
                 <Flex gap={10}>
-              <Heading size="md">Total Customers</Heading>
+              <Heading size="lg">Total Customers</Heading>
               <Icon as={IoMdPeople}  boxSize={10} color="primary" bg="orange.100" borderRadius={5} p={2}/> 
               </Flex>
-              <Text>10.8 k</Text>
+              <Text fontSize="lg">10.8 k</Text>
+              <Flex mt={2}>
+              <Icon as={AiOutlineFall}  boxSize={5} color="red.400"  borderRadius={5}/>
+                <Text fontSize="sm" color="red.400" pl={2}>8.5% Down from yesterday</Text>
+               </Flex>
               <Box mt={2}>
                 <Text></Text>
                </Box>
@@ -116,10 +124,14 @@ const AdminOverview = () => {
           <Card>
             <CardBody>
                 <Flex gap={10}>
-              <Heading size="md">Total Sales</Heading>
+              <Heading size="lg">Total Sales</Heading>
               <Icon as={FcSalesPerformance}  boxSize={10} bg="yellow.100" borderRadius={5} p={2}/> 
               </Flex>
-              <Text>102,000 Rupees</Text>
+              <Text fontSize="lg">102,000 Rupees</Text>
+              <Flex mt={2}>
+              <Icon as={AiOutlineRise}  boxSize={5} color="green.400"  borderRadius={5}/>
+                <Text fontSize="sm" color="green.400" pl={2}>8.5% Up from yesterday</Text>
+               </Flex>
               <Box mt={2}>
                 <Text></Text>
                </Box>
@@ -131,7 +143,7 @@ const AdminOverview = () => {
 
     </Box>
 
-  <Box m={2} p={5} shadow='md' borderWidth='1px'>
+  <Box m={2} p={5} shadow='md' borderWidth='1px' my={5}>
 
     <Heading as='h3' size='lg' my={4}>
       Top Products

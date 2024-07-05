@@ -51,7 +51,7 @@ const options = {
 const PieChart: React.FC<Props> = ({ title }) => {
   return (
 
-<Box p={10} shadow='md' borderWidth='1px'>
+<Box p={10} shadow='md'>
       
 <Heading as='h3' size='lg' >
   {title}
@@ -59,7 +59,7 @@ const PieChart: React.FC<Props> = ({ title }) => {
 
 
 <Center>
-<Box height="300px" width={"auto"}> 
+<Box height="300px" width={"auto"} > 
 <Pie data={data} options={options}/>
 </Box>
 </Center>

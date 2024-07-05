@@ -1,15 +1,17 @@
 import { GridItem,Grid,Box,Table,TableContainer,Thead,Th,Tr,Tbody,
     Td,Tfoot,Heading,HStack,Card,CardBody,Center,Image,
-    Text,Icon,Flex,Select} from "@chakra-ui/react"
-  import SideBar from "../components/SideBar" 
+    Text,Icon,Flex,Select,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
+    VStack} from "@chakra-ui/react"
+  import SideBar from "../../components/SideBar" 
   import {IoMdPeople} from "react-icons/io";
-  import LineChart from "../components/Charts/LineChart";
-  import ActionButton from "../components/Buttons/ActionButton";
+  import LineChart from "../../components/Charts/LineChart";
   import { AiOutlineRise ,AiOutlineFall} from "react-icons/ai";
- 
-
+  import { FaLocationDot } from "react-icons/fa6";
+  import { MdPayment } from "react-icons/md";
+  import { FaCartFlatbed } from "react-icons/fa6";
 
 const AdminCustomers = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Grid
     templateAreas={{
@@ -23,27 +25,28 @@ const AdminCustomers = () => {
     }}
   gridTemplateRows={'1fr 2fr 2fr'}
   gridTemplateColumns={{base:'1fr',lg:'280px 1fr'}}
-  h='200px'
   gap='1'
   color='blackAlpha.700'
   fontWeight='bold'
+  height='100%'
+  width='100%'
 >
   <GridItem pl='2' bg='' area={'nav'}>
     <SideBar/>
   </GridItem>
   <GridItem pl='2' my={5} area={'head'} mx={10}>
 
-  <Box  p={5} bg="">
+  <Box   bg="" m={10}>
 
   <Center>
         <HStack spacing={150}>
           <Card px={3}>
             <CardBody>
               <Flex gap={20} >
-              <Heading size="md">Total Customers</Heading>
+              <Heading size="lg">Total Customers</Heading>
               <Icon as={IoMdPeople}  boxSize={8} color="primary" bg="orange.100" borderRadius={5}/> 
               </Flex>
-              <Text>10.8 k</Text>
+              <Text fontSize="lg">10.8 k</Text>
               <Flex mt={2}>
               <Icon as={AiOutlineRise}  boxSize={5} color="green.400"  borderRadius={5}/>
                 <Text fontSize="sm" color="green.400" pl={2}>8.5% Up from yesterday</Text>
@@ -54,10 +57,10 @@ const AdminCustomers = () => {
           <Card px={3}>
               <CardBody>
                 <Flex gap={20}>
-                <Heading size="md">Current Customers</Heading>
+                <Heading size="lg">Current Customers</Heading>
                 <Icon as={IoMdPeople}  boxSize={8} color="red" bg="red.100" borderRadius={5}/>
                 </Flex>
-            <Text>5.8 k</Text>
+            <Text fontSize="lg">5.8 k</Text>
             <Flex mt={2}>
               <Icon as={AiOutlineRise}  boxSize={5} color="green.400"  borderRadius={5}/>
                 <Text fontSize="sm" color="green.400" pl={2}>8.5% Up from yesterday</Text>
@@ -68,10 +71,10 @@ const AdminCustomers = () => {
           <Card px={3}>
               <CardBody>
                 <Flex gap={20}>
-                <Heading size="md">New Customers</Heading>
+                <Heading size="lg">New Customers</Heading>
                 <Icon as={IoMdPeople}  boxSize={8} color="green" bg="green.100" borderRadius={5}/>
                 </Flex>
-            <Text>5.8 k</Text>
+            <Text fontSize="lg">5.8 k</Text>
             <Flex mt={2}>
               <Icon as={AiOutlineFall}  boxSize={5} color="red.400"  borderRadius={5}/>
                 <Text fontSize="sm" color="red.400" pl={2}>8.5% Down from yesterday</Text>
@@ -87,14 +90,14 @@ const AdminCustomers = () => {
 
   </GridItem>
 
-  <GridItem pl='2' bg={''} area={'main'}>
+  <GridItem pl='2' bg={''} area={'main'}  mx={20}>
     <Center >
     <LineChart topic="Customer Engagement" />
     </Center>
   </GridItem>
 
 
-  <GridItem pl='2' bg={''} area={'footer'} mt={10} mx={10}>
+  <GridItem pl='2' bg={''} area={'footer'} my={5} mx={10}>
 
   <Box p={2} shadow='md' borderWidth='1px' m={10}>
     <Flex justifyContent="space-between" px={20} py={10}>
@@ -110,7 +113,7 @@ const AdminCustomers = () => {
     </Select>
 
         </Box>
-    <ActionButton url="/addcustomer">Add Customer</ActionButton>
+    <Button bg='primary' size='sm'>Add Customer</Button>
 
     </Flex>
     
@@ -145,7 +148,7 @@ const AdminCustomers = () => {
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>0766245650</Td>
             <Td>kaveesha.hettige@gmail.com</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm' onClick={onOpen}>View More</Button></Td>
           </Tr>
           <Tr>
             <Td> 
@@ -164,7 +167,7 @@ const AdminCustomers = () => {
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>0766245650</Td>
             <Td>kaveesha.hettige@gmail.com</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tbody>
         <Tfoot>
@@ -185,7 +188,7 @@ const AdminCustomers = () => {
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>0766245650</Td>
             <Td>kaveesha.hettige@gmail.com</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tfoot>
       </Table>
@@ -194,10 +197,92 @@ const AdminCustomers = () => {
    
     
   </GridItem>
+  <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <Box borderBottomWidth={'1px'} p={2} >
+            <VStack>
+            <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='100px'
+                  objectFit='cover'
+                  borderRadius="50%"
+                  mr={4}
+                />
+              <Text fontSize={'xl'}>Kaveesha Hettige</Text>
+              <Text fontSize={'sm'}>kaveesha.hettige@gmail.com</Text>
+            </VStack>
+            </Box>
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Center>
 
+            <HStack>
+            
+            
+              <Box mr={1}>
+                
+                <VStack>
+                  <Box mb={8}>
+                  <Icon as={FaLocationDot} boxSize={6} color={'primary'}/>
+                  </Box >
+                  <Box mb={8}>
+                  <Icon as={MdPayment} boxSize={6} color={'primary'}/>
+                  </Box>
+                  <Box mb={7}>
+                  <Icon as={FaCartFlatbed} boxSize={6} color={'primary'} />
+                  </Box>
+                  <Box mb={7}>
+                  <Icon as={FaCartFlatbed} boxSize={6} color={'primary'} />
+                  </Box>
+
+                </VStack>
+
+              </Box>
+              <Box ml={1}>
+              <VStack>
+                  
+              <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Address</Text>
+                  <Text fontSize={'sm'}>235/1,Kanampitiya Road,Galle</Text>
+                  </VStack>
+                  <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Payments</Text>
+                  <Text fontSize={'sm'}>Rs 9000</Text>
+                  </VStack>
+                  <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>First Order</Text>
+                  <Text fontSize={'sm'}>2023.04.01</Text>
+                  </VStack>
+                  <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Latest Order</Text>
+                  <Text fontSize={'sm'}>2024.05.06</Text>
+                  </VStack>
+
+                </VStack>
+                
+              </Box>
+              
+            </HStack>
+            </Center>
+
+          </ModalBody>
+
+          <ModalFooter>
+            <Button bg="primary" color='white' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
   
 </Grid>
+
+
    
   )
 }

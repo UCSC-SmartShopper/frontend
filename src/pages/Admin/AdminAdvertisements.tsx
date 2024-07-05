@@ -1,7 +1,7 @@
 import { Grid, GridItem,Card,CardBody,Heading,Flex,Box,Center,Text,VStack,Select,
   Icon,Spacer,Button,Image} from "@chakra-ui/react"
-  import AdminNavBar from "../components/AdminNavBar"
-  import SideBar from "../components/SideBar"
+  import AdminNavBar from "../../components/AdminNavBar"
+  import SideBar from "../../components/SideBar"
   import { CiImageOn,CiEdit } from "react-icons/ci";
 
 

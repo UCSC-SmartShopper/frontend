@@ -1,11 +1,10 @@
 import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
     ,Heading,Text,TableContainer,
-    HStack,Circle} from "@chakra-ui/react"
-  import AdminNavBar from "../components/AdminNavBar"
-  import SideBar from "../components/SideBar"
-  import LoginButton from "../components/Buttons/LoginButton"
-  import ActionButton from "../components/Buttons/ActionButton"
-import PieChart from "../components/Charts/PieChart"
+    HStack,Circle,Button} from "@chakra-ui/react"
+  import AdminNavBar from "../../components/AdminNavBar"
+  import SideBar from "../../components/SideBar"
+  import LoginButton from "../../components/Buttons/LoginButton"
+import PieChart from "../../components/Charts/PieChart"
 
 const AdminOrders = () => {
   return (
@@ -176,7 +175,6 @@ const AdminOrders = () => {
     </Select>
 
         </Box>
-    {/* <ActionButton url="/addcustomer">Add Customer</ActionButton> */}
 
     </Flex>
     
@@ -220,7 +218,7 @@ const AdminOrders = () => {
 
                    
             <Td>Rs.2000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
           <Tr>
           <Td>
@@ -245,7 +243,7 @@ const AdminOrders = () => {
                 </HStack>
                 </Td>
             <Td>Rs.2000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tbody>
         <Tfoot>
@@ -272,7 +270,7 @@ const AdminOrders = () => {
                 </HStack>
             </Td>
             <Td>Rs.2000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tfoot>
       </Table>

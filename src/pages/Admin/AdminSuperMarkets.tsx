@@ -1,10 +1,9 @@
 import { GridItem,Grid,Box,Table,TableContainer,Thead,Th,Tr,Tbody,
     Td,Tfoot,Heading,Image,Text,Flex,Select,
-    HStack} from "@chakra-ui/react"
-  import SideBar from "../components/SideBar"
-  import PieChart from "../components/Charts/PieChart" 
-import LineChart from "../components/Charts/LineChart";
-import ActionButton from "../components/Buttons/ActionButton";
+    HStack,Button} from "@chakra-ui/react"
+  import SideBar from "../../components/SideBar"
+  import PieChart from "../../components/Charts/PieChart" 
+import LineChart from "../../components/Charts/LineChart";
 
 const AdminSuperMarkets = () => {
   return (
@@ -18,7 +17,6 @@ const AdminSuperMarkets = () => {
     }}
     gridTemplateRows={{ base: 'auto auto auto', lg: 'auto 1fr' }}
     gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
-  h='200px'
   gap='1'
   color='blackAlpha.700'
   fontWeight='bold'
@@ -41,17 +39,19 @@ const AdminSuperMarkets = () => {
              "main2"`,     
       lg: `"main1 main2"`
     }}
-  gridTemplateColumns={{base:'1fr',lg:'30% 60%'}}
-  gap={4}
+  gridTemplateColumns={{base:'1fr',lg:'33% 60%'}}
+  gap={5}
   >
 
   <GridItem  bg='' area={'main1'}>
     <Heading size={'lg'} my={4}>Super Market Earnings</Heading>
-
+    <Box pt={10} boxShadow={'md'}>
     <PieChart title=''/>
+
+    </Box>
   </GridItem>
 
-  <GridItem  bg='' area={'main2'}>
+  <GridItem  bg='' area={'main2'} mt={12}>
     <LineChart topic=""/>
   </GridItem>
 
@@ -59,7 +59,7 @@ const AdminSuperMarkets = () => {
     </Grid>
     
   </GridItem>
-  <GridItem pl='2' bg={''} area={'footer'} mt={10} mx={10} my={10}>
+  <GridItem pl='2' bg={''} area={'footer'} m={10} >
 
   <Box p={2} shadow='md' borderWidth='1px'  mr="70px">
     <Flex justifyContent="space-between" px={20} py={10}>
@@ -112,7 +112,7 @@ const AdminSuperMarkets = () => {
             <Td>Kaveesha Hettige</Td>
             <Td>07523458901</Td>
             <Td>Rs. 12000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
           <Tr>
             <Td> 
@@ -132,7 +132,7 @@ const AdminSuperMarkets = () => {
             <Td>Kaveesha Hettige</Td>
             <Td>07523458901</Td>
             <Td>Rs. 12000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tbody>
         <Tfoot>
@@ -154,7 +154,7 @@ const AdminSuperMarkets = () => {
             <Td>Kaveesha Hettige</Td>
             <Td>07523458901</Td>
             <Td>Rs. 12000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tfoot>
       </Table>

@@ -1,12 +1,12 @@
-import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
-    ,Heading,Text,TableContainer,HStack,Circle} from "@chakra-ui/react"
-  import AdminNavBar from "../components/AdminNavBar"
-  import LineChart from "../components/Charts/LineChart"
-  import SideBar from "../components/SideBar"
-  import LoginButton from "../components/Buttons/LoginButton"
-  import ActionButton from "../components/Buttons/ActionButton"
 
-const AdminTransactions = () => {
+import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
+  ,Heading,Text,TableContainer,HStack,Button} from "@chakra-ui/react"
+import AdminNavBar from "../../components/AdminNavBar"
+import LineChart from "../../components/Charts/LineChart"
+import SideBar from "../../components/SideBar"
+import LoginButton from "../../components/Buttons/LoginButton"
+
+const AdminCourierServices = () => {
   return (
     <>
     <Grid
@@ -35,7 +35,7 @@ const AdminTransactions = () => {
   <GridItem pl='2' area={'nav'}>
     <SideBar/>
   </GridItem>
-  <GridItem  area={'main'} m={5} mx={10}>
+  <GridItem pl='2' area={'main'} m={5} mx={10}>
     <Grid templateAreas={{
         base: `"main1"
               "main2"`,
@@ -47,20 +47,7 @@ const AdminTransactions = () => {
             gap={0}
     >
         <GridItem pl='2' area={'main1'} pb={2}>
-        <Flex>
-        <Box px={2}>
-        <Select placeholder='Select option' >
-        <option value='option3' selected>3 Month</option>
-        <option value='option1'>6 Month</option>
-        <option value='option2'>1 Month</option>
-        
-    </Select>
-
-        </Box>
-
-        </Flex>
-            
-    <LineChart topic='Money Flow'/>
+    <LineChart topic='Courier Company Earnings'/>
   </GridItem>
   <GridItem pl='2'  area={'main2'}>
   <Card>
@@ -68,11 +55,10 @@ const AdminTransactions = () => {
     
  
     <Box mb={10}>
-        <Heading fontSize="20px" mb={4}>Top Buyers</Heading>
       <Flex>
-        <Box px={3}>Customer</Box>
+        <Box px={3}>Company</Box>
         <Spacer/>
-        <Box px={10}>Items Purchased</Box>
+        <Box px={10}>No of Drivers</Box>
       </Flex>
     </Box>
     <Box mb={5}>
@@ -84,7 +70,7 @@ const AdminTransactions = () => {
                   boxSize='40px'
                   objectFit='cover'
                 />
-                <Box px={3} py={2}>Kaveesha Hettige</Box>
+                <Box px={3} py={2}>Island cabs</Box>
         </HStack>
         <Spacer/>
         <Box px={10} py={2}>12</Box>
@@ -99,7 +85,7 @@ const AdminTransactions = () => {
                   boxSize='40px'
                   objectFit='cover'
                 />
-                <Box px={3} py={2}>Kaveesha Hettige</Box>
+                <Box px={3} py={2}>Pronto</Box>
         </HStack>
         <Spacer/>
         <Box px={10} py={2}>35</Box>
@@ -115,7 +101,7 @@ const AdminTransactions = () => {
                   boxSize='40px'
                   objectFit='cover'
                 />
-                <Box px={3} py={2}>Kaveesha Hettige</Box>
+                <Box px={3} py={2}>Pick me</Box>
         </HStack>
         <Spacer/>
         <Box px={10} py={2}>20</Box>
@@ -131,7 +117,7 @@ const AdminTransactions = () => {
                   boxSize='40px'
                   objectFit='cover'
                 />
-                <Box px={3} py={2}>Kaveesha Hettige</Box>
+                <Box px={3} py={2}>Pick me</Box>
         </HStack>
         <Spacer/>
         <Box px={10} py={2}>20</Box>
@@ -147,7 +133,7 @@ const AdminTransactions = () => {
                   boxSize='40px'
                   objectFit='cover'
                 />
-                <Box px={3} py={2}>Kaveesha Hettige</Box>
+                <Box px={3} py={2}>Pick me</Box>
         </HStack>
         
         <Spacer/>
@@ -175,7 +161,7 @@ const AdminTransactions = () => {
   <Box p={2} shadow='md' borderWidth='1px'>
     <Flex justifyContent="space-between" px={20} py={10}>
     <Heading as='h3' size='lg' >
-      Transaction Details
+      Delivery Person Details
     </Heading>
     <Flex>
         <Box px={2}>
@@ -197,7 +183,7 @@ const AdminTransactions = () => {
         <Thead>
           <Tr>
             <Th>Name</Th>
-            <Th>Type</Th>
+            <Th>Company</Th>
             <Th>Contact Number</Th>
             <Th>Deliveries Completed</Th>
             <Th>Earning</Th>
@@ -219,16 +205,11 @@ const AdminTransactions = () => {
                 <Text>Kaveesha Hettige</Text>
               </HStack>
             </Td>
-            <Td>customer</Td>
-            <Td>2024.06.01</Td>
-            <Td>
-            <HStack>
-                <Circle bg='red' size='10px'></Circle>
-                <Text>Cancelled</Text>
-                </HStack>
-            </Td>
+            <Td>Island Cabs</Td>
+            <Td>0766245650</Td>
+            <Td>45</Td>
             <Td>Rs.2000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
           <Tr>
           <Td>
@@ -241,19 +222,14 @@ const AdminTransactions = () => {
                   borderRadius="50%"
                   mr={4}
                 />
-               <Text>Kaveesha Hettige</Text>
+                <Text>Kaveesha Hettige</Text>
               </HStack>
             </Td>
-            <Td>Super Market</Td>
-            <Td>2024.06.01</Td>
-            <Td>
-            <HStack>
-                <Circle bg='yellow' size='10px'></Circle>
-                <Text>Delivered</Text>
-                </HStack>
-            </Td>
+            <Td>Island Cabs</Td>
+            <Td>0766245650</Td>
+            <Td>45</Td>
             <Td>Rs.2000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tbody>
         <Tfoot>
@@ -271,16 +247,11 @@ const AdminTransactions = () => {
                 <Text>Kaveesha Hettige</Text>
               </HStack>
             </Td>
-            <Td>customer</Td>
-            <Td>2024.06.01</Td>
-            <Td>
-            <HStack>
-                <Circle bg='primary' size='10px'></Circle>
-                <Text>Delivered</Text>
-                </HStack>
-            </Td>
+            <Td>Island Cabs</Td>
+            <Td>0766245650</Td>
+            <Td>45</Td>
             <Td>Rs.2000</Td>
-            <Td><ActionButton url="/viewmore">View More</ActionButton></Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tfoot>
       </Table>
@@ -291,8 +262,7 @@ const AdminTransactions = () => {
   </GridItem>
 </Grid>
     </>
-    
   )
 }
 
-export default AdminTransactions
+export default AdminCourierServices
