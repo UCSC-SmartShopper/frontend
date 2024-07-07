@@ -1,7 +1,7 @@
 import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
     ,Heading,Text,TableContainer,
     HStack,Circle,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
-    VStack,Icon} from "@chakra-ui/react"
+    VStack,Icon,ListItem,List} from "@chakra-ui/react"
   import SideBar from "../../components/SideBar"
   import LoginButton from "../../components/Buttons/LoginButton"
 import PieChart from "../../components/Charts/PieChart"
@@ -57,15 +57,15 @@ const AdminOrders = () => {
     
   </GridItem>
   <GridItem pl='2'  area={'main2'} mt={12}>
-  <Card py={6} mt={4}>
+  <Card mt={4} py={3}>
   <CardBody>
     
  
-    <Box mb={10}>
+    <Box >
       <Flex>
         <Box px={3}>Item</Box>
         <Spacer/>
-        <Box px={10}>Items Sold</Box>
+        <Box px={10}>Sold</Box>
       </Flex>
     </Box>
     <Box mb={5}>
@@ -84,6 +84,22 @@ const AdminOrders = () => {
         <Box px={10} py={2}>12</Box>
       </Flex>
     </Box>
+    <Box mb={5}>
+    <Flex>
+        <HStack px={3}>
+        <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='40px'
+                  objectFit='cover'
+                />
+        <Box px={3} py={2}>Anchor 1kg</Box>
+        </HStack>
+        <Spacer/>
+        <Box px={10} py={2}>35</Box>
+      </Flex>
+    </Box>
+
     <Box mb={5}>
     <Flex>
         <HStack px={3}>
@@ -273,9 +289,9 @@ const AdminOrders = () => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody >
-            <Center borderBottomWidth={'1px'}>
+            <Center borderBottomWidth={'1px'} pb={6}>
 
-            <HStack >
+            <Flex >
             
             
               <Box mr={1} >
@@ -287,10 +303,6 @@ const AdminOrders = () => {
                   <Box mb={7}>
                   <Icon as={GiStorkDelivery} boxSize={5} color={'primary'} />
                   </Box>
-                  <Box mb={7}>
-                  <Icon as={FaShoppingBag} boxSize={5} color={'primary'} />
-                  </Box>
-
                 </VStack>
 
               </Box>
@@ -305,6 +317,21 @@ const AdminOrders = () => {
                   <Text fontSize={'lg'} fontWeight={'500'}>Delivery Type</Text>
                   <Text fontSize={'sm'}>Collected</Text>
                   </VStack>
+                </VStack>
+                
+              </Box>
+
+              <Box mr={1} ml={6}>
+                
+                <VStack>
+                  <Box mb={7}>
+                  <Icon as={FaShoppingBag} boxSize={5} color={'primary'} />
+                  </Box>
+                </VStack>
+
+              </Box>
+              <Box ml={1}>
+              <VStack>
                   <VStack>
                   <Text fontSize={'lg'} fontWeight={'500'}>No of Items</Text>
                   <Text fontSize={'sm'}>4</Text>
@@ -313,8 +340,85 @@ const AdminOrders = () => {
                 
               </Box>
               
-            </HStack>
+            </Flex>
             </Center>
+
+            <Box mt={1}>
+            <HStack>
+              <Heading fontSize={'md'} color='primary' fontWeight={'500'}>Cargills</Heading>
+              <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='30px'
+                  objectFit='cover'
+                  m={2}
+                />
+              </HStack>
+              <Box>
+              <List spacing={3}>
+  <ListItem>
+    <HStack boxShadow={'sm'} p={1}>
+    <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='50px'
+                  objectFit='cover'
+                  mr={4}
+                />
+              <Text>Munchee Super Cream Cracker 500g</Text>
+              
+    </HStack>
+  </ListItem>
+
+  <ListItem>
+    <HStack boxShadow={'sm'} p={1}>
+    <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='50px'
+                  objectFit='cover'
+                  mr={4}
+                />
+              <Text>Munchee Super Cream Cracker 500g</Text>
+    </HStack>
+  </ListItem>
+
+</List>
+              </Box>
+
+            </Box>
+
+            <Box mt={1}>
+              <HStack>
+              <Heading fontSize={'md'} color='primary' fontWeight={'500'}>keells</Heading>
+              <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='30px'
+                  objectFit='cover'
+                  m={2}
+                />
+              </HStack>
+              
+              <Box>
+              <List spacing={3}>
+  <ListItem>
+    <HStack boxShadow={'sm'} p={1}>
+    <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='50px'
+                  objectFit='cover'
+                  mr={4}
+                />
+              <Text>Munchee Super Cream Cracker 500g</Text>
+    </HStack>
+  </ListItem>
+  
+</List>
+              </Box>
+
+            </Box>
 
           </ModalBody>
 

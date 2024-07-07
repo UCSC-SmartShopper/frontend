@@ -9,7 +9,7 @@ import LoginButton from "../../components/Buttons/LoginButton"
   import { SiCashapp } from "react-icons/si";
   import { TbTruckDelivery } from "react-icons/tb";
   import { MdFeedback } from "react-icons/md";
-
+  import { MdNavigateNext } from "react-icons/md";
 
 const AdminCourierServices = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,7 +56,7 @@ const AdminCourierServices = () => {
     <LineChart topic='Courier Company Earnings'/>
   </GridItem>
   <GridItem   area={'main2'} mt={5}>
-  <Card py={5}>
+  <Card py={9}>
   <CardBody>
     
  
@@ -284,7 +284,7 @@ const AdminCourierServices = () => {
           <ModalBody>
             <Center>
 
-            <HStack>
+            <Flex>
             
               <Box mr={1}>
                 
@@ -298,16 +298,10 @@ const AdminCourierServices = () => {
                   <Box mb={9}>
                   <Icon as={TbTruckDelivery} boxSize={5} color={'primary'} />
                   </Box>
-                  <Box mb={7}>
-                  <Icon as={MdFeedback} boxSize={5} color={'primary'} />
-                  </Box>
-                  <Box mb={7}>
-                  <Icon as={IoStarSharp} boxSize={5} color={'primary'} />
-                  </Box>
-
                 </VStack>
 
               </Box>
+
               <Box ml={1}>
               <VStack>
                   
@@ -323,12 +317,32 @@ const AdminCourierServices = () => {
                   <Text fontSize={'lg'} fontWeight={'500'}>Deliveries completed</Text>
                   <Text fontSize={'sm'}>80</Text>
                   </VStack>
+
+                </VStack>
+                
+              </Box>
+              <Box mr={1} ml={5}>    
+                <VStack>
+                <Box mb={7}>
+                  <Icon as={MdFeedback} boxSize={5} color={'primary'} />
+                  </Box>
+                  <Box mb={7}>
+                  <Icon as={IoStarSharp} boxSize={5} color={'primary'} />
+                  </Box>
+                </VStack>
+
+              </Box>
+
+              <Box ml={1}>
                   
+              <VStack>
                   <VStack>
                   <Text fontSize={'lg'} fontWeight={'500'}>Feedbacks</Text>
                   <HStack>
                     <Text fontSize={'sm'}>23</Text>
-                    <Button bg='primary' color='white' size='xs' ml={5}>View</Button>
+                    <Button  bg='white' color='primary' border='2px' borderColor='primary' size='xs' ml={5}>View
+                      <Icon as={MdNavigateNext}/>
+                    </Button>
 
                     </HStack>
                   </VStack>
@@ -341,7 +355,7 @@ const AdminCourierServices = () => {
                 
               </Box>
               
-            </HStack>
+            </Flex>
             </Center>
 
           </ModalBody>
