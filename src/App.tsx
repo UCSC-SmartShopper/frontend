@@ -17,6 +17,7 @@ import ProductDetail from "./pages/ProductDetail";
 import Reviews from "./pages/Reviews";
 import SignUp from "./pages/SignUp";
 import Test from "./pages/Test";
+import Products from "./pages/Products";
 
 export interface ProductQuery {
   genreId?: number;
@@ -45,6 +46,8 @@ function App() {
           <Route path="/paymentSuccessful" element={<PaymentSuccessful />} />
           <Route path="/Footer" element={<Footer />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/products" element={<Products />} />
+
         </Routes>
 
         <Show below="md">
