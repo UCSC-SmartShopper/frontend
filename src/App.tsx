@@ -53,9 +53,16 @@ function App() {
           <Route path="/Footer" element={<Footer />} />
           <Route path="/test" element={<Test />} />
 
+
           <Route path="/driver/login_register" element={<LoginRegister />} />
           <Route path="/driver/login" element={<DriverLogin />} />
           <Route path="/driver/register" element={<DriverRegister />} />
+
+          
+          <Route path="/deliveries" element={<Deliveries />} />
+          <Route path="/request" element={<Request/>} />
+
+
         </Routes>
 
         <Show below="md">
