@@ -1,25 +1,95 @@
 import {
   Avatar,
-  HStack,
-  Text,
-  Container,
-  Heading,
   Box,
   Button,
+  Container,
+  Grid,
+  Heading,
+  Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
   VStack,
-  
 } from "@chakra-ui/react";
+import { useState } from "react";
 
+import FaceImage from "../../assets/CourierCompany/Avatar3.svg";
 import MiddleContainer from "../../components/Containers/MiddleContainer";
 
+interface DeliveryPerson {
+  name: string;
+  nic: string;
+  phone: string;
+  vehicleType: string;
+  vehicleName: string;
+  vehicleNumber: string;
+  vehicleColor: string;
+  avatar: string;
+  vehicleImage: string;
+}
+
 const Request = () => {
-  // Create an array with 5 elements to render the same container 5 times
-  const deliveryPersonnel = new Array(4).fill({
-    name: "Bimsara Jayadewa",
-    vehicle: "TVS ntorq 125",
-    type: "Motor Cycle",
-    avatar: "https://via.placeholder.com/150", // Replace with actual image URL if available
-  });
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedPerson, setSelectedPerson] = useState<DeliveryPerson>();
+
+  // Sample data for delivery personnel
+  const deliveryPersonnel: DeliveryPerson[] = [
+    {
+      name: "Kaveesha Hettige",
+      nic: "763344567V",
+      phone: "+947788905",
+      vehicleType: "Motor Cycle",
+      vehicleName: "TVS ntorq 125",
+      vehicleNumber: "VQ 3344",
+      vehicleColor: "",
+      avatar: FaceImage, // Replace with actual image URL
+      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
+    },
+    {
+      name: "Kaveesha Hettige",
+      nic: "763344567V",
+      phone: "+947788905",
+      vehicleType: "Motor Cycle",
+      vehicleName: "TVS ntorq 125",
+      vehicleNumber: "VQ 3344",
+      vehicleColor: "",
+      avatar: "https://via.placeholder.com/150", // Replace with actual image URL
+      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
+    },
+    {
+      name: "Kaveesha Hettige",
+      nic: "763344567V",
+      phone: "+947788905",
+      vehicleType: "Motor Cycle",
+      vehicleName: "TVS ntorq 125",
+      vehicleNumber: "VQ 3344",
+      vehicleColor: "",
+      avatar: "https://via.placeholder.com/150", // Replace with actual image URL
+      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
+    },
+    {
+      name: "Kaveesha Hettige",
+      nic: "763344567V",
+      phone: "+947788905",
+      vehicleType: "Motor Cycle",
+      vehicleName: "TVS ntorq 125",
+      vehicleNumber: "VQ 3344",
+      vehicleColor: "",
+      avatar: "https://via.placeholder.com/150", // Replace with actual image URL
+      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
+    },
+  ];
+
+  const handleViewClick = (person: DeliveryPerson) => {
+    setSelectedPerson(person);
+    onOpen();
+  };
 
   return (
     <MiddleContainer>
@@ -44,16 +114,113 @@ const Request = () => {
                 <Text fontSize="lg" fontWeight="bold">
                   {person.name}
                 </Text>
-                <Text fontSize="sm">Vehicle: {person.vehicle}</Text>
-                <Text fontSize="sm">Type: {person.type}</Text>
+                <Text fontSize="sm">Vehicle: {person.vehicleName}</Text>
+                <Text fontSize="sm">Type: {person.vehicleType}</Text>
               </Box>
-              <Button colorScheme="orange" variant="outline">
+              <Button
+                colorScheme="orange"
+                variant="outline"
+                onClick={() => handleViewClick(person)}
+              >
                 View
               </Button>
             </Box>
           ))}
         </VStack>
       </Container>
+
+      {selectedPerson && (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent maxW="500px">
+            <ModalHeader>Driver Request</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Box
+                display="flex"
+                alignItems="center"
+                mb={4}
+                borderWidth="1px"
+                borderRadius="lg"
+                p={4}
+              >
+                <Avatar src={selectedPerson.avatar} size="xl" mr={4} />
+                <Box>
+                  <Text fontSize="lg" fontWeight="bold">
+                    Driver Personal Details
+                  </Text>
+                  <Grid templateColumns="150px 1fr" gap={2}>
+                    <Text>Name:</Text>
+                    <Text>{selectedPerson.name}</Text>
+
+                    <Text>NIC Number:</Text>
+                    <Text>{selectedPerson.nic}</Text>
+
+                    <Text>Contact No:</Text>
+                    <Text>{selectedPerson.phone}</Text>
+                  </Grid>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                mb={4}
+                borderWidth="1px"
+                borderRadius="lg"
+                p={4}
+              >
+                <Box flex="1">
+                  <Text fontSize="lg" fontWeight="bold">
+                    Vehicle Details
+                  </Text>
+                  <Grid templateColumns="150px 1fr" gap={2}>
+                    <Text>Vehicle Type:</Text>
+                    <Text>{selectedPerson.vehicleType}</Text>
+
+                    <Text>Vehicle Name:</Text>
+                    <Text>{selectedPerson.vehicleName}</Text>
+
+                    <Text>Vehicle Number:</Text>
+                    <Text>{selectedPerson.vehicleNumber}</Text>
+
+                    <Text>Vehicle Color:</Text>
+                    <Text>{selectedPerson.vehicleColor}</Text>
+                  </Grid>
+                </Box>
+                <Image
+                  src={selectedPerson.vehicleImage}
+                  boxSize="150px"
+                  objectFit="cover"
+                  ml={4}
+                />
+              </Box>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                type="submit"
+                width="200px"
+                bg="white"
+                color="primary"
+                mt={3}
+                mr={10}
+                border="2px"
+                borderColor="primary"
+              >
+                Decline
+              </Button>
+              <Button
+                type="submit"
+                width="200px"
+                bg="primary"
+                color="white"
+                mt={3}
+                ml={2}
+              >
+                Accept
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </MiddleContainer>
   );
 };

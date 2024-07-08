@@ -43,7 +43,7 @@ function App() {
         <Route path="/paymentSuccessful" element={<PaymentSuccessful />} />
         <Route path="/Footer" element={<Footer />} />
         <Route path="/request" element={<Request/>} />
-        <Route path="/deliveries" element={<Deliveries/>} />
+        <Route path="/deliveries" element={<Deliveries/>} /> 
       </Routes>
       
     </Router>

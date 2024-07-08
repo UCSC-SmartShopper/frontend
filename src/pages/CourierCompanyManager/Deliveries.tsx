@@ -1,47 +1,70 @@
-import React, { useState } from "react";
 import {
   Avatar,
   Box,
   Button,
+  Checkbox,
   Container,
+  Flex,
   Heading,
   HStack,
-  Text,
-  VStack,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Checkbox,
-  Select,
-  Flex,
-  Spacer,
+  Image,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
-  Grid,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+  Spacer,
+  Tab,
+  Table,
+  TabList,
+  Tabs,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  useDisclosure
 } from "@chakra-ui/react";
+import { useState } from "react";
+
+import Face from "../../assets/CourierCompany/Face 1.svg";
+import Stars from "../../assets/CourierCompany/stars.svg";
 import MiddleContainer from "../../components/Containers/MiddleContainer2";
+
+interface Customer {
+  name: string;
+  phone: string;
+  avatar: string;
+}
+
+interface Driver {
+  name: string;
+  phone: string;
+  nic: string;
+  avatar: string;
+  deliveriesCompleted: number;
+  revenue: number;
+}
+
+interface Delivery {
+  order: string;
+  date: string;
+  status: string;
+  customer: Customer;
+  driver: Driver;
+}
 
 const Deliveries = () => {
   const [selectedStatus, setSelectedStatus] = useState("View All");
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [currentDelivery, setCurrentDelivery] = useState(null);
+  const [currentDelivery, setCurrentDelivery] = useState<Delivery>();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const deliveries = [
+  const deliveries: Delivery[]= [
     {
       order: "#3066",
       date: "Jan 6, 2024 4.25pm",
@@ -73,6 +96,9 @@ const Deliveries = () => {
         name: "Phoenix Baker",
         phone: "0765656590",
         avatar: "https://via.placeholder.com/50",
+        nic: "763344567V",
+        deliveriesCompleted: 8,
+        revenue: 34.995,
       },
     },
     {
@@ -87,7 +113,10 @@ const Deliveries = () => {
       driver: {
         name: "Lana Steiner",
         phone: "0765656590",
+        nic: "763344567V",
         avatar: "https://via.placeholder.com/50",
+        deliveriesCompleted: 8,
+        revenue: 34.995,
       },
     },
     {
@@ -102,7 +131,10 @@ const Deliveries = () => {
       driver: {
         name: "Demi Wilkinson",
         phone: "0765656590",
+        nic: "763344567V",
         avatar: "https://via.placeholder.com/50",
+        deliveriesCompleted: 8,
+        revenue: 34.995,
       },
     },
     // Add more delivery data here
@@ -113,7 +145,7 @@ const Deliveries = () => {
     return delivery.status === selectedStatus;
   });
 
-  const handleViewClick = (delivery) => {
+  const handleViewClick = (delivery: Delivery) => {
     setCurrentDelivery(delivery);
     onOpen();
   };
@@ -158,7 +190,7 @@ const Deliveries = () => {
                 setSelectedStatus(status);
               }}
             >
-              <TabList>
+              <TabList mr={300}>
                 <Tab>View All</Tab>
                 <Tab>Active</Tab>
                 <Tab>Completed</Tab>
@@ -247,10 +279,11 @@ const Deliveries = () => {
           <ModalBody>
             {currentDelivery && (
               <Box>
-                <Box mb={4}>
+                <Box borderWidth="2px" borderRadius="lg" p={4} mb={4}>
                   <Text fontSize="xl" fontWeight="bold" mb={2}>
                     Order Details
                   </Text>
+
                   <Box mb={4}>
                     <Text>
                       <strong>Order Placed on:</strong> 12.04.2024
@@ -266,60 +299,45 @@ const Deliveries = () => {
                     </Text>
                   </Box>
                 </Box>
-               <Grid gridTemplateColumns="10fr 1fr" h="100%">
-               
-                <Box display="flex" mb={4}>
-                  <Avatar
-                    src={currentDelivery.driver.avatar}
-                    size="xl"
-                    mr={4}
-                  />
-                  
+
+                <Flex borderWidth="2px" borderRadius="lg" p={4} mb={4}>
+                  <Image src={Face} mr={4} />
+
                   <Box>
+                    <Text fontSize="xl" fontWeight="bold" mb={2}>
+                      Delivery Personal Details
+                    </Text>
                     <Text>
-                      <strong>Name:</strong> {currentDelivery.driver.name}
+                      <strong>Name:</strong> {currentDelivery?.driver.name}
                     </Text>
                     <Text>
                       <strong>NIC Number:</strong> {currentDelivery.driver.nic}
                     </Text>
                     <Text>
-                      <strong>Contact No:</strong> {currentDelivery.driver.phone}
+                      <strong>Contact No:</strong>{" "}
+                      {currentDelivery.driver.phone}
                     </Text>
                   </Box>
-                  
-                </Box>
-                </Grid>
-                <Box mb={4}>
-                  <Text>
-                    <strong>Deliveries completed:</strong> {currentDelivery.driver.deliveriesCompleted}
-                  </Text>
-                  <Text>
-                    <strong>Revenue:</strong> ${currentDelivery.driver.revenue}
-                  </Text>
-                </Box>
+                </Flex>
+
                 <Heading as="h5" size="sm" mb={2}>
                   Feedbacks
                 </Heading>
                 <Box borderWidth="1px" borderRadius="lg" p={4} mb={4}>
-                  <Text fontWeight="bold">Amazing and durable jacket</Text>
-                  <Text fontSize="sm" color="gray.500">October 21, 2020</Text>
+                  <Text fontSize="sm" color="gray.500">
+                    October 21, 2020
+                  </Text>
+                  <Box width="80px" height="40px">
+                    <Image src={Stars} alt="Stars" boxSize="100%" />
+                  </Box>
+
                   <Text>Arrived on time. Good in delivery.</Text>
-                  <Flex mt={2}>
-                    <Text fontSize="sm" color="gray.500" mr={4}>
-                      Was this review helpful? Yes (4) No (0)
-                    </Text>
-                    <Text fontSize="sm" color="gray.500">
-                      | Flag as inappropriate
-                    </Text>
-                  </Flex>
+                  <Flex mt={2}></Flex>
                 </Box>
-               
               </Box>
             )}
           </ModalBody>
-          <ModalFooter>
-           
-          </ModalFooter>
+          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </MiddleContainer>
