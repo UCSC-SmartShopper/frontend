@@ -114,7 +114,7 @@ const AdminOverview = () => {
     <Box mb={10}>
 
     <Center>
-        <HStack spacing={70}>
+        <HStack justifyContent='space-between' w='full' px={2}>
 
         {cutomerCards.map((card, index) => (
           <Card key={index}>

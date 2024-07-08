@@ -12,7 +12,8 @@ import AdminSettings from "./AdminSettings";
 
 
 const AdminMain = () => {
-  const [adminPage, setAdminPage] = useState("overview");
+  const [adminPage, setAdminPage] = useState("supermarkets");
+  
   return (
     <HStack w="full">
       <Box w="20vw" pos="fixed" top="10vh">

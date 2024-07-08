@@ -72,25 +72,23 @@ const AdminCustomers = () => {
   return (
     <Grid
       templateAreas={{
-        base: `"nav"
+        base: `
             "head"
              "main"
              "footer"`,
-        lg: `"nav head"
-           "nav main"
-           "nav footer"`,
+        lg: `"head"
+            "main"
+            "footer"`,
       }}
       gridTemplateRows={"1fr 2fr 2fr"}
-      gridTemplateColumns={{ base: "1fr", lg: "280px 1fr" }}
+      gridTemplateColumns={{ base: "1fr", lg: "auto" }}
       gap="1"
       color="blackAlpha.700"
       fontWeight="bold"
       height="100%"
       width="100%"
     >
-      <GridItem pl="2" bg="" area={"nav"}>
-        <SideBar />
-      </GridItem>
+      
       <GridItem pl="2" my={5} area={"head"} mx={10}>
         <Box bg="" m={10}>
           <Center>
