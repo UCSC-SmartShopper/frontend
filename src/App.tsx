@@ -1,8 +1,7 @@
-
 import "./App.css";
 import Navbar from "./components/Navbar";
 
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import CartDetails from "./pages/CartDetails";
 
@@ -20,7 +19,7 @@ import AdminOrders from "./pages/Admin/AdminOrders";
 import AdminTransactions from "./pages/Admin/AdminTransactions";
 import AdminAdvertisements from "./pages/Admin/AdminAdvertisements";
 import AdminSettings from "./pages/Admin/AdminSettings";
-
+import AdminMain from "./pages/Admin/AdminMain";
 
 export interface ProductQuery {
   genreId?: number;
@@ -29,41 +28,38 @@ export interface ProductQuery {
   searchText: string;
 }
 
-
 function App() {
-
   return (
     <>
-
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/cart" element={<CartDetails />} />
-        <Route path="/" element={<Landing />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/reviews" element={<Reviews />} />
-        <Route path="/admin-Overview" element={<AdminOverview />} />
-        <Route path="/admin-Customers" element={<AdminCustomers />} />
-        <Route path="/admin-SuperMarkets" element={<AdminSuperMarkets />} />
-        <Route path="/admin-CourierServices" element={<AdminCourierServices />} />
-        <Route path="/admin-Orders" element={<AdminOrders/>} />
-        <Route path="/admin-Transactions" element={<AdminTransactions />} />
-        <Route path="/admin-Advertisements" element={<AdminAdvertisements />} />
-        <Route path="/admin-Settings" element={<AdminSettings/>}/>
-        
-
-      </Routes>
-      
-    </Router>
-      
-
-
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/cart" element={<CartDetails />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/admin-Overview" element={<AdminOverview />} />
+          <Route path="/admin-Customers" element={<AdminCustomers />} />
+          <Route path="/admin-SuperMarkets" element={<AdminSuperMarkets />} />
+          <Route
+            path="/admin-CourierServices"
+            element={<AdminCourierServices />}
+          />
+          <Route path="/admin-Orders" element={<AdminOrders />} />
+          <Route path="/admin-Transactions" element={<AdminTransactions />} />
+          <Route
+            path="/admin-Advertisements"
+            element={<AdminAdvertisements />}
+          />
+          <Route path="/admin-Settings" element={<AdminSettings />} />
+          <Route path="/admin" element={<AdminMain />} />
+        </Routes>
+      </Router>
     </>
   );
 }
 
 export default App;
-  

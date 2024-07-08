@@ -1,7 +1,6 @@
 import { GridItem,Grid,Box,Table,TableContainer,Thead,Th,Tr,Tbody,
   Td,Tfoot,Heading,HStack,Card,CardBody,Center,Image,
   Text,Icon,Flex,Button} from "@chakra-ui/react"
-import SideBar from "../../components/SideBar"
 import BarGraph from "../../components/Charts/BarGraph"
 import DoughnutChart from "../../components/Charts/DoughnutChart"  
 import { CgWebsite } from "react-icons/cg";
@@ -10,25 +9,55 @@ import { FcSalesPerformance } from "react-icons/fc";
 import { AiOutlineRise ,AiOutlineFall} from "react-icons/ai";
 
 const AdminOverview = () => {
+  const cutomerCards=[
+    {
+      title:'Total Visits',
+      icon:CgWebsite,
+      color:'purple',
+      background:'purple.100',
+      value:'5.8 k',
+      percentage:'8.5% Up from yesterday',
+      rdicon:AiOutlineRise,
+      rdiconColor:'green.400'
+    },
+    {
+      title:'Total Customers',
+      icon:IoMdPeople,
+      color:'primary',
+      background:'orange.100',
+      value:'10.8 k',
+      percentage:'8.5% Down from yesterday',
+      rdicon:AiOutlineFall,
+      rdiconColor:'red.400'
+    },
+    {
+      title:'Total Sales',
+      icon:FcSalesPerformance,
+      color:"yellow",
+      background:'yellow.100',
+      value:'102,000 Rupees',
+      percentage:'8.5% Up from yesterday',
+      rdicon:AiOutlineRise,
+      rdiconColor:'green.400'
+    },
+  ]
   return (
     <Grid
     templateAreas={{
-      base: `"nav"
+      base: `
              "main"
              "footer"`,
-      lg: `"nav main"
-           "nav footer"`
+      lg: `" main"
+           " footer"`
     }}
-    gridTemplateRows={{ base: 'auto auto auto', lg: 'auto 1fr' }}
-    gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
+    gridTemplateRows={{ base: 'auto', lg: 'auto' }}
+    gridTemplateColumns={{ base: '1fr', lg: 'aut0' }}
   gap='1em'
   color='blackAlpha.700'
   fontWeight='bold'
   
 >
-  <GridItem pl='2' bg='' area={'nav'}>
-    <SideBar/>
-  </GridItem>
+  
   <GridItem pl='2' area={'main'} mx={10}>
     
     {/* <Flex p={10} >
@@ -87,16 +116,17 @@ const AdminOverview = () => {
     <Center>
         <HStack spacing={70}>
 
-          <Card>
+        {cutomerCards.map((card, index) => (
+          <Card key={index}>
             <CardBody>
                 <Flex gap={10}>
-              <Heading size="lg">Total Visits</Heading>
-              <Icon as={CgWebsite}  boxSize={10} color="purple" bg="purple.100" borderRadius={5} p={2}/> 
+              <Heading size="lg">{card.title}</Heading>
+              <Icon as={card.icon}  boxSize={10} color={card.color} bg={card.background} borderRadius={5} p={2}/> 
               </Flex>
-              <Text fontSize="lg">5.8 k</Text>
+              <Text fontSize="lg">{card.value}</Text>
               <Flex mt={2}>
-              <Icon as={AiOutlineRise}  boxSize={5} color="green.400"  borderRadius={5}/>
-                <Text fontSize="sm" color="green.400" pl={2}>8.5% Up from yesterday</Text>
+              <Icon as={card.rdicon}  boxSize={5} color={card.rdiconColor}  borderRadius={5}/>
+                <Text fontSize="sm" color={card.rdiconColor} pl={2}>{card.percentage}</Text>
                </Flex>
               <Box mt={2}>
                 <Text></Text>
@@ -104,39 +134,7 @@ const AdminOverview = () => {
             </CardBody>
           </Card>
 
-          <Card>
-            <CardBody>
-                <Flex gap={10}>
-              <Heading size="lg">Total Customers</Heading>
-              <Icon as={IoMdPeople}  boxSize={10} color="primary" bg="orange.100" borderRadius={5} p={2}/> 
-              </Flex>
-              <Text fontSize="lg">10.8 k</Text>
-              <Flex mt={2}>
-              <Icon as={AiOutlineFall}  boxSize={5} color="red.400"  borderRadius={5}/>
-                <Text fontSize="sm" color="red.400" pl={2}>8.5% Down from yesterday</Text>
-               </Flex>
-              <Box mt={2}>
-                <Text></Text>
-               </Box>
-            </CardBody>
-          </Card>
-
-          <Card>
-            <CardBody>
-                <Flex gap={10}>
-              <Heading size="lg">Total Sales</Heading>
-              <Icon as={FcSalesPerformance}  boxSize={10} bg="yellow.100" borderRadius={5} p={2}/> 
-              </Flex>
-              <Text fontSize="lg">102,000 Rupees</Text>
-              <Flex mt={2}>
-              <Icon as={AiOutlineRise}  boxSize={5} color="green.400"  borderRadius={5}/>
-                <Text fontSize="sm" color="green.400" pl={2}>8.5% Up from yesterday</Text>
-               </Flex>
-              <Box mt={2}>
-                <Text></Text>
-               </Box>
-            </CardBody>
-          </Card>
+        ))}
           
         </HStack>
       </Center>

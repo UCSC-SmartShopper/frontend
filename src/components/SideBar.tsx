@@ -58,9 +58,6 @@ const SideBar: React.FC = () => {
 
   return (
     <Box p={4}>
-      <Heading fontSize="2xl" color="primary" mt={2}>
-        My Account
-      </Heading>
       <VStack
         mt={5}
         alignItems="flex-start"
@@ -74,6 +71,9 @@ const SideBar: React.FC = () => {
         bg="gray.50"
         borderRadius="md"
       >
+        <Heading fontSize="2xl" color="primary" mt={2} p={2}>
+        My Account
+      </Heading>
         {menuItems.map((item, index) => (
           <Flex
             key={index}
