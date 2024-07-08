@@ -12,7 +12,6 @@ import BestSellingProducts from "../components/Landing/BestSellingProducts";
 import BrowseByCategory from "../components/Landing/BrowseByCategory";
 import Section from "../components/Landing/Section";
 import Navbar from "../components/Navbar";
-import DotIndicator from "@/components/DotIndicator";
 
 export interface ProductQuery {
   genreId?: number;
@@ -41,7 +40,7 @@ const Landing = () => {
           <Slide image={FastDeliveryImage} title="FastDelivery" />
         </SimpleSlider>
 
-        <DotIndicator current={2} total={3} />
+        
         
         <VStack
           justifyContent="center"
