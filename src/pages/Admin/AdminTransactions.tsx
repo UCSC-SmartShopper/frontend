@@ -1,36 +1,38 @@
 import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
-    ,Heading,Text,TableContainer,HStack,Circle,Button} from "@chakra-ui/react"
-  import AdminNavBar from "../../components/AdminNavBar"
+    ,Heading,Text,TableContainer,HStack,Circle,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
+    VStack,Icon,ListItem,List} from "@chakra-ui/react"
   import LineChart from "../../components/Charts/LineChart"
   import SideBar from "../../components/SideBar"
-  import LoginButton from "../../components/Buttons/LoginButton"
+  import LoginButton from "../../components/Buttons/LoginButton" 
+  import { MdPayment } from "react-icons/md";
+  import { FaShoppingBag } from "react-icons/fa";
+  import { GiStorkDelivery } from "react-icons/gi";
+  import { FaUser } from "react-icons/fa6";
 
 
 const AdminTransactions = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
     <Grid
   templateAreas={{
-                base:`"header"
-                        "nav"
+                base:` "nav"
                       "main"
                       "footer"`,
 
 
-                lg:`"header header"
-                  "nav main"
+                lg:`"nav main"
                   "nav footer"`,
                 
                 }}
-                gridTemplateRows={{ base: 'auto auto auto', lg: 'auto 1fr 1fr' }}
+                gridTemplateRows={{ base: 'auto auto auto', lg: 'auto auto' }}
                 gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
-  h='200px'
   gap='1'
   color='blackAlpha.700'
   fontWeight='bold'
 >
   <GridItem pl='2' bg='lightblue' area={'header'}>
-    <AdminNavBar/>
+    
   </GridItem>
   <GridItem pl='2' area={'nav'}>
     <SideBar/>
@@ -43,8 +45,8 @@ const AdminTransactions = () => {
        
     }}
     gridTemplateRows={{ base: 'auto auto', lg: '1fr' }}
-            gridTemplateColumns={{ base: '70%', lg: '70% 30%' }}
-            gap={0}
+            gridTemplateColumns={{ base: '70%', lg: '65% 33%' }}
+            gap={5}
     >
         <GridItem pl='2' area={'main1'} pb={2}>
         <Flex>
@@ -63,31 +65,16 @@ const AdminTransactions = () => {
     <LineChart topic='Money Flow'/>
   </GridItem>
   <GridItem pl='2'  area={'main2'}>
-  <Card>
+  <Card mt={14} py={4}>
   <CardBody>
     
  
     <Box mb={10}>
-        <Heading fontSize="20px" mb={4}>Top Buyers</Heading>
+        <Heading fontSize="20px" mb={4} mt={0}>Top Buyers</Heading>
       <Flex>
         <Box px={3}>Customer</Box>
         <Spacer/>
         <Box px={10}>Items Purchased</Box>
-      </Flex>
-    </Box>
-    <Box mb={5}>
-      <Flex>
-      <HStack px={3}>
-        <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='40px'
-                  objectFit='cover'
-                />
-                <Box px={3} py={2}>Kaveesha Hettige</Box>
-        </HStack>
-        <Spacer/>
-        <Box px={10} py={2}>12</Box>
       </Flex>
     </Box>
     <Box mb={5}>
@@ -228,7 +215,7 @@ const AdminTransactions = () => {
                 </HStack>
             </Td>
             <Td>Rs.2000</Td>
-            <Td><Button bg='primary' size='sm'>View More</Button></Td>
+            <Td><Button bg='primary' size='sm' onClick={onOpen}>View More</Button></Td>
           </Tr>
           <Tr>
           <Td>
@@ -289,6 +276,172 @@ const AdminTransactions = () => {
    
     
   </GridItem>
+  <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            <Box borderBottomWidth={'1px'} p={2} >
+            <VStack>
+            <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='100px'
+                  objectFit='cover'
+                  borderRadius="50%"
+                  mr={4}
+                />
+              <Text fontSize={'xl'}>Kaveesha Hettige</Text>
+              <HStack>
+              <Icon as={FaUser} boxSize={4} color='primary'/>
+              <Text fontSize={'sm'}>Customer</Text>
+
+              </HStack>
+              
+            </VStack>
+            </Box>
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody >
+            <Center borderBottomWidth={'1px'} pb={6}>
+
+            <Flex >
+            
+            
+              <Box mr={1} >
+                
+                <VStack>
+                  <Box mb={8}>
+                  <Icon as={MdPayment} boxSize={5} color={'primary'}/>
+                  </Box>
+                  <Box mb={7}>
+                  <Icon as={GiStorkDelivery} boxSize={5} color={'primary'} />
+                  </Box>
+                </VStack>
+
+              </Box>
+              <Box ml={1}>
+              <VStack>
+                  
+              <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Price</Text>
+                  <Text fontSize={'sm'}>Rs 4000</Text>
+                  </VStack>
+                  <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>Delivery Type</Text>
+                  <Text fontSize={'sm'}>Collected</Text>
+                  </VStack>
+                </VStack>
+                
+              </Box>
+
+              <Box mr={1} ml={6}>
+                
+                <VStack>
+                  <Box mb={7}>
+                  <Icon as={FaShoppingBag} boxSize={5} color={'primary'} />
+                  </Box>
+                </VStack>
+
+              </Box>
+              <Box ml={1}>
+              <VStack>
+                  <VStack>
+                  <Text fontSize={'lg'} fontWeight={'500'}>No of Items</Text>
+                  <Text fontSize={'sm'}>4</Text>
+                  </VStack>
+                </VStack>
+                
+              </Box>
+              
+            </Flex>
+            </Center>
+
+            <Box mt={1}>
+            <HStack>
+              <Heading fontSize={'md'} color='primary' fontWeight={'500'}>Cargills</Heading>
+              <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='30px'
+                  objectFit='cover'
+                  m={2}
+                />
+              </HStack>
+              <Box>
+              <List spacing={3}>
+  <ListItem>
+    <HStack boxShadow={'sm'} p={1}>
+    <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='50px'
+                  objectFit='cover'
+                  mr={4}
+                />
+              <Text>Munchee Super Cream Cracker 500g</Text>
+              
+    </HStack>
+  </ListItem>
+
+  <ListItem>
+    <HStack boxShadow={'sm'} p={1}>
+    <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='50px'
+                  objectFit='cover'
+                  mr={4}
+                />
+              <Text>Munchee Super Cream Cracker 500g</Text>
+    </HStack>
+  </ListItem>
+
+</List>
+              </Box>
+
+            </Box>
+
+            <Box mt={1}>
+              <HStack>
+              <Heading fontSize={'md'} color='primary' fontWeight={'500'}>keells</Heading>
+              <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='30px'
+                  objectFit='cover'
+                  m={2}
+                />
+              </HStack>
+              
+              <Box>
+              <List spacing={3}>
+  <ListItem>
+    <HStack boxShadow={'sm'} p={1}>
+    <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='50px'
+                  objectFit='cover'
+                  mr={4}
+                />
+              <Text>Munchee Super Cream Cracker 500g</Text>
+    </HStack>
+  </ListItem>
+  
+</List>
+              </Box>
+
+            </Box>
+
+          </ModalBody>
+
+          <ModalFooter>
+            <Button bg="primary" color='white' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 </Grid>
     </>
     

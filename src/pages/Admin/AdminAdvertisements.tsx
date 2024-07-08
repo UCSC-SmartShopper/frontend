@@ -1,6 +1,5 @@
 import { Grid, GridItem,Card,CardBody,Heading,Flex,Box,Center,Text,VStack,Select,
   Icon,Spacer,Button,Image} from "@chakra-ui/react"
-  import AdminNavBar from "../../components/AdminNavBar"
   import SideBar from "../../components/SideBar"
   import { CiImageOn,CiEdit } from "react-icons/ci";
 
@@ -11,26 +10,25 @@ const AdminAdvertisements = () => {
     <>
     <Grid
   templateAreas={{
-                base:`"header" 
+                base:`
                         "nav"
                       "main"
                       "footer"`,
 
 
-                lg:`"header header"
+                lg:`
                   "nav main"
                   "nav footer"`,
                 
                 }}
-                gridTemplateRows={{ base: 'auto auto auto', lg: 'auto 1fr 1fr' }}
+                gridTemplateRows={{ base: 'auto auto auto', lg: 'auto auto' }}
                 gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
-  h='200px'
   gap='1'
   color='blackAlpha.700'
   fontWeight='bold'
 >
-  <GridItem pl='2' bg='lightblue' area={'header'}>
-    <AdminNavBar/>
+  <GridItem pl='2' bg='lightblue'>
+    {/* <AdminNavBar/> */}
   </GridItem>
   <GridItem pl='2' area={'nav'}>
     <SideBar/>
@@ -114,7 +112,7 @@ const AdminAdvertisements = () => {
   </Flex>
   
 
-  <Card px={10} py={1}>
+  <Card px={10} py={1} mb={10}>
         <CardBody>
             <Image src='https://via.placeholder.com/150'
                   alt='Product Image'  

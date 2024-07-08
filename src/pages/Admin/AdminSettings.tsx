@@ -1,114 +1,94 @@
-import { useState } from 'react';
-import { Grid, GridItem, Flex, Box, Center, Text, VStack, Spacer, Button, Image, Input,Icon} from "@chakra-ui/react";
-import AdminNavBar from "../../components/AdminNavBar";
+import React, { useState, ChangeEvent } from 'react';
+import { Grid, GridItem, Box, Text, VStack, Button, Image, Textarea, Tabs, TabList, TabPanels, Tab, TabPanel,Input } from "@chakra-ui/react";
 import SideBar from "../../components/SideBar";
-import { FaChevronDown,FaChevronUp } from "react-icons/fa";
 
+const AdminSettings: React.FC = () => {
+  const [TermsOfUse, setTermsOfUse] = useState('Terms of Use\n\n1. Acceptance of Terms: By using this website, you agree to the terms of this agreement.\n2. Provision of Services: We may modify or discontinue the service at any time without notice.\n3. User Responsibilities: Users must not use the website for unlawful purposes and must provide accurate information.\n4. Intellectual Property: All content is the property of the website owner and is protected by copyright laws.\n5. Limitation of Liability: We are not liable for any indirect, incidental, special, or consequential damages.\n6. Governing Law: These terms are governed by the laws of the jurisdiction.\n7. Changes to the Terms: We may modify these terms at any time. Continued use constitutes acceptance of the new terms.\n8. Contact Information: Contact us at [contact information] for any questions.');
+  const [isEditing, setIsEditing] = useState(false);
 
-const AdminSettings = () => {
-  const [showProfileDetails, setShowProfileDetails] = useState(false);
-  const [showTermsOfUse, setShowTermsOfUse] = useState(false);
-
-
-  const handleToggleProfileDetails = () => {
-    setShowProfileDetails(prevState => !prevState);
+  const changeTermsDetails = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setTermsOfUse(e.target.value);
   };
-  const handleToggleTermsDetails = () => {
-    setShowTermsOfUse(prevState => !prevState);
+
+  const toggleEditSave = () => {
+    setIsEditing(!isEditing);
   };
 
   return (
     <>
       <Grid
         templateAreas={{
-          base: `"header" 
-                        "nav"
-                      "main"`,
-          lg: `"header header"
-                  "nav main"`,
+          base: `"nav" "main"`,
+          lg: `"nav main"`,
         }}
-        gridTemplateRows={{ base: 'auto auto auto', lg: 'auto auto' }}
+        gridTemplateRows={{ base: 'auto auto', lg: 'auto' }}
         gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
-        h='200px'
         gap='1'
         color='blackAlpha.700'
         fontWeight='bold'
       >
-        <GridItem pl='2' bg='lightblue' area={'header'}>
-          <AdminNavBar />
-        </GridItem>
         <GridItem pl='2' area={'nav'}>
           <SideBar />
         </GridItem>
         <GridItem pl='2' area={'main'} my={10} mx={300}>
-          <Box boxShadow='md'>
-            <Box boxShadow="sm">
-              <Flex px={5} py={2}>
-                <Center>
-                  <Text>Profile</Text>
-                </Center>
-                <Spacer />
-                <Button onClick={handleToggleProfileDetails}>
-                    <Icon as={showProfileDetails ? FaChevronUp : FaChevronDown}/>
-                </Button>
-              </Flex>
-            </Box>
-            {showProfileDetails && (
-              <Box my={5} px={10} boxShadow="sm">
-                <VStack>
-                  <Image
-                    src='https://via.placeholder.com/150'
-                    alt='Product Image'
-                    boxSize='70px'
-                    objectFit='cover'
-                    borderRadius="50%"
-                    mr={4}
+          <Tabs>
+            <TabList>
+              <Tab>Profile</Tab>
+              <Tab>Terms Of Use</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <Box my={5} px={10} boxShadow="md">
+                  <VStack>
+                    <Image
+                      src='https://via.placeholder.com/150'
+                      alt='Product Image'
+                      boxSize='70px'
+                      objectFit='cover'
+                      borderRadius="50%"
+                      mr={4}
+                    />
+                    <Text fontSize="2xl">Kaveesha Hettige</Text>
+                    <Box my={3}>
+                      <Text fontSize='md' mb={1}>Email</Text>
+                      <Input placeholder='admin@gmail.com' />
+                    </Box>
+                    <Box my={3}>
+                      <Text fontSize='md' mb={1}>Current Password</Text>
+                      <Input placeholder='*********' />
+                    </Box>
+                    <Box my={3}>
+                      <Text fontSize='md' mb={1}>New Password</Text>
+                      <Input placeholder='*********' />
+                    </Box>
+                    <Box my={3}>
+                      <Button bg='primary' size='sm'>Save Changes</Button>
+                    </Box>
+                  </VStack>
+                </Box>
+              </TabPanel>
+              <TabPanel>
+                <Box my={5} px={10} boxShadow="md" py={5}>
+                <Box my={3}>
+                    <Button bg="primary" size="sm" onClick={toggleEditSave}>
+                      {isEditing ? 'Save Changes' : 'Edit'}
+                    </Button>
+                  </Box>
+                  <Textarea 
+                    value={TermsOfUse} 
+                    onChange={changeTermsDetails} 
+                    isReadOnly={!isEditing} 
+                    rows={20}
                   />
-                  <Text fontSize="2xl">Kaveesha Hettige</Text>
-
-                  <Box my={3}>
-                    <Text fontSize='md' mb={1}>Email</Text>
-                    <Input placeholder='admin@gmail.com' />
-                  </Box>
-
-                  <Box my={3}>
-                    <Text fontSize='md' mb={1}>Current Password</Text>
-                    <Input placeholder='*********' />
-                  </Box>
-
-                  <Box my={3}>
-                    <Text fontSize='md' mb={1}>New Password</Text>
-                    <Input placeholder='*********' />
-                  </Box>
-
-                  <Box my={3}>
-                    <Button bg='primary' size='sm'>Save Changes</Button>
-                  </Box>
-                </VStack>
-              </Box>
-            )}
-            <Box boxShadow="sm">
-              <Flex px={5} py={2}>
-                <Center>
-                  <Text>Terms of Use</Text>
-                </Center>
-                <Spacer />
-                <Button onClick={handleToggleTermsDetails}>
-                    <Icon as={showTermsOfUse ? FaChevronUp : FaChevronDown}/>
-                </Button>
-              </Flex>
-            </Box>
-
-            {showTermsOfUse && (
-              <Box my={5} px={10}>
-                Term of Use
-              </Box>
-            )}
-          </Box>
+                  
+                </Box>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
         </GridItem>
       </Grid>
     </>
-  )
+  );
 }
 
 export default AdminSettings;
