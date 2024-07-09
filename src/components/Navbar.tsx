@@ -30,6 +30,9 @@ const Navbar = () => {
         borderColor={useColorModeValue("gray.200", "gray.900")}
         align={"center"}
         justifyContent="space-between"
+        pos={location.pathname === "/admin" ? "sticky" : "relative"}
+        top={0}
+        zIndex={10}
       >
         <HStack gap={5}>
           {/* <Box display="inline" fontSize="2xl" fontWeight="bold">
