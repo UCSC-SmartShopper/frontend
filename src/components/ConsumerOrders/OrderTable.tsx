@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Table,
@@ -62,6 +62,33 @@ const orders: Order[] = [
         collector: "customer",
         total: "$200.00",
       },
+      {
+        id: "10003",
+        details: "Kring New Fit office chair, mesh + PU, black",
+        status: "Cancelled",
+        date: "16/10/2021",
+        deliveryPerson: "John Doe",
+        collector: "customer",
+        total: "$200.00",
+      },
+      {
+        id: "10003",
+        details: "Kring New Fit office chair, mesh + PU, black",
+        status: "Cancelled",
+        date: "16/10/2021",
+        deliveryPerson: "John Doe",
+        collector: "customer",
+        total: "$200.00",
+      },
+      {
+        id: "10003",
+        details: "Kring New Fit office chair, mesh + PU, black",
+        status: "Cancelled",
+        date: "16/10/2021",
+        deliveryPerson: "John Doe",
+        collector: "customer",
+        total: "$200.00",
+      },
 ];
 
 const statusColor: Record<Order["status"], string> = {
@@ -72,6 +99,16 @@ const statusColor: Record<Order["status"], string> = {
 };
 
 const OrderTable: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 5;
+
+
+  const totalPages = Math.ceil(orders.length / ordersPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <>
       <Box className="overflow-auto rounded-lg shadow hidden md:block">
@@ -128,17 +165,18 @@ const OrderTable: React.FC = () => {
         <Button variant="outline" colorScheme="blue">
           Previous
         </Button>
-        <Flex alignItems="center">
-          <Button variant="outline" colorScheme="blue" mx={2}>
-            1
-          </Button>
-          <Button variant="outline" colorScheme="blue" mx={2}>
-            2
-          </Button>
-          <Button variant="outline" colorScheme="blue" mx={2}>
-            3
-          </Button>
-        </Flex>
+        <Box>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <Button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              isActive={currentPage === index + 1}
+              mx={1}
+            >
+              {index + 1}
+            </Button>
+          ))}
+        </Box>
         <Button variant="outline" colorScheme="blue">
           Next
         </Button>
