@@ -3,7 +3,6 @@ import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,
   ,Heading,Text,TableContainer,HStack,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
   VStack,Icon} from "@chakra-ui/react"
 import LineChart from "../../components/Charts/LineChart"
-import SideBar from "../../components/SideBar"
 import LoginButton from "../../components/Buttons/LoginButton"
   import { IoStarSharp,IoBusiness ,IoCall} from "react-icons/io5";
   import { SiCashapp } from "react-icons/si";
@@ -17,31 +16,20 @@ const AdminCourierServices = () => {
     <>
     <Grid
   templateAreas={{
-                base:`
-                        "nav"
-                      "main"
+                base:`"main"
                       "footer"`,
-
-
-                lg:`
-                  "nav main"
-                  "nav footer"`,
+                lg:`"main"
+                  "footer"`,
                 
                 }}
-                gridTemplateRows={{ base: 'auto auto auto', lg: 'auto auto' }}
-                gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
+                gridTemplateRows={"auto auto"}
+      gridTemplateColumns={{ base: "1fr", lg: "auto" }}
   gap='1'
   color='blackAlpha.700'
   fontWeight='bold'
 >
-  <GridItem pl='2' bg='lightblue' area={'header'}>
-    {/* <AdminNavBar/> */}
-  </GridItem>
-  {/* position={'fixed'} */}
-  <GridItem pl='2' area={'nav'}>  
-    <SideBar/>
-  </GridItem>
-  <GridItem pl='2' area={'main'} m={5} mx={10}>
+  
+  <GridItem pl='2' area={'main'} ml={8}>
     <Grid templateAreas={{
         base: `"main1"
               "main2"`,
@@ -49,14 +37,14 @@ const AdminCourierServices = () => {
        
     }}
     gridTemplateRows={{ base: 'auto auto', lg: '1fr' }}
-            gridTemplateColumns={{base:'1fr',lg:'65% 33%'}}
+            gridTemplateColumns={{base:'1fr',lg:'65% 30%'}}
   gap={5}
     >
-        <GridItem  area={'main1'} pb={2} >
+        <GridItem  area={'main1'} pb={2}>
     <LineChart topic='Courier Company Earnings'/>
   </GridItem>
   <GridItem   area={'main2'} mt={5}>
-  <Card py={9}>
+  <Card pt={7}>
   <CardBody>
     
  
@@ -64,7 +52,7 @@ const AdminCourierServices = () => {
       <Flex>
         <Box px={3}>Company</Box>
         <Spacer/>
-        <Box px={10}>No of Drivers</Box>
+        <Box px={5}>No of Drivers</Box>
       </Flex>
     </Box>
     <Box mb={5}>
@@ -168,7 +156,7 @@ const AdminCourierServices = () => {
     </Flex>
 
   <TableContainer width={{ base: "100%", lg: "90%" }} ml={{ base: '0%', lg: '5%' }}>
-      <Table size='md'>
+      <Table size='sm'>
         <Thead>
           <Tr>
             <Th>Name</Th>

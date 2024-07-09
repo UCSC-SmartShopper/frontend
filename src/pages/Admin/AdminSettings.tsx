@@ -18,18 +18,16 @@ const AdminSettings: React.FC = () => {
     <>
       <Grid
         templateAreas={{
-          base: `"nav" "main"`,
-          lg: `"nav main"`,
+          base: `"main"`,
+          lg: `"main"`,
         }}
-        gridTemplateRows={{ base: 'auto auto', lg: 'auto' }}
-        gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
+        gridTemplateRows={'auto' }
+        gridTemplateColumns={{ base: '1fr', lg: 'auto' }}
         gap='1'
         color='blackAlpha.700'
         fontWeight='bold'
       >
-        <GridItem pl='2' area={'nav'}>
-          <SideBar />
-        </GridItem>
+        
         <GridItem pl='2' area={'main'} my={10} mx={300}>
           <Tabs>
             <TabList>

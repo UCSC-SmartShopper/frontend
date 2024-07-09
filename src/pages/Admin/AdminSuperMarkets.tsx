@@ -2,10 +2,10 @@ import { GridItem,Grid,Box,Table,TableContainer,Thead,Th,Tr,Tbody,
     Td,Tfoot,Heading,Image,Text,Flex,Select,Icon,Center,
     HStack,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
     VStack} from "@chakra-ui/react"
-  import SideBar from "../../components/SideBar"
+
   import PieChart from "../../components/Charts/PieChart" 
-import LineChart from "../../components/Charts/LineChart";
-import { FaLocationDot } from "react-icons/fa6";
+  import LineChart from "../../components/Charts/LineChart";
+  import { FaLocationDot } from "react-icons/fa6";
   import { IoStarSharp } from "react-icons/io5";
   import { SiCashapp } from "react-icons/si";
   import { GrUserWorker } from "react-icons/gr";
@@ -20,48 +20,38 @@ const AdminSuperMarkets = () => {
   return (
     <Grid
     templateAreas={{
-      base: `"nav"
-             "main"
+      base: `"main"
              "footer"`,
-      lg: `"nav main"
-           "nav footer"`
+      lg: `" main"
+           " footer"`
     }}
-    gridTemplateRows={{ base: 'auto auto auto', lg: 'auto 1fr' }}
-    gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
-  gap='1'
-  color='blackAlpha.700'
-  fontWeight='bold'
+    gridTemplateRows={"auto auto" }
+    gridTemplateColumns={{ base: '1fr', lg: 'auto' }}
+    gap='1'
+    color='blackAlpha.700'
+    fontWeight='bold'
 >
-  <GridItem pl='2' bg='' area={'nav'}>
-    <SideBar/>
-  </GridItem>
-  <GridItem pl='2' area={'main'} mx={10}>
-    
-    {/* <Flex p={10} >
-    <BarGraph/>
-    <Spacer/>
-    <BarGraph/>
-    </Flex> */}
+  
+  <GridItem pl='2' area={'main'}>
     
     <Grid templateAreas={{
       base: `"main1"
-             "main2"`,
-      md: `"main1"
              "main2"`,     
       lg: `"main1 main2"`
     }}
-  gridTemplateColumns={{base:'1fr',lg:'33% 60%'}}
+    gridTemplateRows={{ base: 'auto auto', lg: '1fr' }}
+  gridTemplateColumns={{base:'1fr',lg:'30% 65%'}}
   gap={5}
   >
 
-  <GridItem  bg='' area={'main1'}>
+  <GridItem  area={'main1'}>
     <Heading size={'lg'} my={4}>Super Market Earnings</Heading>
     <Box pt={10} boxShadow={'md'}>
     <PieChart title=''/>
     </Box>
   </GridItem>
 
-  <GridItem  bg='' area={'main2'} mt={12}>
+  <GridItem area={'main2'} mt={12}>
     <LineChart topic=""/>
   </GridItem>
 
@@ -69,10 +59,10 @@ const AdminSuperMarkets = () => {
     </Grid>
     
   </GridItem>
-  <GridItem pl='2' bg={''} area={'footer'} m={10} >
+  <GridItem pl='1' bg={''} area={'footer'} my={10} >
 
-  <Box p={2} shadow='md' borderWidth='1px'  mr="70px">
-    <Flex justifyContent="space-between" px={20} py={10}>
+  <Box p={2} shadow='md' borderWidth='1px'  >
+    <Flex justifyContent="space-between" >
     <Heading as='h3' size='lg' >
       Super Market Details
     </Heading>
@@ -92,14 +82,13 @@ const AdminSuperMarkets = () => {
     </Flex>
 
   <TableContainer width={{ base: "100%", lg: "90%" }} ml={{ base: '0%', lg: '5%' }}>
-      <Table size='md'>
+      <Table size='sm'>
         <Thead>
           <Tr>
             <Th>Name</Th>
             <Th>Address</Th>
             <Th>Manager Name</Th>
             <Th>Contact Number</Th>
-            <Th>Earning</Th>
             <Th></Th>
           </Tr>
         </Thead>
@@ -121,7 +110,6 @@ const AdminSuperMarkets = () => {
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>Kaveesha Hettige</Td>
             <Td>07523458901</Td>
-            <Td>Rs. 12000</Td>
             <Td><Button bg='primary' size='sm' onClick={onOpen}>View More</Button></Td>
           </Tr>
           <Tr>
@@ -141,7 +129,6 @@ const AdminSuperMarkets = () => {
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>Kaveesha Hettige</Td>
             <Td>07523458901</Td>
-            <Td>Rs. 12000</Td>
             <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tbody>
@@ -163,7 +150,7 @@ const AdminSuperMarkets = () => {
             <Td>235/1,Kanampitiya Road,Galle</Td>
             <Td>Kaveesha Hettige</Td>
             <Td>07523458901</Td>
-            <Td>Rs. 12000</Td>
+
             <Td><Button bg='primary' size='sm'>View More</Button></Td>
           </Tr>
         </Tfoot>

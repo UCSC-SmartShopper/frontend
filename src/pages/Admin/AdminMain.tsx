@@ -11,7 +11,8 @@ import AdminAdvertisements from "./AdminAdvertisements";
 import AdminSettings from "./AdminSettings";
 
 const AdminMain = () => {
-  const [adminPage, setAdminPage] = useState("overview");
+  const [adminPage, setAdminPage] = useState("settings");
+  
   return (
     <Flex w="full">
       <Box w="16vw" top="10vh">
@@ -21,11 +22,13 @@ const AdminMain = () => {
         {adminPage === "overview" && <AdminOverview />}
         {adminPage === "customers" && <AdminCustomers />}
         {adminPage === "supermarkets" && <AdminSuperMarkets />}
-        {adminPage === "couriers" && <AdminCourierServices />}
-        {adminPage === "orders" && <AdminOrders />}
-        {adminPage === "transactins" && <AdminTransactions />}
-        {adminPage === "advertisements" && <AdminAdvertisements />}
-        {adminPage === "settings" && <AdminSettings />}
+        {adminPage === "couriers" && <AdminCourierServices/>}
+        {adminPage === "orders" && <AdminOrders/>}
+        {adminPage ==='transactions' && <AdminTransactions/>}
+        {adminPage === 'advertisements' && <AdminAdvertisements/>}
+        {adminPage === 'settings' && <AdminSettings/>}
+
+
       </Box>
     </Flex>
   );
