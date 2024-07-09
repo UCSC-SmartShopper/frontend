@@ -57,7 +57,7 @@ const SideBar: React.FC = () => {
   };
 
   return (
-    <Box p={4}>
+    <Box p={4} pos='fixed' top='10vh'>
       <VStack
         mt={5}
         alignItems="flex-start"
