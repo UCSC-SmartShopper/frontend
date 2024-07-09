@@ -4,13 +4,13 @@ import {
   HStack,
   Icon,
   Image,
-  Show,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";  // Import Link from react-router-dom
 import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
 
@@ -18,11 +18,10 @@ const Navbar = () => {
   const [user] = useState("Courier Company");
   const location = useLocation();
   const hideNavbarPaths = ["/driver"];
-  const showTopNav = !hideNavbarPaths.some((path) => location.pathname.startsWith(path));  
+  const showTopNav = !hideNavbarPaths.some((path) => location.pathname.startsWith(path));
   const consumerNavItems = ["Home", "Supermarkets", "About Us"];
   const courierNavItems = ["Home", "Request", "Deliveries"];
-  const navItems =
-    user === "Courier Company" ? courierNavItems : consumerNavItems;
+  const navItems = user === "Courier Company" ? courierNavItems : consumerNavItems;
 
   return (
     <>
@@ -41,20 +40,16 @@ const Navbar = () => {
           justifyContent="space-between"
         >
           <HStack gap={5}>
-            {/* <Box display="inline" fontSize="2xl" fontWeight="bold">
-            <Text as="span">Smart</Text>
-            <Text color="primary" as="span">
-              Shopper
-            </Text>
-          </Box> */}
             <Image src={Banner} />
 
-          {navItems.map((item) => (
-            <Text fontSize="lg" fontWeight="bold">
-              {item}
-            </Text>
-          ))}
-        </HStack>
+            {navItems.map((item) => (
+              <Link to={`/${item.toLowerCase()}`} key={item}>  {/* Use Link component for navigation */}
+                <Text fontSize="lg" fontWeight="bold">
+                  {item}
+                </Text>
+              </Link>
+            ))}
+          </HStack>
 
           {user ? (
             <HStack marginX={10} gap={5}>
@@ -85,4 +80,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
