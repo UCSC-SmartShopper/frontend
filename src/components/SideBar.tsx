@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Box, Heading, VStack, Text, Flex } from "@chakra-ui/react";
 import { MdViewSidebar } from "react-icons/md";
 import { IoMdPeople } from "react-icons/io";
@@ -8,52 +9,33 @@ import { TbTransactionDollar } from "react-icons/tb";
 import { RiAdvertisementFill } from "react-icons/ri";
 import { IoSettings } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 
 interface MenuItem {
   icon: React.ComponentType<any>;
   label: string;
   path: string;
 }
-
-const SideBar: React.FC = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+interface SideBarProps {
+  setAdminPage: React.Dispatch<React.SetStateAction<string>>;
+}
+const SideBar: React.FC<SideBarProps> = ({ setAdminPage }) => {
+  const [activeItem, setActiveItem] = useState<number>(0);
 
   const menuItems: MenuItem[] = [
-    { icon: MdViewSidebar, label: 'Overview', path: '/admin-Overview' },
-    { icon: IoMdPeople, label: 'Customers', path: '/admin-Customers' },
-    { icon: FaShop, label: 'Super Markets', path: '/admin-SuperMarkets' },
-    { icon: TbTruckDelivery, label: 'Courier Services', path: '/admin-CourierServices' },
-    { icon: FaCartFlatbed, label: 'Orders', path: '/admin-Orders' },
-    { icon: TbTransactionDollar, label: 'Transactions', path: '/admin-Transactions' },
-    { icon: RiAdvertisementFill, label: 'Advertisements', path: '/admin-Advertisements' },
-    { icon: IoSettings, label: 'Settings', path: '/admin-Settings' },
+    { icon: MdViewSidebar, label: 'Overview', path: 'overview' },
+    { icon: IoMdPeople, label: 'Customers', path: 'customers' },
+    { icon: FaShop, label: 'Super Markets', path: 'supermarkets' },
+    { icon: TbTruckDelivery, label: 'Courier Services', path: 'couriers' },
+    { icon: FaCartFlatbed, label: 'Orders', path: 'orders'},
+    { icon: TbTransactionDollar, label: 'Transactions', path: 'transactions' },
+    { icon: RiAdvertisementFill, label: 'Advertisements', path: 'advertisements' },
+    { icon: IoSettings, label: 'Settings', path: 'settings' },
     { icon: FiLogOut, label: 'Logout', path: '/' },
   ];
 
-  const getIndexFromPath = (path: string): number => {
-    return menuItems.findIndex(item => item.path === path);
-  };
-
-  const [activeItem, setActiveItem] = useState<number>(() => {
-    const storedIndex = localStorage.getItem('activeItem');
-    return storedIndex !== null ? parseInt(storedIndex) : 0;
-  });
-
-  useEffect(() => {
-    const currentIndex = getIndexFromPath(location.pathname);
-    if (currentIndex !== -1) {
-      setActiveItem(currentIndex);
-      localStorage.setItem('activeItem', currentIndex.toString());
-    }
-  }, [location.pathname]);
-
   const handleItemClick = (index: number, path: string) => {
     setActiveItem(index);
-    localStorage.setItem('activeItem', index.toString());
-    navigate(path);
+    setAdminPage(path);
   };
 
   return (
@@ -64,16 +46,13 @@ const SideBar: React.FC = () => {
         color="gray.700"
         fontWeight="500"
         spacing={3}
-        p={4}
-        pl={0}
-        pr={0}
         shadow="lg"
         bg="gray.50"
         borderRadius="md"
       >
         <Heading fontSize="2xl" color="primary" mt={2} p={2}>
-        My Account
-      </Heading>
+          My Account
+        </Heading>
         {menuItems.map((item, index) => (
           <Flex
             key={index}
