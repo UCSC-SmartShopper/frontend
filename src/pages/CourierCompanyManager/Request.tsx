@@ -21,6 +21,10 @@ import { useState } from "react";
 
 import FaceImage from "../../assets/CourierCompany/Avatar3.svg";
 import MiddleContainer from "../../components/Containers/MiddleContainer";
+import BikeImage from "../../assets/CourierCompany/bike 1.svg";
+import FaceImage2 from "../../assets/CourierCompany/Avatar 1.svg";
+import FaceImage3 from "../../assets/CourierCompany/Avatar2.svg";
+import FaceImage4 from "../../assets/CourierCompany/Avatar4.svg";
 
 interface DeliveryPerson {
   name: string;
@@ -49,6 +53,17 @@ const Request = () => {
       vehicleNumber: "VQ 3344",
       vehicleColor: "",
       avatar: FaceImage, // Replace with actual image URL
+      vehicleImage: BikeImage, // Replace with actual image URL
+    },
+    {
+      name: "Kaveesha Hettige",
+      nic: "763344567V",
+      phone: "+947788905",
+      vehicleType: "Motor Cycle",
+      vehicleName: "TVS ntorq 125",
+      vehicleNumber: "VQ 3344",
+      vehicleColor: "",
+      avatar: FaceImage2, // Replace with actual image URL
       vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
     },
     {
@@ -59,7 +74,7 @@ const Request = () => {
       vehicleName: "TVS ntorq 125",
       vehicleNumber: "VQ 3344",
       vehicleColor: "",
-      avatar: "https://via.placeholder.com/150", // Replace with actual image URL
+      avatar: FaceImage3, // Replace with actual image URL
       vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
     },
     {
@@ -70,18 +85,7 @@ const Request = () => {
       vehicleName: "TVS ntorq 125",
       vehicleNumber: "VQ 3344",
       vehicleColor: "",
-      avatar: "https://via.placeholder.com/150", // Replace with actual image URL
-      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
-    },
-    {
-      name: "Kaveesha Hettige",
-      nic: "763344567V",
-      phone: "+947788905",
-      vehicleType: "Motor Cycle",
-      vehicleName: "TVS ntorq 125",
-      vehicleNumber: "VQ 3344",
-      vehicleColor: "",
-      avatar: "https://via.placeholder.com/150", // Replace with actual image URL
+      avatar: FaceImage4, // Replace with actual image URL
       vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
     },
   ];
@@ -187,10 +191,10 @@ const Request = () => {
                   </Grid>
                 </Box>
                 <Image
+                  mt={4}
                   src={selectedPerson.vehicleImage}
                   boxSize="150px"
-                  objectFit="cover"
-                  ml={4}
+                  ml={2}
                 />
               </Box>
             </ModalBody>

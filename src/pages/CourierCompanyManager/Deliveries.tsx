@@ -35,6 +35,7 @@ import Face from "../../assets/CourierCompany/Face 1.svg";
 import Stars from "../../assets/CourierCompany/stars.svg";
 import MiddleContainer from "../../components/Containers/MiddleContainer2";
 
+
 interface Customer {
   name: string;
   phone: string;
