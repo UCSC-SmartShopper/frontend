@@ -15,29 +15,20 @@ const AdminOrders = () => {
     <>
     <Grid
   templateAreas={{
-                base:`
-                        "nav"
-                      "main"
+                base:`"main"
                       "footer"`,
 
 
-                lg:`
-                  "nav main"
-                  "nav footer"`,
+                lg:`"main"
+                    "footer"`,
                 
                 }}
-                gridTemplateRows={{ base: 'auto auto auto', lg: 'auto auto' }}
-                gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
+                gridTemplateRows={{ base: 'auto auto', lg: 'auto auto' }}
+                gridTemplateColumns={{ base: '1fr', lg: 'auto' }}
   gap='1'
   color='blackAlpha.700'
   fontWeight='bold'
 >
-  <GridItem pl='2' bg='lightblue' area={'header'}>
-    {/* <AdminNavBar/> */}
-  </GridItem>
-  <GridItem pl='2' area={'nav'}>
-    <SideBar/>
-  </GridItem>
   <GridItem pl='2' area={'main'} m={5} mx={10}>
     <Grid templateAreas={{
         base: `"main1"

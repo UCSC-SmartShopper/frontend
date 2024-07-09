@@ -79,7 +79,7 @@ const AdminCustomers = () => {
             "main"
             "footer"`,
       }}
-      gridTemplateRows={"1fr 2fr 2fr"}
+      gridTemplateRows={"auto auto auto"}
       gridTemplateColumns={{ base: "1fr", lg: "auto" }}
       gap="1"
       color="blackAlpha.700"
