@@ -2,7 +2,6 @@ import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,
     ,Heading,Text,TableContainer,HStack,Circle,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
     VStack,Icon,ListItem,List} from "@chakra-ui/react"
   import LineChart from "../../components/Charts/LineChart"
-  import SideBar from "../../components/SideBar"
   import LoginButton from "../../components/Buttons/LoginButton" 
   import { MdPayment } from "react-icons/md";
   import { FaShoppingBag } from "react-icons/fa";
@@ -16,28 +15,20 @@ const AdminTransactions = () => {
     <>
     <Grid
   templateAreas={{
-                base:` "nav"
-                      "main"
+               base:`"main"
+                    "footer"`,
+                  lg:`"main"
                       "footer"`,
-
-
-                lg:`"nav main"
-                  "nav footer"`,
                 
                 }}
-                gridTemplateRows={{ base: 'auto auto auto', lg: 'auto auto' }}
-                gridTemplateColumns={{ base: '1fr', lg: '280px 1fr' }}
+                gridTemplateRows={"auto auto"}
+                gridTemplateColumns={{ base: "1fr", lg: "auto" }}
   gap='1'
   color='blackAlpha.700'
   fontWeight='bold'
 >
-  <GridItem pl='2' bg='lightblue' area={'header'}>
-    
-  </GridItem>
-  <GridItem pl='2' area={'nav'}>
-    <SideBar/>
-  </GridItem>
-  <GridItem  area={'main'} m={5} mx={10}>
+
+  <GridItem  area={'main'} ml={8} mt={1}>
     <Grid templateAreas={{
         base: `"main1"
               "main2"`,
@@ -45,8 +36,8 @@ const AdminTransactions = () => {
        
     }}
     gridTemplateRows={{ base: 'auto auto', lg: '1fr' }}
-            gridTemplateColumns={{ base: '70%', lg: '65% 33%' }}
-            gap={5}
+    gridTemplateColumns={{base:'1fr',lg:'69% 28%'}}
+    gap={5}
     >
         <GridItem pl='2' area={'main1'} pb={2}>
         <Flex>
@@ -65,31 +56,16 @@ const AdminTransactions = () => {
     <LineChart topic='Money Flow'/>
   </GridItem>
   <GridItem pl='2'  area={'main2'}>
-  <Card mt={14} py={4}>
+  <Card mt={14} pt={2}>
   <CardBody>
     
  
     <Box mb={10}>
         <Heading fontSize="20px" mb={4} mt={0}>Top Buyers</Heading>
-      <Flex>
+      <Flex justifyContent={'space-between'}>
         <Box px={3}>Customer</Box>
         <Spacer/>
-        <Box px={10}>Items Purchased</Box>
-      </Flex>
-    </Box>
-    <Box mb={5}>
-    <Flex>
-    <HStack px={3}>
-        <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='40px'
-                  objectFit='cover'
-                />
-                <Box px={3} py={2}>Kaveesha Hettige</Box>
-        </HStack>
-        <Spacer/>
-        <Box px={10} py={2}>35</Box>
+        <Box px={3}>Items Purchased</Box>
       </Flex>
     </Box>
 
@@ -180,7 +156,7 @@ const AdminTransactions = () => {
     </Flex>
 
   <TableContainer width={{ base: "100%", lg: "90%" }} ml={{ base: '0%', lg: '5%' }}>
-      <Table size='md'>
+      <Table size='sm'>
         <Thead>
           <Tr>
             <Th>Name</Th>

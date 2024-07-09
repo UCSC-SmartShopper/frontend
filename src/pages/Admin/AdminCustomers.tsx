@@ -31,7 +31,6 @@ import {
   ModalFooter,
   VStack,
 } from "@chakra-ui/react";
-import SideBar from "../../components/SideBar";
 import { IoMdPeople } from "react-icons/io";
 import LineChart from "../../components/Charts/LineChart";
 import { AiOutlineRise, AiOutlineFall } from "react-icons/ai";

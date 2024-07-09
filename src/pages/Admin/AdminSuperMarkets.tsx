@@ -4,8 +4,8 @@ import { GridItem,Grid,Box,Table,TableContainer,Thead,Th,Tr,Tbody,
     VStack} from "@chakra-ui/react"
 
   import PieChart from "../../components/Charts/PieChart" 
-import LineChart from "../../components/Charts/LineChart";
-import { FaLocationDot } from "react-icons/fa6";
+  import LineChart from "../../components/Charts/LineChart";
+  import { FaLocationDot } from "react-icons/fa6";
   import { IoStarSharp } from "react-icons/io5";
   import { SiCashapp } from "react-icons/si";
   import { GrUserWorker } from "react-icons/gr";
@@ -20,46 +20,38 @@ const AdminSuperMarkets = () => {
   return (
     <Grid
     templateAreas={{
-      base: `
-             "main"
+      base: `"main"
              "footer"`,
       lg: `" main"
            " footer"`
     }}
-    gridTemplateRows={{ base: 'auto auto ', lg: 'auto auto' }}
+    gridTemplateRows={"auto auto" }
     gridTemplateColumns={{ base: '1fr', lg: 'auto' }}
-  gap='1'
-  color='blackAlpha.700'
-  fontWeight='bold'
+    gap='1'
+    color='blackAlpha.700'
+    fontWeight='bold'
 >
   
-  <GridItem pl='2' area={'main'} mx={10}>
-    
-    {/* <Flex p={10} >
-    <BarGraph/>
-    <Spacer/>
-    <BarGraph/>
-    </Flex> */}
+  <GridItem pl='2' area={'main'}>
     
     <Grid templateAreas={{
       base: `"main1"
-             "main2"`,
-      md: `"main1"
              "main2"`,     
       lg: `"main1 main2"`
     }}
-  gridTemplateColumns={{base:'1fr',lg:'33% 60%'}}
+    gridTemplateRows={{ base: 'auto auto', lg: '1fr' }}
+  gridTemplateColumns={{base:'1fr',lg:'30% 65%'}}
   gap={5}
   >
 
-  <GridItem  bg='' area={'main1'}>
+  <GridItem  area={'main1'}>
     <Heading size={'lg'} my={4}>Super Market Earnings</Heading>
     <Box pt={10} boxShadow={'md'}>
     <PieChart title=''/>
     </Box>
   </GridItem>
 
-  <GridItem  bg='' area={'main2'} mt={12}>
+  <GridItem area={'main2'} mt={12}>
     <LineChart topic=""/>
   </GridItem>
 
@@ -67,7 +59,7 @@ const AdminSuperMarkets = () => {
     </Grid>
     
   </GridItem>
-  <GridItem pl='2' bg={''} area={'footer'} m={10} >
+  <GridItem pl='1' bg={''} area={'footer'} my={10} >
 
   <Box p={2} shadow='md' borderWidth='1px'  >
     <Flex justifyContent="space-between" >

@@ -39,7 +39,7 @@ const LineChart: React.FC<Props> = ({ topic }) => {
       {/* <Box w="100%" width="900px" minHeight="450px" px="10" py={2}  bg="white" boxShadow="md" borderRadius="md"></Box> */}
       <Heading px="10" size="lg" pb={1} py={2}>{topic}</Heading>
       <Center>
-      <Box px="10" width="900px" py={2}  bg="white" borderRadius="md" mt={5}> 
+      <Box px="10" width="800px" py={2}  bg="white" borderRadius="md" mt={5}> 
       <Line data={data} options={options}/>
       </Box>
       </Center>

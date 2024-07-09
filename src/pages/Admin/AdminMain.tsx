@@ -1,5 +1,5 @@
-import { Box, HStack, VStack } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Box, HStack } from "@chakra-ui/react";
+import  { useState } from "react";
 import SideBar from "../../components/SideBar";
 import AdminOverview from "./AdminOverview";
 import AdminCourierServices from "./AdminCourierServices";
@@ -12,7 +12,7 @@ import AdminSettings from "./AdminSettings";
 
 
 const AdminMain = () => {
-  const [adminPage, setAdminPage] = useState("supermarkets");
+  const [adminPage, setAdminPage] = useState("settings");
   
   return (
     <HStack w="full">
@@ -25,7 +25,7 @@ const AdminMain = () => {
         {adminPage === "supermarkets" && <AdminSuperMarkets />}
         {adminPage === "couriers" && <AdminCourierServices/>}
         {adminPage === "orders" && <AdminOrders/>}
-        {adminPage ==='transactins' && <AdminTransactions/>}
+        {adminPage ==='transactions' && <AdminTransactions/>}
         {adminPage === 'advertisements' && <AdminAdvertisements/>}
         {adminPage === 'settings' && <AdminSettings/>}
 
