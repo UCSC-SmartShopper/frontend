@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Grid, GridItem, Box, Text, VStack, Button, Image, Textarea, Tabs, TabList, TabPanels, Tab, TabPanel,Input } from "@chakra-ui/react";
-import SideBar from "../../components/SideBar";
 
 const AdminSettings: React.FC = () => {
   const [TermsOfUse, setTermsOfUse] = useState('Terms of Use\n\n1. Acceptance of Terms: By using this website, you agree to the terms of this agreement.\n2. Provision of Services: We may modify or discontinue the service at any time without notice.\n3. User Responsibilities: Users must not use the website for unlawful purposes and must provide accurate information.\n4. Intellectual Property: All content is the property of the website owner and is protected by copyright laws.\n5. Limitation of Liability: We are not liable for any indirect, incidental, special, or consequential damages.\n6. Governing Law: These terms are governed by the laws of the jurisdiction.\n7. Changes to the Terms: We may modify these terms at any time. Continued use constitutes acceptance of the new terms.\n8. Contact Information: Contact us at [contact information] for any questions.');
