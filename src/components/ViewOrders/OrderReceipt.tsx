@@ -7,6 +7,7 @@ const OrderReceiptPopup: React.FC = () => {
       <Box
         flex="1"
         p={4}
+        pl={6}
         mb={4}
         borderWidth="1px"
         borderRadius="15"
@@ -31,6 +32,7 @@ const OrderReceiptPopup: React.FC = () => {
       <Box
         flex="1"
         p={4}
+        pl={6}
         mb={4}
         borderWidth="1px"
         borderRadius="15"
@@ -51,6 +53,7 @@ const OrderReceiptPopup: React.FC = () => {
       <Box
         flex="1"
         p={4}
+        pl={6}
         mb={4}
         borderWidth="1px"
         borderRadius="15"
