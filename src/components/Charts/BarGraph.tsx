@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import {
   BarElement,
   CategoryScale,
@@ -22,7 +22,6 @@ ChartJS.register(
 );
 
 const BarGraph: React.FC = () => {
-  const theme = useTheme();
 
   const data = [
     {

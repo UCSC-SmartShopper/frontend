@@ -1,42 +1,41 @@
 import {
-  GridItem,
-  Grid,
   Box,
-  Table,
-  TableContainer,
-  Thead,
-  Th,
-  Tr,
-  Tbody,
-  Td,
-  Tfoot,
-  Heading,
-  HStack,
+  Button,
   Card,
   CardBody,
   Center,
-  Image,
-  Text,
-  Icon,
   Flex,
-  Select,
-  Button,
-  useDisclosure,
+  Grid,
+  GridItem,
+  Heading,
+  HStack,
+  Icon,
+  Image,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import { AiOutlineRise } from "react-icons/ai";
+import { FaCartFlatbed, FaLocationDot } from "react-icons/fa6";
 import { IoMdPeople } from "react-icons/io";
-import LineChart from "../../components/Charts/LineChart";
-import { AiOutlineRise, AiOutlineFall } from "react-icons/ai";
-import { FaLocationDot } from "react-icons/fa6";
 import { MdPayment } from "react-icons/md";
-import { FaCartFlatbed } from "react-icons/fa6";
+import LineChart from "../../components/Charts/LineChart";
 
 
 const AdminCustomers = () => {

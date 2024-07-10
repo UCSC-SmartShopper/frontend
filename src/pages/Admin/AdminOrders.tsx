@@ -1,13 +1,41 @@
-import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
-    ,Heading,Text,TableContainer,
-    HStack,Circle,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
-    VStack,Icon,ListItem,List} from "@chakra-ui/react"
-  import SideBar from "../../components/SideBar"
-  import LoginButton from "../../components/Buttons/LoginButton"
-import PieChart from "../../components/Charts/PieChart"
-  import { MdPayment } from "react-icons/md";
-  import { FaShoppingBag } from "react-icons/fa";
-  import { GiStorkDelivery } from "react-icons/gi";
+import {
+  Box,
+  Button,
+  Card, CardBody,
+  Center,
+  Circle,
+  Flex,
+  Grid, GridItem,
+  Heading,
+  HStack,
+  Icon,
+  Image,
+  List,
+  ListItem,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+  Spacer,
+  Table,
+  TableContainer,
+  Tbody, Td,
+  Text,
+  Tfoot,
+  Th,
+  Thead, Tr,
+  useDisclosure,
+  VStack
+} from "@chakra-ui/react";
+import { FaShoppingBag } from "react-icons/fa";
+import { GiStorkDelivery } from "react-icons/gi";
+import { MdPayment } from "react-icons/md";
+import LoginButton from "../../components/Buttons/LoginButton";
+import PieChart from "../../components/Charts/PieChart";
 
 const AdminOrders = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -29,7 +29,7 @@ const Landing = () => {
         <Navbar />
       </Show>
 
-      <Box w="100w" h="90vh" className="w-[100vw] h-[90vh] overflow-x-hidden">
+      <Box w="100%" h="90vh" className="w-[100vw] h-[90vh] overflow-x-hidden">
         <SimpleSlider>
           <Slide image={SmartListsImage} title="SmartLists" />
           <Slide image={BestPricesImage} title="BestPrices" />

@@ -6,17 +6,16 @@ import {
   HStack,
   Image,
   Text,
-  VStack,
-  Spacer,
+  VStack
 } from "@chakra-ui/react";
 
 import { FaStar } from "react-icons/fa";
 
   import SupermarketLogo from "../assets/Reviews/superMarketLogo.png";
-  import creamcracker from "../assets/creamcracker.svg"
+import creamcracker from "../assets/creamcracker.svg";
 
   import MiddleContainer from "../components/Containers/MiddleContainer";
-  import Feedback from "../components/Feedback";
+import Feedback from "../components/Feedback";
 
   const Reviews = () => {
     return (
