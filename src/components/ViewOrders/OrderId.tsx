@@ -22,6 +22,7 @@ import Banner from "../../assets/smart-shopper-banner.svg";
 import QR from "../../assets/qr_code.png";
 import OrderReceipt from "./OrderReceipt";
 import DriverDetailsPopup from "./DriveDetails";
+import TrackOrder from "./TrackOrder";
 
 interface OrderIdProps {
   status: string;
@@ -185,7 +186,12 @@ const OrderId = ({ status }: OrderIdProps) => {
             borderColor="gray.300"
             mb={4}
           >
-            <Flex justify="space-between" alignItems="center" mb={4} color={"primary"}>
+            <Flex
+              justify="space-between"
+              alignItems="center"
+              mb={4}
+              color={"primary"}
+            >
               <Box>
                 <Text fontSize="lg" fontWeight="bold" color="primary" mb={2}>
                   Driver Details
@@ -267,19 +273,22 @@ const OrderId = ({ status }: OrderIdProps) => {
         closeOnOverlayClick={false}
       >
         <ModalOverlay backdropFilter="blur(5px)" />
-        <ModalContent borderRadius="15px">
-          <ModalHeader>Track Order</ModalHeader>
-          <ModalBody>
-            <Text>Track Order Popup Content</Text>
+        <ModalContent borderRadius="24px" bg={"white"}>
+          {/* <ModalHeader>Order Tracking</ModalHeader> */}
+          <ModalBody  p={0}>
+            <TrackOrder />
           </ModalBody>
           <ModalFooter>
             <Button
-              variant="outline"
-              colorScheme="blue"
-              mr={3}
+              width="100%"
+              bg="orange.500"
+              color="white"
+              _hover={{ bg: "orange.600" }}
+              _active={{ bg: "orange.700" }}
+              borderRadius="12px"
               onClick={onTrackOrderClose}
             >
-              Close
+              Done
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -340,7 +349,9 @@ const OrderId = ({ status }: OrderIdProps) => {
       >
         <ModalOverlay backdropFilter="blur(5px)" />
         <ModalContent borderRadius="15px">
-          <ModalHeader textAlign="center" fontWeight="bold" fontSize="25">Driver Details</ModalHeader>
+          <ModalHeader textAlign="center" fontWeight="bold" fontSize="25">
+            Driver Details
+          </ModalHeader>
           <ModalBody>
             <DriverDetailsPopup />
           </ModalBody>
@@ -369,8 +380,8 @@ const OrderId = ({ status }: OrderIdProps) => {
             </Button>
           </ModalFooter>
         </ModalContent>
-      </Modal>     
-       {/* Add Review Modal */}
+      </Modal>
+      {/* Add Review Modal */}
       <Modal
         isOpen={isAddReviewOpen}
         onClose={onAddReviewClose}
@@ -395,8 +406,8 @@ const OrderId = ({ status }: OrderIdProps) => {
             </Button>
           </ModalFooter>
         </ModalContent>
-      </Modal>    
-      </>
+      </Modal>
+    </>
   );
 };
 export default OrderId;
