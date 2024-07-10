@@ -19,19 +19,43 @@ const DriverDetailsPopup = () => {
         borderRadius="15px"
         borderColor="gray.300"
       >
-        <Grid templateColumns="1fr 2fr" gap={1} alignItems="center">
-          <Text textAlign="left">Name</Text>
-          <Text>: Kaveesha Hettige</Text>
-          <Text textAlign="left">Contact Number</Text>
-          <Text>: 0719944045</Text>
-          <Text textAlign="left">Courier Company</Text>
-          <Text>: Air Lanka</Text>
-          <Text textAlign="left">Vehicle Type</Text>
-          <Text>: Motor Cycle</Text>
-          <Text textAlign="left">Vehicle Name</Text>
-          <Text>: TVS csdc</Text>
-          <Text textAlign="left">Vehicle Number</Text>
-          <Text>: VQ 3344</Text>
+        <Grid templateColumns="40% 60%" gap={2} pl={4} alignItems="center">
+          <Flex alignItems="center">
+            <Text textAlign="left">Name</Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text>: Kaveesha Hettige</Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text textAlign="left">Contact Number</Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text>: 0719944045</Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text textAlign="left">Courier Company</Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text>: Air Lanka</Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text textAlign="left">Vehicle Type</Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text>: Motor Cycle</Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text textAlign="left">Vehicle Name</Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text>: TVS csdc</Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text textAlign="left">Vehicle Number</Text>
+          </Flex>
+          <Flex alignItems="center">
+            <Text>: VQ 3344</Text>
+          </Flex>
         </Grid>
       </Box>
     </Flex>
