@@ -1,5 +1,5 @@
 import { Box, Flex, HStack, Stack, VStack } from "@chakra-ui/react";
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import SideBar from "../../components/SideBar";
 import AdminOverview from "./AdminOverview";
 import AdminCourierServices from "./AdminCourierServices";
@@ -12,9 +12,6 @@ import AdminSettings from "./AdminSettings";
 
 const AdminMain = () => {
   const [adminPage, setAdminPage] = useState("Overview");
-  const changePage = (page: string) => {
-    setAdminPage(page);
-  };
 
   return (
     <Flex w="full">

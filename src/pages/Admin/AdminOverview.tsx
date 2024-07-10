@@ -14,7 +14,6 @@ import {
   Tbody,
   Td,
   Text,
-  Tfoot,
   Th,
   Thead,
   Tr,
@@ -99,7 +98,7 @@ const AdminOverview = () => {
             w="24vw"
             h="full"
             shadow="md"
-            borderWidth="1px"
+            borderWidth="1.5px"
             borderColor="background"
             borderRadius={15}
           >
