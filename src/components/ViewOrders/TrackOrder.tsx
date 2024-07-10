@@ -2,29 +2,33 @@ import {
   Box,
   Flex,
   Text,
-  Image,
-  Center,
-  Button,
   VStack,
   HStack,
+  Center,
+  Icon,
+  Button,
+  Image,
 } from "@chakra-ui/react";
+import { FaTruck } from "react-icons/fa";
+
+import Keels from "../../assets/supermarket-icons/Keels.svg";
+import Spar from "../../assets/supermarket-icons/Spar.svg";
+import Arpico from "../../assets/supermarket-icons/Arpico.svg";
 
 const OrderTrackingPopup = () => {
+  const primaryColor = "orange.500";
+
   return (
     <Flex
-        mt={5}
+      mt={5}
       direction="column"
       alignItems="center"
       padding={5}
       bg="white"
       borderRadius="24px"
-      boxShadow="0px 0px 58px 4px rgba(0, 0, 0, 0.25)"
-    //   maxWidth="400px"
       margin="0"
+      width="100%"
     >
-      <Text fontSize="2xl" fontWeight="bold" mb={4}>
-        Order Tracking
-      </Text>
       <Box
         width="100%"
         mb={4}
@@ -36,7 +40,15 @@ const OrderTrackingPopup = () => {
         <Text fontSize="xl" fontWeight="semibold" mb={4}>
           Driver Tracking
         </Text>
-        <VStack align="start" spacing={4}>
+        <VStack align="start" spacing={4} position="relative">
+          <Box
+            position="absolute"
+            top="15px"
+            left="27px"
+            bottom="20px"
+            width="3px"
+            bg={primaryColor}
+          ></Box>
           {[
             {
               status: "Order Placed",
@@ -64,22 +76,38 @@ const OrderTrackingPopup = () => {
               time: "11:45 PM",
             },
           ].map((item, index) => (
-            <HStack key={index} spacing={4} align="start">
-              <Center
-                width="40px"
-                height="40px"
-                bg="orange.500"
-                borderRadius="full"
-                color="white"
-                fontWeight="bold"
-              >
-                <Image src="https://via.placeholder.com/40" alt="status-icon" />
-              </Center>
-              <VStack align="start" spacing={0}>
-                <Text fontWeight="bold">{item.status}</Text>
-                <Text>{item.location}</Text>
-              </VStack>
-              <Text marginLeft="auto">{item.time}</Text>
+            <HStack
+              key={index}
+              width="100%"
+              p={2}
+              borderRadius="12px"
+              align="center"
+              justifyContent="space-between"
+              position="relative"
+            >
+              <HStack spacing={4} align="center">
+                <Center
+                  width="45px"
+                  height="45px"
+                  bg={primaryColor}
+                  borderRadius="full"
+                  color="white"
+                  fontWeight="bold"
+                  position="relative"
+                  zIndex={1}
+                >
+                  <Icon as={FaTruck} boxSize={5} />
+                </Center>
+                <VStack align="start" spacing={0}>
+                  <Text fontWeight="semibold">{item.status}</Text>
+                  <Text fontSize="10px" fontWeight="regular">
+                    {item.location}
+                  </Text>
+                </VStack>
+              </HStack>
+              <Text fontSize="10px" fontWeight="regular">
+                {item.time}
+              </Text>
             </HStack>
           ))}
         </VStack>
@@ -102,19 +130,22 @@ const OrderTrackingPopup = () => {
               name: "Keels Super",
               location: "Battaramulla Rd, Galle",
               status: "Packed",
-              statusColor: "orange.500",
+              statusColor: primaryColor,
+              image: Keels,
             },
             {
               name: "Spar Super Market",
               location: "Battaramulla Rd, Galle",
               status: "Packed",
-              statusColor: "orange.500",
+              statusColor: primaryColor,
+              image: Spar,
             },
             {
               name: "Arpico Supermarket",
               location: "Battaramulla Rd, Galle",
               status: "Not Packed",
-              statusColor: "red.500",
+              statusColor: "orange.200",
+              image: Arpico,
             },
           ].map((item, index) => (
             <HStack
@@ -128,19 +159,25 @@ const OrderTrackingPopup = () => {
               justify="space-between"
             >
               <HStack spacing={4} align="center">
-                <Image
-                  src="https://via.placeholder.com/40"
-                  alt={`${item.name}-logo`}
-                  boxSize="40px"
-                />
+                <Center width="40px" height="40px" borderRadius="full">
+                  <Image src={item.image} />
+                </Center>
                 <VStack align="start" spacing={0}>
                   <Text fontWeight="bold">{item.name}</Text>
                   <Text>{item.location}</Text>
                 </VStack>
               </HStack>
-              <Text color={item.statusColor} fontWeight="bold">
+              <Button
+                size="sm"
+                bg={item.statusColor}
+                color="white"
+                _hover={{ bg: item.statusColor }}
+                _active={{ bg: item.statusColor }}
+                borderRadius="full"
+                px={3}
+              >
                 {item.status}
-              </Text>
+              </Button>
             </HStack>
           ))}
         </VStack>
