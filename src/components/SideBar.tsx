@@ -57,7 +57,7 @@ const SideBar = ({ adminPage, setAdminPage }: Props) => {
           bg={adminPage === item.label ? "white" : ""}
           borderLeft={adminPage === item.label ? "5px solid" : ""}
           borderColor={adminPage === item.label ? "primary" : ""}
-          borderLeftRadius="md"
+          // borderLeftRadius="md"
           _hover={{ bg: "gray.100" }}
           onClick={() => setAdminPage(item.label)}
         >

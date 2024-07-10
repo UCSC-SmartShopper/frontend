@@ -1,14 +1,14 @@
-import { Box, Flex, HStack, Stack, VStack } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import { useState } from "react";
 import SideBar from "../../components/SideBar";
-import AdminOverview from "./AdminOverview";
+import AdminAdvertisements from "./AdminAdvertisements";
 import AdminCourierServices from "./AdminCourierServices";
-import AdminSuperMarkets from "./AdminSuperMarkets";
 import AdminCustomers from "./AdminCustomers";
 import AdminOrders from "./AdminOrders";
-import AdminTransactions from "./AdminTransactions";
-import AdminAdvertisements from "./AdminAdvertisements";
+import AdminOverview from "./AdminOverview";
 import AdminSettings from "./AdminSettings";
+import AdminSuperMarkets from "./AdminSuperMarkets";
+import AdminTransactions from "./AdminTransactions";
 
 const AdminMain = () => {
   const [adminPage, setAdminPage] = useState("Overview");
@@ -24,8 +24,8 @@ const AdminMain = () => {
       <Box w="full" px="2%">
         {adminPage === "Overview" && <AdminOverview />}
         {adminPage === "Customers" && <AdminCustomers />}
-        {adminPage === "Supermarkets" && <AdminSuperMarkets />}
-        {adminPage === "Couriers" && <AdminCourierServices />}
+        {adminPage === "Super Markets" && <AdminSuperMarkets />}
+        {adminPage === "Courier Services" && <AdminCourierServices />}
         {adminPage === "Orders" && <AdminOrders />}
         {adminPage === "Transactions" && <AdminTransactions />}
         {adminPage === "Advertisements" && <AdminAdvertisements />}
