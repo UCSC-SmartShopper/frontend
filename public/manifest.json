@@ -1,4 +1,5 @@
 {
+  "id": "/user",
   "theme_color": "#ff7708",
   "background_color": "#ffffff",
   "icons": [
@@ -20,5 +21,6 @@
   "dir": "auto",
   "lang": "en-US",
   "name": "Smart Shopper",
-  "start_url": "/"
+  "start_url": "/?pwa=1",
+  "scope": "/?pwa=1"
 }
