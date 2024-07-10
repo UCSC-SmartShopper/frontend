@@ -66,7 +66,7 @@ const AdminOverview = () => {
         {/*
           Monthly Sales Card 
         */}
-        <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
+        <Box p={5} shadow="md" borderWidth="1px" w="60%" borderRadius={15}>
           <Heading as="h3" size="lg" mb={1}>
             Monthly Sales
           </Heading>
@@ -79,7 +79,7 @@ const AdminOverview = () => {
         {/*
           Customers Card 
         */}
-        <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
+        <Box p={5} shadow="md" borderWidth="1px" w="40%" borderRadius={15}>
           <Box p={5}>
             <Heading as="h3" size="lg">
               Customers
@@ -92,9 +92,17 @@ const AdminOverview = () => {
         </Box>
       </Flex>
 
-      <HStack w="full" justifyContent="space-around" h="25vh">
+      <HStack w="full" justifyContent="space-between" h="25vh">
         {customerCards.map((card, index) => (
-          <Card key={index} w="22vw" h="full" shadow="md">
+          <Card
+            key={index}
+            w="24vw"
+            h="full"
+            shadow="md"
+            borderWidth="1px"
+            borderColor="background"
+            borderRadius={15}
+          >
             <CardBody>
               <HStack gap={10} justifyContent="space-between">
                 <Heading size="lg">{card.title}</Heading>

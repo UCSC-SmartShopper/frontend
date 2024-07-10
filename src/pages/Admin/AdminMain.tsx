@@ -11,24 +11,28 @@ import AdminAdvertisements from "./AdminAdvertisements";
 import AdminSettings from "./AdminSettings";
 
 const AdminMain = () => {
-  const [adminPage, setAdminPage] = useState("settings");
-  
+  const [adminPage, setAdminPage] = useState("Overview");
+  const changePage = (page: string) => {
+    setAdminPage(page);
+  };
+
   return (
     <Flex w="full">
-      <Box w="16vw" top="10vh">
-        <SideBar />
+      <Box w="16vw" top="10vh" bg="red">
+        <SideBar
+          adminPage={adminPage}
+          setAdminPage={(page) => setAdminPage(page)}
+        />
       </Box>
       <Box w="full" px="2%">
-        {adminPage === "overview" && <AdminOverview />}
-        {adminPage === "customers" && <AdminCustomers />}
-        {adminPage === "supermarkets" && <AdminSuperMarkets />}
-        {adminPage === "couriers" && <AdminCourierServices/>}
-        {adminPage === "orders" && <AdminOrders/>}
-        {adminPage ==='transactions' && <AdminTransactions/>}
-        {adminPage === 'advertisements' && <AdminAdvertisements/>}
-        {adminPage === 'settings' && <AdminSettings/>}
-
-
+        {adminPage === "Overview" && <AdminOverview />}
+        {adminPage === "Customers" && <AdminCustomers />}
+        {adminPage === "Supermarkets" && <AdminSuperMarkets />}
+        {adminPage === "Couriers" && <AdminCourierServices />}
+        {adminPage === "Orders" && <AdminOrders />}
+        {adminPage === "Transactions" && <AdminTransactions />}
+        {adminPage === "Advertisements" && <AdminAdvertisements />}
+        {adminPage === "Settings" && <AdminSettings />}
       </Box>
     </Flex>
   );
