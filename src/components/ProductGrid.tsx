@@ -30,24 +30,6 @@ const ProductGrid = ({ productQuery }: Props) => {
   const fetchProductsCount =
     products?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0;
 
-  // const Loader = () => {
-  //   return (
-  //     <SimpleGrid
-  //       columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-  //       spacing={6}
-  //       padding="10px"
-  //       bg="gray.500"
-  //       marginX={{ base: 0, md: "12%" }}
-  //     >
-  //       {skeletons.map((s) => (
-  //         <ProductCardContainer key={s}>
-  //           <ProductCartSkelton />
-  //         </ProductCardContainer>
-  //       ))}
-  //     </SimpleGrid>
-  //   );
-  // };
-
   return (
     <>
       <InfiniteScroll
@@ -58,10 +40,11 @@ const ProductGrid = ({ productQuery }: Props) => {
       >
         <SimpleGrid
           columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+          w="full"
           spacing={6}
-          padding="10px"
-          bg="gray.100"
-          marginX={{ base: 0, md: "12%" }}
+          justifyContent={"center"}
+
+          // marginX={{ base: 0, md: "12%" }}
         >
           {products?.pages?.map((page, index) => (
             <React.Fragment key={index}>
@@ -74,14 +57,15 @@ const ProductGrid = ({ productQuery }: Props) => {
           ))}
         </SimpleGrid>
         <Center>
-        <ActionButton
-          onClick={() => {
-            setLoadMore(true);
-            fetchNextPage();
-          }}
-        >
-          Load More
-        </ActionButton>
+          <ActionButton
+            onClick={() => {
+              setLoadMore(true);
+              fetchNextPage();
+            }}
+            className="my-8"
+          >
+            View All Products
+          </ActionButton>
         </Center>
       </InfiniteScroll>
     </>
