@@ -2,9 +2,8 @@ import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,
     ,Heading,Text,TableContainer,
     HStack,Circle,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
     VStack,Icon,ListItem,List} from "@chakra-ui/react"
-  import SideBar from "../../components/SideBar"
   import LoginButton from "../../components/Buttons/LoginButton"
-import PieChart from "../../components/Charts/PieChart"
+  import PieChart from "../../components/Charts/PieChart"
   import { MdPayment } from "react-icons/md";
   import { FaShoppingBag } from "react-icons/fa";
   import { GiStorkDelivery } from "react-icons/gi";

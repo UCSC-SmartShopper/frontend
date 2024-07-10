@@ -27,8 +27,10 @@ const AdminMain: React.FC = () => {
         {adminPage === "transactions" && <AdminTransactions />}
         {adminPage === "advertisements" && <AdminAdvertisements />}
         {adminPage === "settings" && <AdminSettings />}
+        
       </Box>
     </HStack>
+    
   );
 };
 

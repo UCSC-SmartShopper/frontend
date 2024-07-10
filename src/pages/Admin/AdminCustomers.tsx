@@ -33,7 +33,7 @@ import {
 } from "@chakra-ui/react";
 import { IoMdPeople } from "react-icons/io";
 import LineChart from "../../components/Charts/LineChart";
-import { AiOutlineRise, AiOutlineFall } from "react-icons/ai";
+import { AiOutlineRise } from "react-icons/ai";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdPayment } from "react-icons/md";
 import { FaCartFlatbed } from "react-icons/fa6";
