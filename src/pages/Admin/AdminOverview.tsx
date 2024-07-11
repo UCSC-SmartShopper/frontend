@@ -60,7 +60,7 @@ const AdminOverview = () => {
     },
   ];
   return (
-    <VStack gap={"8vh"} color="blackAlpha.800" fontWeight="bold" my="5vh">
+    <VStack gap={"8vh"} fontWeight="bold" my="5vh">
       <Flex w="full" gap={5}>
         {/*
           Monthly Sales Card 
