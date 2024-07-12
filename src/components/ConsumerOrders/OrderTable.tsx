@@ -26,97 +26,129 @@ interface Order {
 }
 
 const orders: Order[] = [
-    {
-        id: "10001",
-        details: "Kring New Fit office chair, mesh + PU, black",
-        status: "Active",
-        date: "16/10/2021",
-        deliveryPerson: "John Doe",
-        collector: "customer",
-        total: "$200.00",
-      },
-      {
-        id: "10002",
-        details: "Kring New Fit office chair, mesh + PU, black",
-        status: "Ready",
-        date: "16/10/2021",
-        deliveryPerson: "John Doe",
-        collector: "delivery person",
-        total: "$200.00",
-      },
-      {
-        id: "10003",
-        details: "Kring New Fit office chair, mesh + PU, black",
-        status: "Completed",
-        date: "16/10/2021",
-        deliveryPerson: "John Doe",
-        collector: "delivery person",
-        total: "$200.00",
-      },
-      {
-        id: "10003",
-        details: "Kring New Fit office chair, mesh + PU, black",
-        status: "Cancelled",
-        date: "16/10/2021",
-        deliveryPerson: "John Doe",
-        collector: "customer",
-        total: "$200.00",
-      },
+  {
+    id: "10001",
+    details: "Kring New Fit office chair, mesh + PU, black",
+    status: "Active",
+    date: "16/10/2021",
+    deliveryPerson: "John Doe",
+    collector: "Customer",
+    total: "$200.00",
+  },
+  {
+    id: "10002",
+    details: "Kring New Fit office chair, mesh + PU, black",
+    status: "Ready",
+    date: "16/10/2021",
+    deliveryPerson: "John Doe",
+    collector: "delivery person",
+    total: "$200.00",
+  },
+  {
+    id: "10003",
+    details: "Kring New Fit office chair, mesh + PU, black",
+    status: "Completed",
+    date: "16/10/2021",
+    deliveryPerson: "John Doe",
+    collector: "delivery person",
+    total: "$200.00",
+  },
+  {
+    id: "10003",
+    details: "Kring New Fit office chair, mesh + PU, black",
+    status: "Cancelled",
+    date: "16/10/2021",
+    deliveryPerson: "John Doe",
+    collector: "customer",
+    total: "$200.00",
+  },
 ];
 
 const statusColor: Record<Order["status"], string> = {
-    Active: "active",
-    Ready: "ready",
-    Completed: "green",
-    Cancelled: "red",
+  Active: "active",
+  Ready: "ready",
+  Completed: "green",
+  Cancelled: "red",
 };
 
 const OrderTable: React.FC = () => {
   return (
     <>
-      <Box className="overflow-auto rounded-lg shadow hidden md:block">
+      <Box className="overflow-auto rounded-xl shadow-md hidden md:block">
         <Table className="w-full">
           <Thead className="bg-gray-50 border-b-2 border-gray-300">
             <Tr>
-              <Th className="w-20 p-3 text-sm font-semibold tracking-wide text-left">Order</Th>
-              <Th className="w-24 p-3 text-sm font-semibold tracking-wide text-left">Date</Th>
-              <Th className="w-24 p-3 text-sm font-semibold tracking-wide text-left">Status</Th>
-              <Th className="w-24 p-3 text-sm font-semibold tracking-wide text-left">Delivery Person</Th>
-              <Th className="w-24 p-3 text-sm font-semibold tracking-wide text-left">Collector</Th>
-              <Th className="w-32 p-3 text-sm font-semibold tracking-wide text-left">Total Cost</Th>
-              <Th className="w-32 p-3 text-sm font-semibold tracking-wide text-left">Actions</Th>
+              <Th className="w-20 p-3 text-sm font-semibold tracking-wide">
+                Order
+              </Th>
+              <Th className="w-24 p-3 text-sm font-semibold tracking-wide">
+                Date
+              </Th>
+              <Th className="w-24 p-3 text-sm font-semibold tracking-wide !text-center">
+                Status
+              </Th>
+              <Th className="w-24 p-3 text-sm font-semibold tracking-wide">
+                Delivery Person
+              </Th>
+              <Th className="w-24 p-3 text-sm font-semibold tracking-wide">
+                Collector
+              </Th>
+              <Th className="w-32 p-3 text-sm font-semibold tracking-wide">
+                Total Cost
+              </Th>
+              <Th className="w-32 p-3 text-sm font-semibold tracking-wide">
+                Actions
+              </Th>
             </Tr>
           </Thead>
           <Tbody className="divide-y divide-gray-100">
             {orders.map((order, index) => (
-              <Tr key={order.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+              <Tr
+                key={order.id}
+                className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
+              >
                 <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <Link href="#" className="font-bold text-blue-500 hover:underline">
+                  <Link
+                    href="#"
+                    className="font-bold text-blue-500 hover:underline"
+                  >
                     {order.id}
                   </Link>
                 </Td>
-                <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">{order.date}</Td>
                 <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <Badge colorScheme={statusColor[order.status]} className="p-1.5 text-xs font-medium uppercase tracking-wider rounded-lg bg-opacity-50">
+                  {order.date}
+                </Td>
+                <Td className=" text-sm text-gray-700 whitespace-nowrap !text-center">
+                  <Badge
+                    as="div"
+                    colorScheme={statusColor[order.status]}
+                    className=" p-1.5 !px-2 text-xs font-medium uppercase tracking-wider !rounded-[5px] "
+                  >
                     {order.status}
                   </Badge>
                 </Td>
-                <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">{order.deliveryPerson}</Td>
-                <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">{order.collector}</Td>
-                <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">{order.total}</Td>
+                <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                  {order.deliveryPerson}
+                </Td>
+                <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                  {order.collector}
+                </Td>
+                <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                  {order.total}
+                </Td>
                 <Td className="p-3 text-sm text-gray-700 whitespace-nowrap flex">
-                  <IconButton
-                    icon={<DeleteIcon />}
-                    aria-label="Delete Order"
-                    variant="outline"
-                    colorScheme="red"
-                    mr={2}
-                  />
                   <IconButton
                     icon={<ViewIcon />}
                     aria-label="View Order"
                     variant="outline"
                     colorScheme="blue"
+                    mr={2}
+                  />
+                  <IconButton
+                    icon={<DeleteIcon />}
+                    aria-label="Delete Order"
+                    variant="outline"
+                    colorScheme="red"
                   />
                 </Td>
               </Tr>

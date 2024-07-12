@@ -42,15 +42,21 @@ const ConsumerOrders: React.FC = () => {
           Order Details
         </Text>
         <Center>
-        <Flex mb={4}>
-          {["View All", "To Pay", "Processed"].map((tab) => (
-            <Tabs key={tab} colorScheme={activeTab === tab ? "orange" : "gray"} onClick={() => setActiveTab(tab)} mx={2}>
-              <TabList>
-                <Tab>{tab}</Tab>
-              </TabList>
-            </Tabs>
-          ))}
-        </Flex>
+          <Flex mb={4}>
+            {["View All", "To Pay", "Processed"].map((tab) => (
+              <Tabs
+                key={tab}
+                colorScheme={activeTab === tab ? "orange" : "gray"}
+                onClick={() => setActiveTab(tab)}
+                mx={2}
+                fontWeight={700}
+              >
+                <TabList>
+                  <Tab>{tab}</Tab>
+                </TabList>
+              </Tabs>
+            ))}
+          </Flex>
         </Center>
         <Tabs>
           <TabPanels>
