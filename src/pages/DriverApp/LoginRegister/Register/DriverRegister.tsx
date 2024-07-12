@@ -8,7 +8,7 @@ import EnterPassword from "./EnterPassword";
 import SignUpThank from "./SignUpThank";
 
 const DriverRegister = () => {
-  const [stage, setStage] = useState(0);
+  const [stage, setStage] = useState(4);
   return (
     <>
       {stage === 0 && <PersonalDetails setStage={(s: number) => setStage(s)} />}

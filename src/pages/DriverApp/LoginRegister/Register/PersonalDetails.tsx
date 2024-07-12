@@ -51,9 +51,8 @@ const PersonalDetails = ({ setStage }: Props) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-
   return (
-    <VStack py="10vh" h="100vh">
+    <VStack py="6vh" h="100vh" gap="4vh">
       <Image src={Logo} width="150px" />
       <VStack>
         <Text fontSize="lg" fontWeight="bold">
@@ -71,8 +70,8 @@ const PersonalDetails = ({ setStage }: Props) => {
       </Text>
 
       <VStack
+        h="full"
         w="80vw"
-        className="h-[100%] mt-5"
         as="form"
         justifyContent="space-between"
         onSubmit={handleSubmit(onOpen)}
