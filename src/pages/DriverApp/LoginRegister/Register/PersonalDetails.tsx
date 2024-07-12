@@ -53,8 +53,8 @@ const PersonalDetails = ({ setStage }: Props) => {
 
   return (
     <VStack py="6vh" h="100vh" gap="4vh">
-      <Image src={Logo} width="150px" />
       <VStack>
+        <Image src={Logo} width="150px" />
         <Text fontSize="lg" fontWeight="bold">
           Welcome to
         </Text>
@@ -64,10 +64,10 @@ const PersonalDetails = ({ setStage }: Props) => {
             Shopper
           </Text>
         </Box>
+        <Text fontSize="md" color="gray" fontWeight="bold">
+          Please enter your SignUp details
+        </Text>
       </VStack>
-      <Text fontSize="md" color="gray" fontWeight="bold">
-        Please enter your SignUp details
-      </Text>
 
       <VStack
         h="full"

@@ -33,17 +33,17 @@ const VehicleImage = ({ setStage }: Props) => {
             Upload vehicle image
           </Text>
         </Box>
-        <Text
-          textAlign="center"
-          w="80vw"
-          fontSize="md"
-          color="gray"
-          fontWeight="bold"
-        >
-          Please upload a clear and legible image of your vehicle. Ensure the
-          image is less than 10MB.
-        </Text>
       </VStack>
+      <Text
+        textAlign="center"
+        w="80vw"
+        fontSize="md"
+        color="gray"
+        fontWeight="bold"
+      >
+        Please upload a clear and legible image of your vehicle. Ensure the
+        image is less than 10MB.
+      </Text>
       <VStack
         gap="2vh"
         h="full"

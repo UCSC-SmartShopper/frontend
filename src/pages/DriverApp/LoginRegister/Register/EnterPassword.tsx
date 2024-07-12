@@ -58,8 +58,11 @@ const EnterPassword = ({ setStage }: Props) => {
       </Text>
 
       <VStack
-       as="form" gap="2vh" h="full" 
-       px="10vw" justifyContent="space-between"
+        as="form"
+        gap="2vh"
+        h="full"
+        px="10vw"
+        justifyContent="space-between"
         onSubmit={handleSubmit(() => setStage(6))}
       >
         <Box w="full">
@@ -95,7 +98,11 @@ const EnterPassword = ({ setStage }: Props) => {
           </Text>
 
           <SubmitButton borderRadius={10}>Request to SignUp</SubmitButton>
-          <DotIndicator current={4} total={4} className="absolute bottom-[2vh]"/>
+          <DotIndicator
+            current={4}
+            total={4}
+            className="absolute bottom-[2vh]"
+          />
         </VStack>
       </VStack>
 

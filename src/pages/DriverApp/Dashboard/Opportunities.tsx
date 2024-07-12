@@ -11,10 +11,11 @@ const Opportunities = () => {
       totalDistance: 100,
       tripCost: 1000,
     },
+    
   ];
   return (
     <>
-      <VStack bg="background" h="full" p="10vw" gap="4vh">
+      <VStack bg="background" minH="100vh" p="10vw" gap="4vh">
         {requests.map((request) => (
           <Box boxShadow="md" p={4} background="white" w="full">
             <VStack align="start">
