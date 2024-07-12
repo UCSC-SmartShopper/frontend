@@ -91,6 +91,24 @@ const RequestDetails = () => {
           ))}
         </VStack>
       </Box>
+      <Text fontWeight="bold">Map</Text>
+      <Box
+        shadow="xl"
+        borderWidth={1}
+        p={4}
+        w="full"
+        borderRadius="10"
+      >Map
+      </Box>
+      <Text fontWeight="bold">Route</Text>
+      <Box
+        shadow="xl"
+        borderWidth={1}
+        p={4}
+        w="full"
+        borderRadius="10"
+      >Route
+      </Box>
     </VStack>
   );
 };
