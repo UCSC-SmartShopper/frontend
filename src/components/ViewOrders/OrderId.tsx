@@ -22,6 +22,7 @@ import Banner from "../../assets/smart-shopper-banner.svg";
 import QR from "../../assets/qr_code.png";
 import OrderReceipt from "./OrderReceipt";
 import DriverDetailsPopup from "./DriveDetails";
+import AddDriverReview from "./AddDriverReview";
 import TrackOrder from "./TrackOrder";
 
 interface OrderIdProps {
@@ -274,22 +275,26 @@ const OrderId = ({ status }: OrderIdProps) => {
       >
         <ModalOverlay backdropFilter="blur(5px)" />
         <ModalContent borderRadius="24px" bg={"white"}>
-          {/* <ModalHeader>Order Tracking</ModalHeader> */}
-          <ModalBody  p={0}>
+          <ModalHeader textAlign="center" fontWeight="bold" fontSize="25">
+            Order Tracking
+          </ModalHeader>
+          <ModalBody p={0}>
             <TrackOrder />
           </ModalBody>
           <ModalFooter>
-            <Button
-              width="100%"
-              bg="orange.500"
-              color="white"
-              _hover={{ bg: "orange.600" }}
-              _active={{ bg: "orange.700" }}
-              borderRadius="12px"
-              onClick={onTrackOrderClose}
-            >
-              Done
-            </Button>
+            <Flex width="100%" justifyContent="center">
+              <Button
+                width="70%"
+                bg="primary"
+                color="white"
+                _hover={{ bg: "orange.600" }}
+                _active={{ bg: "orange.700" }}
+                borderRadius="12px"
+                onClick={onTrackOrderClose}
+              >
+                Done
+              </Button>
+            </Flex>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -307,7 +312,7 @@ const OrderId = ({ status }: OrderIdProps) => {
             <Image src={Banner} h={53} w={170} />
           </Center>
           <Divider mb={1} />
-          <ModalHeader textAlign="center" fontWeight="bold" fontSize="25">
+          <ModalHeader textAlign="center" fontWeight="bold" fontSize="30">
             Order Receipt
           </ModalHeader>
           <Image src={QR} h={150} w={150} mx="auto" />
@@ -315,28 +320,25 @@ const OrderId = ({ status }: OrderIdProps) => {
             <OrderReceipt />
           </ModalBody>
           <ModalFooter gap={3}>
-            <Button
-              w="70%"
-              mb={2}
-              onClick={onReceiptClose}
-              variant="outline"
-              color="primary"
-              borderColor="primary"
-              border="2px"
-              borderRadius="10px"
-              fontSize="15px"
-              fontWeight="bold"
-              bg="white"
-              _hover={{ bg: "primary", color: "white" }}
-              _active={{
-                bg: "primary",
-                color: "white",
-                transform: "scale(0.98)",
-                borderColor: "primary",
-              }}
-            >
-              Download
-            </Button>
+            <Flex width="100%" justifyContent="center">
+              <Button
+                w="70%"
+                mb={2}
+                onClick={onReceiptClose}
+                variant="outline"
+                borderColor="primary"
+                border="2px"
+                borderRadius="10px"
+                fontSize="15px"
+                fontWeight="bold"
+                color="white"
+                bg="primary"
+                _hover={{ bg: "orange.600" }}
+                _active={{ bg: "orange.700" }}
+              >
+                Download
+              </Button>
+            </Flex>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -348,7 +350,7 @@ const OrderId = ({ status }: OrderIdProps) => {
         closeOnOverlayClick={false}
       >
         <ModalOverlay backdropFilter="blur(5px)" />
-        <ModalContent borderRadius="15px">
+        <ModalContent borderRadius="15px" >
           <ModalHeader textAlign="center" fontWeight="bold" fontSize="25">
             Driver Details
           </ModalHeader>
@@ -356,32 +358,25 @@ const OrderId = ({ status }: OrderIdProps) => {
             <DriverDetailsPopup />
           </ModalBody>
           <ModalFooter>
-            <Button
-              w="70%"
-              mb={2}
-              onClick={onDriverClose}
-              variant="outline"
-              color="primary"
-              borderColor="primary"
-              border="2px"
-              borderRadius="10px"
-              fontSize="15px"
-              fontWeight="bold"
-              bg="white"
-              _hover={{ bg: "primary", color: "white" }}
-              _active={{
-                bg: "primary",
-                color: "white",
-                transform: "scale(0.98)",
-                borderColor: "primary",
-              }}
-            >
-              Cancel
-            </Button>
+            <Flex width="100%" justifyContent="center" mt={-3}>
+              <Button
+                width="60%"
+                bg="white"
+                color="primary"
+                borderColor={"primary"}
+                borderWidth={1}
+                _hover={{ bg: "primary", color: "white" }}
+                _active={{ bg: "primary", color: "white"}}
+                borderRadius="12px"
+                onClick={onDriverClose}
+              >
+                Cancel
+              </Button>
+            </Flex>
           </ModalFooter>
         </ModalContent>
       </Modal>
-      {/* Add Review Modal */}
+      {/* Add Driver Review Modal */}
       <Modal
         isOpen={isAddReviewOpen}
         onClose={onAddReviewClose}
@@ -390,20 +385,32 @@ const OrderId = ({ status }: OrderIdProps) => {
       >
         <ModalOverlay backdropFilter="blur(5px)" />
         <ModalContent borderRadius="15px">
-          <ModalHeader>Driver Details</ModalHeader>
+          <ModalHeader
+            fontSize="xl"
+            fontWeight="bold"
+            textAlign="center"
+            color="orange.500"
+          >
+            Add Product Review
+          </ModalHeader>
           <ModalBody>
-            {/* Add content for the new popup here */}
-            <Text>Driver Details Popup Content</Text>
+            <AddDriverReview driverImage="https://via.placeholder.com/50" driverName="Bimsara Anjana Jayadewa" courierCompany="Uber pvt limited." driverID={123456} driverNumber="+94719944045"/>
           </ModalBody>
           <ModalFooter>
-            <Button
-              variant="outline"
-              colorScheme="blue"
-              mr={3}
-              onClick={onAddReviewClose}
-            >
-              Close
-            </Button>
+            <Flex width="100%" justifyContent="center" columnGap={5} >
+              <Button
+                variant="outline"
+                colorScheme="orange"
+                px={5}
+                mr={3}
+                onClick={onAddReviewClose}
+              >
+                Cancel
+              </Button>
+              <Button colorScheme="orange" px={5} onClick={onAddReviewClose}>
+                Publish
+              </Button>
+            </Flex>
           </ModalFooter>
         </ModalContent>
       </Modal>
