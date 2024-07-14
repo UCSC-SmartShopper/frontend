@@ -18,11 +18,9 @@ import Reviews from "./pages/Reviews";
 import SignUp from "./pages/SignUp";
 import Test from "./pages/Test";
 import Products from "./pages/Products";
-import LoginRegister from "./pages/DriverApp/LoginRegister/LoginRegister";
-import DriverLogin from "./pages/DriverApp/LoginRegister/Login/DriverLogin";
-import DriverRegister from "./pages/DriverApp/LoginRegister/Register/DriverRegister";
 
 import AdminMain from "./pages/Admin/AdminMain";
+import DriverMain from "./pages/DriverApp/Dashboard/DriverMain";
 
 export interface ProductQuery {
   genreId?: number;
@@ -54,10 +52,7 @@ function App() {
           <Route path="/products" element={<Products />} />
 
 
-          <Route path="/driver" element={<LoginRegister />} />
-          <Route path="/driver/login_register" element={<LoginRegister />} />
-          <Route path="/driver/login" element={<DriverLogin />} />
-          <Route path="/driver/register" element={<DriverRegister />} />
+          <Route path="/driver/*" element={<DriverMain />} />
 
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/admin" element={<AdminMain />} />
