@@ -2,6 +2,7 @@ import React from "react";
 import { Box } from "@chakra-ui/react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import Chart from 'react-apexcharts';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -32,7 +33,7 @@ const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: "right" as const,
+      position: "top" as const,
     },
     title: {
       display: false,
@@ -42,7 +43,7 @@ const options = {
 
 const DoughnutChart: React.FC = () => {
   return (
-    <Box height="250px">
+    <Box my={10} py={10}>
       <Doughnut data={data} options={options} width="full" />
     </Box>
   );

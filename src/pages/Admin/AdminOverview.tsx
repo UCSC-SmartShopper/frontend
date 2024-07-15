@@ -79,7 +79,7 @@ const AdminOverview = () => {
           Customers Card 
         */}
         <Box p={5} shadow="md" borderWidth="1px" w="40%" borderRadius={15}>
-          <Box p={5}>
+          <Box p={5} >
             <Heading as="h3" size="lg">
               Customers
             </Heading>
