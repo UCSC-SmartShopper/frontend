@@ -35,7 +35,6 @@ import { FaShoppingBag } from "react-icons/fa";
 import { GiStorkDelivery } from "react-icons/gi";
 import { MdPayment } from "react-icons/md";
 import LoginButton from "../../components/Buttons/LoginButton";
-import PieChart from "../../components/Charts/PieChart";
 
 const AdminOrders = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -71,7 +70,7 @@ const AdminOrders = () => {
         <GridItem area={'main1'} pb={2}>
           <Heading size='lg' my={4}>Orders by Supermarkets</Heading>
         <Box pt={10} boxShadow={'md'}>
-    <PieChart title=''/>
+    
     </Box>
     
   </GridItem>

@@ -24,7 +24,7 @@ const SideBar = ({ adminPage, setAdminPage }: Props) => {
     { icon: IoMdPeople, label: "Customers" },
     { icon: FaShop, label: "Super Markets" },
     { icon: TbTruckDelivery, label: "Courier Services" },
-    { icon: FaCartFlatbed, label: "Orders", path: "/admin-Orders" },
+    { icon: FaCartFlatbed, label: "Orders"},
     { icon: TbTransactionDollar, label: "Transactions" },
     { icon: RiAdvertisementFill, label: "Advertisements" },
     { icon: IoSettings, label: "Settings" },

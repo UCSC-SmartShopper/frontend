@@ -34,7 +34,7 @@ import { IoBusiness, IoCall } from "react-icons/io5";
 import { MdFeedback } from "react-icons/md";
 import { SiCashapp } from "react-icons/si";
 import { TbTruckDelivery } from "react-icons/tb";
-import LineChart from "../../components/Charts/LineChart";
+// import LineChart from "../../components/Charts/LineChart";
 
 const AdminCourierServices = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -77,7 +77,7 @@ const AdminCourierServices = () => {
             </Heading>
 
             <Center>
-              <LineChart topic="" />
+              {/* <LineChart  /> */}
             </Center>
           </Box>
 

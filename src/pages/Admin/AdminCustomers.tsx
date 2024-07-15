@@ -5,8 +5,6 @@ import {
   CardBody,
   Center,
   Flex,
-  Grid,
-  GridItem,
   Heading,
   HStack,
   Icon,
@@ -29,7 +27,7 @@ import {
   Thead,
   Tr,
   useDisclosure,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 import { AiOutlineRise } from "react-icons/ai";
 import { FaCartFlatbed, FaLocationDot } from "react-icons/fa6";
@@ -104,10 +102,24 @@ const AdminCustomers = () => {
           </Card>
         ))}
       </HStack>
+      
 
-      <Center w="full">
-        <LineChart topic="Customer Engagement" />
-      </Center>
+      <Box width="100%" shadow="md" borderWidth="1px" borderRadius={15} p={5}>
+        <VStack>
+        <Heading>Customer Engagement</Heading>
+        <LineChart />
+        </VStack>
+
+      
+       
+       
+      
+      
+
+      </Box>
+
+     
+      
 
       <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
         <Flex justifyContent="space-between" px={20} py={10}>

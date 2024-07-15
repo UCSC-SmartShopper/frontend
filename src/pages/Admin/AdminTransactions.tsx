@@ -1,7 +1,7 @@
 import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
     ,Heading,Text,TableContainer,HStack,Circle,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
     VStack,Icon,ListItem,List} from "@chakra-ui/react"
-  import LineChart from "../../components/Charts/LineChart"
+  // import LineChart from "../../components/Charts/LineChart"
   import LoginButton from "../../components/Buttons/LoginButton" 
   import { MdPayment } from "react-icons/md";
   import { FaShoppingBag } from "react-icons/fa";
@@ -53,7 +53,7 @@ const AdminTransactions = () => {
 
         </Flex>
             
-    <LineChart topic='Money Flow'/>
+    {/* <LineChart topic='Money Flow'/> */}
   </GridItem>
   <GridItem pl='2'  area={'main2'}>
   <Card mt={14} pt={2}>

@@ -34,8 +34,7 @@ import { GrUserWorker } from "react-icons/gr";
 import { IoStarSharp } from "react-icons/io5";
 import { MdFeedback, MdNavigateNext } from "react-icons/md";
 import { SiCashapp } from "react-icons/si";
-import LineChart from "../../components/Charts/LineChart";
-import PieChart from "../../components/Charts/PieChart";
+// import LineChart from "../../components/Charts/LineChart";
 
 const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -49,7 +48,6 @@ const AdminSuperMarkets = () => {
           <Heading size={"lg"} my={4}>
             Super Market Earnings
           </Heading>
-          <PieChart title="Chart" />
         </Box>
 
         {/*
@@ -62,7 +60,7 @@ const AdminSuperMarkets = () => {
             </Heading>
 
             <Center>
-              <LineChart topic="" />
+              {/* <LineChart  /> */}
             </Center>
           </Box>
         </Box>
