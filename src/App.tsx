@@ -22,6 +22,9 @@ import Orders from "./pages/ConsumerOrders";
 import ViewOrders from "./pages/ViewOrders";
 import Task from './components/organizations/organization';
 
+import AdminMain from "./pages/Admin/AdminMain";
+import DriverMain from "./pages/DriverApp/Dashboard/DriverMain";
+
 export interface ProductQuery {
   genreId?: number;
   platformId?: number;
@@ -53,6 +56,11 @@ function App() {
            <Route path="/orders" element={<Orders />} />
           <Route path="/vieworders" element={<ViewOrders />} />
           <Route path="/task" element={<Task />} />
+
+          <Route path="/driver/*" element={<DriverMain />} />
+
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/admin" element={<AdminMain />} />
 
         </Routes>
 
