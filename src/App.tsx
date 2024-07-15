@@ -20,6 +20,7 @@ import LoginRegister from "./pages/DriverApp/LoginRegister/LoginRegister";
 import DriverLogin from "./pages/DriverApp/LoginRegister/Login/DriverLogin";
 import Orders from "./pages/ConsumerOrders";
 import ViewOrders from "./pages/ViewOrders";
+import Task from './components/organizations/organization';
 
 export interface ProductQuery {
   genreId?: number;
@@ -35,7 +36,6 @@ function App() {
         <Show above="md">
           <Navbar />
         </Show>
-
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
@@ -50,8 +50,9 @@ function App() {
 
           <Route path="/driver/login_register" element={<LoginRegister />} />
           <Route path="/driver/login" element={<DriverLogin />} />
-          <Route path="/orders" element={<Orders />} />
+           <Route path="/orders" element={<Orders />} />
           <Route path="/vieworders" element={<ViewOrders />} />
+          <Route path="/task" element={<Task />} />
 
         </Routes>
 
