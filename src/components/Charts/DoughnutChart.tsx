@@ -19,8 +19,8 @@ const DoughnutChart: React.FC = () => {
             },
             colors: ['#ff7708', '#ff3908', '#ffe208'], 
             labels: ['Current Customers', 'New Customers', 'Target Customers'],
-            width: '100%', // Set the width of the chart
-            height:'100%', // Set the height of the chart   
+            width: 'full', // Set the width of the chart
+            height:'full', // Set the height of the chart   
             legend: {
                 position: 'bottom', // Positioning the legend at the bottom
                 fontSize: '14px', // Setting the font size of the legend
@@ -29,7 +29,7 @@ const DoughnutChart: React.FC = () => {
     };
 
     return (
-        <Box py={10} my={10}>
+        <Box py={10} >
             <Chart options={data.options} series={data.series} type="donut" width="100%" />
         </Box>
     );
