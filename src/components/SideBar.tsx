@@ -39,9 +39,8 @@ const SideBar = ({ adminPage, setAdminPage }: Props) => {
       color="gray.800"
       fontWeight="500"
       spacing={3}
-      pl={2}
+      pl={1}
       shadow="lg"
-      bg="gray.50"
     >
       <Heading fontSize="2xl" color="primary" mt={2} p={2}>
         My Account
@@ -54,7 +53,7 @@ const SideBar = ({ adminPage, setAdminPage }: Props) => {
           p={2}
           w="full"
           cursor="pointer"
-          bg={adminPage === item.label ? "white" : ""}
+          bg={adminPage === item.label ? "rgba(255, 119, 8, 0.2)" : ""}
           borderLeft={adminPage === item.label ? "5px solid" : ""}
           borderColor={adminPage === item.label ? "primary" : ""}
           // borderLeftRadius="md"
