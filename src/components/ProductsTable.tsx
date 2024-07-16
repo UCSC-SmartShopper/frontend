@@ -12,14 +12,25 @@ import {
   Icon,
   Center,
   Flex,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
+  ModalHeader,
+  ModalFooter
+
 } from "@chakra-ui/react";
 import { Badge } from "flowbite-react";
 import React, { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import EditItemDetails from "./EditItemDetails";
+import { Button, useDisclosure } from "@chakra-ui/react";
+
 
 const productTable = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedproducts, setSelectedproducts] = useState([]);
 
@@ -247,7 +258,7 @@ const productTable = () => {
                     }}
                   >
                     <Flex alignItems="center">
-                      <Icon as={FaEdit} />
+                      <Icon as={FaEdit} onClick={onOpen}/>
                     </Flex>
                   </Link>
                 </Td>
@@ -256,6 +267,26 @@ const productTable = () => {
           </Tbody>
         </Table>
       </Box>
+
+
+      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} size={'2xl'}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit Item Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <EditItemDetails Price={10} Stock={20} />
+            
+          </ModalBody>
+
+          {/* <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant='ghost'>Secondary Action</Button>
+          </ModalFooter> */}
+        </ModalContent>
+      </Modal>
       
       
     </>
