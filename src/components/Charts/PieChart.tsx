@@ -10,23 +10,25 @@ const PieChart = () => {
         type: 'pie',
       },
       labels: ['Keells', 'Cargills', 'Arpico', 'Glomark', 'Spar'],
-      colors: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+      colors: ['#FF4768', '#1E90FF', '#FFD700', '#00CED1', '#8A2BE2'],
+      legend: {
+        position: 'bottom', // Positioning the legend at the bottom
+        fontSize: '14px', // Setting the font size of the legend
+    },
       responsive: [{
         breakpoint: 480,
         options: {
           chart: {
             width: 200
           },
-          legend: {
-            position: 'bottom'
-          }
         }
       }]
+      
     }
   }
   return (
-    <Box>
-      <Chart options={data.options} series={data.series} type="pie" width="100%"/>
+    <Box  width="100%" pb={2}>
+      <Chart options={data.options} series={data.series} type="pie"/>
       
     </Box>
   )

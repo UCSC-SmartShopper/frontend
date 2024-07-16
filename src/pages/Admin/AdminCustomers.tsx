@@ -65,12 +65,13 @@ const AdminCustomers = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <VStack
+    <VStack 
       gap="8vh"
       my="5vh"
       px="2vw"
       // justifyContent="center"
       w="full"
+      fontWeight={"bold"}
     >
       <HStack justifyContent="space-between" w="full">
         {cutomerCards.map((card, index) => (
@@ -104,7 +105,7 @@ const AdminCustomers = () => {
       </HStack>
       
 
-      <Box width="100%" shadow="md" borderWidth="1px" borderRadius={15} p={5}>
+      <Box width="100%" shadow="md" borderWidth="1px" borderRadius={15} py={5}>
         <VStack>
         <Heading size="lg">Customer Engagement</Heading>
         <LineChart width="60%"/>
@@ -142,6 +143,9 @@ const AdminCustomers = () => {
           </Flex>
         </Flex>
 
+          <Center>
+
+          
         <TableContainer
           width={{ base: "100%", lg: "90%" }}
           ml={{ base: "0%", lg: "1%" }}
@@ -231,6 +235,7 @@ const AdminCustomers = () => {
             </Tfoot>
           </Table>
         </TableContainer>
+        </Center>
       </Box>
 
       {/* --------------- POP UP --------------- */}

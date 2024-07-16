@@ -52,18 +52,18 @@ const AdminSuperMarkets = () => {
         {/*
           Supermarket Earnings Card
         */}
-        <Box p={5} shadow="md" borderWidth="1px" w="30%" borderRadius={15} display={'flex'} alignItems="center" justifyContent="center">
+        <Box shadow="md" borderWidth="1px" w="40%" borderRadius={15} display={'flex'} alignItems="center" justifyContent="center">
           
-          <Center >
+          
             <PieChart /> 
-          </Center>
+          
         </Box>
 
         {/*
           Supermarket Earnings Card
         */}
-        <Box p={5} shadow="md" borderWidth="1px" w="70%" borderRadius={15}>
-          <Box p={5}>
+        <Box  shadow="md" borderWidth="1px" w="60%" borderRadius={15}>
+          <Box >
             {/* <Heading as="h3" size="lg">
               Customers
             </Heading> */}
@@ -76,7 +76,7 @@ const AdminSuperMarkets = () => {
       </Flex>
 
       <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
-        <Flex justifyContent="space-between">
+        <Flex justifyContent="space-between" px={20} py={10}>
           <Heading as="h3" size="lg">
             Super Market Details
           </Heading>
