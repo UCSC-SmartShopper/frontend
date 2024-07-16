@@ -33,7 +33,7 @@ import { useState } from "react";
 
 import Face from "../../assets/CourierCompany/Face 1.svg";
 import Stars from "../../assets/CourierCompany/stars.svg";
-import MiddleContainer from "../../components/Containers/MiddleContainer2";
+import MiddleContainer from "../../components/Containers/MiddleContainer";
 
 
 interface Customer {
@@ -152,7 +152,7 @@ const Deliveries = () => {
   };
 
   return (
-    <MiddleContainer>
+    <MiddleContainer width="90vw">
       <Heading as="h4" size="md" mt={7} pl={7}>
         Delivery Details
       </Heading>

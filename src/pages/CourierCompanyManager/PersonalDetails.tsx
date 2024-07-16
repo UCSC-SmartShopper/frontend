@@ -14,13 +14,13 @@ import {
 import { FaThumbsUp } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 
-import MiddleContainer from "../../components/Containers/MiddleContainer2";
+import MiddleContainer from "../../components/Containers/MiddleContainer";
 import FaceImage from "../../assets/CourierCompany/Avatar3.svg";
 import StarImage from "../../assets/CourierCompany/stars.svg";
 
 const PersonalDetails = () => {
   return (
-    <MiddleContainer>
+    <MiddleContainer width="80vw">
       <Grid gridTemplateColumns="1fr 3fr" h="100%" pl={8}>
         <GridItem h="100%">
           <Box borderRadius="lg" p={4} mb={2} mt={5} ml={5} mr={2}>

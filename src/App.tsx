@@ -23,6 +23,7 @@ import DriverRegister from "./pages/DriverApp/LoginRegister/Register/DriverRegis
 import Request from "./pages/CourierCompanyManager/Request";
 import Deliveries from "./pages/CourierCompanyManager/Deliveries";
 import PersonalDetails from "./pages/CourierCompanyManager/PersonalDetails";
+import Home from "./pages/CourierCompanyManager/Home";
 
 
 
@@ -64,7 +65,7 @@ function App() {
           <Route path="/deliveries" element={<Deliveries />} />
           <Route path="/request" element={<Request/>} />
           <Route path="/PersonalDetails" element={<PersonalDetails/>} />
-          
+          <Route path="/home" element={<Home/>} />
 
 
         </Routes>
