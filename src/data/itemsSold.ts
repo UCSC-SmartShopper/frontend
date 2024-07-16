@@ -14,10 +14,5 @@ export const itemsSold = [
       count: 15,
       image: "https://tse2.mm.bing.net/th?id=OIP.LGhmVT2eXrBCZ5ELrzEpCAHaHa&pid=Api&P=0&h=220",
     },
-    {
-      name: "Elephant house vanilla icecream 1l",
-      count: 18,
-      image: "https://www.elephanthouse.lk/images/vanila-main-image.png",
-    },
   ];
   

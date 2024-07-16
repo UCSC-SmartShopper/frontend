@@ -14,32 +14,22 @@ const AdminTransactions = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-    <Flex my="5vh" fontWeight={'bold'}>
-    <Box px={2} >
-        <Select placeholder='Select option' >
-        <option value='option3' selected>3 Month</option>
-        <option value='option1'>6 Month</option>
-        <option value='option2'>1 Month</option>
-      </Select>
-    </Box>
-
-    </Flex>
-    <VStack gap={"8vh"} fontWeight="bold">
+    <VStack gap={"8vh"} fontWeight="bold" my="5vh" px={10}>
       <Flex w='full' gap={5}>
-      <Box p={5} shadow="md" borderWidth="1px" w="70%" borderRadius={15}>
-            <Heading size={"lg"}>
+      <Box p={5} shadow="md" borderWidth="1px" w="60%" borderRadius={15}>
+            <Heading size={"md"}>
             Money Flow
           </Heading>
 
             <Center>
-              <LineChart  width="70%"/>
+              <LineChart  width="80%"/>
               {/* <PieChart/> */}
             </Center>
           </Box>
 
            {/* -------  cash Card ------- */}
-           <Box p={5} shadow="md" borderWidth="1px" w="30%" borderRadius={15}>
-            <Heading size="md">Top Items Sold</Heading>
+           <Box p={5} shadow="md" borderWidth="1px" w="40%" borderRadius={15}>
+            <Heading size="md">Top Buyers</Heading>
             {topBuyers.map((company, index) => (
               <VStack mt={5} key={index}>
                 <HStack
@@ -67,6 +57,127 @@ const AdminTransactions = () => {
             </ActionButton>
           </Box>
       </Flex>
+      
+      <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
+      <Flex justifyContent="space-between" px={20} py={10}>
+    <Heading as='h3' size='md' >
+      Transaction Details
+    </Heading>
+    <Flex>
+        <Box px={2}>
+        <Select placeholder='Select option' >
+        <option value='option1'>August</option>
+        <option value='option2'>September</option>
+        <option value='option3' selected>October</option>
+    </Select>
+
+        </Box>
+    {/* <ActionButton url="/addcustomer">Add Customer</ActionButton> */}
+
+    </Flex>
+    
+    </Flex>
+    <TableContainer width={{ base: "100%", lg: "90%" }} ml={{ base: '0%', lg: '5%' }}>
+      <Table size='sm'>
+        <Thead>
+          <Tr>
+            <Th>Name</Th>
+            <Th>Type</Th>
+            <Th>Date</Th>
+            <Th>Transaction Type</Th>
+            <Th>Amount</Th>
+            <Th></Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          <Tr>
+            <Td>
+            <HStack>
+                <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='50px'
+                  objectFit='cover'
+                  borderRadius="50%"
+                  mr={4}
+                />
+                <Text>Kaveesha Hettige</Text>
+              </HStack>
+            </Td>
+            <Td>customer</Td>
+            <Td>2024.06.01</Td>
+            <Td>
+            <HStack>
+                <Circle bg='red' size='10px'></Circle>
+                <Text>Cancelled</Text>
+                </HStack>
+            </Td>
+            <Td>Rs.2000</Td>
+            <Td><Button bg='primary' size='sm' onClick={onOpen}>View More</Button></Td>
+          </Tr>
+          <Tr>
+          <Td>
+          <HStack>
+                <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='50px'
+                  objectFit='cover'
+                  borderRadius="50%"
+                  mr={4}
+                />
+               <Text>Kaveesha Hettige</Text>
+              </HStack>
+            </Td>
+            <Td>Super Market</Td>
+            <Td>2024.06.01</Td>
+            <Td>
+            <HStack>
+                <Circle bg='yellow' size='10px'></Circle>
+                <Text>Delivered</Text>
+                </HStack>
+            </Td>
+            <Td>Rs.2000</Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
+          </Tr>
+        </Tbody>
+        <Tfoot>
+          <Tr>
+          <Td>
+          <HStack>
+                <Image
+                  src='https://via.placeholder.com/150'
+                  alt='Product Image'
+                  boxSize='50px'
+                  objectFit='cover'
+                  borderRadius="50%"
+                  mr={4}
+                />
+                <Text>Kaveesha Hettige</Text>
+              </HStack>
+            </Td>
+            <Td>customer</Td>
+            <Td>2024.06.01</Td>
+            <Td>
+            <HStack>
+                <Circle bg='primary' size='10px'></Circle>
+                <Text>Delivered</Text>
+                </HStack>
+            </Td>
+            <Td>Rs.2000</Td>
+            <Td><Button bg='primary' size='sm'>View More</Button></Td>
+          </Tr>
+        </Tfoot>
+      </Table>
+    </TableContainer>
+
+
+
+          
+
+
+
+          </Box>
 
 
     </VStack>

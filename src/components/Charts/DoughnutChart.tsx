@@ -17,7 +17,7 @@ const DoughnutChart: React.FC = () => {
                     },
                 },
             },
-            colors: ['#ff7708', '#ff3908', '#ffe208'], 
+            colors: ['#ff7708', '#ff3308', '#ff9908'], 
             labels: ['Current Customers', 'New Customers', 'Target Customers'],
             width: 'full', // Set the width of the chart
             height:'full', // Set the height of the chart   

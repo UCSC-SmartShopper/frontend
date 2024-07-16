@@ -60,13 +60,13 @@ const AdminOverview = () => {
     },
   ];
   return (
-    <VStack gap={"8vh"} fontWeight="bold" my="5vh">
+    <VStack gap={"8vh"} fontWeight="bold" my="5vh" px={10}>
       <Flex w="full" gap={5}>
         {/*
           Monthly Sales Card 
         */}
         <Box p={5} shadow="md" borderWidth="1px" w="60%" borderRadius={15}>
-          <Heading as="h3" size="lg" mb={1}>
+          <Heading as="h3" size="md" mb={1}>
             Monthly Sales
           </Heading>
           <Heading as="h3" size="sm" mb={4}>
@@ -80,8 +80,8 @@ const AdminOverview = () => {
         */}
         <Box p={5} shadow="md" borderWidth="1px" w="40%" borderRadius={15}>
           <Box >
-            <Heading as="h3" size="lg">
-              Customers
+            <Heading as="h3" size="md">
+              Customer Enrollment
             </Heading>
 
               <DoughnutChart />
@@ -95,7 +95,7 @@ const AdminOverview = () => {
           <Card
             key={index}
             w="24vw"
-            h="full"
+            h="auto"
             shadow="md"
             borderWidth="1.5px"
             borderColor="background"
@@ -103,7 +103,7 @@ const AdminOverview = () => {
           >
             <CardBody>
               <HStack gap={10} justifyContent="space-between">
-                <Heading size="lg">{card.title}</Heading>
+                <Heading size="md">{card.title}</Heading>
                 <Icon
                   as={card.icon}
                   boxSize={10}
@@ -114,7 +114,7 @@ const AdminOverview = () => {
                   mb="auto"
                 />
               </HStack>
-              <Text fontSize="lg">{card.value}</Text>
+              <Text fontSize="sm">{card.value}</Text>
               <Flex mt={2}>
                 <Icon
                   as={card.rdicon}
@@ -132,7 +132,7 @@ const AdminOverview = () => {
       </HStack>
 
       <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
-        <Heading as="h3" size="lg" my={4}>
+        <Heading as="h3" size="md" my={4}>
           Top Products
         </Heading>
 

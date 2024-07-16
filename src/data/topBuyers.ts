@@ -10,11 +10,6 @@ export const topBuyers=[
         image: "https://via.placeholder.com/150",
     },
     {
-        name:"Sarala Janson",
-        purchase: 18,
-        image: "https://via.placeholder.com/150",
-    },
-    {
         name:"Chathushka Ayash",
         purchase: 15,
         image: "https://via.placeholder.com/150",

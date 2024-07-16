@@ -15,9 +15,5 @@ export const numOfDrivers = [
     count: 15,
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBGrIa9CAXFKQ72Ixu6TvBwn39rFXE3OUgkA&s",
   },
-  {
-    name: "Nex Couriers",
-    count: 18,
-    image: "http://photos.wikimapia.org/p/00/03/55/65/22_full.jpg",
-  },
+  
 ];

@@ -44,22 +44,22 @@ const AdminOrders = () => {
   return (
     <>
 
-          <VStack gap={"8vh"} fontWeight="bold" my="5vh">
+          <VStack gap={"8vh"} fontWeight="bold" my="5vh" px={10}>
             <Flex w='full' gap={5}>
 
-            <Box p={5} shadow="md" borderWidth="1px" w="70%" borderRadius={15}>
-            <Heading size={"lg"}>
+            <Box p={5} shadow="md" borderWidth="1px" w="60%" borderRadius={15}>
+            <Heading size={"md"}>
             Orders by Supermarkets
           </Heading>
 
             <Center>
-              <LineChart  width="70%"/>
+              <LineChart  width="80%"/>
               {/* <PieChart/> */}
             </Center>
           </Box>
 
             {/* ------- Number of items Card ------- */}
-          <Box p={5} shadow="md" borderWidth="1px" w="30%" borderRadius={15}>
+          <Box p={5} shadow="md" borderWidth="1px" w="40%" borderRadius={15}>
             <Heading size="md">Top Items Sold</Heading>
             {itemsSold.map((company, index) => (
               <VStack mt={5} key={index}>
@@ -91,7 +91,7 @@ const AdminOrders = () => {
 
           <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
           <Flex justifyContent="space-between" px={20} py={10}>
-            <Heading as="h3" size="lg">
+            <Heading as="h3" size="md">
               Order Details
             </Heading>
             <Flex>
@@ -108,7 +108,7 @@ const AdminOrders = () => {
           </Flex>
 
           <TableContainer width={{ base: "100%", lg: "90%" }} ml={{ base: '0%', lg: '5%' }}>
-      <Table size='md'>
+      <Table size='sm'>
         <Thead>
           <Tr>
             <Th>Customer</Th>

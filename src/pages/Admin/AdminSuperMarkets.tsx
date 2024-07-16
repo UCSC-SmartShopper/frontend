@@ -41,12 +41,12 @@ const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-    <Heading size={"lg"} my={4}>
+    <Heading size={"md"} my={4} px={10}>
             Super Market Earnings
           </Heading>
 
     
-    <VStack gap={"8vh"} fontWeight="bold" my="5vh">
+    <VStack gap={"8vh"} fontWeight="bold" my="5vh" px={10}>
       
       <Flex w="full" gap={5}>
         {/*
@@ -77,7 +77,7 @@ const AdminSuperMarkets = () => {
 
       <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
         <Flex justifyContent="space-between" px={20} py={10}>
-          <Heading as="h3" size="lg">
+          <Heading as="h3" size="md">
             Super Market Details
           </Heading>
           <Flex>
@@ -93,7 +93,8 @@ const AdminSuperMarkets = () => {
             {/* <ActionButton url="/addcustomer">Add Customer</ActionButton> */}
           </Flex>
         </Flex>
-
+        
+        <Center>
         <TableContainer
           width={{ base: "100%", lg: "90%" }}
           ml={{ base: "0%", lg: "5%" }}
@@ -184,6 +185,7 @@ const AdminSuperMarkets = () => {
             </Tfoot>
           </Table>
         </TableContainer>
+        </Center>
       </Box>
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>

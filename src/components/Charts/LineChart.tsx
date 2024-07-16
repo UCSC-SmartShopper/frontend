@@ -30,7 +30,7 @@ const LineChart: React.FC<LineChartProps> = ({ width }) => {
     };
 
     return (
-        <Box width={width}>
+        <Box width={width} mt={2}>
             <Chart options={data.options} series={data.series} type="line" />
         </Box>
     );
