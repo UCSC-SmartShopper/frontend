@@ -26,6 +26,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import LinkButton from "../components/Buttons/LinkButton";
 import ErrorText from "../components/Errors/ErrorText";
+import useAuthStore from "@/state-management/auth/store";
+import { useNavigate } from "react-router-dom";
 // import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
@@ -39,9 +41,29 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  // Validate the user and save the user
+  const { login } = useAuthStore();
+  const navigate = useNavigate();
+
+  const validate = (data: FormData) => {
+    const user = login(data);
+    if (user) {
+      switch (user.role) {
+        case "admin":
+          navigate("/admin");
+          break;
+        case "consumer":
+          navigate("/");
+          break;
+        default:
+          break;
+      }
+    }
+  };
+
   return (
     <MiddleContainer>
       <Grid
@@ -77,7 +99,7 @@ const Login = () => {
               </Box>
             </VStack>
 
-            <form onSubmit={handleSubmit((data) => console.log(data))}>
+            <form onSubmit={handleSubmit(validate)}>
               <LoginInput
                 register={register("email")}
                 type="email"

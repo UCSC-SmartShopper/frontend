@@ -1,3 +1,4 @@
+import useAuthStore from "@/state-management/auth/store";
 import {
   Avatar,
   Flex,
@@ -8,15 +9,13 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
-import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [user] = useState("");
+  const { user } = useAuthStore();
   const location = useLocation();
   const hideNavbarPaths = ["/driver"];
   const showTopNav = !hideNavbarPaths.some((path) =>
@@ -78,7 +77,7 @@ const Navbar = () => {
                 boxSize={10}
               />
               <Text fontSize="lg" fontWeight="bold">
-                {user}
+                {user.username}
               </Text>
               <Icon as={FaCartShopping} w={8} h={8} color="black" />
             </HStack>
