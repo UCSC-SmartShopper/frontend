@@ -34,20 +34,29 @@ import { GrUserWorker } from "react-icons/gr";
 import { IoStarSharp } from "react-icons/io5";
 import { MdFeedback, MdNavigateNext } from "react-icons/md";
 import { SiCashapp } from "react-icons/si";
-// import LineChart from "../../components/Charts/LineChart";
+import LineChart from "../../components/Charts/LineChart";
+import PieChart from "../../components/Charts/PieChart";
 
 const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
+    <>
+    <Heading size={"lg"} my={4}>
+            Super Market Earnings
+          </Heading>
+
+    
     <VStack gap={"8vh"} fontWeight="bold" my="5vh">
+      
       <Flex w="full" gap={5}>
         {/*
           Supermarket Earnings Card
         */}
-        <Box p={5} shadow="md" borderWidth="1px" w="30%" borderRadius={15}>
-          <Heading size={"lg"} my={4}>
-            Super Market Earnings
-          </Heading>
+        <Box p={5} shadow="md" borderWidth="1px" w="30%" borderRadius={15} display={'flex'} alignItems="center" justifyContent="center">
+          
+          <Center >
+            <PieChart /> 
+          </Center>
         </Box>
 
         {/*
@@ -55,12 +64,12 @@ const AdminSuperMarkets = () => {
         */}
         <Box p={5} shadow="md" borderWidth="1px" w="70%" borderRadius={15}>
           <Box p={5}>
-            <Heading as="h3" size="lg">
+            {/* <Heading as="h3" size="lg">
               Customers
-            </Heading>
+            </Heading> */}
 
             <Center>
-              {/* <LineChart  /> */}
+              <LineChart  width="80%"/>
             </Center>
           </Box>
         </Box>
@@ -317,6 +326,7 @@ const AdminSuperMarkets = () => {
         </ModalContent>
       </Modal>
     </VStack>
+    </>
   );
 };
 

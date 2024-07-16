@@ -1,8 +1,11 @@
-import React from 'react';
 import Chart from 'react-apexcharts';
 import { Box } from '@chakra-ui/react';
 
-const LineChart = () => {
+interface LineChartProps {
+    width: string;
+}
+
+const LineChart: React.FC<LineChartProps> = ({ width }) => {
     const data = {
         series: [{
             name: 'No of Customers',
@@ -25,7 +28,7 @@ const LineChart = () => {
     };
 
     return (
-        <Box width="60%">
+        <Box width={width}>
             <Chart options={data.options} series={data.series} type="line" />
         </Box>
     );

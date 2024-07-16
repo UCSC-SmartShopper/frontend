@@ -1,257 +1,76 @@
 import { Grid, GridItem,Card,CardBody,Box,Flex,Image,Spacer,Center,Select,Table,Thead,Tr,Th,Tbody,Td,Tfoot
     ,Heading,Text,TableContainer,HStack,Circle,Button,useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
     VStack,Icon,ListItem,List} from "@chakra-ui/react"
-  // import LineChart from "../../components/Charts/LineChart"
-  import LoginButton from "../../components/Buttons/LoginButton" 
+   import LineChart from "../../components/Charts/LineChart"
+  import ActionButton from "../../components/Buttons/ActionButton" 
   import { MdPayment } from "react-icons/md";
   import { FaShoppingBag } from "react-icons/fa";
   import { GiStorkDelivery } from "react-icons/gi";
   import { FaUser } from "react-icons/fa6";
+  import {topBuyers} from "@/data/topBuyers";
 
 
 const AdminTransactions = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-    <Grid
-  templateAreas={{
-               base:`"main"
-                    "footer"`,
-                  lg:`"main"
-                      "footer"`,
-                
-                }}
-                gridTemplateRows={"auto auto"}
-                gridTemplateColumns={{ base: "1fr", lg: "auto" }}
-  gap='1'
-  color='blackAlpha.700'
-  fontWeight='bold'
->
-
-  <GridItem  area={'main'} ml={8} mt={1}>
-    <Grid templateAreas={{
-        base: `"main1"
-              "main2"`,
-       lg: `"main1 main2"`,
-       
-    }}
-    gridTemplateRows={{ base: 'auto auto', lg: '1fr' }}
-    gridTemplateColumns={{base:'1fr',lg:'69% 28%'}}
-    gap={5}
-    >
-        <GridItem pl='2' area={'main1'} pb={2}>
-        <Flex>
-        <Box px={2}>
+    <Flex my="5vh" fontWeight={'bold'}>
+    <Box px={2} >
         <Select placeholder='Select option' >
         <option value='option3' selected>3 Month</option>
         <option value='option1'>6 Month</option>
         <option value='option2'>1 Month</option>
-        
-    </Select>
-
-        </Box>
-
-        </Flex>
-            
-    {/* <LineChart topic='Money Flow'/> */}
-  </GridItem>
-  <GridItem pl='2'  area={'main2'}>
-  <Card mt={14} pt={2}>
-  <CardBody>
-    
- 
-    <Box mb={10}>
-        <Heading fontSize="20px" mb={4} mt={0}>Top Buyers</Heading>
-      <Flex justifyContent={'space-between'}>
-        <Box px={3}>Customer</Box>
-        <Spacer/>
-        <Box px={3}>Items Purchased</Box>
-      </Flex>
+      </Select>
     </Box>
-
-    <Box mb={5}>
-    <Flex>
-    <HStack px={3}>
-        <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='40px'
-                  objectFit='cover'
-                />
-                <Box px={3} py={2}>Kaveesha Hettige</Box>
-        </HStack>
-        <Spacer/>
-        <Box px={10} py={2}>20</Box>
-      </Flex>
-    </Box>
-
-    <Box mb={5}>
-    <Flex>
-    <HStack px={3}>
-        <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='40px'
-                  objectFit='cover'
-                />
-                <Box px={3} py={2}>Kaveesha Hettige</Box>
-        </HStack>
-        <Spacer/>
-        <Box px={10} py={2}>20</Box>
-      </Flex>
-    </Box>
-
-    <Box mb={5}>
-    <Flex>
-        <HStack px={3}>
-        <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='40px'
-                  objectFit='cover'
-                />
-                <Box px={3} py={2}>Kaveesha Hettige</Box>
-        </HStack>
-        
-        <Spacer/>
-        <Box px={10} py={2}>20</Box>
-      </Flex>
-    </Box>
-
-    <Box>
-      <Center>
-      <LoginButton text="View More" image=""/>
-      </Center>
-   
-    </Box>
-
-  </CardBody>
-</Card>
-  </GridItem>
-
-    </Grid>
-    
-   
-  </GridItem>
-  <GridItem pl='2' area={'footer'} mx={10} my={10}>
-
-  <Box p={2} shadow='md' borderWidth='1px'>
-    <Flex justifyContent="space-between" px={20} py={10}>
-    <Heading as='h3' size='lg' >
-      Transaction Details
-    </Heading>
-    <Flex>
-        <Box px={2}>
-        <Select placeholder='Select option' >
-        <option value='option1'>August</option>
-        <option value='option2'>September</option>
-        <option value='option3' selected>October</option>
-    </Select>
-
-        </Box>
-    {/* <ActionButton url="/addcustomer">Add Customer</ActionButton> */}
 
     </Flex>
-    
-    </Flex>
+    <VStack gap={"8vh"} fontWeight="bold">
+      <Flex w='full' gap={5}>
+      <Box p={5} shadow="md" borderWidth="1px" w="70%" borderRadius={15}>
+            <Heading size={"lg"}>
+            Money Flow
+          </Heading>
 
-  <TableContainer width={{ base: "100%", lg: "90%" }} ml={{ base: '0%', lg: '5%' }}>
-      <Table size='sm'>
-        <Thead>
-          <Tr>
-            <Th>Name</Th>
-            <Th>Type</Th>
-            <Th>Contact Number</Th>
-            <Th>Deliveries Completed</Th>
-            <Th>Earning</Th>
-            <Th></Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          <Tr>
-            <Td>
-            <HStack>
-                <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='50px'
-                  objectFit='cover'
-                  borderRadius="50%"
-                  mr={4}
-                />
-                <Text>Kaveesha Hettige</Text>
-              </HStack>
-            </Td>
-            <Td>customer</Td>
-            <Td>2024.06.01</Td>
-            <Td>
-            <HStack>
-                <Circle bg='red' size='10px'></Circle>
-                <Text>Cancelled</Text>
+            <Center>
+              <LineChart  width="70%"/>
+              {/* <PieChart/> */}
+            </Center>
+          </Box>
+
+           {/* -------  cash Card ------- */}
+           <Box p={5} shadow="md" borderWidth="1px" w="30%" borderRadius={15}>
+            <Heading size="md">Top Items Sold</Heading>
+            {topBuyers.map((company, index) => (
+              <VStack mt={5} key={index}>
+                <HStack
+                  w="full"
+                  px="1vw"
+                  h="10vh"
+                  rounded={10}
+                  borderWidth="1px"
+                  borderColor="background"
+                  shadow="md"
+                >
+                  <Image
+                    src={company.image}
+                    alt="Product Image"
+                    boxSize="40px"
+                    objectFit="cover"
+                  />
+                  <Text ml='0.3rem'>{company.name}</Text>
+                  <Text ml="auto">{company.purchase}</Text>
                 </HStack>
-            </Td>
-            <Td>Rs.2000</Td>
-            <Td><Button bg='primary' size='sm' onClick={onOpen}>View More</Button></Td>
-          </Tr>
-          <Tr>
-          <Td>
-          <HStack>
-                <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='50px'
-                  objectFit='cover'
-                  borderRadius="50%"
-                  mr={4}
-                />
-               <Text>Kaveesha Hettige</Text>
-              </HStack>
-            </Td>
-            <Td>Super Market</Td>
-            <Td>2024.06.01</Td>
-            <Td>
-            <HStack>
-                <Circle bg='yellow' size='10px'></Circle>
-                <Text>Delivered</Text>
-                </HStack>
-            </Td>
-            <Td>Rs.2000</Td>
-            <Td><Button bg='primary' size='sm'>View More</Button></Td>
-          </Tr>
-        </Tbody>
-        <Tfoot>
-          <Tr>
-          <Td>
-          <HStack>
-                <Image
-                  src='https://via.placeholder.com/150'
-                  alt='Product Image'
-                  boxSize='50px'
-                  objectFit='cover'
-                  borderRadius="50%"
-                  mr={4}
-                />
-                <Text>Kaveesha Hettige</Text>
-              </HStack>
-            </Td>
-            <Td>customer</Td>
-            <Td>2024.06.01</Td>
-            <Td>
-            <HStack>
-                <Circle bg='primary' size='10px'></Circle>
-                <Text>Delivered</Text>
-                </HStack>
-            </Td>
-            <Td>Rs.2000</Td>
-            <Td><Button bg='primary' size='sm'>View More</Button></Td>
-          </Tr>
-        </Tfoot>
-      </Table>
-    </TableContainer>
-    </Box>
-   
-    
-  </GridItem>
+              </VStack>
+            ))}
+            <ActionButton inverted={true} className="!w-full mt-5">
+              View All
+            </ActionButton>
+          </Box>
+      </Flex>
+
+
+    </VStack>
+
   <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -418,7 +237,6 @@ const AdminTransactions = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-</Grid>
     </>
     
   )

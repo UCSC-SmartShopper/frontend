@@ -106,8 +106,8 @@ const AdminCustomers = () => {
 
       <Box width="100%" shadow="md" borderWidth="1px" borderRadius={15} p={5}>
         <VStack>
-        <Heading>Customer Engagement</Heading>
-        <LineChart />
+        <Heading size="lg">Customer Engagement</Heading>
+        <LineChart width="60%"/>
         </VStack>
 
       
