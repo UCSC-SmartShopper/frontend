@@ -9,9 +9,7 @@ const DriverLayout = () => {
   if (user?.role !== "driver")
     return <Navigate to={"/driver/login_register"} />;
 
-  return (
-    <>{isMobile[0] ? <Heading>Mobile</Heading> : <Heading>Desktop</Heading>}</>
-  );
+  return <>{isMobile[0] ? <Outlet /> : <Heading>Please use a mobile Device</Heading>}</>;
 };
 
 export default DriverLayout;

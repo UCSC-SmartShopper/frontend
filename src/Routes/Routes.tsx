@@ -2,7 +2,7 @@ import App from "@/App";
 import { createBrowserRouter } from "react-router-dom";
 import AdminRoutes from "./AdminRoutes";
 import ErrorPage from "./ErrorPage";
-import HomeLayout from "./HomeLayout";
+import HomeLayout from "./Layouts/HomeLayout";
 import PublicRoutes from "./PublicRoutes";
 import Reviews from "@/components/Feedback";
 import DriverRoutes from "./DriverRoutes";
