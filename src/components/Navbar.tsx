@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";  // Import Link from react-router-dom
 import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [user] = useState("Courier Company");
@@ -38,6 +39,9 @@ const Navbar = () => {
           borderColor={useColorModeValue("gray.200", "gray.900")}
           align={"center"}
           justifyContent="space-between"
+          pos={location.pathname === "/admin" ? "sticky" : "relative"}
+          top={0}
+          zIndex={10}
         >
           <HStack gap={5}>
             <Image src={Banner} />

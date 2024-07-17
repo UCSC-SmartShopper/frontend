@@ -28,6 +28,8 @@ import Home from "./pages/CourierCompanyManager/Home";
 
 
 
+import AdminMain from "./pages/Admin/AdminMain";
+
 export interface ProductQuery {
   genreId?: number;
   platformId?: number;
@@ -68,6 +70,9 @@ function App() {
           <Route path="/home" element={<Home/>} />
 
 
+
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/admin" element={<AdminMain />} />
         </Routes>
 
         <Show below="md">
