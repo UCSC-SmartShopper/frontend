@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Grid, GridItem, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 
 const ShippingAddress = ({
@@ -24,13 +24,13 @@ const ShippingAddress = ({
       p={5}
     >
       <Flex justifyContent="space-between" alignItems="center" mb={4}>
-        <Text color="primary" size="xl" fontWeight="semibold" fontSize={20} pl={5}>
+        <Text color="primary" fontSize="xl" fontWeight="semibold" pl={5}>
           Shipping Address
         </Text>
         <Flex>
           {!isEditable && (
             <Button
-              w={190}
+              w="auto"
               mr={4}
               mt={4}
               onClick={toggleEdit}
@@ -55,48 +55,40 @@ const ShippingAddress = ({
           )}
         </Flex>
       </Flex>
-      <Grid templateColumns="auto 1fr" gap={4} pl={10}>
-        <GridItem>
-          <Text fontSize="18px" fontWeight="semibold">
-            Address Line 1:
-          </Text>
-        </GridItem>
-        <GridItem>
-          <Text fontSize="18px">{addressLine1}</Text>
-        </GridItem>
-        <GridItem>
-          <Text fontSize="18px" fontWeight="semibold">
-            Address Line 2:
-          </Text>
-        </GridItem>
-        <GridItem>
-          <Text fontSize="18px">{addressLine2}</Text>
-        </GridItem>
-        <GridItem>
-          <Text fontSize="18px" fontWeight="semibold">
-            District:
-          </Text>
-        </GridItem>
-        <GridItem>
-          <Text fontSize="18px">{district}</Text>
-        </GridItem>
-        <GridItem>
-          <Text fontSize="18px" fontWeight="semibold">
-            City:
-          </Text>
-        </GridItem>
-        <GridItem>
-          <Text fontSize="18px">{city}</Text>
-        </GridItem>
-        <GridItem>
-          <Text fontSize="18px" fontWeight="semibold">
-            Phone Number:
-          </Text>
-        </GridItem>
-        <GridItem>
-          <Text fontSize="18px">{phoneNumber}</Text>
-        </GridItem>
-      </Grid>
+      <VStack align="start" spacing={4} p={4} pl={10}>
+        <Grid templateColumns="1fr 2fr" gap={2} w="full">
+          <GridItem>
+            <Text fontWeight="medium" color="gray.600">Address Line 1:</Text>
+          </GridItem>
+          <GridItem>
+            <Text color="gray.800">{addressLine1}</Text>
+          </GridItem>
+          <GridItem>
+            <Text fontWeight="medium" color="gray.600">Address Line 2:</Text>
+          </GridItem>
+          <GridItem>
+            <Text color="gray.800">{addressLine2}</Text>
+          </GridItem>
+          <GridItem>
+            <Text fontWeight="medium" color="gray.600">District:</Text>
+          </GridItem>
+          <GridItem>
+            <Text color="gray.800">{district}</Text>
+          </GridItem>
+          <GridItem>
+            <Text fontWeight="medium" color="gray.600">City:</Text>
+          </GridItem>
+          <GridItem>
+            <Text color="gray.800">{city}</Text>
+          </GridItem>
+          <GridItem>
+            <Text fontWeight="medium" color="gray.600">Phone number:</Text>
+          </GridItem>
+          <GridItem>
+            <Text color="gray.800">{phoneNumber}</Text>
+          </GridItem>
+        </Grid>
+      </VStack>
     </Box>
   );
 };

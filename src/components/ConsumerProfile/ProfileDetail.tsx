@@ -1,4 +1,3 @@
-// ProfileDetail.tsx
 import React from "react";
 import {
   Box,
@@ -8,9 +7,22 @@ import {
   GridItem,
   HStack,
   Image,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Text,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+
+const {
+  isOpen: isEdit,
+  onOpen: onEdit,
+  onClose: onEditClose,
+} = useDisclosure();
 
 const ProfileDetail: React.FC = () => {
   return (
@@ -31,14 +43,14 @@ const ProfileDetail: React.FC = () => {
         </HStack>
       </Box>
       <Flex justifyContent="space-between" alignItems="center" mb={4} mr={4}>
-      <Text fontSize="xl" fontWeight="bold" ml="40">
-            Jessica Sympson
-          </Text>
+        <Text fontSize="xl" fontWeight="bold" ml="40">
+          Jessica Sympson
+        </Text>
         <Button
           w="auto"
           mr={4}
           mt={4}
-          // onClick={toggleEdit}
+          onClick={onEdit}
           variant="outline"
           color="white"
           borderColor="primary"
@@ -94,6 +106,80 @@ const ProfileDetail: React.FC = () => {
           </GridItem>
         </Grid>
       </VStack>
+      {/* Edit Personal Details Modal */}
+      <Modal
+        isOpen={isEdit}
+        onClose={onEditClose}
+        isCentered
+        closeOnOverlayClick={false}
+      >
+        <ModalOverlay backdropFilter="blur(5px)" />
+        <ModalContent borderRadius="15px">
+          <ModalHeader textAlign="center" fontWeight="bold" fontSize="25">
+            Update Profile
+          </ModalHeader>
+          <ModalBody>
+            <Flex justifyContent="flex-end">
+            <Button
+          w="auto"
+          mr={4}
+          mt={4}
+          onClick={onEdit}
+          variant="outline"
+          color="white"
+          borderColor="primary"
+          border="2px"
+          borderRadius="10px"
+          fontSize="15px"
+          fontWeight="bold"
+          bg="primary"
+          _hover={{ bg: "white", color: "primary" }}
+          _active={{
+            bg: "white",
+            color: "primary",
+            transform: "scale(0.98)",
+            borderColor: "primary",
+          }}
+        >
+          Edit Profile
+        </Button>
+            </Flex>
+            <Box>
+              <HStack></HStack>
+            </Box>
+          </ModalBody>
+          <ModalFooter>
+            <Flex width="100%" justifyContent="center" mt={-3}>
+              <Button
+                width="60%"
+                bg="white"
+                color="primary"
+                borderColor={"primary"}
+                borderWidth={1}
+                _hover={{ bg: "primary", color: "white" }}
+                _active={{ bg: "primary", color: "white" }}
+                borderRadius="12px"
+                onClick={onEditClose}
+              >
+                Update
+              </Button>
+              <Button
+                width="60%"
+                bg="white"
+                color="primary"
+                borderColor={"primary"}
+                borderWidth={1}
+                _hover={{ bg: "primary", color: "white" }}
+                _active={{ bg: "primary", color: "white" }}
+                borderRadius="12px"
+                onClick={onEditClose}
+              >
+                Cancel
+              </Button>
+            </Flex>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
