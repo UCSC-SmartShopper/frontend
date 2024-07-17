@@ -1,14 +1,6 @@
 import SideBar from "@/components/SideBar";
-import AdminAdvertisements from "@/pages/Admin/AdminAdvertisements";
-import AdminCourierServices from "@/pages/Admin/AdminCourierServices";
-import AdminCustomers from "@/pages/Admin/AdminCustomers";
-import AdminOrders from "@/pages/Admin/AdminOrders";
-import AdminOverview from "@/pages/Admin/AdminOverview";
-import AdminSettings from "@/pages/Admin/AdminSettings";
-import AdminSuperMarkets from "@/pages/Admin/AdminSuperMarkets";
-import AdminTransactions from "@/pages/Admin/AdminTransactions";
 import useAuthStore from "@/state-management/auth/store";
-import { Flex, Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { Navigate, Outlet } from "react-router-dom";
 
 const AdminLayout = () => {

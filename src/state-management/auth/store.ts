@@ -25,6 +25,12 @@ const usersList: { [key: string]: User } = {
     username: "Consumer",
     role: "consumer",
   },
+
+  "driver@gmail.com": {
+    password: "123456",
+    username: "Driver",
+    role: "driver",
+  },
 };
 
 const useAuthStore = create<AuthStore>()(

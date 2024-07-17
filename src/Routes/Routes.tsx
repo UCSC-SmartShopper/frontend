@@ -1,24 +1,11 @@
 import App from "@/App";
-import ShippingAddress from "@/components/Consumer/ShippingAddress";
-import Reviews from "@/components/Feedback";
-import AdminMain from "@/pages/Admin/AdminMain";
-import CartDetails from "@/pages/CartDetails";
-import ConsumerProfile from "@/pages/ConsumerProfile";
-import DriverLogin from "@/pages/DriverApp/LoginRegister/Login/DriverLogin";
-import LoginRegister from "@/pages/DriverApp/LoginRegister/LoginRegister";
-import DriverRegister from "@/pages/DriverApp/LoginRegister/Register/DriverRegister";
-import Landing from "@/pages/Landing";
-import Login from "@/pages/Login";
-import PaymentSuccessful from "@/pages/PaymentSuccessful";
-import ProductDetail from "@/pages/ProductDetail";
-import SignUp from "@/pages/SignUp";
-import Test from "@/pages/Test";
-import { Footer } from "flowbite-react";
 import { createBrowserRouter } from "react-router-dom";
-import ErrorPage from "./ErrorPage";
 import AdminRoutes from "./AdminRoutes";
-import PublicRoutes from "./PublicRoutes";
+import ErrorPage from "./ErrorPage";
 import HomeLayout from "./HomeLayout";
+import PublicRoutes from "./PublicRoutes";
+import Reviews from "@/components/Feedback";
+import DriverRoutes from "./DriverRoutes";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +18,7 @@ const router = createBrowserRouter([
         element: <HomeLayout />,
       },
       ...AdminRoutes,
+      ...DriverRoutes,
       ...PublicRoutes,
 
       // { path: "", element: <Landing /> },
@@ -52,7 +40,7 @@ const router = createBrowserRouter([
       // { path: "driver/login_register", element: <LoginRegister /> },
       // { path: "driver/login", element: <DriverLogin /> },
       // { path: "driver/register", element: <DriverRegister /> },
-      // { path: "reviews", element: <Reviews /> },
+      { path: "reviews", element: <Reviews /> },
     ],
   },
 ]);
