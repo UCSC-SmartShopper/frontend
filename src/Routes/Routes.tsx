@@ -17,6 +17,8 @@ import { Footer } from "flowbite-react";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import AdminRoutes from "./AdminRoutes";
+import PublicRoutes from "./PublicRoutes";
+import HomeLayout from "./HomeLayout";
 
 const router = createBrowserRouter([
   {
@@ -24,36 +26,33 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { path: "", element: <Landing /> },
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <SignUp /> },
-
-      { path: "cart", element: <CartDetails /> },
-      { path: "product/:id", element: <ProductDetail /> },
-      { path: "ConsumerProfile", element: <ConsumerProfile /> },
-
-      { path: "ShippingAddress", element: <ShippingAddress /> },
-      { path: "reviews", element: <Reviews /> },
-      { path: "paymentSuccessful", element: <PaymentSuccessful /> },
-
-      { path: "Footer", element: <Footer /> },
-      { path: "test", element: <Test /> },
-
-      { path: "driver", element: <LoginRegister /> },
-      { path: "driver/login_register", element: <LoginRegister /> },
-      { path: "driver/login", element: <DriverLogin /> },
-      { path: "driver/register", element: <DriverRegister /> },
-      { path: "reviews", element: <Reviews /> },
-    ],
-  },
-  {
-    element: <AdminRoutes />,
-    children: [
       {
-        path: "admin",
-        element: <App />,
-        children: [{ path: "", element: <AdminMain /> }],
+        index: true,
+        element: <HomeLayout />,
       },
+      ...AdminRoutes,
+      ...PublicRoutes,
+
+      // { path: "", element: <Landing /> },
+      // { path: "login", element: <Login /> },
+      // { path: "signup", element: <SignUp /> },
+
+      // { path: "cart", element: <CartDetails /> },
+      // { path: "product/:id", element: <ProductDetail /> },
+      // { path: "ConsumerProfile", element: <ConsumerProfile /> },
+
+      // { path: "ShippingAddress", element: <ShippingAddress /> },
+      // { path: "reviews", element: <Reviews /> },
+      // { path: "paymentSuccessful", element: <PaymentSuccessful /> },
+
+      // { path: "Footer", element: <Footer /> },
+      // { path: "test", element: <Test /> },
+
+      // { path: "driver", element: <LoginRegister /> },
+      // { path: "driver/login_register", element: <LoginRegister /> },
+      // { path: "driver/login", element: <DriverLogin /> },
+      // { path: "driver/register", element: <DriverRegister /> },
+      // { path: "reviews", element: <Reviews /> },
     ],
   },
 ]);

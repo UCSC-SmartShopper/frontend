@@ -16,10 +16,7 @@ const AdminMain = () => {
   return (
     <Flex w="full">
       <Box w="16vw" top="10vh">
-        <SideBar
-          adminPage={adminPage}
-          setAdminPage={(page) => setAdminPage(page)}
-        />
+        <SideBar />
       </Box>
       <Box w="full" px="2%">
         {adminPage === "Overview" && <AdminOverview />}

@@ -15,7 +15,7 @@ import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
 
 const Navbar = () => {
-  const { user } = useAuthStore();
+  const { user, logout } = useAuthStore();
   const location = useLocation();
   const hideNavbarPaths = ["/driver"];
   const showTopNav = !hideNavbarPaths.some((path) =>
@@ -75,6 +75,7 @@ const Navbar = () => {
                 name="Dan Abrahmov"
                 src="https://bit.ly/dan-abramov"
                 boxSize={10}
+                onClick={logout}
               />
               <Text fontSize="lg" fontWeight="bold">
                 {user.username}
