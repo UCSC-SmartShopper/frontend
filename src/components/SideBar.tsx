@@ -45,7 +45,7 @@ const SideBar = () => {
   return (
     <VStack
       w="14vw"
-      h="full"
+      h="90vh"
       pos="fixed"
       color="gray.800"
       fontWeight="500"
@@ -75,6 +75,8 @@ const SideBar = () => {
               navigate(`${item.path}`);
             }
           }}
+          mt={item.path === "/logout" ? 'auto' : 0}
+          mb={item.path === "/logout" ? 4 : 0}
         >
           <item.icon size={20} />
           <Text ml={2} fontSize="lg">

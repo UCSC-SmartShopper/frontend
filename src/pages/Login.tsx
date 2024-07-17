@@ -52,14 +52,11 @@ const Login = () => {
     const user = login(data);
     if (user) {
       switch (user.role) {
-        case "admin":
-          navigate("/admin");
-          break;
-        case "consumer":
-          navigate("/");
+        case "driver":
+          navigate("/driver");
           break;
         default:
-          break;
+          navigate("/");
       }
     }
   };
