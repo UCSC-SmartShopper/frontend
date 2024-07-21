@@ -5,7 +5,7 @@ import Warning from "../../assets/warning-animate.svg";
 const DesktopWarning = () => {
   return (
     <Center h="100vh" bg="gray.50">
-      <Box bg="white" shadow="xl" p={6} borderRadius="md" borderWidth={1}>
+      <Box bg="white" shadow="xl" p={8} borderRadius="md" borderWidth={1}>
         <VStack>
           <Image src={Warning} width="200px" />
           <Icon as={FaExclamationTriangle}  color="primary" boxSize="70px"/>
