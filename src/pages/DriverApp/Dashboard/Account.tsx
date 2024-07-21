@@ -10,12 +10,13 @@ import {
 import { BiSolidUserRectangle } from "react-icons/bi";
 import { PiCaretRightThin } from "react-icons/pi";
 import { FaCar } from "react-icons/fa";
-import { MdStarRate } from "react-icons/md";
+import { MdStarRate ,MdContactSupport } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
-import { MdContactSupport } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Account = () => {
   // const { user, logout } = useAuthStore();
+  const navigate = useNavigate();
   return (
     <>
       <Box bg="white" borderWidth={1} borderRadius="lg" p={4}>
@@ -42,7 +43,7 @@ const Account = () => {
         </HStack>
       </Box>
       <Box p={4}>
-        <HStack justify="space-between" px={2} py={4}>
+        <HStack justify="space-between" px={2} py={4} onClick={()=>{navigate("/driver/account/edit")}} cursor="pointer">
           <HStack gap={5}>
             <Icon as={BiSolidUserRectangle} color="primary" />
             <Text>Account</Text>
