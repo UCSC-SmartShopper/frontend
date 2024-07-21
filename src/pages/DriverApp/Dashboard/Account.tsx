@@ -50,28 +50,28 @@ const Account = () => {
           </HStack>
           <Icon as={PiCaretRightThin} />
         </HStack>
-        <HStack justify="space-between" px={2} py={4}>
+        <HStack justify="space-between" px={2} py={4} onClick={()=>{navigate("/driver/account/vehicle")}} cursor="pointer">
           <HStack gap={5}>
             <Icon as={FaCar} color="primary" />
             <Text>Vehicle Details</Text>
           </HStack>
           <Icon as={PiCaretRightThin} />
         </HStack>
-        <HStack justify="space-between" px={2} py={4}>
+        <HStack justify="space-between" px={2} py={4} onClick={()=>{navigate("/driver/account/deliveries")}} cursor="pointer">
           <HStack gap={5}>
             <Icon as={TbTruckDelivery} color="primary" />
             <Text>Deliveries</Text>
           </HStack>
           <Icon as={PiCaretRightThin} />
         </HStack>
-        <HStack justify="space-between" px={2} py={4}>
+        <HStack justify="space-between" px={2} py={4} onClick={()=>{navigate("/driver/account/ratings")}} cursor="pointer">
           <HStack gap={5}>
             <Icon as={MdStarRate} color="primary" />
             <Text>Ratings</Text>
           </HStack>
           <Icon as={PiCaretRightThin} />
         </HStack>
-        <HStack justify="space-between" px={2} py={4}>
+        <HStack justify="space-between" px={2} py={4} onClick={()=>{navigate("/driver/account/support")}} cursor="pointer">
           <HStack gap={5}>
             <Icon as={MdContactSupport} color="primary" />
             <Text>Support</Text>
