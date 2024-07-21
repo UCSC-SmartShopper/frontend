@@ -17,6 +17,14 @@ import { useNavigate } from "react-router-dom";
 const Account = () => {
   // const { user, logout } = useAuthStore();
   const navigate = useNavigate();
+
+  const rows = [
+    { Icon:BiSolidUserRectangle ,label: "Account", path: "/driver/account/edit" },
+    { Icon:FaCar ,label: "Vehicle Details", path: "/driver/account/vehicle" },
+    { Icon:TbTruckDelivery ,label: "Deliveries", path: "/driver/account/deliveries" },
+    { Icon:MdStarRate ,label: "Ratings", path: "/driver/account/ratings" },
+    { Icon:MdContactSupport, label: "Support", path: "/driver/account/support" }
+  ];
   return (
     <>
       <Box bg="white" borderWidth={1} borderRadius="lg" p={4}>
@@ -43,41 +51,14 @@ const Account = () => {
         </HStack>
       </Box>
       <Box p={4}>
-        <HStack justify="space-between" px={2} py={4} onClick={()=>{navigate("/driver/account/edit")}} cursor="pointer">
+        {rows.map((row, index) => (
+        <HStack key={index} justify="space-between" px={2} py={4} onClick={()=>{navigate(row.path)}} cursor="pointer">
           <HStack gap={5}>
-            <Icon as={BiSolidUserRectangle} color="primary" />
-            <Text>Account</Text>
+            <Icon as={row.Icon} color="primary" />
+            <Text>{row.label}</Text>
           </HStack>
           <Icon as={PiCaretRightThin} />
-        </HStack>
-        <HStack justify="space-between" px={2} py={4} onClick={()=>{navigate("/driver/account/vehicle")}} cursor="pointer">
-          <HStack gap={5}>
-            <Icon as={FaCar} color="primary" />
-            <Text>Vehicle Details</Text>
-          </HStack>
-          <Icon as={PiCaretRightThin} />
-        </HStack>
-        <HStack justify="space-between" px={2} py={4} onClick={()=>{navigate("/driver/account/deliveries")}} cursor="pointer">
-          <HStack gap={5}>
-            <Icon as={TbTruckDelivery} color="primary" />
-            <Text>Deliveries</Text>
-          </HStack>
-          <Icon as={PiCaretRightThin} />
-        </HStack>
-        <HStack justify="space-between" px={2} py={4} onClick={()=>{navigate("/driver/account/ratings")}} cursor="pointer">
-          <HStack gap={5}>
-            <Icon as={MdStarRate} color="primary" />
-            <Text>Ratings</Text>
-          </HStack>
-          <Icon as={PiCaretRightThin} />
-        </HStack>
-        <HStack justify="space-between" px={2} py={4} onClick={()=>{navigate("/driver/account/support")}} cursor="pointer">
-          <HStack gap={5}>
-            <Icon as={MdContactSupport} color="primary" />
-            <Text>Support</Text>
-          </HStack>
-          <Icon as={PiCaretRightThin} />
-        </HStack>
+        </HStack>))}
       </Box>
       {/* <Heading>{user?.username}</Heading>
       <button onClick={logout}>Logout</button>
