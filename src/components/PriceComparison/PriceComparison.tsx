@@ -23,9 +23,7 @@ const PriceComparison = ({
       <VStack
         w="full"
         spacing={4}
-        divider={
-          <Divider borderColor="gray.400" alignSelf="flex-start" w={570} />
-        }
+        
       >
         {priceLists?.map((item, index) => (
           <SupermarketPriceRow
