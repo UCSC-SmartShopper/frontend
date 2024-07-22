@@ -5,13 +5,13 @@ import BackArrow from "../components/PriceComparison/BackArrow";
 import PriceComparison from "../components/PriceComparison/PriceComparison";
 import ProductDescription from "../components/PriceComparison/ProductDescription";
 
+import usePriceList, { PriceList } from "@/hooks/usePriceLists";
 import useProduct from "@/hooks/useProduct";
 import useCartStore from "@/state-management/cart/store";
 import { Spinner } from "flowbite-react";
-import { useNavigate, useParams } from "react-router-dom";
-import usePriceList, { PriceList } from "@/hooks/usePriceLists";
 import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import useCart from "@/hooks/useCart";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ const ProductDetail = () => {
   const product = useProduct(id);
 
   const { data: priceLists, isLoading } = usePriceList(id);
+  // const cartItems = useCart(localCartItems).data || [];
 
   const [selectedPriceList, setSelectedPriceList] = useState<PriceList | null>(
     null

@@ -40,6 +40,7 @@ const QuantityChanger = () => {
           size="md"
           w="5ch"
           value={quantity}
+          readOnly
         />
         <Box
           as="button"

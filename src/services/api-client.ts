@@ -23,10 +23,12 @@ class APIClient<T> {
       .then((res) => res.data);
   };
 
-  get = (id: string | number) => {
-    return axiosInstance
+  get = async(id: string | number) => {
+    const data = await axiosInstance
       .get<T>(this.endpoint + "/" + id)
       .then((res) => res.data);
+    console.log(data);
+    return data;
   };
 
   create = (data: T) => {

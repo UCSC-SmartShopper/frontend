@@ -1,4 +1,5 @@
 import { PriceList } from "@/hooks/usePriceLists";
+import APIClient from "@/services/api-client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -14,22 +15,16 @@ interface CartStore {
 
   incrementQuantity: (productId: number) => void;
   decrementQuantity: (productId: number) => void;
+  syncCart: () => void;
 }
 
-// const usersList: { [key: string]: User } = {
-//   "admin@gmail.com": { password: "123456", username: "Admin", role: "admin" },
-//   "consumer@gmail.com": {
-//     password: "123456",
-//     username: "Consumer",
-//     role: "consumer",
-//   },
+const apiClient = new APIClient<CartItem[]>("/carts");
 
-//   "driver@gmail.com": {
-//     password: "123456",
-//     username: "Driver",
-//     role: "driver",
-//   },
-// };
+const syncData = (data: CartItem[]) => {
+  const syncData = apiClient.create(data);
+  console.log("syncData", syncData);
+  return data;
+};
 
 const useCartStore = create<CartStore>()(
   persist(
@@ -42,11 +37,13 @@ const useCartStore = create<CartStore>()(
           {
             console.log("CALLED");
             return state.items.some(
-              (cartItem) => cartItem.priceList?.product.id === item.priceList?.product.id
+              (cartItem) =>
+                cartItem.priceList?.product.id === item.priceList?.product.id
             )
               ? {
                   items: state.items.map((cartItem) =>
-                    cartItem.priceList?.product.id === item.priceList?.product.id
+                    cartItem.priceList?.product.id ===
+                    item.priceList?.product.id
                       ? item
                       : cartItem
                   ),
@@ -81,17 +78,13 @@ const useCartStore = create<CartStore>()(
           ),
         }));
       },
+
+      syncCart: async () => {
+        set((state) => ({ items: syncData(state.items) }));
+      },
     }),
     { name: "cart-store" }
   )
 );
 
 export default useCartStore;
-
-// login: (formData: Credentials) => {
-//   if (!usersList[formData.email]) return null;
-//   if (usersList[formData.email].password !== formData.password)
-//     return {} as User;
-//   set(() => ({ user: usersList[formData.email] }));
-//   return usersList[formData.email];
-// },

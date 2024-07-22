@@ -26,7 +26,6 @@ export interface PriceList {
   id: number;
   supermarket: Supermarket;
   product : Product;
-  supermarketId: number;
   price: number;
   quantity: number;
   discountedTotal: number;

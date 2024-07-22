@@ -14,12 +14,16 @@ import IconButton from "../components/Buttons/IconButton";
 import TextButton from "../components/Buttons/TextButton";
 import CartItemCard from "../components/CartItemCard";
 import MainContainer from "../components/MainContainer";
+import { useEffect } from "react";
 import useCart from "@/hooks/useCart";
 
 const CartDetails = () => {
-  const items = useCartStore((s) => s.items);
-  const cartItems = useCart(items);
-  console.log(cartItems);
+  const { items,syncCart } = useCartStore();
+
+  useEffect(() => {
+    syncCart();
+    // console.log("syncedData", syncedData);
+  }, []);
 
   const accordionItems = [
     {
@@ -63,10 +67,7 @@ const CartDetails = () => {
           </Flex>
           <VStack spacing={5} mt={10}>
             {items.map((item, index) => (
-              <CartItemCard
-                key={index}
-                cartItem={item}
-              />
+              <CartItemCard key={index} cartItem={item} />
             ))}
             {/*<CartItemCard
               imageSrc="https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic4603.jpg"
