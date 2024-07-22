@@ -1,14 +1,15 @@
 import { PriceList } from "@/hooks/usePriceLists";
 import {
   Box,
-  Button,
   Divider,
-  Flex,
+  Heading,
   HStack,
   Image,
+  Stack,
   Text,
+  VStack
 } from "@chakra-ui/react";
-import { BsCartPlus } from "react-icons/bs";
+import RatingStars from "../Inputs/Rating";
 
 interface Props {
   priceList: PriceList;
@@ -29,7 +30,7 @@ const SupermarketPriceRow = ({
       borderWidth={selectedPriceList?.id === priceList.id ? "2px" : ""}
       justifyContent={"space-between"}
       px={10}
-      py={3}
+      py={5}
       borderRadius={15}
       w="full"
       bg="gray.100"
@@ -37,38 +38,35 @@ const SupermarketPriceRow = ({
       cursor="pointer"
       divider={<Divider borderColor="gray.400" h="8vh" w="fit-content" />}
     >
-      <Image src={priceList?.supermarket?.logo || ""} w="5vw" />
-      <Text fontSize="18px" fontWeight="semibold" textAlign={"center"}>
-        {priceList.price}
+      <Image src={priceList?.supermarket?.logo || ""} w="6vw" />
+      <VStack gap={3} w="20vw">
+        <HStack gap={10} lineHeight={0.1} w="full">
+          <Stack>
+            <Text fontSize="xs" color="gray">
+              Name
+            </Text>
+            <Heading fontSize="lg">Keells</Heading>
+          </Stack>
+          <Stack>
+            <Text fontSize="xs" color="gray">
+              Distance
+            </Text>
+            <Heading fontSize="lg">2.4 KM</Heading>
+          </Stack>
+        </HStack>
+        <Stack w="full" lineHeight={0.1}>
+          <Text fontSize="xs" color="gray">
+            Reviews
+          </Text>
+          <Box>
+            <RatingStars value={(priceList?.id * 3) % 5} reviews={(priceList?.id * 19 ) % 40} />
+          </Box>
+        </Stack>
+      </VStack>
+
+      <Text fontSize="xl" fontWeight={700}>
+        250.00 LKR
       </Text>
-      <Text fontSize="18px" fontWeight="semibold">
-        2.4 Km
-      </Text>
-      <Button
-        height={26}
-        bg="#E46C0A"
-        borderColor="#E46C0A"
-        color="#FFFFFF"
-        borderRadius="15px"
-        border="2px"
-        _hover={{ color: "#E46C0A", bg: "#FFFFFF", borderColor: "#E46C0A" }}
-        _active={{
-          color: "#E46C0A",
-          bg: "#FFFFFF",
-          transform: "scale(0.98)",
-          borderColor: "#E46C0A",
-        }}
-      >
-        Reviews
-      </Button>
-      <Box
-        fontSize="26px"
-        as="button"
-        _hover={{ color: "black", transform: "scale(1.10)" }}
-        _active={{ color: "black", transform: "scale(1.10)" }}
-      >
-        <BsCartPlus />
-      </Box>
     </HStack>
   );
 };

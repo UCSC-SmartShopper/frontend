@@ -1,4 +1,4 @@
-import { Box, Divider, Text, VStack } from "@chakra-ui/react";
+import { Box, Text, VStack } from "@chakra-ui/react";
 
 import SupermarketPriceRow from "./SupermarketPriceRow";
 
@@ -20,11 +20,7 @@ const PriceComparison = ({
       <Text fontSize="2xl" fontWeight="bold" mb={8}>
         Price Comparison
       </Text>
-      <VStack
-        w="full"
-        spacing={4}
-        
-      >
+      <VStack w="full" spacing={4}>
         {priceLists?.map((item, index) => (
           <SupermarketPriceRow
             key={index}
@@ -33,21 +29,6 @@ const PriceComparison = ({
             onClick={() => setSelectedPriceList(item)}
           />
         ))}
-        {/* <SupermarketPriceRow
-          image={KeelsIcon}
-          price="233.00 LKR"
-          distance="2.3Km"
-        />
-        <SupermarketPriceRow
-          image={SparIcon}
-          price="240.00 LKR"
-          distance="2.1Km"
-        />
-        <SupermarketPriceRow
-          image={ArpicoIcon}
-          price="230.00 LKR"
-          distance="3.3Km"
-        /> */}
       </VStack>
     </Box>
   );

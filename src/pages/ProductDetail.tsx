@@ -9,22 +9,19 @@ import {
 } from "@chakra-ui/react";
 
 import AddToCartButton from "../components/Buttons/AddToCartButton";
-import BackArrow from "../components/PriceComparison/BackArrow";
 import PriceComparison from "../components/PriceComparison/PriceComparison";
 import ProductDescription from "../components/PriceComparison/ProductDescription";
 
+import MiddleContainer from "@/components/Containers/MiddleContainer";
 import usePriceList, { PriceList } from "@/hooks/usePriceLists";
-import useProduct from "@/hooks/useProduct";
+import useProduct, { Product } from "@/hooks/useProduct";
 import useCartStore from "@/state-management/cart/store";
 import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import useCart from "@/hooks/useCart";
-import MiddleContainer from "@/components/Containers/MiddleContainer";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
+import { useParams } from "react-router-dom";
 
 const ProductDetail = () => {
-  const navigate = useNavigate();
   const { addItem, removeItem, items: cartItems } = useCartStore();
 
   const { id } = useParams();
@@ -71,21 +68,19 @@ const ProductDetail = () => {
   if (isLoading) return <Spinner />;
   return (
     <MiddleContainer width="90vw">
-      <Box pt={4} pl={20} pr={20} pos={"relative"}>
-        <Flex justifyContent={'space-between'}>
+      <Box pt="4vh" px="6vw" pos={"relative"}>
+        <Flex justifyContent={"space-between"}>
           <HStack>
             <Text fontSize="3xl" fontWeight="bold" mb={4}>
               {product.data?.name}
             </Text>
             <VStack
-              ml={"auto"}
               px={3}
               py={2}
               as="button"
               color={isLiked ? "red" : "black"}
               onClick={() => setIsLiked(!isLiked)}
               _hover={{ color: "red", transform: "scale(1.10)" }}
-              // _active={{ transform: "scale(1.10)" }}
             >
               {isLiked ? (
                 <FaHeart fontSize={35} />
@@ -119,26 +114,14 @@ const ProductDetail = () => {
             />
           </Box>
         </Flex>
-        {/* <Box
-          onClick={() => navigate("/")}
-          pos="absolute"
-          left={"2vw"}
-          top={"5vh"}
-          width={"fit-content"}
-        >
-          <BackArrow />
-        </Box> */}
         <Grid templateColumns="40% 60%" gap={6} mt={4}>
           <GridItem>
             <ProductDescription
-              topic={product.data?.name}
-              detail={product.data?.description}
-              image={product.data?.imageUrl}
+              product={product.data || ({} as Product)}
               selectedPriceList={selectedPriceList}
             />
           </GridItem>
           <GridItem ml={2}>
-            {/* <Flex justifyContent="flex-end" mb={6} mt={10}></Flex> */}
             <PriceComparison
               priceLists={priceLists?.results || []}
               selectedPriceList={selectedPriceList}

@@ -1,3 +1,4 @@
+import MiddleContainer from "@/components/Containers/MiddleContainer";
 import useCartStore from "@/state-management/cart/store";
 import { AddIcon } from "@chakra-ui/icons";
 import {
@@ -9,16 +10,14 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import Accordian from "../components/Accordian";
 import IconButton from "../components/Buttons/IconButton";
 import TextButton from "../components/Buttons/TextButton";
 import CartItemCard from "../components/CartItemCard";
-import MainContainer from "../components/MainContainer";
-import { useEffect } from "react";
-import useCart from "@/hooks/useCart";
 
 const CartDetails = () => {
-  const { items,syncCart } = useCartStore();
+  const { items, syncCart } = useCartStore();
 
   useEffect(() => {
     syncCart();
@@ -43,7 +42,7 @@ const CartDetails = () => {
     },
   ];
   return (
-    <MainContainer>
+    <MiddleContainer width="90vw" bg="background">
       <Grid
         gridTemplateColumns={{
           base: "1fr",
@@ -52,6 +51,8 @@ const CartDetails = () => {
         }}
         h="100%"
         gap={{ base: 4, md: 6, lg: 10 }}
+        pt="4vh"
+        px="6vw"
       >
         <GridItem h="100%">
           <Flex>
@@ -69,18 +70,6 @@ const CartDetails = () => {
             {items.map((item, index) => (
               <CartItemCard key={index} cartItem={item} />
             ))}
-            {/*<CartItemCard
-              imageSrc="https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic4603.jpg"
-              itemName="Product Name"
-              price={200}
-              quantity={2}
-            />
-            <CartItemCard
-              imageSrc="https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic915007.jpg"
-              itemName="Product 3"
-              price={300}
-              quantity={3}
-            /> */}
           </VStack>
         </GridItem>
 
@@ -93,7 +82,7 @@ const CartDetails = () => {
           <TextButton text="Proceed to checkout" onClick={() => {}} />
         </GridItem>
       </Grid>
-    </MainContainer>
+    </MiddleContainer>
   );
 };
 

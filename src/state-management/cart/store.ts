@@ -13,8 +13,8 @@ interface CartStore {
   addItem: (item: CartItem) => void;
   removeItem: (productId: number) => void;
 
-  incrementQuantity: (productId: number) => void;
-  decrementQuantity: (productId: number) => void;
+  incrementQuantity: (priceListId: number) => void;
+  decrementQuantity: (priceListId: number) => void;
   syncCart: () => void;
 }
 

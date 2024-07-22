@@ -10,15 +10,17 @@ import {
 
 import { DeleteIcon } from "@chakra-ui/icons";
 
-import QuentityChanger from "./QuentityChanger";
-import SupermarketLogoContainer from "./SupermarketLogoContainer";
 import useCartStore, { CartItem } from "@/state-management/cart/store";
+import QuantityChanger from "./QuantityChanger";
+import SupermarketLogoContainer from "./SupermarketLogoContainer";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   cartItem: CartItem;
 }
 
 const CartItemCard = ({ cartItem }: Props) => {
+  const navigate = useNavigate();
   const removeItem = useCartStore((state) => state.removeItem);
   if (!cartItem.priceList) return null;
 
@@ -47,14 +49,19 @@ const CartItemCard = ({ cartItem }: Props) => {
           <Box p={2}>
             <Heading size="md">{cartItem.priceList?.product.name}</Heading>
             <SupermarketLogoContainer />
-            <Text fontSize="sm" fontWeight="bold">
-              {" "}
+            <Text
+              fontSize="sm"
+              fontWeight={600}
+              color="primary"
+              onClick={() => navigate("/products/"+cartItem.priceList?.product.id)}
+              cursor="pointer"
+            >
               Change Supermarket
             </Text>
           </Box>
         </GridItem>
         <GridItem>
-          <QuentityChanger />
+          <QuantityChanger cartItem={cartItem} />
         </GridItem>
         <GridItem>
           <DeleteIcon
