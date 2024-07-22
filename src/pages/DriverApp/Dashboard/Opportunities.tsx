@@ -3,11 +3,21 @@ import { Box, HStack, Icon, Spacer, Text, VStack } from "@chakra-ui/react";
 import { FaLocationDot } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-const Opportunities = () => {
-const navigate = useNavigate();
+interface Request{
+  id: number;
+  name: string;
+  location: string;
+  nOS : number;
+  totalDistance: number;
+  tripCost : number;
+}
 
-  const requests = [
+const Opportunities = () => {
+  const navigate = useNavigate();
+
+  const requests:Request[] = [
     {
+      id: 1,
       name: "John Doe",
       location: "New York",
       nOS: 5,
@@ -15,24 +25,15 @@ const navigate = useNavigate();
       tripCost: 1000,
     },
     {
-      name: "John Doe",
-      location: "New York",
-      nOS: 5,
-      totalDistance: 100,
-      tripCost: 1000,
-    },  {
-      name: "John Doe",
-      location: "New York",
-      nOS: 5,
-      totalDistance: 100,
-      tripCost: 1000,
-    },  {
-      name: "John Doe",
-      location: "New York",
-      nOS: 5,
-      totalDistance: 100,
-      tripCost: 1000,
-    },  {
+      id: 2,
+      name: "Jane Doe",
+      location: "California",
+      nOS: 3,
+      totalDistance: 50,
+      tripCost: 500,
+    },
+    {
+      id: 3,
       name: "John Doe",
       location: "New York",
       nOS: 5,
@@ -50,16 +51,17 @@ const navigate = useNavigate();
 
   return (
     <>
-      <VStack minH="100vh" px="8vw" pt='5vh' pb='10vh' gap="4vh">
-        {requests.map((request) => (
+      <VStack minH="100vh" px="8vw" pt="5vh" pb="10vh" gap="4vh">
+        {requests.map((request, index) => (
           <Box
+            key={index}
             shadow="xl"
             borderWidth={1}
             p={4}
             background="white"
             w="full"
             borderRadius="10"
-            onClick={() => navigate("/driver/opportunities/details")}
+            onClick={() => navigate("/driver/opportunities/" + request.id)}
           >
             <VStack align="start">
               <Text fontWeight="bold">{request.name}</Text>
