@@ -7,6 +7,7 @@ import {
   GridItem,
   HStack,
   Image,
+  Input,
   Modal,
   ModalBody,
   ModalContent,
@@ -144,7 +145,18 @@ const ProfileDetail: React.FC = () => {
           </ModalHeader>
           <ModalBody>
             <Box>
-              <HStack></HStack>
+              <HStack>
+                <Image />
+                <Text fontWeight="medium" color="black">
+                  T.B.A.Jayadewa
+                </Text>
+              </HStack>
+              <HStack>
+                <Text fontWeight="medium" color="black">
+                  Full Name 
+                </Text>
+                <Input placeholder="Full Name" />
+              </HStack>
             </Box>
           </ModalBody>
           <ModalFooter>
