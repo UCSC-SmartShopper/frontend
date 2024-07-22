@@ -6,6 +6,7 @@ import HomeLayout from "./Layouts/HomeLayout";
 import PublicRoutes from "./PublicRoutes";
 import Reviews from "@/components/Feedback";
 import DriverRoutes from "./DriverRoutes";
+import CartDetails from "@/pages/CartDetails";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
       // { path: "login", element: <Login /> },
       // { path: "signup", element: <SignUp /> },
 
-      // { path: "cart", element: <CartDetails /> },
+      { path: "cart", element: <CartDetails /> },
       // { path: "product/:id", element: <ProductDetail /> },
       // { path: "ConsumerProfile", element: <ConsumerProfile /> },
 

@@ -2,15 +2,9 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { CACHE_KEY_GAMES } from "../react-query/constants";
 import { ProductQuery } from "../App";
 import APIClient, { FetchResponse } from "@/services/api-client";
+import { Product } from "./useProduct";
 
 
-export interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-}
 
 
 const apiClient = new APIClient<Product>("/products");

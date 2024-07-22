@@ -2,18 +2,19 @@ import { Box, Divider, Text, VStack } from "@chakra-ui/react";
 
 import SupermarketPriceRow from "./SupermarketPriceRow";
 
-import usePriceList from "@/hooks/usePriceLists";
+import { PriceList } from "@/hooks/usePriceLists";
 
 interface Props {
-  productId?: string;
+  priceLists: PriceList[];
+  selectedPriceList: PriceList | null;
+  setSelectedPriceList: (priceList: PriceList) => void;
 }
 
-const PriceComparison = ({ productId }: Props) => {
-  if (!productId) return null;
-
-  const { data: priceList } = usePriceList(productId || "");
-
-  console.log(priceList?.results);
+const PriceComparison = ({
+  priceLists,
+  selectedPriceList,
+  setSelectedPriceList,
+}: Props) => {
   return (
     <Box>
       <Text fontSize="2xl" fontWeight="bold" mb={8}>
@@ -26,12 +27,12 @@ const PriceComparison = ({ productId }: Props) => {
           <Divider borderColor="gray.400" alignSelf="flex-start" w={570} />
         }
       >
-        {priceList?.results.map((item, index) => (
+        {priceLists?.map((item, index) => (
           <SupermarketPriceRow
             key={index}
-            image={item.supermarket.logo}
-            price={item.price}
-            distance="2.3Km"
+            priceList={item}
+            selectedPriceList={selectedPriceList}
+            onClick={() => setSelectedPriceList(item)}
           />
         ))}
         {/* <SupermarketPriceRow

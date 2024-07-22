@@ -3,9 +3,9 @@ import { FaHeart } from "react-icons/fa";
 import { useState } from "react";
 
 interface Props {
-  topic: string;
-  detail: string;
-  image: string;
+  topic: string | undefined;
+  detail: string | undefined;
+  image: string | undefined;
 }
 
 const ProductDescription = ({ topic, detail, image }: Props) => {

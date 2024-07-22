@@ -1,5 +1,6 @@
 import APIClient, { FetchResponse } from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
+import { Product } from "./useProduct";
 
 // export interface Supermarket {
 //   id: number
@@ -22,9 +23,9 @@ import { useQuery } from "@tanstack/react-query";
 // }
 
 export interface PriceList {
-  supermarket: Supermarket;
   id: number;
-  productId: number;
+  supermarket: Supermarket;
+  product : Product;
   supermarketId: number;
   price: number;
   quantity: number;
