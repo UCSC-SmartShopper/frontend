@@ -18,13 +18,12 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-const {
-  isOpen: isEdit,
-  onOpen: onEdit,
-  onClose: onEditClose,
-} = useDisclosure();
-
 const ProfileDetail: React.FC = () => {
+  const {
+    isOpen: isEdit,
+    onOpen: onEdit,
+    onClose: onEditClose,
+  } = useDisclosure();
   return (
     <Box bg="white" borderRadius="10px" boxShadow="md" overflow="hidden" pb={4}>
       <Box bg="primary" position="relative" p={4} h="70">
@@ -115,41 +114,41 @@ const ProfileDetail: React.FC = () => {
       >
         <ModalOverlay backdropFilter="blur(5px)" />
         <ModalContent borderRadius="15px">
-          <ModalHeader textAlign="center" fontWeight="bold" fontSize="25">
+          <ModalHeader textAlign="left" fontWeight="semibold" fontSize="20">
             Update Profile
+            <Flex justifyContent="flex-end">
+              <Button
+                w="auto"
+                mr={4}
+                mt={4}
+                onClick={onEdit}
+                variant="outline"
+                color="white"
+                borderColor="primary"
+                border="2px"
+                borderRadius="10px"
+                fontSize="15px"
+                fontWeight="bold"
+                bg="primary"
+                _hover={{ bg: "white", color: "primary" }}
+                _active={{
+                  bg: "white",
+                  color: "primary",
+                  transform: "scale(0.98)",
+                  borderColor: "primary",
+                }}
+              >
+                Forget Password
+              </Button>
+            </Flex>
           </ModalHeader>
           <ModalBody>
-            <Flex justifyContent="flex-end">
-            <Button
-          w="auto"
-          mr={4}
-          mt={4}
-          onClick={onEdit}
-          variant="outline"
-          color="white"
-          borderColor="primary"
-          border="2px"
-          borderRadius="10px"
-          fontSize="15px"
-          fontWeight="bold"
-          bg="primary"
-          _hover={{ bg: "white", color: "primary" }}
-          _active={{
-            bg: "white",
-            color: "primary",
-            transform: "scale(0.98)",
-            borderColor: "primary",
-          }}
-        >
-          Edit Profile
-        </Button>
-            </Flex>
             <Box>
               <HStack></HStack>
             </Box>
           </ModalBody>
           <ModalFooter>
-            <Flex width="100%" justifyContent="center" mt={-3}>
+            <Flex width="100%" justifyContent="right" mt={-3}>
               <Button
                 width="60%"
                 bg="white"
