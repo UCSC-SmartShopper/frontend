@@ -6,6 +6,7 @@ import HomeLayout from "./Layouts/HomeLayout";
 import PublicRoutes from "./PublicRoutes";
 import Reviews from "@/components/Feedback";
 import DriverRoutes from "./DriverRoutes";
+import ConsumerRoutes from "./ConsumerRoutes";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       ...AdminRoutes,
       ...DriverRoutes,
       ...PublicRoutes,
+      ...ConsumerRoutes,
 
       // { path: "", element: <Landing /> },
       // { path: "login", element: <Login /> },
