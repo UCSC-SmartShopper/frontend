@@ -10,7 +10,7 @@ export interface Product {
 }
 const apiClient = new APIClient<Product>("/products");
 
-const useProduct = (id: string) => {
+const useProduct = (id: number) => {
   return useQuery({
     queryKey: ["product", id],
     queryFn: () => apiClient.get(id),

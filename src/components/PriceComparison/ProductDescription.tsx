@@ -1,13 +1,19 @@
-import { PriceList } from "@/hooks/usePriceLists";
+import { StorePrice } from "@/hooks/usePriceLists";
 import { Product } from "@/hooks/useProduct";
+import useSupermarket from "@/hooks/useSupermarket";
 import { Box, Divider, HStack, Image, Text } from "@chakra-ui/react";
 
 interface Props {
   product: Product;
-  selectedPriceList: PriceList | null;
+  selectedStorePrice: StorePrice;
 }
 
-const ProductDescription = ({ product, selectedPriceList }: Props) => {
+const ProductDescription = ({ product, selectedStorePrice }: Props) => {
+
+  const supermarket = selectedStorePrice.supermarketId
+    ? useSupermarket(selectedStorePrice.supermarketId)
+    : { data: null, isLoading: false, error: null };
+
   return (
     <Box>
       <Text fontSize="1xl" mb={4}>
@@ -30,7 +36,7 @@ const ProductDescription = ({ product, selectedPriceList }: Props) => {
       <HStack>
         <Text fontSize={"lg"}>Selected Store :</Text>
         <Text fontSize={"lg"} fontWeight={600}>
-          {selectedPriceList?.supermarket.name}
+          {supermarket.data?.name}
         </Text>
       </HStack>
     </Box>

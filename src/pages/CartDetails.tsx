@@ -1,4 +1,5 @@
 import MiddleContainer from "@/components/Containers/MiddleContainer";
+import useCart from "@/hooks/useCart";
 import useCartStore from "@/state-management/cart/store";
 import { AddIcon } from "@chakra-ui/icons";
 import {
@@ -15,14 +16,23 @@ import Accordian from "../components/Accordian";
 import IconButton from "../components/Buttons/IconButton";
 import TextButton from "../components/Buttons/TextButton";
 import CartItemCard from "../components/CartItemCard";
+import { set } from "react-hook-form";
 
 const CartDetails = () => {
-  const { items, syncCart } = useCartStore();
+  const { items, setItems } = useCartStore();
+  const syncedData = useCart(items);
 
   useEffect(() => {
-    syncCart();
-    // console.log("syncedData", syncedData);
-  }, []);
+    if (items && syncedData.data) {
+      // add items to the cart
+      console.log("Updated items", syncedData.data);
+      setItems(syncedData.data);
+
+      console.log(items)
+      console.log(syncedData.data)
+
+    }
+  }, [!!syncedData.data]);
 
   const accordionItems = [
     {
@@ -41,6 +51,8 @@ const CartDetails = () => {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat.",
     },
   ];
+  // return null;
+
   return (
     <MiddleContainer width="90vw" bg="background">
       <Grid

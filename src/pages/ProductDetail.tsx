@@ -13,7 +13,7 @@ import PriceComparison from "../components/PriceComparison/PriceComparison";
 import ProductDescription from "../components/PriceComparison/ProductDescription";
 
 import MiddleContainer from "@/components/Containers/MiddleContainer";
-import usePriceList, { PriceList } from "@/hooks/usePriceLists";
+import usePriceLists, { StorePrice } from "@/hooks/usePriceLists";
 import useProduct, { Product } from "@/hooks/useProduct";
 import useCartStore from "@/state-management/cart/store";
 import { Spinner } from "flowbite-react";
@@ -27,45 +27,47 @@ const ProductDetail = () => {
   const { id } = useParams();
   if (!id) return null;
 
-  const product = useProduct(id);
+  const product = useProduct(Number(id));
 
-  const { data: priceLists, isLoading } = usePriceList(id);
-  // const cartItems = useCart(localCartItems).data || [];
+  const {
+    data: priceLists,
+    isLoading,
+    error,
+  } = usePriceLists({ productId: id });
 
   const [isLiked, setIsLiked] = useState(false);
-  const [selectedPriceList, setSelectedPriceList] = useState<PriceList | null>(
-    null
-  );
+  const [selectedStorePrice, setStorePrice] = useState<StorePrice | null>(null);
 
   useEffect(() => {
-    // check if the product is already in the cart
-    const selectedCartItem = cartItems.find(
-      (item) => item.priceList?.product.id === product.data?.id
-    );
-
-    // if the product is in the cart, select the price list of the product in the priceList
-    const selectedIndex = priceLists?.results.findIndex(
-      (item) => item.id === selectedCartItem?.priceList?.id
-    );
-
     if (priceLists) {
-      if (selectedIndex && selectedIndex !== -1) {
-        console.log("selectedCartItem", selectedIndex);
-        setSelectedPriceList(priceLists.results[selectedIndex]);
+      // find the index of the priceLists that matches
+      const index = priceLists.results.findIndex(
+        (i) => i.id === cartItemInCart?.storePrice?.id
+      );
+
+      if (index !== -1) {
+        setStorePrice(priceLists.results[index]);
       } else {
         // if the product is not in the cart, select the first price list
-        setSelectedPriceList(priceLists.results[0]);
+        setStorePrice(priceLists.results[0]);
       }
     }
   }, [priceLists]);
 
-  const priceListInCart = cartItems.find(
-    (item) => item.priceList?.product.id === product.data?.id
+  // get the the cart Item that is already added to the cart
+  const cartItemInCart = cartItems.find(
+    (i) => i.storePrice?.productId || "" === id
   );
+
+  // check if the product is in the cart but selected store price are different
   const shouldUpdateCart =
-    priceListInCart && selectedPriceList?.id !== priceListInCart.priceList?.id;
+    cartItemInCart && selectedStorePrice?.id !== cartItemInCart.storePrice?.id;
+
 
   if (isLoading) return <Spinner />;
+  if (error) return <Text>Error</Text>;
+  if (!selectedStorePrice) return null;
+
   return (
     <MiddleContainer width="90vw">
       <Box pt="4vh" px="6vw" pos={"relative"}>
@@ -94,19 +96,19 @@ const ProductDetail = () => {
               text={
                 shouldUpdateCart
                   ? "Update the Cart"
-                  : !priceListInCart
-                  ? "Add to Cart"
-                  : "Remove from Cart"
+                  : cartItemInCart
+                  ? "Remove from Cart"
+                  : "Add to Cart"
               }
-              checked={!!priceListInCart && !shouldUpdateCart}
+              checked={!!cartItemInCart && !shouldUpdateCart}
               onClick={() => {
-                if (!shouldUpdateCart && priceListInCart) {
-                  removeItem(priceListInCart.priceList?.id || 0);
-                  priceLists && setSelectedPriceList(priceLists.results[0]);
+                if (!shouldUpdateCart && cartItemInCart) {
+                  removeItem(cartItemInCart.storePrice?.id || 0);
+                  priceLists && setStorePrice(priceLists.results[0]);
                 } else {
-                  selectedPriceList &&
+                  selectedStorePrice &&
                     addItem({
-                      priceList: selectedPriceList,
+                      storePrice: selectedStorePrice,
                       quantity: 1,
                     });
                 }
@@ -118,14 +120,14 @@ const ProductDetail = () => {
           <GridItem>
             <ProductDescription
               product={product.data || ({} as Product)}
-              selectedPriceList={selectedPriceList}
+              selectedStorePrice={selectedStorePrice}
             />
           </GridItem>
           <GridItem ml={2}>
             <PriceComparison
               priceLists={priceLists?.results || []}
-              selectedPriceList={selectedPriceList}
-              setSelectedPriceList={setSelectedPriceList}
+              selectedStorePrice={selectedStorePrice}
+              setStorePrice={setStorePrice}
             />
           </GridItem>
         </Grid>

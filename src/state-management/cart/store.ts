@@ -1,15 +1,16 @@
-import { PriceList } from "@/hooks/usePriceLists";
+import { StorePrice } from "@/hooks/usePriceLists";
 import APIClient from "@/services/api-client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface CartItem {
-  priceList: PriceList | null;
+  storePrice: StorePrice | null;
   quantity: number;
 }
 
 interface CartStore {
   items: CartItem[];
+  setItems: (items: CartItem[]) => void;
   addItem: (item: CartItem) => void;
   removeItem: (productId: number) => void;
 
@@ -18,7 +19,7 @@ interface CartStore {
   syncCart: () => void;
 }
 
-const apiClient = new APIClient<CartItem[]>("/carts");
+const apiClient = new APIClient<CartItem[]>("/carts/6");
 
 const syncData = (data: CartItem[]) => {
   const syncData = apiClient.create(data);
@@ -31,50 +32,56 @@ const useCartStore = create<CartStore>()(
     (set) => ({
       items: [],
 
-      addItem: (item: CartItem) => {
+      setItems: (items: CartItem[]) => {
+        set({ items });
+      },
+
+      addItem: (newCartItem: CartItem) => {
         set((state) =>
           // check if the item is already in the cart replace it with the new item
           {
-            console.log("CALLED");
             return state.items.some(
-              (cartItem) =>
-                cartItem.priceList?.product.id === item.priceList?.product.id
+              (i) =>
+                i.storePrice?.productId === newCartItem.storePrice?.productId
             )
-              ? {
-                  items: state.items.map((cartItem) =>
-                    cartItem.priceList?.product.id ===
-                    item.priceList?.product.id
-                      ? item
-                      : cartItem
+              ? // replace newCartItem
+                {
+                  items: state.items.map((i) =>
+                    i.storePrice?.productId ===
+                    newCartItem.storePrice?.productId
+                      ? newCartItem
+                      : i
                   ),
                 }
-              : { items: [...state.items, item] };
+              : { items: [...state.items, newCartItem] };
           }
         );
       },
 
       removeItem: (productId: number) => {
         set((state) => ({
-          items: state.items.filter((item) => item.priceList?.id !== productId),
+          items: state.items.filter(
+            (i) => i.storePrice?.productId !== productId
+          ),
         }));
       },
 
-      incrementQuantity: (priceListId: number) => {
+      incrementQuantity: (storePriceId: number) => {
         set((state) => ({
-          items: state.items.map((item) =>
-            item.priceList?.id === priceListId
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
+          items: state.items.map((i) =>
+            i.storePrice?.id === storePriceId
+              ? { ...i, quantity: i.quantity + 1 }
+              : i
           ),
         }));
       },
 
       decrementQuantity: (priceListId: number) => {
         set((state) => ({
-          items: state.items.map((item) =>
-            item.priceList?.id === priceListId && item.quantity > 1
-              ? { ...item, quantity: item.quantity - 1 }
-              : item
+          items: state.items.map((i) =>
+            i.storePrice?.id === priceListId
+              ? { ...i, quantity: i.quantity - 1 }
+              : i
           ),
         }));
       },

@@ -2,18 +2,18 @@ import { Box, Text, VStack } from "@chakra-ui/react";
 
 import SupermarketPriceRow from "./SupermarketPriceRow";
 
-import { PriceList } from "@/hooks/usePriceLists";
+import { StorePrice } from "@/hooks/usePriceLists";
 
 interface Props {
-  priceLists: PriceList[];
-  selectedPriceList: PriceList | null;
-  setSelectedPriceList: (priceList: PriceList) => void;
+  priceLists: StorePrice[];
+  selectedStorePrice: StorePrice | null;
+  setStorePrice: (priceList: StorePrice) => void;
 }
 
 const PriceComparison = ({
   priceLists,
-  selectedPriceList,
-  setSelectedPriceList,
+  selectedStorePrice,
+  setStorePrice,
 }: Props) => {
   return (
     <Box>
@@ -24,9 +24,9 @@ const PriceComparison = ({
         {priceLists?.map((item, index) => (
           <SupermarketPriceRow
             key={index}
-            priceList={item}
-            selectedPriceList={selectedPriceList}
-            onClick={() => setSelectedPriceList(item)}
+            storePrice={item}
+            selectedPriceList={selectedStorePrice}
+            onClick={() => setStorePrice(item)}
           />
         ))}
       </VStack>

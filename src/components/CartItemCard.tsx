@@ -14,6 +14,7 @@ import useCartStore, { CartItem } from "@/state-management/cart/store";
 import QuantityChanger from "./QuantityChanger";
 import SupermarketLogoContainer from "./SupermarketLogoContainer";
 import { useNavigate } from "react-router-dom";
+import useProduct from "@/hooks/useProduct";
 
 interface Props {
   cartItem: CartItem;
@@ -22,7 +23,9 @@ interface Props {
 const CartItemCard = ({ cartItem }: Props) => {
   const navigate = useNavigate();
   const removeItem = useCartStore((state) => state.removeItem);
-  if (!cartItem.priceList) return null;
+
+  if (!cartItem) return null;
+  const product = useProduct(cartItem.storePrice?.productId || 0);
 
   return (
     <Card
@@ -41,19 +44,19 @@ const CartItemCard = ({ cartItem }: Props) => {
           <Image
             boxSize="100px"
             objectFit="cover"
-            src={cartItem.priceList?.product.imageUrl}
-            alt={cartItem.priceList?.product.name}
+            src={product.data?.imageUrl}
+            alt={product.data?.name}
           />
         </GridItem>
         <GridItem>
           <Box p={2}>
-            <Heading size="md">{cartItem.priceList?.product.name}</Heading>
+            <Heading size="md">{product.data?.name}</Heading>
             <SupermarketLogoContainer />
             <Text
               fontSize="sm"
               fontWeight={600}
               color="primary"
-              onClick={() => navigate("/products/"+cartItem.priceList?.product.id)}
+              onClick={() => navigate("/products/" + product.data?.id)}
               cursor="pointer"
             >
               Change Supermarket
@@ -65,9 +68,8 @@ const CartItemCard = ({ cartItem }: Props) => {
         </GridItem>
         <GridItem>
           <DeleteIcon
-            onClick={() => removeItem(cartItem.priceList?.id || -1)}
+            onClick={() => removeItem(product.data?.id || -1)}
             cursor="pointer"
-            // color="red.500"
             boxSize={6}
             _hover={{ color: "red.600" }}
           />
