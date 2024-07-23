@@ -15,7 +15,7 @@ const ErrorPage = () => {
         textAlign="center"
       >
         <Icon as={FaExclamationTriangle}  color="primary" boxSize="70px"/>
-        <Heading size="lg">Oops! Something went wrong</Heading>
+        <Heading size="lg">Oops! Something went wrong  :(</Heading>
         <Text fontSize="lg" color="gray.500">
           {isRouteErrorResponse(error) ? "404 Not Found" : "An unknown error occurred"}
         </Text>

@@ -1,5 +1,4 @@
-import { Box, Center, Icon, Image, Text, VStack } from "@chakra-ui/react";
-import { FaExclamationTriangle } from "react-icons/fa";
+import { Box, Center,  Image, Text, VStack } from "@chakra-ui/react";
 import Warning from "../../assets/warning-animate.svg";
 
 const DesktopWarning = () => {
@@ -8,7 +7,6 @@ const DesktopWarning = () => {
       <Box bg="white" shadow="xl" p={8} borderRadius="md" borderWidth={1}>
         <VStack>
           <Image src={Warning} width="200px" />
-          <Icon as={FaExclamationTriangle}  color="primary" boxSize="70px"/>
           <Text fontWeight="bold" fontSize="xl">
             Please Use a Mobile Device
           </Text>
