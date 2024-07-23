@@ -20,7 +20,7 @@ import {
   ModalFooter,
   useDisclosure
 } from "@chakra-ui/react";
-import ProductList from './ProductList';
+import ProductList from './productList';
 import DetailsBox from './DetailsBox';
 import Logo from '@/assets/logo.svg';
 import SubmitButton from '@/components/Buttons/SubmitButton';
