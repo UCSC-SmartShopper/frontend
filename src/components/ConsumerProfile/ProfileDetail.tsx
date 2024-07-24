@@ -1,11 +1,10 @@
-import React from "react";
 import {
   Box,
   Button,
   Flex,
   Grid,
   GridItem,
-  HStack,
+  HStack, 
   Image,
   Input,
   Modal,
@@ -20,7 +19,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-const ProfileDetail: React.FC = () => {
+const ProfileDetail = () => {
   const {
     isOpen: isEdit,
     onOpen: onEdit,
