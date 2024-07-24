@@ -1,13 +1,13 @@
-import ConsumerLanding from "@/pages/Landing";
-import ConsumerProduct from "@/pages/ProductDetail";
-import ConsumerCartDetails from "@/pages/CartDetails";
-import ConsumerProfile from "@/pages/ConsumerProfile";
-import ConsumerReviews from "@/pages/Reviews";
-import ConsumerOrders from "@/pages/ConsumerOrders";
-import ConsumerViewOrders from "@/pages/ViewOrders";
-import ConsumerPaymentSuccessful from "@/pages/PaymentSuccessful";
+import ConsumerLanding from "@/pages/Consumer/Landing";
+import ConsumerProduct from "@/pages/Consumer/ProductDetail";
+import ConsumerCartDetails from "@/pages/Consumer/CartDetails";
+import ConsumerProfile from "@/pages/Consumer/ConsumerProfile";
+import ConsumerReviews from "@/pages/Consumer/Reviews";
+import ConsumerOrders from "@/pages/Consumer/ConsumerOrders";
+import ConsumerViewOrders from "@/pages/Consumer/ViewOrders";
+import ConsumerPaymentSuccessful from "@/pages/Consumer/PaymentSuccessful";
 import ConsumerLayout from "./Layouts/ConsumerLayout";
-import ConsumerCheckout from "@/pages/Checkout";
+import ConsumerCheckout from "@/pages/Consumer/Checkout";
 
 const ConsumerRoutes = [
   {
