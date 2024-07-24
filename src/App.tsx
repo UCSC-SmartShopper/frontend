@@ -16,12 +16,13 @@ import ProductDetail from "./pages/ProductDetail";
 import Reviews from "./pages/Reviews";
 import SignUp from "./pages/SignUp";
 import Test from "./pages/Test";
-import Products from "./pages/Products";
+import Products from "./pages/SupermarketManager/Products";
 import LoginRegister from "./pages/DriverApp/LoginRegister/LoginRegister";
 import DriverLogin from "./pages/DriverApp/LoginRegister/Login/DriverLogin";
 import Orders from "./pages/ConsumerOrders";
 import ViewOrders from "./pages/ViewOrders";
-import OrderList from "./pages/OrderList";
+import OrderList from "./pages/SupermarketManager/OrderList";
+import SMDashboard from "./pages/SupermarketManager/Dashboard";
 // import Task from './components/organizations/organization';
 
 import AdminMain from "./pages/Admin/AdminMain";
@@ -57,7 +58,7 @@ function App() {
 
           <Route path="/driver/login_register" element={<LoginRegister />} />
           <Route path="/driver/login" element={<DriverLogin />} />
-           {/* <Route path="/orders" element={<Orders />} /> */}
+           <Route path="/orders" element={<Orders />} />
           <Route path="/vieworders" element={<ViewOrders />} />
           {/* <Route path="/task" element={<Task />} /> */}
 
@@ -67,6 +68,7 @@ function App() {
 
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/admin" element={<AdminMain />} />
+          <Route path= "/supermarketmanager" element={<SMDashboard />} />
 
         </Routes>
 
