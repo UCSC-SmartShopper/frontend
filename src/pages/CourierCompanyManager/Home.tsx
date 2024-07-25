@@ -20,6 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { FaClipboardList, FaTruck, FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import LineChart from "../../components/Charts/LineChart";
 
 const deliveryPersonnel = [
   {
@@ -82,6 +83,24 @@ const Home = () => {
           </Box>
         </SimpleGrid>
 
+        <Box
+          px={5}
+          pt={5}
+          shadow="md"
+          borderWidth="1px"
+          w="100%"
+          borderRadius={15}
+          bg="white"
+          mt={4}
+          pl={40}
+        >
+          <Text fontSize="xl" fontWeight="bold" mb={4}>
+            Customer Engagement
+          </Text>
+
+          <LineChart width="80%" />
+        </Box>
+
         <Box p={4} boxShadow="md" borderRadius="md" bg="white" mt={4}>
           <Text fontSize="xl" fontWeight="bold" mb={4}>
             Delivery Personal Details
@@ -107,7 +126,10 @@ const Home = () => {
                   <Td>{person.completed}</Td>
                   <Td>{person.earnings}</Td>
                   <Td>
-                    <Button colorScheme="orange" onClick={() => handleViewMore(person)}>
+                    <Button
+                      colorScheme="orange"
+                      onClick={() => handleViewMore(person)}
+                    >
                       View More
                     </Button>
                   </Td>

@@ -13,7 +13,7 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";  // Import Link from react-router-dom
 import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
-import { Link } from "react-router-dom";
+
 
 const Navbar = () => {
   const [user] = useState("Courier Company");

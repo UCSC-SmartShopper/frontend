@@ -24,6 +24,9 @@ import Request from "./pages/CourierCompanyManager/Request";
 import Deliveries from "./pages/CourierCompanyManager/Deliveries";
 import PersonalDetails from "./pages/CourierCompanyManager/PersonalDetails";
 import Home from "./pages/CourierCompanyManager/Home";
+import CardComparison from "./pages/CardComparison";
+
+
 
 
 
@@ -57,6 +60,8 @@ function App() {
           <Route path="/paymentSuccessful" element={<PaymentSuccessful />} />
           <Route path="/Footer" element={<Footer />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/CardComparison" element={<CardComparison />} />
+          
 
 
           <Route path="/driver/login_register" element={<LoginRegister />} />
