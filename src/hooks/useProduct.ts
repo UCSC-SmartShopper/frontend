@@ -8,6 +8,7 @@ export interface Product {
   price: number;
   imageUrl: string;
 }
+
 const apiClient = new APIClient<Product>("/products");
 
 const useProduct = (id: number) => {
