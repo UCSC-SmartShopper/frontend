@@ -68,21 +68,21 @@ const AdminCourierServices = () => {
 
   return (
     <>
-      <VStack gap={"8vh"} fontWeight="bold" my="5vh">
+      <VStack gap={"8vh"} fontWeight="bold" my="5vh" px={10}>
         <Flex w="full" gap={5}>
           {/* ------- Courier Company Earnings ------- */}
-          <Box p={5} shadow="md" borderWidth="1px" w="70%" borderRadius={15}>
-            <Heading fontWeight={600} size="lg">
+          <Box p={5} shadow="md" borderWidth="1px" w="60%" borderRadius={15}>
+            <Heading  size="md">
               Courier Company Earnings
             </Heading>
 
             <Center>
-              <LineChart topic="" />
+              <LineChart  width="80%"/>
             </Center>
           </Box>
 
           {/* ------- Number of Drivers Card ------- */}
-          <Box p={5} shadow="md" borderWidth="1px" w="30%" borderRadius={15}>
+          <Box p={5} shadow="md" borderWidth="1px" w="40%" borderRadius={15}>
             <Heading size="md">Number of Drivers</Heading>
             {numOfDrivers.map((company, index) => (
               <VStack mt={5} key={index}>
@@ -113,7 +113,7 @@ const AdminCourierServices = () => {
         </Flex>
         <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
           <Flex justifyContent="space-between" px={20} py={10}>
-            <Heading as="h3" size="lg">
+            <Heading as="h3" size="md">
               Delivery Person Details
             </Heading>
             <Flex>

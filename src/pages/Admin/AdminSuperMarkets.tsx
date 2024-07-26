@@ -40,37 +40,44 @@ import PieChart from "../../components/Charts/PieChart";
 const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <VStack gap={"8vh"} fontWeight="bold" my="5vh">
+    <>
+    <Heading size={"md"} my={4} px={10}>
+            Super Market Earnings
+          </Heading>
+
+    
+    <VStack gap={"8vh"} fontWeight="bold" my="5vh" px={10}>
+      
       <Flex w="full" gap={5}>
         {/*
           Supermarket Earnings Card
         */}
-        <Box p={5} shadow="md" borderWidth="1px" w="30%" borderRadius={15}>
-          <Heading size={"lg"} my={4}>
-            Super Market Earnings
-          </Heading>
-          <PieChart title="Chart" />
+        <Box shadow="md" borderWidth="1px" w="40%" borderRadius={15} display={'flex'} alignItems="center" justifyContent="center">
+          
+          
+            <PieChart /> 
+          
         </Box>
 
         {/*
           Supermarket Earnings Card
         */}
-        <Box p={5} shadow="md" borderWidth="1px" w="70%" borderRadius={15}>
-          <Box p={5}>
-            <Heading as="h3" size="lg">
+        <Box  shadow="md" borderWidth="1px" w="60%" borderRadius={15}>
+          <Box >
+            {/* <Heading as="h3" size="lg">
               Customers
-            </Heading>
+            </Heading> */}
 
             <Center>
-              <LineChart topic="" />
+              <LineChart  width="80%"/>
             </Center>
           </Box>
         </Box>
       </Flex>
 
       <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
-        <Flex justifyContent="space-between">
-          <Heading as="h3" size="lg">
+        <Flex justifyContent="space-between" px={20} py={10}>
+          <Heading as="h3" size="md">
             Super Market Details
           </Heading>
           <Flex>
@@ -86,7 +93,8 @@ const AdminSuperMarkets = () => {
             {/* <ActionButton url="/addcustomer">Add Customer</ActionButton> */}
           </Flex>
         </Flex>
-
+        
+        <Center>
         <TableContainer
           width={{ base: "100%", lg: "90%" }}
           ml={{ base: "0%", lg: "5%" }}
@@ -177,6 +185,7 @@ const AdminSuperMarkets = () => {
             </Tfoot>
           </Table>
         </TableContainer>
+        </Center>
       </Box>
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
@@ -319,6 +328,7 @@ const AdminSuperMarkets = () => {
         </ModalContent>
       </Modal>
     </VStack>
+    </>
   );
 };
 

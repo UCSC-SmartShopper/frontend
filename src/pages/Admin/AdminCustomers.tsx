@@ -5,8 +5,6 @@ import {
   CardBody,
   Center,
   Flex,
-  Grid,
-  GridItem,
   Heading,
   HStack,
   Icon,
@@ -29,7 +27,7 @@ import {
   Thead,
   Tr,
   useDisclosure,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 import { AiOutlineRise } from "react-icons/ai";
 import { FaCartFlatbed, FaLocationDot } from "react-icons/fa6";
@@ -67,19 +65,33 @@ const AdminCustomers = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <VStack
+    <VStack 
       gap="8vh"
       my="5vh"
-      px="2vw"
+      px={10}
       // justifyContent="center"
       w="full"
+      fontWeight={"bold"}
     >
-      <HStack justifyContent="space-between" w="full">
+      <Flex width="full">
+        
+        <Box px={5} pt={5} shadow="md" borderWidth="1px" w="70%" borderRadius={15}>
+            <Heading  size="md">
+            Customer Engagement
+            </Heading>
+
+            <Center>
+              <LineChart  width="70%"/>
+            </Center>
+          </Box>
+
+        <Box w="30%">
+        <VStack w="full" gap={5}>
         {cutomerCards.map((card, index) => (
           <Card px={3} w={"20vw"} key={index}>
             <CardBody>
               <Flex gap={20}>
-                <Heading size="lg">{card.title}</Heading>
+                <Heading size="md">{card.title}</Heading>
                 <Icon
                   as={card.icon}
                   boxSize={8}
@@ -88,7 +100,7 @@ const AdminCustomers = () => {
                   borderRadius={5}
                 />
               </Flex>
-              <Text fontSize="lg">{card.value}</Text>
+              <Text fontSize="sm">{card.value}</Text>
               <Flex mt={2}>
                 <Icon
                   as={AiOutlineRise}
@@ -103,15 +115,15 @@ const AdminCustomers = () => {
             </CardBody>
           </Card>
         ))}
-      </HStack>
+      </VStack>
 
-      <Center w="full">
-        <LineChart topic="Customer Engagement" />
-      </Center>
+        </Box>
+        
+      </Flex>
 
       <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
         <Flex justifyContent="space-between" px={20} py={10}>
-          <Heading as="h3" size="lg">
+          <Heading as="h3" size="md">
             Customer Details
           </Heading>
           <Flex>
@@ -130,6 +142,9 @@ const AdminCustomers = () => {
           </Flex>
         </Flex>
 
+          <Center>
+
+          
         <TableContainer
           width={{ base: "100%", lg: "90%" }}
           ml={{ base: "0%", lg: "1%" }}
@@ -219,6 +234,7 @@ const AdminCustomers = () => {
             </Tfoot>
           </Table>
         </TableContainer>
+        </Center>
       </Box>
 
       {/* --------------- POP UP --------------- */}
