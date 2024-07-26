@@ -1,12 +1,14 @@
 import App from "@/App";
+import Reviews from "@/components/Feedback";
 import { createBrowserRouter } from "react-router-dom";
 import AdminRoutes from "./AdminRoutes";
+import ConsumerRoutes from "./ConsumerRoutes";
+import DriverRoutes from "./DriverRoutes";
 import ErrorPage from "./ErrorPage";
 import HomeLayout from "./Layouts/HomeLayout";
 import PublicRoutes from "./PublicRoutes";
-import Reviews from "@/components/Feedback";
-import DriverRoutes from "./DriverRoutes";
-import ConsumerRoutes from "./ConsumerRoutes";
+
+
 
 const router = createBrowserRouter([
   {
