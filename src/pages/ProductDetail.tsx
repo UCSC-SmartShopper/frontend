@@ -13,7 +13,7 @@ import PriceComparison from "../components/PriceComparison/PriceComparison";
 import ProductDescription from "../components/PriceComparison/ProductDescription";
 
 import MiddleContainer from "@/components/Containers/MiddleContainer";
-import usePriceLists, { StorePrice } from "@/hooks/usePriceLists";
+import usePriceLists, { SupermarketItem } from "@/hooks/usePriceLists";
 import useProduct, { Product } from "@/hooks/useProduct";
 import useCartStore from "@/state-management/cart/store";
 import { Spinner } from "flowbite-react";
@@ -23,6 +23,7 @@ import { useParams } from "react-router-dom";
 
 const ProductDetail = () => {
   const { addItem, removeItem, items: cartItems } = useCartStore();
+  console.log(cartItems);
 
   const { id } = useParams();
   if (!id) return null;
@@ -36,37 +37,41 @@ const ProductDetail = () => {
   } = usePriceLists({ productId: id });
 
   const [isLiked, setIsLiked] = useState(false);
-  const [selectedStorePrice, setStorePrice] = useState<StorePrice | null>(null);
+  const [selectedSupermarketItem, setSupermarketItem] =
+    useState<SupermarketItem | null>(null);
 
   useEffect(() => {
     if (priceLists) {
       // find the index of the priceLists that matches
       const index = priceLists.results.findIndex(
-        (i) => i.id === cartItemInCart?.storePrice?.id
+        (i) => i.id === cartItemInCart?.supermarketItem?.id
       );
 
       if (index !== -1) {
-        setStorePrice(priceLists.results[index]);
+        setSupermarketItem(priceLists.results[index]);
       } else {
         // if the product is not in the cart, select the first price list
-        setStorePrice(priceLists.results[0]);
+        setSupermarketItem(priceLists.results[0]);
       }
     }
   }, [priceLists]);
 
   // get the the cart Item that is already added to the cart
   const cartItemInCart = cartItems.find(
-    (i) => i.storePrice?.productId || "" === id
+    (i) => i.supermarketItem?.productId === Number(id)
   );
 
   // check if the product is in the cart but selected store price are different
   const shouldUpdateCart =
-    cartItemInCart && selectedStorePrice?.id !== cartItemInCart.storePrice?.id;
+    cartItemInCart &&
+    selectedSupermarketItem?.id !== cartItemInCart.supermarketItem?.id;
 
+  // console.log(cartItemInCart);
+  // console.log(shouldUpdateCart);
 
   if (isLoading) return <Spinner />;
   if (error) return <Text>Error</Text>;
-  if (!selectedStorePrice) return null;
+  if (!selectedSupermarketItem) return null;
 
   return (
     <MiddleContainer width="90vw">
@@ -103,12 +108,12 @@ const ProductDetail = () => {
               checked={!!cartItemInCart && !shouldUpdateCart}
               onClick={() => {
                 if (!shouldUpdateCart && cartItemInCart) {
-                  removeItem(cartItemInCart.storePrice?.id || 0);
-                  priceLists && setStorePrice(priceLists.results[0]);
+                  removeItem(cartItemInCart.supermarketItem?.id || 0);
+                  priceLists && setSupermarketItem(priceLists.results[0]);
                 } else {
-                  selectedStorePrice &&
+                  selectedSupermarketItem &&
                     addItem({
-                      storePrice: selectedStorePrice,
+                      supermarketItem: selectedSupermarketItem,
                       quantity: 1,
                     });
                 }
@@ -120,14 +125,14 @@ const ProductDetail = () => {
           <GridItem>
             <ProductDescription
               product={product.data || ({} as Product)}
-              selectedStorePrice={selectedStorePrice}
+              selectedSupermarketItem={selectedSupermarketItem}
             />
           </GridItem>
           <GridItem ml={2}>
             <PriceComparison
               priceLists={priceLists?.results || []}
-              selectedStorePrice={selectedStorePrice}
-              setStorePrice={setStorePrice}
+              selectedSupermarketItem={selectedSupermarketItem}
+              setSupermarketItem={setSupermarketItem}
             />
           </GridItem>
         </Grid>

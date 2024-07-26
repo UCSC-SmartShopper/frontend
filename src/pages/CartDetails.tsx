@@ -1,5 +1,4 @@
 import MiddleContainer from "@/components/Containers/MiddleContainer";
-import useCart from "@/hooks/useCart";
 import useCartStore from "@/state-management/cart/store";
 import { AddIcon } from "@chakra-ui/icons";
 import {
@@ -7,32 +6,20 @@ import {
   Grid,
   GridItem,
   Heading,
+  HStack,
   Spacer,
   Text,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Accordian from "../components/Accordian";
 import IconButton from "../components/Buttons/IconButton";
 import TextButton from "../components/Buttons/TextButton";
-import CartItemCard from "../components/CartItemCard";
-import { set } from "react-hook-form";
+import CartItemCard from "@/components/CartItemCard";
 
 const CartDetails = () => {
-  const { items, setItems } = useCartStore();
-  const syncedData = useCart(items);
-
-  useEffect(() => {
-    if (items && syncedData.data) {
-      // add items to the cart
-      console.log("Updated items", syncedData.data);
-      setItems(syncedData.data);
-
-      console.log(items)
-      console.log(syncedData.data)
-
-    }
-  }, [!!syncedData.data]);
+  const navigate = useNavigate();
+  const { items } = useCartStore();
 
   const accordionItems = [
     {
@@ -52,6 +39,7 @@ const CartDetails = () => {
     },
   ];
   // return null;
+  console.log(items);
 
   return (
     <MiddleContainer width="90vw" bg="background">
@@ -72,7 +60,16 @@ const CartDetails = () => {
               <Heading as="h2" size="lg">
                 Your shopping cart
               </Heading>
-              <Text>Not ready to checkout? Continue Shopping</Text>
+              <HStack>
+                <Text>Not ready to checkout?</Text>
+                <Text
+                  onClick={() => navigate("/")}
+                  color="primary"
+                  cursor="pointer"
+                >
+                  Continue Shopping
+                </Text>
+              </HStack>
             </Flex>
             <Spacer />
 

@@ -1,10 +1,10 @@
 import APIClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
-import { StorePrice } from "./usePriceLists";
+import { SupermarketItem } from "./usePriceLists";
 
-const apiClient = new APIClient<StorePrice>("/storeprices");
+const apiClient = new APIClient<SupermarketItem>("/storeprices");
 
-// get StorePrice by id
+// get SupermarketItem by id
 const usePriceLists = (id: string) => {
   return useQuery({
     queryKey: ["store_price", id],

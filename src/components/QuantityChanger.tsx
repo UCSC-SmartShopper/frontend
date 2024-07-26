@@ -27,7 +27,7 @@ const QuantityChanger = ({ cartItem }: Props) => {
           px="3.5"
           _hover={{ bg: "gray.200" }}
           onClick={() =>
-            decrementQuantity(cartItem.storePrice?.productId || -1)
+            decrementQuantity(cartItem.supermarketItem?.productId || -1)
           }
         >
           -
@@ -54,7 +54,7 @@ const QuantityChanger = ({ cartItem }: Props) => {
           px="3"
           _hover={{ bg: "gray.200" }}
           onClick={() =>
-            incrementQuantity(cartItem.storePrice?.productId || -1)
+            incrementQuantity(cartItem.supermarketItem?.productId || -1)
           }
         >
           +

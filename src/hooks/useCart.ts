@@ -6,9 +6,9 @@ const apiClient = new APIClient<CartItem[]>("/carts/6");
 
 const useCart = (cartItems: CartItem[]) => {
   return useQuery({
-    queryKey: ["cart", cartItems],
+    queryKey: ["cart"],
     queryFn: () => apiClient.create(cartItems),
-    staleTime: 500,
+    staleTime: 1000 * 5, // 2 seconds
   });
 };
 

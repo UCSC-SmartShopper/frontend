@@ -1,11 +1,9 @@
-
 import Navbar from "./components/Navbar";
 
 import { Outlet } from "react-router-dom";
 
 import { Show } from "@chakra-ui/react";
 import BottomNav from "./components/BottomNav";
-
 
 export interface ProductQuery {
   genreId?: number;

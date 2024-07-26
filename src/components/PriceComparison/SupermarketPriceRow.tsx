@@ -1,4 +1,4 @@
-import { StorePrice } from "@/hooks/usePriceLists";
+import { SupermarketItem } from "@/hooks/usePriceLists";
 import {
   Box,
   Divider,
@@ -13,24 +13,24 @@ import RatingStars from "../Inputs/Rating";
 import useSupermarket from "@/hooks/useSupermarket";
 
 interface Props {
-  storePrice: StorePrice;
-  selectedPriceList: StorePrice | null;
+  supermarketItem: SupermarketItem;
+  selectedPriceList: SupermarketItem | null;
   onClick: () => void;
 }
 
 const SupermarketPriceRow = ({
-  storePrice,
+  supermarketItem,
   selectedPriceList,
   onClick,
 }: Props) => {
-  const supermarket = storePrice?.supermarketId
-    ? useSupermarket(storePrice?.supermarketId)
+  const supermarket = supermarketItem?.supermarketId
+    ? useSupermarket(supermarketItem?.supermarketId)
     : { data: null, isLoading: false, error: null };
 
   return (
     <HStack
       borderColor="primary"
-      borderWidth={selectedPriceList?.id === storePrice.id ? "2px" : ""}
+      borderWidth={selectedPriceList?.id === supermarketItem.id ? "2px" : ""}
       justifyContent={"space-between"}
       px={10}
       py={3}
@@ -63,15 +63,15 @@ const SupermarketPriceRow = ({
           </Text>
           <Box>
             <RatingStars
-              value={(storePrice?.id * 3) % 5}
-              reviews={(storePrice?.id * 19) % 40}
+              value={(supermarketItem?.id * 3) % 5}
+              reviews={(supermarketItem?.id * 19) % 40}
             />
           </Box>
         </Stack>
       </VStack>
 
       <Text fontSize="xl" fontWeight={700}>
-        {storePrice.price}
+        {supermarketItem.price}
       </Text>
     </HStack>
   );

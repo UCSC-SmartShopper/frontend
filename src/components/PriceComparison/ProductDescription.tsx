@@ -1,17 +1,16 @@
-import { StorePrice } from "@/hooks/usePriceLists";
+import { SupermarketItem } from "@/hooks/usePriceLists";
 import { Product } from "@/hooks/useProduct";
 import useSupermarket from "@/hooks/useSupermarket";
 import { Box, Divider, HStack, Image, Text } from "@chakra-ui/react";
 
 interface Props {
   product: Product;
-  selectedStorePrice: StorePrice;
+  selectedSupermarketItem: SupermarketItem;
 }
 
-const ProductDescription = ({ product, selectedStorePrice }: Props) => {
-
-  const supermarket = selectedStorePrice.supermarketId
-    ? useSupermarket(selectedStorePrice.supermarketId)
+const ProductDescription = ({ product, selectedSupermarketItem }: Props) => {
+  const supermarket = selectedSupermarketItem.supermarketId
+    ? useSupermarket(selectedSupermarketItem.supermarketId)
     : { data: null, isLoading: false, error: null };
 
   return (

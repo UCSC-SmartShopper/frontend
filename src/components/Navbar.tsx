@@ -84,7 +84,7 @@ const Navbar = () => {
                 onClick={logout}
               />
               <Text fontSize="lg" fontWeight="bold">
-                {user.username}
+                {user.name}
               </Text>
               <Box pos={"relative"}>
                 <Icon

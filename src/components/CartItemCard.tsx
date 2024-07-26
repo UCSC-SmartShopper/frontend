@@ -15,6 +15,7 @@ import QuantityChanger from "./QuantityChanger";
 import SupermarketLogoContainer from "./SupermarketLogoContainer";
 import { useNavigate } from "react-router-dom";
 import useProduct from "@/hooks/useProduct";
+import useSupermarket from "@/hooks/useSupermarket";
 
 interface Props {
   cartItem: CartItem;
@@ -25,7 +26,10 @@ const CartItemCard = ({ cartItem }: Props) => {
   const removeItem = useCartStore((state) => state.removeItem);
 
   if (!cartItem) return null;
-  const product = useProduct(cartItem.storePrice?.productId || 0);
+  const product = useProduct(cartItem.supermarketItem?.productId || 0);
+  const supermarket = useSupermarket(
+    cartItem.supermarketItem?.supermarketId || 0
+  );
 
   return (
     <Card
@@ -51,7 +55,13 @@ const CartItemCard = ({ cartItem }: Props) => {
         <GridItem>
           <Box p={2}>
             <Heading size="md">{product.data?.name}</Heading>
-            <SupermarketLogoContainer />
+            <Image
+              py={1}
+              h={10}
+              objectFit="cover"
+              src={supermarket.data?.logo}
+              alt="Dan Abramov"
+            />
             <Text
               fontSize="sm"
               fontWeight={600}

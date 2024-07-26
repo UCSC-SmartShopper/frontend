@@ -1,6 +1,6 @@
 import APIClient, { FetchResponse } from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
-import { Supermarket } from "./usePriceLists";
+import { Supermarket } from "./useSupermarket";
 
 const apiClient = new APIClient<Supermarket>("/supermarkets");
 
