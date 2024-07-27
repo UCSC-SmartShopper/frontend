@@ -20,8 +20,14 @@ const PriceComparison = ({
       <Text fontSize="2xl" fontWeight="bold" mb={8}>
         Price Comparison
       </Text>
-      <VStack w="full" spacing={4}>
-        {priceLists?.map((item, index) => (
+      <VStack
+        w="full"
+        spacing={4}
+        divider={
+          <Divider borderColor="gray.400" alignSelf="flex-start" w={570} />
+        }
+      >
+        {priceList?.results?.map((item, index) => (
           <SupermarketPriceRow
             key={index}
             supermarketItem={item}
