@@ -20,7 +20,7 @@ const Navbar = () => {
   const showTopNav = !hideNavbarPaths.some((path) => location.pathname.startsWith(path));
   const consumerNavItems = ["Home", "Supermarkets", "About Us"];
   const courierNavItems = ["Home", "Request", "Deliveries"];
-  const navItems = user === "Courier Company" ? courierNavItems : consumerNavItems;
+  const navItems = user?.role === "Courier Company" ? courierNavItems : consumerNavItems;
 
   return (
     <>
