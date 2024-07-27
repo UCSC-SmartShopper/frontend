@@ -11,23 +11,23 @@ import {
 import Logo from "../../../../assets/logo.svg";
 import Phone from "../../../../assets/signup-login/enter-otp-animate.svg";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
-import { z } from "zod";
+// import { useForm } from "react-hook-form";
+// import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
+// import { z } from "zod";
 import { useEffect, useState } from "react";
 
-const schema = z.object({
-  otp: z.string().length(6, "OTP must be exactly 6 digits"),
-});
+// const schema = z.object({
+//   otp: z.string().length(6, "OTP must be exactly 6 digits"),
+// });
 
-type FormData = z.infer<typeof schema>;
+// type FormData = z.infer<typeof schema>;
 
 interface Props {
   setStage: (n: number) => void;
 }
 
 const Otp = ({ setStage }: Props) => {
-  const { handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
+  // const { handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const [pin, setPin] = useState("");
   const handleChange = (value: string) => {
@@ -41,7 +41,7 @@ const Otp = ({ setStage }: Props) => {
   }, [pin, setStage]);
 
   return (
-    <VStack py="10vh" h="100vh" gap="6vh">
+    <VStack py="6vh" h="100vh" gap="8vh">
       <VStack>
         <Image src={Logo} width="150px" />
         <Box display="inline" fontSize="2xl" fontWeight="bold">
@@ -55,7 +55,7 @@ const Otp = ({ setStage }: Props) => {
         </Text>
       </VStack>
       <Box textAlign="center">
-        <form onSubmit={handleSubmit(() => {})}>
+        {/* <form onSubmit={handleSubmit(() => {})}> */}
           <PinInput
             value={pin}
             onChange={handleChange}
@@ -74,15 +74,10 @@ const Otp = ({ setStage }: Props) => {
               />
             ))}
           </PinInput>
-        </form>
+        {/* </form> */}
       </Box>
-      <Image
-        src={Phone}
-        width="180px"
-        className=" "
-        justifyContent="center"
-      />
-      <Text >
+      <Image src={Phone} width="180px" className=" " justifyContent="center" />
+      <Text>
         I didn't receive any code.{" "}
         <Button variant="link" color="primary">
           RESEND

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Grid, GridItem, Card, CardBody, Heading, Flex, Box, Center, Text, VStack, Select, Icon, Spacer, Button, Image } from "@chakra-ui/react";
+import { Heading, Flex, Box, Center, Text, VStack, Select, Icon, Button, Image } from "@chakra-ui/react";
 import { CiImageOn, CiEdit } from "react-icons/ci";
 
 const AdminAdvertisements: React.FC = () => {
