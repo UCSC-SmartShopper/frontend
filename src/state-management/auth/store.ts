@@ -12,9 +12,13 @@ export interface LoginResponse {
 }
 
 export interface User {
-  username: string;
+  name: string;
   role: string;
+  email: string
   password?: string;
+  number: string;
+  profilePic: string;
+  status: string;
 }
 
 export interface AuthStore {

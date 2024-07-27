@@ -1,4 +1,4 @@
-import { Box, Text, VStack } from "@chakra-ui/react";
+import { Box, Divider, Text, VStack } from "@chakra-ui/react";
 
 import SupermarketPriceRow from "./SupermarketPriceRow";
 
@@ -27,7 +27,7 @@ const PriceComparison = ({
           <Divider borderColor="gray.400" alignSelf="flex-start" w={570} />
         }
       >
-        {priceList?.results?.map((item, index) => (
+        {priceLists.map((item, index) => (
           <SupermarketPriceRow
             key={index}
             supermarketItem={item}

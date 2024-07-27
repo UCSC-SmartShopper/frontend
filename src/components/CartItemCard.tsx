@@ -12,7 +12,6 @@ import { DeleteIcon } from "@chakra-ui/icons";
 
 import useCartStore, { CartItem } from "@/state-management/cart/store";
 import QuantityChanger from "./QuantityChanger";
-import SupermarketLogoContainer from "./SupermarketLogoContainer";
 import { useNavigate } from "react-router-dom";
 import useProduct from "@/hooks/useProduct";
 import useSupermarket from "@/hooks/useSupermarket";
