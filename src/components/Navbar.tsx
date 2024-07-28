@@ -10,13 +10,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FaCartShopping } from "react-icons/fa6";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
 
 const Navbar = () => {
   const { user, logout } = useAuthStore();
   const location = useLocation();
+  const navigate = useNavigate();
   const hideNavbarPaths = ["/driver"];
   const showTopNav = !hideNavbarPaths.some((path) =>
     location.pathname.startsWith(path)
@@ -75,12 +76,13 @@ const Navbar = () => {
                 name="Dan Abrahmov"
                 src="https://bit.ly/dan-abramov"
                 boxSize={10}
+                cursor="pointer"
                 onClick={logout}
               />
               <Text fontSize="lg" fontWeight="bold">
                 {user.username}
               </Text>
-              <Icon as={FaCartShopping} w={8} h={8} color="black" />
+              <Icon as={FaCartShopping} w={8} h={8} color="black" cursor="pointer" onClick={() => navigate("/cart")}/>
             </HStack>
           ) : (
             <HStack paddingX={0}>
