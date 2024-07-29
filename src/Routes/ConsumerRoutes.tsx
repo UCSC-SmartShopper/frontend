@@ -7,6 +7,7 @@ import ConsumerViewOrders from "@/pages/Consumer/ViewOrders";
 import ConsumerPaymentSuccessful from "@/pages/Consumer/PaymentSuccessful";
 import ConsumerLayout from "./Layouts/ConsumerLayout";
 import ConsumerCheckout from "@/pages/Consumer/Checkout";
+import CartComparison from "@/pages/Consumer/CartComparison/CartComparison";
 
 const ConsumerRoutes = [
   {
@@ -20,6 +21,7 @@ const ConsumerRoutes = [
       { path: "cart", element: <ConsumerCartDetails /> },
       { path: "payment-success", element: <ConsumerPaymentSuccessful /> },
       { path: "checkout", element: <ConsumerCheckout /> },
+      { path: "cart-comparison", element: <CartComparison /> },
     ],
   },
 ];

@@ -1,84 +1,110 @@
-
+import Accordian from "@/components/Accordian";
+import IconButton from "@/components/Buttons/IconButton";
+import TextButton from "@/components/Buttons/TextButton";
+import CartItemCard from "@/components/CartItemCard";
+import MiddleContainer from "@/components/Containers/MiddleContainer";
+import APIClient from "@/services/api-client";
+import useCartStore, { CartItem } from "@/state-management/cart/store";
 import { AddIcon } from "@chakra-ui/icons";
 import {
   Flex,
   Grid,
   GridItem,
   Heading,
+  HStack,
   Spacer,
   Text,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
-import Accordian from "../../components/Accordian";
-import IconButton from "../../components/Buttons/IconButton";
-import TextButton from "../../components/Buttons/TextButton";
-import CartItemCard from "../../components/CartItemCard";
-import MainContainer from "../../components/MainContainer";
+import { useMutation } from "@tanstack/react-query";
+import { Link, useNavigate } from "react-router-dom";
 
-const CardDetails = () => {
-    const accordionItems = [
-        {
-          title: "Item 1",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat."
-        },
-        {
-            title: "Item 1",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat."
-          },
-          {
-            title: "Item 1",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat."
-          },
-      ];
+const CartDetails = () => {
+  const apiClient = new APIClient<CartItem[]>("/carts");
+  const navigate = useNavigate();
+  const { items, setItems } = useCartStore();
+
+  const { mutate } = useMutation({
+    mutationFn: () => apiClient.create(items),
+    onSuccess: (res) => {
+      setItems(res);
+      navigate("/cart-comparison");
+    },
+  });
+
+  const accordionItems = [
+    {
+      title: "Item 1",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat.",
+    },
+    {
+      title: "Item 1",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat.",
+    },
+    {
+      title: "Item 1",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam, quis nostrud exercitation ullamco laboris nisi ut ex ea commodo consequat.",
+    },
+  ];
+
+
   return (
-    <MainContainer>
+    <MiddleContainer width="90vw" bg="background">
       <Grid
-      gridTemplateColumns={{ base: "1fr", md: "1fr 1fr", lg: "repeat(2, 1fr)" }}
-      h="100%"
-      gap={{ base: 4, md: 6, lg: 10 }}
-    >
+        gridTemplateColumns={{
+          base: "1fr",
+          md: "1fr 1fr",
+          lg: "repeat(2, 1fr)",
+        }}
+        h="100%"
+        gap={{ base: 4, md: 6, lg: 10 }}
+        pt="4vh"
+        px="6vw"
+      >
         <GridItem h="100%">
           <Flex>
             <Flex flexDirection="column">
-              <Heading as='h2' size='lg'>Your shopping cart</Heading>
-                <Text>Not ready to checkout? Continue Shopping</Text>
+              <Heading as="h2" size="lg">
+                Your shopping cart
+              </Heading>
+              <HStack>
+                <Text>Not ready to checkout?</Text>
+                <Text
+                  onClick={() => navigate("/")}
+                  color="primary"
+                  cursor="pointer"
+                >
+                  Continue Shopping
+                </Text>
+              </HStack>
             </Flex>
             <Spacer />
 
+            <Link to="/">
               <IconButton Icon={AddIcon} />
+            </Link>
           </Flex>
           <VStack spacing={5} mt={10}>
-            <CartItemCard
-              imageSrc="https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic91287.jpg"
-              itemName="Cream Craker"
-              price={100}
-              quantity={1}
-            />
-            <CartItemCard
-              imageSrc="https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic4603.jpg"
-              itemName="Product Name"
-              price={200}
-              quantity={2}
-            />
-            <CartItemCard
-              imageSrc="https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic915007.jpg"
-              itemName="Product 3"
-              price={300}
-              quantity={3}
-            />
+            {items.map((item, index) => (
+              <CartItemCard key={index} cartItem={item} />
+            ))}
           </VStack>
         </GridItem>
 
         <GridItem>
-        <Heading as='h2' size='lg' mb={10}>Order Information</Heading>
-          <Accordian items={accordionItems}/>
+          <Heading as="h2" size="lg" mb={10}>
+            Order Information
+          </Heading>
+          <Accordian items={accordionItems} />
           <Spacer />
-          <TextButton text="Proceed to checkout" onClick={() => {}} />
-          
+          <TextButton text="Proceed to checkout" onClick={() => mutate()} />
         </GridItem>
       </Grid>
-    </MainContainer>
+    </MiddleContainer>
   );
 };
 
-export default CardDetails;
+export default CartDetails;
