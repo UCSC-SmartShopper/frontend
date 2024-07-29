@@ -18,13 +18,18 @@ import {
   ModalOverlay,
   ModalHeader,
   ModalFooter,
-  useDisclosure
+  useDisclosure,
+  Flex
 } from "@chakra-ui/react";
-import ProductList from './ProductList';
+import ProductList from './productList';
 import DetailsBox from './DetailsBox';
 import Logo from '@/assets/logo.svg';
 import SubmitButton from '@/components/Buttons/SubmitButton';
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useReactToPrint } from 'react-to-print';
+import { PiNotepad } from "react-icons/pi";
+import { Button } from "flowbite-react";
+
 
 interface Product {
   id: number;
@@ -53,6 +58,10 @@ const ProductTable = () => {
   const [customer, setCustomer] = useState<string>("");
   const [contact, setContact] = useState<string>("");
   const [orderCost, setOrderCost] = useState<string>("");
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
 
   const openPopUp = (products: Product[] , order: Order) => {
@@ -259,14 +268,24 @@ const ProductTable = () => {
 
       <Modal blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent borderRadius="xl">
+        <ModalContent borderRadius="xl" >
           <ModalHeader display="flex" justifyContent="center" alignItems="center">
             <Image src={Logo} alt="logo" width={50} height={50} />
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <Divider mt={3} mb={3} />
+          <ModalBody ref={componentRef}>
+            <Divider mt={0} mb={3} />
+            <Flex justify={'space-between'}>
             <Text fontSize="xl" mb={4} textAlign="center" fontWeight={600}>Product List</Text>
+            <Button
+              size="sm"
+              color="primary"
+              onClick={handlePrint}
+              >
+                <PiNotepad size={21} />
+                Print
+              </Button>
+            </Flex>
             <DetailsBox orderId={orderId} orderPlacedOn={orderPlacedOn} customer={customer} contact={contact} orderCost={orderCost}/>
             <ProductList productList={selectedProducts}  />
           </ModalBody>
