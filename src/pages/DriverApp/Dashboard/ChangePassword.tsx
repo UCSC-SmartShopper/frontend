@@ -20,11 +20,8 @@ const schema = z
     path: ["confirmPassword"],
   });
 type FormData = z.infer<typeof schema>;
-interface Props {
-  setStage: (n: number) => void;
-}
 
-const ChangePassword = ({ setStage }: Props) => {
+const ChangePassword = () => {
   const {
     register,
     handleSubmit,
@@ -42,7 +39,7 @@ const ChangePassword = ({ setStage }: Props) => {
         gap="2vh"
         px="10vw"
         justifyContent="space-between"
-        onSubmit={handleSubmit(() => setStage(6))}
+        onSubmit={handleSubmit(() => {})}
       >
         <Box w="full">
           <LoginInput
