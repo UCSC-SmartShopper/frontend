@@ -23,3 +23,4 @@ const useSupermarket = (id: number) => {
 };
 
 export default useSupermarket;
+
