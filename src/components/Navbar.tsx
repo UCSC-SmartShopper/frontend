@@ -9,6 +9,10 @@ import {
   Image,
   Text,
   useColorModeValue,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { FaCartShopping } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -82,13 +86,76 @@ const Navbar = () => {
 
           {user ? (
             <HStack marginX={10} gap={5}>
-              <Avatar
-                name="Dan Abrahmov"
-                src="https://bit.ly/dan-abramov"
-                boxSize={10}
-                cursor="pointer"
-                onClick={logout}
-              />
+              <Menu>
+                <MenuButton>
+                  <Avatar
+                    name="Dan Abrahmov"
+                    src="https://bit.ly/dan-abramov"
+                    boxSize={10}
+                    cursor="pointer"
+                  />
+                </MenuButton>
+                <MenuList
+                  bg="orange.300"
+                  color={"transparent"}
+                  sx={{
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                  }}
+                  borderWidth={0}
+                >
+                  {/* <MenuItem
+                    _hover={{ bg: "orange.500" }}
+                    _focus={{ bg: "orange.500" }}
+                    onClick={() => navigate("/overview")}
+                  >
+                    Overview
+                  </MenuItem> */}
+                  <MenuItem
+                    bg="orange.300"
+                    color="white"
+                    _hover={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    _focus={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    _active={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    onClick={() => navigate("/myOrders")}
+                  >
+                    Orders
+                  </MenuItem>
+                  {/* <MenuItem
+                  bg="orange.400"
+                  color="white"
+                  sx={{
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                  }}
+                    _hover={{ bg: "orange.500" }}
+                    _focus={{ bg: "orange.500" }}
+                    onClick={() => navigate("/feedback")}
+                  >
+                    Feedback
+                  </MenuItem> */}
+                  <MenuItem
+                    bg="orange.300"
+                    color="white"
+                    _hover={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    _focus={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    _active={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    onClick={() => navigate("/profile")}
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem
+                    bg="orange.300"
+                    color="white"
+                    _hover={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    _focus={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    _active={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    onClick={logout}
+                  >
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </Menu>
               <Text fontSize="lg" fontWeight="bold">
                 {user.name}
               </Text>
