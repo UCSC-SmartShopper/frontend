@@ -42,11 +42,11 @@ const Landing = () => {
           pt="5vh"
         >
           <BrowseByCategory />
+          <AdvertisementGrid />
           <BestSellingProducts />
           <Section heading="New Arrivals" title="Product for you">
             <ProductGrid productQuery={{} as ProductQuery} />
           </Section>
-          <AdvertisementGrid />
         </VStack>
         <Footer />
       </Box>
