@@ -2,7 +2,7 @@ import { create, StateCreator } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface Credentials {
-  email: string;
+  email_or_number: string;
   password: string;
 }
 
@@ -12,6 +12,7 @@ export interface LoginResponse {
 }
 
 export interface User {
+  id?: number;
   name: string;
   role: string;
   email: string
@@ -19,6 +20,8 @@ export interface User {
   number: string;
   profilePic: string;
   status: string;
+
+  consumerId?: number;
 }
 
 export interface AuthStore {

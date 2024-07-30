@@ -14,6 +14,9 @@ import { FaCartShopping } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
+import useCart from "@/hooks/useCart";
+import { useEffect } from "react";
+import UserPlaceholder from "../assets/avatar-placeholder.png";
 
 interface NavItem {
   text: string;
@@ -22,7 +25,8 @@ interface NavItem {
 
 const Navbar = () => {
   const { user, logout } = useAuthStore();
-  const { items } = useCartStore();
+  const { items, setItems } = useCartStore();
+  const { data: cart } = useCart();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,6 +47,10 @@ const Navbar = () => {
     { text: "Request", path: "/requests" },
     { text: "Deliveries", path: "/deliveries" },
   ];
+
+  useEffect(() => {
+    if (cart?.results) setItems(cart.results);
+  }, [cart]);
 
   const navItems =
     user?.role === "Courier Company" ? courierNavItems : consumerNavItems;
@@ -67,7 +75,11 @@ const Navbar = () => {
           zIndex={10}
         >
           <HStack gap={5}>
-            <Image src={Banner} />
+            <Image
+              src={Banner}
+              onClick={() => navigate("/")}
+              cursor="pointer"
+            />
 
             {navItems.map((item) => (
               <Link to={item.path} key={item.text}>
@@ -84,14 +96,14 @@ const Navbar = () => {
             <HStack marginX={10} gap={5}>
               <Avatar
                 name="Dan Abrahmov"
-                src="https://bit.ly/dan-abramov"
+                src={UserPlaceholder}
                 boxSize={10}
                 onClick={logout}
               />
               <Text fontSize="lg" fontWeight="bold">
                 {user.name}
               </Text>
-              <Box pos={"relative"}>
+              <Box pos={"relative"} cursor="pointer">
                 <Icon
                   as={FaCartShopping}
                   w={8}
