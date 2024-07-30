@@ -2,6 +2,8 @@
 import SupermarketManagerLayout from "./Layouts/SupermarketManagerLayout";
 import SupermarketManagerOrders from "@/pages/SupermarketManager/OrderList";
 import SupermarketManagerProducts from "@/pages/SupermarketManager/Products";
+import SupermarketManagerDashboard from "@/pages/SupermarketManager/Dashboard";
+import SuperMarketManagerOrder from "@/pages/SupermarketManager/Order";
 
 
 const AdminRoutes = [
@@ -10,6 +12,8 @@ const AdminRoutes = [
     children: [
       { path: "orderList", element: <SupermarketManagerOrders /> },
       { path: "products", element: <SupermarketManagerProducts /> },
+      {path: "dashboard", element: <SupermarketManagerDashboard />},
+      {path: "order", element: <SuperMarketManagerOrder />}
 
     ],
   },
