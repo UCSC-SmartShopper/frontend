@@ -1,26 +1,51 @@
 import useAuthStore from "@/state-management/auth/store";
+import useCartStore from "@/state-management/cart/store";
 import {
   Avatar,
+  Box,
   Flex,
   HStack,
   Icon,
   Image,
-  Show,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FaCartShopping } from "react-icons/fa6";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
 
+interface NavItem {
+  text: string;
+  path: string;
+}
+
 const Navbar = () => {
   const { user, logout } = useAuthStore();
+  const { items } = useCartStore();
+
+  const navigate = useNavigate();
   const location = useLocation();
+
   const hideNavbarPaths = ["/driver"];
   const showTopNav = !hideNavbarPaths.some((path) =>
     location.pathname.startsWith(path)
   );
+
+  const consumerNavItems: NavItem[] = [
+    { text: "Home", path: "/" },
+    { text: "Supermarkets", path: "/supermarkets" },
+    { text: "About Us", path: "/about" },
+  ];
+
+  const courierNavItems: NavItem[] = [
+    { text: "Home", path: "/" },
+    { text: "Request", path: "/requests" },
+    { text: "Deliveries", path: "/deliveries" },
+  ];
+
+  const navItems =
+    user?.role === "Courier Company" ? courierNavItems : consumerNavItems;
 
   return (
     <>
@@ -37,36 +62,26 @@ const Navbar = () => {
           borderColor={useColorModeValue("gray.200", "gray.900")}
           align={"center"}
           justifyContent="space-between"
-          pos={location.pathname === "/admin" ? "sticky" : "relative"}
+          pos={user?.role === "admin" ? "sticky" : "relative"}
           top={0}
           zIndex={10}
         >
           <HStack gap={5}>
-            {/* <Box display="inline" fontSize="2xl" fontWeight="bold">
-            <Text as="span">Smart</Text>
-            <Text color="primary" as="span">
-              Shopper
-            </Text>
-          </Box> */}
-            <Image src={Banner} />
+            <Image
+              src={Banner}
+              onClick={() => navigate("/")}
+              cursor="pointer"
+            />
 
-            <Show above="md">
-              <Link to="/">
+            {navItems.map((item) => (
+              <Link to={item.path} key={item.text}>
+                {" "}
+                {/* Use Link component for navigation */}
                 <Text fontSize="lg" fontWeight="bold">
-                  Home
+                  {item.text}
                 </Text>
               </Link>
-              <Link to="/supermarkets">
-                <Text fontSize="lg" fontWeight="bold">
-                  Supermarkets
-                </Text>
-              </Link>
-              <Link to="/about_us">
-                <Text fontSize="lg" fontWeight="bold">
-                  About Us
-                </Text>
-              </Link>
-            </Show>
+            ))}
           </HStack>
 
           {user ? (
@@ -78,9 +93,32 @@ const Navbar = () => {
                 onClick={logout}
               />
               <Text fontSize="lg" fontWeight="bold">
-                {user.username}
+                {user.name}
               </Text>
-              <Icon as={FaCartShopping} w={8} h={8} color="black" />
+              <Box pos={"relative"} cursor="pointer">
+                <Icon
+                  as={FaCartShopping}
+                  w={8}
+                  h={8}
+                  color="black"
+                  onClick={() => navigate("/cart")}
+                />
+                <Text
+                  as="div"
+                  fontSize={"xs"}
+                  px={2}
+                  py={1}
+                  color="white"
+                  fontWeight={"bold"}
+                  pos={"absolute"}
+                  bottom={0}
+                  right={-5}
+                  bg="primary"
+                  rounded={"full"}
+                >
+                  {items.length}
+                </Text>
+              </Box>
             </HStack>
           ) : (
             <HStack paddingX={0}>
