@@ -15,7 +15,6 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
-const navigate = useNavigate();
 
 interface Order {
   id: string;
@@ -101,6 +100,7 @@ const statusColor: Record<Order["status"], string> = {
 };
 
 const OrderTable = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const ordersPerPage = 5;
 

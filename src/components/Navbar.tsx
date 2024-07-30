@@ -86,8 +86,6 @@ const Navbar = () => {
 
             {navItems.map((item) => (
               <Link to={item.path} key={item.text}>
-                {" "}
-                {/* Use Link component for navigation */}
                 <Text fontSize="lg" fontWeight="bold">
                   {item.text}
                 </Text>
@@ -107,60 +105,38 @@ const Navbar = () => {
                   />
                 </MenuButton>
                 <MenuList
-                  bg="orange.300"
-                  color={"transparent"}
-                  sx={{
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                  }}
-                  borderWidth={0}
+                py={0}
+                  bg="white"
+                  borderColor={"primary"}
+                  borderWidth={3}
+                  color={"white"}
                 >
-                  {/* <MenuItem
-                    _hover={{ bg: "orange.500" }}
-                    _focus={{ bg: "orange.500" }}
-                    onClick={() => navigate("/overview")}
-                  >
-                    Overview
-                  </MenuItem> */}
                   <MenuItem
-                    bg="orange.300"
-                    color="white"
-                    _hover={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
-                    _focus={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
-                    _active={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    bg="white"
+                    color="primary"
+                    _hover={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500" }}
+                    _focus={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
                     onClick={() => navigate("/myOrders")}
                   >
                     Orders
                   </MenuItem>
-                  {/* <MenuItem
-                  bg="orange.400"
-                  color="white"
-                  sx={{
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                  }}
-                    _hover={{ bg: "orange.500" }}
-                    _focus={{ bg: "orange.500" }}
-                    onClick={() => navigate("/feedback")}
-                  >
-                    Feedback
-                  </MenuItem> */}
                   <MenuItem
-                    bg="orange.300"
-                    color="white"
-                    _hover={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
-                    _focus={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
-                    _active={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    bg="white"
+                    color="primary"
+                    _hover={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500" }}
+                    _focus={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
                     onClick={() => navigate("/profile")}
                   >
                     Profile
                   </MenuItem>
                   <MenuItem
-                    bg="orange.300"
-                    color="white"
-                    _hover={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
-                    _focus={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
-                    _active={{ borderRadius: 15, borderWidth: 2, borderColor: "orange.500" }}
+                    bg="white"
+                    color="primary"
+                    _hover={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500" }}
+                    _focus={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
                     onClick={logout}
                   >
                     Logout
