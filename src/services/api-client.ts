@@ -8,7 +8,8 @@ export interface FetchResponse<T> {
 }
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:9090",
+  // baseURL: "http://localhost:9090",
+  baseURL: "http://192.168.56.1:9090",
   withCredentials: true,
 });
 
