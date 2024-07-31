@@ -13,7 +13,7 @@ const AdminRoutes = [
       { path: "orderList", element: <SupermarketManagerOrders /> },
       { path: "products", element: <SupermarketManagerProducts /> },
       {path: "dashboard", element: <SupermarketManagerDashboard />},
-      {path: "order", element: <SuperMarketManagerOrder />}
+      {path: "order/:id", element: <SuperMarketManagerOrder />}
 
     ],
   },

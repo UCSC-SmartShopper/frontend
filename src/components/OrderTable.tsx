@@ -29,6 +29,7 @@ import { useRef, useState } from "react";
 import { useReactToPrint } from 'react-to-print';
 import { PiNotepad } from "react-icons/pi";
 import { Button } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 
 
 interface Product {
@@ -74,6 +75,14 @@ const ProductTable = () => {
   
     onOpen();
   };
+
+  const navigate = useNavigate();
+  function orderNavigate(id : number) {
+    navigate(`/order/${id}`);
+  }
+
+  
+
 
   const data: Order[] = [
     {
@@ -254,7 +263,8 @@ const ProductTable = () => {
                 </Th>
                 <Td px={6} py={4}>{order.Collection}</Td>
                 <Td px={6} py={4}>
-                  <Link href="#" onClick={() => openPopUp(order.productList , order)}>
+                  {/* onclick navigate to /order/id */}
+                  <Link onClick={() => orderNavigate(order.orderid)}>
                     <Badge bg="primary" textColor="white" p={1} px={4} borderRadius="20">
                       <Text>View Order</Text>
                     </Badge>
