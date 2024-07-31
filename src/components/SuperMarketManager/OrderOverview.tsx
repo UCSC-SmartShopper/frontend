@@ -6,28 +6,34 @@ import {
     Button,
     Divider,
     Grid,
+    
     useDisclosure,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    Modal,
+    ModalFooter,
+    ModalCloseButton,
   } from "@chakra-ui/react";
-  import { PiNotepad } from "react-icons/pi";
-  import { MdOutlineLocationOn } from "react-icons/md";
-  import { RiArrowRightSLine } from "react-icons/ri";
-//   import Banner from "../../assets/smart-shopper-banner.svg";
-//   import QR from "../../assets/qr_code.png";
-//   import OrderReceipt from "./OrderReceipt";
-//   import DriverDetailsPopup from "./DriveDetails";
-//   import AddDriverReview from "./AddDriverReview";
-//   import TrackOrder from "./TrackOrder";
+import SubmitButton from "../Buttons/SubmitButton";
+
+
+
+
   
   interface OrderIdProps {
     status: string;
   }
   
   const OrderId = ({ status }: OrderIdProps) => {
-    const {
-      isOpen: isReceiptOpen,
-      onOpen: onReceiptOpen,
-      onClose: onReceiptClose,
-    } = useDisclosure();
+  
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const openPopUp = () => {
+    
+      onOpen();
+    };
   
     
   
@@ -50,29 +56,31 @@ import {
               <Text fontSize="2xl" fontWeight="bold">
                 Order ID: 223345678
               </Text>
-              <Flex align="center" gap={4}>
+              <Flex align="center" gap={4} onClick={openPopUp}>
                 <Button
                   size="md"
-                  color="primary"
-                  bg="white"
+                  color="white"
+                  bg="primary"
                   borderWidth={2}
                   borderColor="primary"
-                  onClick={onReceiptOpen}
+                  onClick={onOpen}
                   borderRadius={10}
-                  _hover={{ bg: "#E46C0A", color: "#FFFFFF" }}
+                  _hover={{ bg: "white", color: "primary" }}
                   _active={{
                     bg: "#E46C0A",
                     color: "#FFFFFF",
                     transform: "scale(0.98)",
                     borderColor: "#E46C0A",
                   }}
+                  
+                  
                 >
-                  <PiNotepad size={21} />
-                  Print
+                  
+                  Order Ready
                 </Button>
               </Flex>
             </Flex>
-            <Box
+            {/* <Box
               bg={
                 status === "completed"
                   ? "#5BFF89"
@@ -90,7 +98,7 @@ import {
               <Text fontSize="md" fontWeight="bold">
                 {status.charAt(0).toUpperCase() + status.slice(1)}
               </Text>
-            </Box>
+            </Box> */}
   
             <Divider my={4} />
   
@@ -160,153 +168,29 @@ import {
         </Box>
   
         {/* Track Order Modal */}
-        {/* <Modal
-          isOpen={isTrackOrderOpen}
-          onClose={onTrackOrderClose}
-          isCentered
-          closeOnOverlayClick={false}
-        >
-          <ModalOverlay backdropFilter="blur(5px)" />
-          <ModalContent borderRadius="24px" bg={"white"}>
-            <ModalHeader textAlign="center" fontWeight="bold" fontSize="25">
-              Order Tracking
-            </ModalHeader>
-            <ModalBody p={0}>
-              <TrackOrder />
-            </ModalBody>
-            <ModalFooter>
-              <Flex width="100%" justifyContent="center">
-                <Button
-                  width="70%"
-                  bg="primary"
-                  color="white"
-                  _hover={{ bg: "orange.600" }}
-                  _active={{ bg: "orange.700" }}
-                  borderRadius="12px"
-                  onClick={onTrackOrderClose}
-                >
-                  Done
-                </Button>
-              </Flex>
-            </ModalFooter>
-          </ModalContent>
-        </Modal> */}
+        <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent >
+        
+          <ModalCloseButton />
+          <ModalBody >
+            <Flex justify={'space-between'}>
+            <Text fontSize="xl" mb={4} textAlign="center" fontWeight={600}>Are you Sure to Confirm order?</Text>
+            
+            </Flex>
+            
+          </ModalBody>
+          <ModalFooter>
+            <Flex justifyContent="center" gap={3}>
+            <Button bg={"primary"}>Yes</Button >
+            <Button onClick={onClose}>No</Button>
+            </Flex>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
   
-        {/* Order Receipt Modal */}
-        {/* <Modal
-          isOpen={isReceiptOpen}
-          onClose={onReceiptClose}
-          isCentered
-          closeOnOverlayClick={false}
-        >
-          <ModalOverlay backdropFilter="blur(5px)" />
-          <ModalContent borderRadius="15px">
-            <Center>
-              <Image src={Banner} h={53} w={170} />
-            </Center>
-            <Divider mb={1} />
-            <ModalHeader textAlign="center" fontWeight="bold" fontSize="30">
-              Order Receipt
-            </ModalHeader>
-            <Image src={QR} h={150} w={150} mx="auto" />
-            <ModalBody>
-              <OrderReceipt />
-            </ModalBody>
-            <ModalFooter gap={3}>
-              <Flex width="100%" justifyContent="center">
-                <Button
-                  w="70%"
-                  mb={2}
-                  onClick={onReceiptClose}
-                  variant="outline"
-                  borderColor="primary"
-                  border="2px"
-                  borderRadius="10px"
-                  fontSize="15px"
-                  fontWeight="bold"
-                  color="white"
-                  bg="primary"
-                  _hover={{ bg: "orange.600" }}
-                  _active={{ bg: "orange.700" }}
-                >
-                  Download
-                </Button>
-              </Flex>
-            </ModalFooter>
-          </ModalContent>
-        </Modal> */}
-        {/* Driver Details Modal */}
-        {/* <Modal
-          isOpen={isDriverOpen}
-          onClose={onDriverClose}
-          isCentered
-          closeOnOverlayClick={false}
-        >
-          <ModalOverlay backdropFilter="blur(5px)" />
-          <ModalContent borderRadius="15px" >
-            <ModalHeader textAlign="center" fontWeight="bold" fontSize="25">
-              Driver Details
-            </ModalHeader>
-            <ModalBody>
-              <DriverDetailsPopup />
-            </ModalBody>
-            <ModalFooter>
-              <Flex width="100%" justifyContent="center" mt={-3}>
-                <Button
-                  width="60%"
-                  bg="white"
-                  color="primary"
-                  borderColor={"primary"}
-                  borderWidth={1}
-                  _hover={{ bg: "primary", color: "white" }}
-                  _active={{ bg: "primary", color: "white"}}
-                  borderRadius="12px"
-                  onClick={onDriverClose}
-                >
-                  Cancel
-                </Button>
-              </Flex>
-            </ModalFooter>
-          </ModalContent>
-        </Modal> */}
-        {/* Add Driver Review Modal */}
-        {/* <Modal
-          isOpen={isAddReviewOpen}
-          onClose={onAddReviewClose}
-          isCentered
-          closeOnOverlayClick={false}
-        >
-          <ModalOverlay backdropFilter="blur(5px)" />
-          <ModalContent borderRadius="15px">
-            <ModalHeader
-              fontSize="xl"
-              fontWeight="bold"
-              textAlign="center"
-              color="orange.500"
-            >
-              Add Product Review
-            </ModalHeader>
-            <ModalBody>
-              <AddDriverReview driverImage="https://via.placeholder.com/50" driverName="Bimsara Anjana Jayadewa" courierCompany="Uber pvt limited." driverID={123456} driverNumber="+94719944045"/>
-            </ModalBody>
-            <ModalFooter>
-              <Flex width="100%" justifyContent="center" columnGap={5} >
-                <Button
-                  variant="outline"
-                  colorScheme="orange"
-                  px={5}
-                  mr={3}
-                  onClick={onAddReviewClose}
-                >
-                  Cancel
-                </Button>
-                <Button colorScheme="orange" px={5} onClick={onAddReviewClose}>
-                  Publish
-                </Button>
-              </Flex>
-            </ModalFooter>
-          </ModalContent>
-        </Modal> */}
+       
       </>
     );
   };
