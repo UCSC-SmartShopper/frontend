@@ -10,25 +10,9 @@ import {
   Image,
   Link,
   Badge,
-  Divider,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalOverlay,
-  ModalHeader,
-  ModalFooter,
-  useDisclosure,
-  Flex
 } from "@chakra-ui/react";
-import ProductList from './productList';
-import DetailsBox from './DetailsBox';
-import Logo from '@/assets/logo.svg';
-import SubmitButton from '@/components/Buttons/SubmitButton';
 import { useRef, useState } from "react";
 import { useReactToPrint } from 'react-to-print';
-import { PiNotepad } from "react-icons/pi";
-import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -52,34 +36,21 @@ interface Order {
 }
 
 const ProductTable = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
-  const [orderId, setOrderId] = useState<string>("");
-  const [orderPlacedOn, setOrderPlacedOn] = useState<string>("");
-  const [customer, setCustomer] = useState<string>("");
-  const [contact, setContact] = useState<string>("");
-  const [orderCost, setOrderCost] = useState<string>("");
+
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
 
 
-  const openPopUp = (products: Product[] , order: Order) => {
-    setSelectedProducts(products);
-    setOrderId(order.orderid.toString());
-    setOrderPlacedOn(order.dateAndTime);
-    setCustomer(order.customerName);
-    setContact(order.customerEmail);
-    setOrderCost(order.Price.toString());
   
-    onOpen();
-  };
 
   const navigate = useNavigate();
   function orderNavigate(id : number) {
     navigate(`/order/${id}`);
   }
+
+
 
   
 
@@ -88,7 +59,7 @@ const ProductTable = () => {
     {
         orderid: 1,
         dateAndTime: "2024-07-22",
-        Status: "shipped",
+        Status: "Not packed",
         customerName: "Kamal Amaraweera",
         customerEmail: "kamal@example.com",
         Collection: "pick",
@@ -110,7 +81,7 @@ const ProductTable = () => {
     {
         orderid: 2,
         dateAndTime: "2024-07-22",
-        Status: "processing",
+        Status: "Not packed",
         customerName: "Nimal Perera",
         customerEmail: "nimal@example.com",
         Collection: "delivery",
@@ -132,7 +103,7 @@ const ProductTable = () => {
     {
         orderid: 3,
         dateAndTime: "2024-07-22",
-        Status: "delivered",
+        Status: "Packed",
         customerName: "Sunil Fernando",
         customerEmail: "sunil@example.com",
         Collection: "delivery",
@@ -154,7 +125,7 @@ const ProductTable = () => {
     {
         orderid: 4,
         dateAndTime: "2024-07-22",
-        Status: "cancelled",
+        Status: "Packed",
         customerName: "Rohan Silva",
         customerEmail: "rohan@example.com",
         Collection: "pick",
@@ -176,7 +147,7 @@ const ProductTable = () => {
     {
         orderid: 5,
         dateAndTime: "2024-07-22",
-        Status: "returned",
+        Status: "Packed",
         customerName: "Amara Jayasuriya",
         customerEmail: "amara@example.com",
         Collection: "pick",
@@ -198,7 +169,7 @@ const ProductTable = () => {
     {
         orderid: 6,
         dateAndTime: "2024-07-22",
-        Status: "in transit",
+        Status: "Packed",
         customerName: "Lakmal Dias",
         customerEmail: "lakmal@example.com",
         Collection: "pick",
@@ -222,7 +193,7 @@ const ProductTable = () => {
   return (
     <>
       <Box overflowX="auto" shadow="md" rounded="lg" border={1}>
-        <Box
+        {/* <Box
           display="flex"
           alignItems="center"
           justifyContent="space-between"
@@ -230,7 +201,7 @@ const ProductTable = () => {
           flexWrap="wrap"
           py={4}
           bg="white"
-        ></Box>
+        >Orders - 1</Box> */}
         <Table variant="simple" colorScheme="gray" width="100%" size="sm" textAlign="left">
           <Thead fontSize="xs" textTransform="uppercase" bg="gray.50" color="gray.700">
             <Tr>
@@ -254,12 +225,11 @@ const ProductTable = () => {
                 <Td px={6} py={4}>{order.orderid}</Td>
                 <Td px={6} py={4}>{order.dateAndTime}</Td>
                 <Td px={6} py={4}>{order.Status}</Td>
-                <Th scope="row" display="flex" alignItems="center" px={6} py={4} color="gray.900">
-                  <Image boxSize="10" borderRadius="full" src={order.imgSrc} alt={`${order.customerName} image`} />
-                  <Box pl={3}>
+                <Th px={6} py={4}>
+                  
                     <Text fontWeight="semibold" fontSize="base">{order.customerName}</Text>
-                    <Text color="gray.500" fontWeight="normal">{order.customerEmail}</Text>
-                  </Box>
+                    
+                 
                 </Th>
                 <Td px={6} py={4}>{order.Collection}</Td>
                 <Td px={6} py={4}>
@@ -276,34 +246,7 @@ const ProductTable = () => {
         </Table>
       </Box>
 
-      <Modal blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent borderRadius="xl" >
-          <ModalHeader display="flex" justifyContent="center" alignItems="center">
-            <Image src={Logo} alt="logo" width={50} height={50} />
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody ref={componentRef}>
-            <Divider mt={0} mb={3} />
-            <Flex justify={'space-between'}>
-            <Text fontSize="xl" mb={4} textAlign="center" fontWeight={600}>Product List</Text>
-            <Button
-              size="sm"
-              color="primary"
-              onClick={handlePrint}
-              >
-                <PiNotepad size={21} />
-                Print
-              </Button>
-            </Flex>
-            <DetailsBox orderId={orderId} orderPlacedOn={orderPlacedOn} customer={customer} contact={contact} orderCost={orderCost}/>
-            <ProductList productList={selectedProducts}  />
-          </ModalBody>
-          <ModalFooter>
-            <SubmitButton>Save</SubmitButton>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      
     </>
   );
 };
