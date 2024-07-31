@@ -9,6 +9,10 @@ import {
   Image,
   Text,
   useColorModeValue,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { FaCartShopping } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -16,6 +20,7 @@ import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
 import useCart from "@/hooks/useCart";
 import { useEffect } from "react";
+import UserPlaceholder from "../assets/avatar-placeholder.png";
 
 interface NavItem {
   text: string;
@@ -52,7 +57,7 @@ const Navbar = () => {
   }, [cart]);
 
   const navItems =
-    user?.role === "Courier Company" ? courierNavItems : consumerNavItems;
+    user?.role === "couriercompany" ? courierNavItems : consumerNavItems;
 
   return (
     <>
@@ -82,8 +87,6 @@ const Navbar = () => {
 
             {navItems.map((item) => (
               <Link to={item.path} key={item.text}>
-                {" "}
-                {/* Use Link component for navigation */}
                 <Text fontSize="lg" fontWeight="bold">
                   {item.text}
                 </Text>
@@ -93,12 +96,54 @@ const Navbar = () => {
 
           {user ? (
             <HStack marginX={10} gap={5}>
-              <Avatar
-                name="Dan Abrahmov"
-                src="https://bit.ly/dan-abramov"
-                boxSize={10}
-                onClick={logout}
-              />
+              <Menu>
+                <MenuButton>
+                  <Avatar
+                    name="Dan Abrahmov"
+                    src={UserPlaceholder}
+                    boxSize={10}
+                    cursor="pointer"
+                  />
+                </MenuButton>
+                <MenuList
+                py={0}
+                  bg="white"
+                  borderColor={"primary"}
+                  borderWidth={3}
+                  color={"white"}
+                >
+                  <MenuItem
+                    bg="white"
+                    color="primary"
+                    _hover={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500" }}
+                    _focus={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    onClick={() => navigate("/myOrders")}
+                  >
+                    Orders
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    color="primary"
+                    _hover={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500" }}
+                    _focus={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    onClick={() => navigate("/profile")}
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    color="primary"
+                    _hover={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500" }}
+                    _focus={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    onClick={logout}
+                  >
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </Menu>
               <Text fontSize="lg" fontWeight="bold">
                 {user.name}
               </Text>

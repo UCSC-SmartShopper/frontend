@@ -67,10 +67,12 @@ const CartComparison = () => {
                   <ComparisonItem key={index} cartItem={item} />
                 ))}
               </VStack>
-
-              <Button width="lg" bg="primary" color="white" mt={4} mb={4}>
-                View More
-              </Button>
+              <Divider borderColor="gray.400" mb={3}/>
+              {cartItems.length >= 4 && (
+                <Button width="lg" bg="primary" color="white" mt={4} mb={4}>
+                  View More
+                </Button>
+              )}
 
               <Box shadow="xl" borderWidth={1} p={2} w="full" borderRadius="10">
                 <AspectRatio ratio={16 / 9}>
@@ -80,7 +82,7 @@ const CartComparison = () => {
                   ></iframe>
                 </AspectRatio>
               </Box>
-              <OptimizedInfo index={1} />
+              <OptimizedInfo index={1} cartItems={cartItems} />
             </VStack>
           </Box>
         </GridItem>
@@ -119,10 +121,12 @@ const CartComparison = () => {
                   <ComparisonItem key={index} cartItem={item} />
                 ))}
               </VStack>
-
-              <Button width="lg" bg="primary" color="white" mt={4} mb={4}>
-                View More
-              </Button>
+              <Divider borderColor="gray.400" mb={3}/>
+              {cartItems.length > 4 && (
+                <Button width="lg" bg="primary" color="white" mt={4} mb={4}>
+                  View More
+                </Button>
+              )}
 
               <Box shadow="xl" borderWidth={1} p={2} w="full" borderRadius="10">
                 <AspectRatio ratio={16 / 9}>
@@ -132,7 +136,7 @@ const CartComparison = () => {
                   ></iframe>
                 </AspectRatio>
               </Box>
-              <OptimizedInfo index={2} />
+              <OptimizedInfo index={2} cartItems={cartItems} />
             </VStack>
           </Box>
         </GridItem>
@@ -144,6 +148,10 @@ const CartComparison = () => {
             bg={selectedCart === 1 ? "primary" : "white"}
             onClick={() => setSelectedCart(1)}
             ml={4}
+            color={selectedCart === 1 ? "white" : "primary"}
+            borderWidth={2}
+            borderColor={selectedCart === 1 ? "primary" : "primary"}
+            _hover={{ bg: "primary", color: "white" }}
           >
             Your Cart
           </Button>
@@ -151,6 +159,10 @@ const CartComparison = () => {
             bg={selectedCart === 2 ? "primary" : "white"}
             onClick={() => setSelectedCart(2)}
             ml={4}
+            color={selectedCart === 2 ? "white" : "primary"}
+            borderWidth={2}
+            borderColor={selectedCart === 2 ? "primary" : "primary"}
+            _hover={{ bg: "primary", color: "white" }}
           >
             Optimized Cart
           </Button>
@@ -169,6 +181,13 @@ const CartComparison = () => {
           mr="6"
           mb={10}
           mt={6}
+          _hover={{ bg: "primary", color: "white" }}
+          _active={{
+            bg: "primary",
+            color: "white",
+            transform: "scale(0.98)",
+            borderColor: "primary",
+          }}
         >
           Back
         </Button>
@@ -184,6 +203,13 @@ const CartComparison = () => {
           ml={6}
           mb={10}
           mt={6}
+          _hover={{ bg: "white", color: "primary" }}
+          _active={{
+            bg: "white",
+            color: "primary",
+            transform: "scale(0.98)",
+            borderColor: "primary",
+          }}
           onClick={() => navigate("/checkout")}
         >
           Checkout
