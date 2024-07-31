@@ -21,7 +21,7 @@ const ProductList = ({ productList }:ProductListProps) => {
             <Tr>
               <Th>Item Name</Th>
               <Th>QTY</Th>
-              <Th textAlign="center ">Status</Th>
+              <Th textAlign="center">Status</Th>
             </Tr>
           </Thead>
           <Tbody>
