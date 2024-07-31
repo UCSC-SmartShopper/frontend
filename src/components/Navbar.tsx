@@ -20,6 +20,7 @@ import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
 import useCart from "@/hooks/useCart";
 import { useEffect } from "react";
+import UserPlaceholder from "../assets/avatar-placeholder.png";
 
 interface NavItem {
   text: string;
@@ -56,7 +57,7 @@ const Navbar = () => {
   }, [cart]);
 
   const navItems =
-    user?.role === "Courier Company" ? courierNavItems : consumerNavItems;
+    user?.role === "couriercompany" ? courierNavItems : consumerNavItems;
 
   return (
     <>
@@ -99,7 +100,7 @@ const Navbar = () => {
                 <MenuButton>
                   <Avatar
                     name="Dan Abrahmov"
-                    src="https://bit.ly/dan-abramov"
+                    src={UserPlaceholder}
                     boxSize={10}
                     cursor="pointer"
                   />
