@@ -1,6 +1,7 @@
 import APIClient from "@/services/api-client";
 import { EditIcon, InfoIcon } from "@chakra-ui/icons";
 import {
+  Accordion,
   Box,
   Button,
   Divider,
@@ -8,7 +9,6 @@ import {
   Heading,
   HStack,
   Icon,
-  IconButton,
   Image,
   Input,
   InputGroup,
@@ -25,7 +25,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
@@ -35,6 +35,9 @@ import { useNavigate } from "react-router-dom";
 import delHome from "../../../src/assets/delHome.png";
 import pickupImg from "../../../src/assets/Grocery shopping-rafiki.svg";
 import useAuthStore from "@/state-management/auth/store";
+import useCart from "@/hooks/useCart";
+import SupermarketInformation from "@/components/Accordian";
+import CheckoutAccordion from "@/components/CheckoutAccordion";
 
 interface CheckoutRequest {
   consumerId: number;
@@ -45,7 +48,31 @@ interface CheckoutRequest {
 const Checkout = () => {
   const apiClient = new APIClient<CheckoutRequest>("/cartToOrder");
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const user = useAuthStore((state) => state.user);
+
+  const { data: cart } = useCart();
+
+  let subTotal =
+    cart?.results.reduce(
+      (acc, item) => acc + (item.supermarketItem?.price || 1) * item.quantity,
+      0
+    ) || 0;
+
+  subTotal = Number((Math.round(subTotal * 100) / 100).toFixed(2));
+
+  const deliveryFee = 250;
+
+  const supermarketIdList: number[] = [];
+
+  cart?.results.forEach((item) => {
+    const supermarketId = item.supermarketItem?.supermarketId;
+    if (supermarketId) {
+      if (!supermarketIdList.includes(supermarketId)) {
+        supermarketIdList.push(supermarketId);
+      }
+    }
+  });
 
   const [checkoutRequest, setCheckoutRequest] = useState<CheckoutRequest>({
     consumerId: user?.consumerId || -1,
@@ -54,7 +81,10 @@ const Checkout = () => {
   });
 
   const { mutate } = useMutation({
-    mutationFn: () => apiClient.create(checkoutRequest),
+    mutationFn: () =>
+      apiClient
+        .create(checkoutRequest)
+        .then(() => queryClient.invalidateQueries({ queryKey: ["carts"] })),
     onSuccess: () => {
       navigate("/payment-success");
     },
@@ -133,47 +163,49 @@ const Checkout = () => {
               </Box>
 
               {/* Delivery Details */}
-              <Box border="1px" borderRadius="md" padding="4">
-                <Heading size="md" color="primary">
-                  Delivery details
-                </Heading>
-                <Divider my={2} />
-                <HStack justify="space-between">
-                  <Box>
-                    <HStack>
-                      <MdOutlineLocationOn />
-                      <VStack ml={3} alignItems={"unset"} spacing={0}>
-                        <Text textAlign={"right"}>
-                          {checkoutRequest.shippingAddress}
-                        </Text>
-                      </VStack>
-                    </HStack>
-                  </Box>
-                  <Button
-                    size="sm"
-                    rightIcon={<EditIcon />}
-                    variant="outline"
-                    colorScheme="white"
-                    color="primary"
-                    borderColor="primary"
-                    border="1px"
-                    borderRadius="12px"
-                    fontSize="15px"
-                    fontWeight="bold"
-                    bg="white"
-                    _hover={{ bg: "primary", color: "white" }}
-                    _active={{
-                      bg: "primary",
-                      color: "white",
-                      transform: "scale(0.98)",
-                      borderColor: "primary",
-                    }}
-                    onClick={onOpen1}
-                  >
-                    Edit
-                  </Button>
-                </HStack>
-              </Box>
+              {checkoutRequest.shippingMethod === "Home Delivery" && (
+                <Box border="1px" borderRadius="md" padding="4">
+                  <Heading size="md" color="primary">
+                    Delivery details
+                  </Heading>
+                  <Divider my={2} />
+                  <HStack justify="space-between">
+                    <Box>
+                      <HStack>
+                        <MdOutlineLocationOn />
+                        <VStack ml={3} alignItems={"unset"} spacing={0}>
+                          <Text textAlign={"right"}>
+                            {checkoutRequest.shippingAddress}
+                          </Text>
+                        </VStack>
+                      </HStack>
+                    </Box>
+                    <Button
+                      size="sm"
+                      rightIcon={<EditIcon />}
+                      variant="outline"
+                      colorScheme="white"
+                      color="primary"
+                      borderColor="primary"
+                      border="1px"
+                      borderRadius="12px"
+                      fontSize="15px"
+                      fontWeight="bold"
+                      bg="white"
+                      _hover={{ bg: "primary", color: "white" }}
+                      _active={{
+                        bg: "primary",
+                        color: "white",
+                        transform: "scale(0.98)",
+                        borderColor: "primary",
+                      }}
+                      onClick={onOpen1}
+                    >
+                      Edit
+                    </Button>
+                  </HStack>
+                </Box>
+              )}
 
               {/* Continue to payment */}
               <Button
@@ -204,7 +236,7 @@ const Checkout = () => {
             <VStack align="stretch" spacing={4}>
               {/* Order Summary */}
               <Box border="1px" borderRadius="md" padding="4">
-                <HStack justify="space-between">
+                {/* <HStack justify="space-between">
                   <Image
                     borderRadius="50%"
                     src="https://via.placeholder.com/60"
@@ -216,6 +248,7 @@ const Checkout = () => {
                     </Heading>
                     <Text>Mirisswaththa, Piliyandala</Text>
                   </VStack>
+                  
                   <IconButton
                     aria-label="Restaurant Info"
                     icon={<InfoIcon />}
@@ -235,7 +268,15 @@ const Checkout = () => {
                       borderColor: "primary",
                     }}
                   />
-                </HStack>
+                </HStack> */}
+                <Heading size="md" color="primary" mb={5}>
+                  Supermarket List
+                </Heading>
+                <Accordion allowToggle>
+                  {supermarketIdList.map((i, index) => (
+                    <CheckoutAccordion key={index} supermarketId={i} />
+                  ))}
+                </Accordion>
               </Box>
 
               {/* Order Total */}
@@ -247,20 +288,16 @@ const Checkout = () => {
                 <Stack spacing={1}>
                   <HStack justify="space-between">
                     <Text>Subtotal</Text>
-                    <Text>LKR 1,680.00</Text>
+                    <Text>LKR {subTotal}</Text>
                   </HStack>
                   <HStack justify="space-between">
                     <Text>Delivery Fee</Text>
-                    <Text>LKR 54.00</Text>
-                  </HStack>
-                  <HStack justify="space-between">
-                    <Text>Taxes & Other Fees</Text>
-                    <Text>LKR 186.40</Text>
+                    <Text>LKR {deliveryFee}</Text>
                   </HStack>
                   <Divider my={2} />
                   <HStack justify="space-between">
                     <Text fontWeight="bold">Total</Text>
-                    <Text fontWeight="bold">LKR 2,120.40</Text>
+                    <Text fontWeight="bold">LKR {subTotal + deliveryFee}</Text>
                   </HStack>
                 </Stack>
               </Box>
