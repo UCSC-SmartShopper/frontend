@@ -20,7 +20,8 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineRise } from "react-icons/ai";
 import { FaCartFlatbed, FaLocationDot } from "react-icons/fa6";
-import { IoMdPeople } from "react-icons/io";
+import { IoBag } from "react-icons/io5";
+
 import { MdPayment } from "react-icons/md";
 import LineChart from "../../components/Charts/LineChart";
 import OrderList from "@/components/OrderTable";
@@ -30,23 +31,23 @@ const AdminMain = () => {
     {
       title: "Total Orders",
       value: "50",
-      icon: IoMdPeople,
+      icon: IoBag,
       mainColor: "orange",
       color: "orange.100",
       percentage: "8.5% Up from yesterday",
     },
     {
-      title: "Current Orders",
-      value: "5.8 k",
-      icon: IoMdPeople,
+      title: "New Orders",
+      value: "20",
+      icon: IoBag,
       mainColor: "red",
       color: "red.100",
       percentage: "8.5% Up from yesterday",
     },
     {
       title: "Completed Orders",
-      value: "5.8 k",
-      icon: IoMdPeople,
+      value: "12",
+      icon: IoBag,
       mainColor: "green",
       color: "green.100",
       percentage: "8.5% Down from yesterday",
