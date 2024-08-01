@@ -1,6 +1,5 @@
-import MainContainer from "@/components/MainContainer";
 import ProductsTable from "@/components/ProductsTable";
-import { Text , Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 const ProductDetails = () => {
     return (

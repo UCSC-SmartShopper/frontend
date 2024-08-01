@@ -1,15 +1,10 @@
 import useAuthStore from "@/state-management/auth/store";
 import { Flex, Heading, Text, VStack } from "@chakra-ui/react";
-import { FaCartFlatbed, FaShop } from "react-icons/fa6";
 import { FiLogOut } from "react-icons/fi";
 import { IoMdPeople } from "react-icons/io";
-import { IoSettings } from "react-icons/io5";
+import { IoHome, IoSettings } from "react-icons/io5";
 import { MdViewSidebar } from "react-icons/md";
-import { IoHome } from "react-icons/io5";
-import { RiAdvertisementFill } from "react-icons/ri";
-import { TbTransactionDollar, TbTruckDelivery } from "react-icons/tb";
 import { useLocation, useNavigate } from "react-router-dom";
-import Home from "../CourierCompanyManager/Home";
 
 interface MenuItem {
   icon: React.ComponentType<any>;

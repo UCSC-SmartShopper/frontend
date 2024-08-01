@@ -1,8 +1,6 @@
-import OrderTable from "@/components/OrderTable";
-import MainContainer from "@/components/MainContainer";
-import { Box, Text } from "@chakra-ui/react";
-import OrderOverView from "@/components/SuperMarketManager/OrderOverview";
 import OrderItems from "@/components/SuperMarketManager/OrderItems";
+import OrderOverView from "@/components/SuperMarketManager/OrderOverview";
+import { Box } from "@chakra-ui/react";
 
 const OrderList = () => {
   

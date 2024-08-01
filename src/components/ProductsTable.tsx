@@ -37,8 +37,8 @@ const productTable = () => {
   const [name , setName] = useState<string>('');
   const [description , setDescription] = useState<string>('');
   const [available , setAvailable] = useState<boolean>(true);
-  const [Price , setPrice] = useState<number>(0);
-  const [Stock , setStock] = useState<number>(0);
+  // const [Price , setPrice] = useState<number>(0);
+  // const [Stock , setStock] = useState<number>(0);
 
 
   const handleEdit = (product: any) => {
@@ -46,8 +46,8 @@ const productTable = () => {
     setName(product.name);
     setDescription(product.qty);
     setAvailable(true);
-    setPrice(product.price);
-    setStock(product.stock);
+    // setPrice(product.price);
+    // setStock(product.stock);
     onOpen();
   }
 

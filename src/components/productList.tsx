@@ -1,4 +1,4 @@
-import { Box, TableContainer, Tbody, Td, Th, Thead, Tr, Table, Badge, Flex, Text , Checkbox } from "@chakra-ui/react";
+import { Box, Checkbox, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 
 interface Product {
   id: number;

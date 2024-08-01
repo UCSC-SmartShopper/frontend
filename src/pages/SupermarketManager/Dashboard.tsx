@@ -1,29 +1,20 @@
 
-import { useState } from "react";
-import SideBar from "@/pages/SupermarketManager/SideBar";
 import {
   Box,
-  Button,
   Card,
   CardBody,
-  Center,
   Flex,
-  Grid,
-  GridItem,
   Heading,
   HStack,
   Icon,
-  
+
   Text,
-  
-  VStack,
+
+  VStack
 } from "@chakra-ui/react";
 import { AiOutlineRise } from "react-icons/ai";
-import { FaCartFlatbed, FaLocationDot } from "react-icons/fa6";
 import { IoBag } from "react-icons/io5";
 
-import { MdPayment } from "react-icons/md";
-import LineChart from "../../components/Charts/LineChart";
 import OrderList from "@/components/OrderTable";
 
 const AdminMain = () => {

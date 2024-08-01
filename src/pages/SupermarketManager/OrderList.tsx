@@ -1,6 +1,5 @@
 import OrderTable from "@/components/OrderTable";
-import MainContainer from "@/components/MainContainer";
-import { Text , Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 const OrderList = () => {
     return (

@@ -1,64 +1,62 @@
+import Logo from '@/assets/logo.svg';
+import SubmitButton from '@/components/Buttons/SubmitButton';
 import {
-    Box,
-    Text,
-    Flex,
-    Image,
-    Button,
-    Modal,
-    useDisclosure,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    ModalCloseButton,
-    Divider,
-  } from "@chakra-ui/react";
-  import { PiNotepad } from "react-icons/pi";
-  import SubmitButton from '@/components/Buttons/SubmitButton';
-  import {useRef, useState } from "react";
-  import { useReactToPrint } from 'react-to-print';
-  import { useNavigate } from "react-router-dom";
-  import ReactToPrint from "react-to-print";
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { useRef, useState } from "react";
+import { PiNotepad } from "react-icons/pi";
+import { useReactToPrint } from 'react-to-print';
 import DetailsBox from "../DetailsBox";
 import ProductList from "../productList";
-import Logo from '@/assets/logo.svg';
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  status: string;
-  image: string;
-  qty: number;
+// interface Product {
+//   id: number;
+//   name: string;
+//   price: number;
+//   status: string;
+//   image: string;
+//   qty: number;
 
-}
+// }
 
-interface Order {
-  orderid: number;
-  dateAndTime: string;
-  Status: string;
-  customerName: string;
-  customerEmail: string;
-  Collection: string;
-  Price: number;
-  imgSrc: string;
-  productList: Product[];
-}
+// interface Order {
+//   orderid: number;
+//   dateAndTime: string;
+//   Status: string;
+//   customerName: string;
+//   customerEmail: string;
+//   Collection: string;
+//   Price: number;
+//   imgSrc: string;
+//   productList: Product[];
+// }
   
   const OrderItems = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     
-    const [orderId, setOrderId] = useState<string>("ORD123");
-    const [orderPlacedOn, setOrderPlacedOn] = useState<string>("2021-10-20");
-    const [customer, setCustomer] = useState<string>("John Doe");
-    const [contact, setContact] = useState<string>("0771234567");
-    const [orderCost, setOrderCost] = useState<string>("LKR 1000.00");
+    const [orderId] = useState<string>("ORD123");
+    const [orderPlacedOn] = useState<string>("2021-10-20");
+    const [customer] = useState<string>("John Doe");
+    const [contact] = useState<string>("0771234567");
+    const [orderCost] = useState<string>("LKR 1000.00");
 
-    const openPopUp = (products: Product[] , order: Order) => {
+    // const openPopUp = (products: Product[] , order: Order) => {
     
-      onOpen();
-    };
+    //   onOpen();
+    // };
 
     const componentRef = useRef(null);
     const handlePrint = useReactToPrint({
@@ -68,10 +66,10 @@ interface Order {
   
     
   
-    const navigate = useNavigate();
-    function orderNavigate(id : number) {
-      navigate(`/order/${id}`);
-    }
+    // const navigate = useNavigate();
+    // function orderNavigate(id : number) {
+    //   navigate(`/order/${id}`);
+    // }
 
 
 
@@ -86,22 +84,22 @@ interface Order {
           ];
     
   
-    const items = [
-      {
-        image: "https://via.placeholder.com/50",
-        name: "Munchee Super Cream Cracker",
-        price: 145,
-        qty: 10,
-        supermarketLogo: "https://via.placeholder.com/50",
-      },
-      {
-        image: "https://via.placeholder.com/50",
-        name: "Gradient Graphic T-shirt",
-        price: 145,
-        qty: 1,
-        supermarketLogo: "https://via.placeholder.com/50",
-      },
-    ];
+    // const items = [
+    //   {
+    //     image: "https://via.placeholder.com/50",
+    //     name: "Munchee Super Cream Cracker",
+    //     price: 145,
+    //     qty: 10,
+    //     supermarketLogo: "https://via.placeholder.com/50",
+    //   },
+    //   {
+    //     image: "https://via.placeholder.com/50",
+    //     name: "Gradient Graphic T-shirt",
+    //     price: 145,
+    //     qty: 1,
+    //     supermarketLogo: "https://via.placeholder.com/50",
+    //   },
+    // ];
   
     return (
       <>

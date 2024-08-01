@@ -1,18 +1,15 @@
 import {
+  Badge,
   Box,
+  Link,
   Table,
-  Thead,
   Tbody,
-  Tr,
-  Th,
   Td,
   Text,
-  Image,
-  Link,
-  Badge,
+  Th,
+  Thead,
+  Tr
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
-import { useReactToPrint } from 'react-to-print';
 import { useNavigate } from "react-router-dom";
 
 
@@ -37,10 +34,10 @@ interface Order {
 
 const ProductTable = () => {
 
-  const componentRef = useRef(null);
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  // const componentRef = useRef(null);
+  // const handlePrint = useReactToPrint({
+  //   content: () => componentRef.current,
+  // });
 
 
   
