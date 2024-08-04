@@ -38,7 +38,7 @@ const Footer = () => {
             <Text fontWeight="bold">Quick Links</Text>
             <Text cursor="pointer" onClick={() => navigate("/")} _hover={{ fontcolor: "primary"}}>Home</Text>
             <Text cursor="pointer" onClick={() => navigate("/supermarkets")}>Super Markets</Text>
-            <Text cursor="pointer" onClick={() => navigate("/aboutUs")}>About Us</Text>
+            <Text cursor="pointer" onClick={() => navigate("/about")}>About Us</Text>
           </VStack>
         </GridItem>
         <GridItem>
@@ -53,7 +53,7 @@ const Footer = () => {
         <GridItem>
           <VStack alignItems="flex-start" spacing={2}>
             <Text fontWeight="bold">About</Text>
-            <Text cursor="pointer" onClick={() => navigate("/aboutUs")}>About Us</Text>
+            <Text cursor="pointer" onClick={() => navigate("/about")}>About Us</Text>
             <Text cursor="pointer" onClick={() => navigate("/contactUs")}>Contact Us</Text>
           </VStack>
         </GridItem>
