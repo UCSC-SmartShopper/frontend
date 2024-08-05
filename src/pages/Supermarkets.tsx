@@ -13,6 +13,7 @@ import { FaPhone } from "react-icons/fa";
 import { TbWorld } from "react-icons/tb";
 
 import AddressBox from "@/components/AddressBox";
+import LogoSlider from "@/components/SupermarketSlider";
 
 const supermarkets = [
     {
@@ -64,6 +65,7 @@ function Supermarkets() {
 
   return (
     <>
+    <LogoSlider />
     {supermarkets.map((supermarket) => (
       <Box m={10} p={5} borderRadius={20} borderWidth={1}>
         <Flex
