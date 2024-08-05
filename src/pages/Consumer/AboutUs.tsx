@@ -4,7 +4,6 @@ import {
   Text,
   SimpleGrid,
   Image,
-  Button,
   Grid,
   GridItem,
   VStack,
