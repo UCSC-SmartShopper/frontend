@@ -3,6 +3,7 @@ import useOpportunity from "@/hooks/useOpportunity";
 import {
   AspectRatio,
   Box,
+  Button,
   HStack,
   Icon,
   Spacer,
@@ -15,6 +16,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import PickupLocation from "./PickupLocation";
+import { IoMdOpen } from "react-icons/io";
 
 const ViewOpportunity = () => {
   const { id } = useParams();
@@ -57,8 +59,6 @@ const ViewOpportunity = () => {
           p={1}
           background="white"
           borderRadius="50%"
-          // shadow="xl"
-          // borderWidth={1}
           cursor="pointer"
           onClick={() => navigate("/driver/opportunities")}
         >
@@ -131,7 +131,13 @@ const ViewOpportunity = () => {
           )}
         </Stepper>
       </Box>
-      <Text fontWeight="bold">Map</Text>
+      <Button
+        colorScheme="teal"
+        onClick={() => navigate("/driver/opportunities/viewmap")}
+      >
+        Open Map
+        <Icon as={IoMdOpen}  ml="3"/>
+      </Button>
       <Box shadow="xl" borderWidth={1} p={2} w="full" borderRadius="10">
         <AspectRatio ratio={16 / 9}>
           <iframe
