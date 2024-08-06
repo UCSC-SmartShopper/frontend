@@ -1,4 +1,4 @@
-import ConsumerProduct from "@/pages/Consumer/ProductDetail";
+
 import ConsumerCartDetails from "@/pages/Consumer/CartDetails";
 import ConsumerProfile from "@/pages/Consumer/ConsumerProfile";
 import ConsumerReviews from "@/pages/Consumer/Reviews";
@@ -9,6 +9,7 @@ import ConsumerLayout from "./Layouts/ConsumerLayout";
 import ConsumerCheckout from "@/pages/Consumer/Checkout";
 import CartComparison from "@/pages/Consumer/CartComparison/CartComparison";
 import SupermarketLogo from "../assets/Reviews/superMarketLogo.png";
+import ViewProduct from "@/pages/Consumer/ViewProduct";
 const reviewData = {
   date: "June 17, 2024",
   title: "Delightful Crispiness in Every Bite",
@@ -31,7 +32,7 @@ const ConsumerRoutes = [
   {
     element: <ConsumerLayout />,
     children: [
-      { path: "products/:id", element: <ConsumerProduct /> },
+      { path: "products/:id", element: <ViewProduct /> },
       { path: "profile", element: <ConsumerProfile /> },
       { path: "review", element: <ConsumerReviews feedbackData={reviewData} productName={productName} reviews={reviews} superMarketLogo={SupermarketLogo}/> },
       { path: "myOrders", element: <ConsumerOrders /> },
