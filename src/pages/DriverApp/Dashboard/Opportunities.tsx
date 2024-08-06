@@ -7,11 +7,15 @@ import { useNavigate } from "react-router-dom";
 const Opportunities = () => {
   const navigate = useNavigate();
   const opportunities = useOpportunities();
+  const pendingOpportunities = opportunities.data?.results.filter(
+    (opportunity) => opportunity.status === "Pending"
+  );
+  
 
   return (
     <>
       <VStack minH="100vh" px="8vw" pt="5vh" pb="10vh" gap="4vh">
-        {opportunities.data?.results.map((opportunity, index) => (
+        {pendingOpportunities?.map((opportunity, index) => (
           <Box
             key={index}
             shadow="xl"

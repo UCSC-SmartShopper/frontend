@@ -1,14 +1,12 @@
 import { AspectRatio, Box, Icon } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import useOpportunities from "@/hooks/useOpportunities";
 
 const ViewMap = () => {
   const navigate = useNavigate();
-  const opportunity = useOpportunities();
   return (
     <>
-      <Box w="full" h="100vh" bg="red">
+      <Box w="full" h="100vh">
         <Box
           pos="absolute"
           top={4}
@@ -18,7 +16,7 @@ const ViewMap = () => {
           borderRadius="50%"
           shadow="md"
           cursor="pointer"
-          onClick={() => navigate("/driver/opportunities/" + opportunity)}
+          onClick={() => navigate("/driver")}
           zIndex={10}
         >
           <Icon as={IoMdArrowRoundBack} w={8} h={8} />

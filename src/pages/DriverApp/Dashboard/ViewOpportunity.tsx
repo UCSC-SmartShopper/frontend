@@ -3,7 +3,6 @@ import useOpportunity from "@/hooks/useOpportunity";
 import {
   AspectRatio,
   Box,
-  Button,
   HStack,
   Icon,
   Spacer,
@@ -16,7 +15,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import PickupLocation from "./PickupLocation";
-import { IoMdOpen } from "react-icons/io";
+import APIClient from "@/services/api-client";
 
 const ViewOpportunity = () => {
   const { id } = useParams();
@@ -51,6 +50,12 @@ const ViewOpportunity = () => {
     index: 0,
     count: supermarketsLength,
   });
+
+  const handleAccept = () => {
+    const apiClient = new APIClient("/accept_opportunity/" + id);
+    apiClient.create({});
+    navigate("/driver/opportunities/viewmap");
+  };
 
   return (
     <VStack minH="100vh" px="8vw" pt="3vh" pb="10vh" gap="4vh">
@@ -89,7 +94,7 @@ const ViewOpportunity = () => {
               <Text>{detail.value}</Text>
             </HStack>
           ))}
-          <SubmitButton>Accept</SubmitButton>
+          <SubmitButton onClick={handleAccept}>Accept</SubmitButton>
         </VStack>
       </Box>
       <Box
@@ -131,13 +136,8 @@ const ViewOpportunity = () => {
           )}
         </Stepper>
       </Box>
-      <Button
-        colorScheme="teal"
-        onClick={() => navigate("/driver/opportunities/viewmap")}
-      >
-        Open Map
-        <Icon as={IoMdOpen}  ml="3"/>
-      </Button>
+      <Text fontWeight="bold">Map</Text>
+
       <Box shadow="xl" borderWidth={1} p={2} w="full" borderRadius="10">
         <AspectRatio ratio={16 / 9}>
           <iframe
