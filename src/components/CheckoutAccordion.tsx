@@ -1,7 +1,7 @@
 import useCart from "@/hooks/useCart";
+import { CartItem } from "@/hooks/useCartItem";
 import useProduct from "@/hooks/useProduct";
 import useSupermarket from "@/hooks/useSupermarket";
-import { CartItem } from "@/state-management/cart/store";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import {
   AccordionButton,
@@ -25,9 +25,6 @@ interface ProductAccordionItemProps {
 const ProductAccordionItem = ({ cartItem }: ProductAccordionItemProps) => {
   const product = useProduct(cartItem.supermarketItem?.productId || 0);
 
-  //   const supermarketItem=usePriceList(cartItem.id);
-  // console.log(cartItem);
-  //console.log(cartItem.supermarketItem.price);
 
   return (
     <HStack justifyContent="space-between">
