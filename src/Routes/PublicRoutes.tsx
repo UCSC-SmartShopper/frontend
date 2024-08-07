@@ -5,7 +5,7 @@ import Login from "@/pages/Login";
 import SignUp from "@/pages/SignUp";
 import Supermarkets from "@/pages/Supermarkets";
 import PublicLayout from "./Layouts/PublicLayout";
-import Supermarkets from "@/pages/Supermarkets";
+// import Supermarkets from "@/pages/Supermarkets";
 import QrScanner from "@/components/Qr/QrScanner";
 import path from "path";
 
