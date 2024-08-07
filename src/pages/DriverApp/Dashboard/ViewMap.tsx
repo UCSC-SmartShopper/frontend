@@ -1,9 +1,14 @@
-import { AspectRatio, Box, Icon } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { AspectRatio, Box, Icon} from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import useOpportunity from "@/hooks/useOpportunity";
 
 const ViewMap = () => {
+  const { id } = useParams();
+  if (!id) return null;
   const navigate = useNavigate();
+  const opportunity = useOpportunity(Number(id));
+
   return (
     <>
       <Box w="full" h="100vh">

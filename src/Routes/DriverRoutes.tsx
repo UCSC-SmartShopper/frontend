@@ -25,7 +25,7 @@ const DriverRoutes = [
       { path: "driver/account/deliveries", element: <Deliveries /> },
       { path: "driver/account/ratings", element: <Ratings /> },
       { path: "driver/account/support", element: <Support /> },
-      { path: "driver/opportunities/viewmap", element: <ViewMap /> },
+      { path: "driver/opportunities/viewmap/:id", element: <ViewMap /> },
     ],
   },
 ];

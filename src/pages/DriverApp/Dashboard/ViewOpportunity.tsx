@@ -18,7 +18,8 @@ import PickupLocation from "./PickupLocation";
 import APIClient from "@/services/api-client";
 
 const ViewOpportunity = () => {
-  const { id } = useParams();
+  
+  const { id } = useParams(); // recieve the id from the url
   if (!id) return null;
 
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const ViewOpportunity = () => {
   const handleAccept = () => {
     const apiClient = new APIClient("/accept_opportunity/" + id);
     apiClient.create({});
-    navigate("/driver/opportunities/viewmap");
+    navigate("/driver/opportunities/viewmap/" + id);
   };
 
   return (
