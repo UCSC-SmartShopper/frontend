@@ -22,16 +22,16 @@ import {
 import { FaEdit } from "react-icons/fa";
 import "reactjs-popup/dist/index.css";
 import EditItemDetails from "./EditItemDetails";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import useSupermarketProducts from "@/hooks/useSupermarketProducts";
+import useAuthStore from "@/state-management/auth/store";
+import useProduct from "@/hooks/useProduct";
 
 
 const productTable = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [dropdownOpen, setDropdownOpen] = useState(false);
-  // const [selectedproducts, setSelectedproducts] = useState([]);
-
-  // const handleDropdownToggle = () => {
-  //   setDropdownOpen(!dropdownOpen);
+  
 
   const [image , setImage] = useState<string>('');
   const [name , setName] = useState<string>('');
@@ -46,115 +46,20 @@ const productTable = () => {
     setName(product.name);
     setDescription(product.qty);
     setAvailable(true);
-    // setPrice(product.price);
-    // setStock(product.stock);
     onOpen();
   }
+const { user } = useAuthStore();
+console.log(user?.id);
+ const productsList = useSupermarketProducts(1);
+  const products = productsList.data?.results || [];
+  const product = useProduct(1);
+  console.log(product.data);
 
-
-
-  const products = [
-    {
-      id: 1,
-      name: "Munchee Super Cream Cracker",
-      qty: "200g",
-      price: 250,
-      stock: 5,
-      sold: 10,
-      imgSrc:
-        "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/114839--01--1623926509.webp",
-    },
-    {
-      id: 2,
-      name: "Lanka Soy",
-      qty: "1L",
-      price: 350,
-      stock: 15,
-      sold: 20,
-      imgSrc:
-        "https://essstr.blob.core.windows.net/essimg/350x/Small/Pic96986.jpg",
-    },
-    {
-      id: 3,
-      name: "Sunlight Light",
-      qty: "100 bags",
-      price: 500,
-      stock: 10,
-      sold: 30,
-      imgSrc:
-        "https://essstr.blob.core.windows.net/essimg/350x/Small/Pic116196.jpg",
-    },
-    {
-      id: 4,
-      name: "EGB ",
-      qty: "500ml",
-      price: 450,
-      stock: 20,
-      sold: 50,
-      imgSrc:
-        "https://essstr.blob.core.windows.net/essimg/350x/Small/Pic99367.jpg",
-    },
-    {
-      id: 5,
-      name: "Munchee Snack Cracker",
-      qty: "100g",
-      price: 150,
-      stock: 25,
-      sold: 40,
-      imgSrc:
-        "https://essstr.blob.core.windows.net/essimg/350x/Small/Pic19124.jpg",
-    },
-    {
-      id: 6,
-      name: "Kohomba Soap",
-      qty: "1kg",
-      price: 300,
-      stock: 12,
-      sold: 15,
-      imgSrc:
-        "https://essstr.blob.core.windows.net/essimg/350x/Small/Pic120704.jpg",
-    },
-    {
-      id: 7,
-      name: "Lisol Bathroom cleaner",
-      qty: "100g",
-      price: 50,
-      stock: 50,
-      sold: 70,
-      imgSrc:
-        "https://essstr.blob.core.windows.net/essimg/350x/Small/Pic12304.jpg",
-    },
-    {
-      id: 8,
-      name: "Small Blend Tea",
-      qty: "150g",
-      price: 200,
-      stock: 30,
-      sold: 45,
-      imgSrc:
-        "https://essstr.blob.core.windows.net/essimg/350x/Small/Pic73441.jpg",
-    },
-    {
-      id: 9,
-      name: "Ginger Buiscuits",
-      qty: "500g",
-      price: 600,
-      stock: 18,
-      sold: 25,
-      imgSrc:
-        "https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic4845.jpg",
-    },
-    {
-      id: 10,
-      name: "Preema Stella Noodles",
-      qty: "250g",
-      price: 400,
-      stock: 8,
-      sold: 12,
-      imgSrc:
-        "https://essstr.blob.core.windows.net/essimg/350x/Small/Pic112825.jpg",
-    },
-  ];
+  const setItemDetails = (id: number) => {
+    const product = useProduct(id).data;
+    console.log(product);
+  return product;
+  }
 
   return (
     <>
@@ -199,9 +104,9 @@ const productTable = () => {
               <Th px={6} py={3}>
                 Stock
               </Th>
-              <Th px={6} py={3}>
+              {/* <Th px={6} py={3}>
                 Sold
-              </Th>
+              </Th> */}
               <Th px={6} py={3}>
                 Action
               </Th>
@@ -232,16 +137,16 @@ const productTable = () => {
                   <Image
                     boxSize="10"
                     borderRadius="full"
-                    src={product.imgSrc}
-                    alt={`${product.name} image`}
+                    src={setItemDetails(product.productId)?.imageUrl}
+                    alt={`${product.id} image`}
                   />
                   <Box pl={3}>
                     <Text fontWeight="semibold" fontSize="base">
-                      {product.name}
+                      {setItemDetails(product.productId)?.name}
                     </Text>
-                    <Text color="gray.500" fontWeight="normal">
-                      {product.qty}
-                    </Text>
+                    {/* <Text color="gray.500" fontWeight="normal">
+                      {product.availableQuantity}
+                    </Text> */}
                   </Box>
                 </Th>
                 <Td px={6} py={4}>
@@ -250,15 +155,15 @@ const productTable = () => {
                 <Td px={6} py={4}>
                   <Box display="flex" alignItems="center">
                     <Box h="2.5" w="2.5" borderRadius="full" mr={2}></Box>
-                    {product.sold}
+                    {product.availableQuantity}
                   </Box>
                 </Td>
-                <Td px={6} py={4}>
+                {/* <Td px={6} py={4}>
                   <Box display="flex" alignItems="center">
                     <Box h="2.5" w="2.5" borderRadius="full" mr={2}></Box>
-                    {product.sold}
+                    {product.availableQuantity}
                   </Box>
-                </Td>
+                </Td> */}
                 <Td px={6} py={4}>
                   <Link
                     href="#"
