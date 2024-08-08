@@ -1,9 +1,33 @@
 import React, { useRef } from "react";
-import { Heading, Flex, Box, Center, Text, VStack, Select, Icon, Button, Image } from "@chakra-ui/react";
+import {
+  Heading,
+  Flex,
+  Box,
+  Center,
+  Text,
+  VStack,
+  Select,
+  Icon,
+  Button,
+  Image,
+  Input,
+  useDisclosure,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
+} from "@chakra-ui/react";
 import { CiImageOn, CiEdit } from "react-icons/ci";
+import useAdvertisements from "@/hooks/useAdvertisements";
 
 const AdminAdvertisements: React.FC = () => {
   const inputFileRef = useRef<HTMLInputElement>(null);
+  const { data: Advertisements } = useAdvertisements();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleIconClick = () => {
     inputFileRef.current?.click();
@@ -11,89 +35,142 @@ const AdminAdvertisements: React.FC = () => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    // Handle the file upload logic here
     if (file) {
       console.log(file);
     }
   };
 
   return (
-    <VStack gap="8vh" my="5vh" px={10} w="full" fontWeight="bold">
-      <Box width='full'>
-        <Heading size='md' my={4}>Publish New</Heading>
-        <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
-          <Flex w='full' gap={5}>
-            <Box w='40%' borderRadius="10" borderWidth="1px" borderColor={'primary'} px={'100px'} py={'60px'}>
-              <Center onClick={handleIconClick}>
-                <VStack>
-                  <Icon as={CiImageOn} boxSize={8} color={'primary'} />
-                  <Text fontSize='md'>Upload banner here</Text>
-                </VStack>
-              </Center>
-              <input
-                type="file"
-                ref={inputFileRef}
-                style={{ display: 'none' }}
-                onChange={handleFileChange}
-              />
-            </Box>
-            <Box w="15%">
-              <Text fontSize='md'>From :</Text>
-              <Select placeholder='Select option'>
-                <option value='option1'>Option 1</option>
-                <option value='option2'>Option 2</option>
-                <option value='option3'>Option 3</option>
-              </Select>
-            </Box>
-            <Box w="15%">
-              <Text fontSize='md'>To :</Text>
-              <Select placeholder='Select option'>
-                <option value='option1'>Option 1</option>
-                <option value='option2'>Option 2</option>
-                <option value='option3'>Option 3</option>
-              </Select>
-            </Box>
-            <Box w="15%">
-              <Text fontSize='md'>Prority :</Text>
-              <Select placeholder='Select option'>
-                <option value='option1'>Low</option>
-                <option value='option2'>Medium</option>
-                <option value='option3'>High</option>
-              </Select>
-            </Box>
-            <Box w="15%">
-              <Button bg='primary' size='md' mt={6}>
-                Publish
-              </Button>
-            </Box>
-          </Flex>
-        </Box>
-        <Heading size='md' my={4}>Advertisements</Heading>
-        <Flex my={4}>
-          <Box>
-            <Select placeholder='Select option'>
-              <option value='option1' selected>Option 1</option>
-              <option value='option2'>Option 2</option>
-              <option value='option3'>Option 3</option>
-            </Select>
+    <>
+      <VStack spacing={10} my={10} px={10} w="full">
+        <Box w="full">
+          <Heading size="lg" mb={6}>
+            Publish New Advertisement
+          </Heading>
+          <Box
+            p={8}
+            shadow="md"
+            borderWidth="1px"
+            borderRadius={15}
+            w="full"
+            bg="white"
+          >
+            <Flex w="full" gap={8} align="center">
+              <Box
+                w="30%"
+                borderRadius="10"
+                borderWidth="2px"
+                borderColor={"primary"}
+                p={4}
+                cursor="pointer"
+                onClick={handleIconClick}
+                _hover={{ bg: "gray.50" }}
+              >
+                <Center>
+                  <VStack>
+                    <Icon as={CiImageOn} boxSize={10} color={"primary"} />
+                    <Text fontSize="lg">Upload Banner</Text>
+                  </VStack>
+                </Center>
+                <input
+                  type="file"
+                  ref={inputFileRef}
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                />
+              </Box>
+              <Stack spacing={4} direction="row" flex="1">
+                <Box flex="1">
+                  <Text fontSize="md">From:</Text>
+                  <Input type="date" />
+                </Box>
+                <Box flex="1">
+                  <Text fontSize="md">To:</Text>
+                  <Input type="date" />
+                </Box>
+                <Box flex="1">
+                  <Text fontSize="md">Priority:</Text>
+                  <Select placeholder="Select priority">
+                    <option value="low">Low</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High</option>
+                  </Select>
+                </Box>
+                <Box flex="1">
+                  <Button bg="primary" size="lg">
+                    Publish
+                  </Button>
+                </Box>
+              </Stack>
+            </Flex>
           </Box>
-        </Flex>
-        <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
-          <Image
-            src='https://via.placeholder.com/150'
-            alt='Product Image'
-            objectFit='cover'
-            m={4}
-          />
-          <Flex justifyContent={'flex-end'} my={1} mx={10}>
-            <Button bg='primary' size='md'>
-              <Icon as={CiEdit} />
-              <Text px={2}>Edit</Text>
-            </Button>
-          </Flex>
         </Box>
-      </Box>
-    </VStack>
+
+        <Box w="full">
+          <Heading size="lg" mb={6}>
+            Current Advertisements
+          </Heading>
+          <Stack spacing={6}>
+          {(Advertisements && Array.isArray(Advertisements) ? Advertisements : []).map(
+          (ad, index) => (
+                <Box
+                  key={index}
+                  p={6}
+                  shadow="md"
+                  borderWidth="1px"
+                  borderRadius={15}
+                  w="full"
+                  bg="white"
+                >
+                  <Flex justify="space-between" align="center" mb={4}>
+                    <Text fontSize="md">From: {ad.startDate}</Text>
+                    <Text fontSize="md">To: {ad.endDate}</Text>
+                    <Text fontSize="md">Priority: {ad.priority}</Text>
+                  </Flex>
+                  <Image
+                    src="https://via.placeholder.com/150"
+                    alt="Advertisement Banner"
+                    borderRadius={10}
+                    mb={4}
+                  />
+                  <Flex justify="flex-end">
+                    <Button bg="primary" size="md" onClick={onOpen}>
+                      <Icon as={CiEdit} />
+                      <Text px={2}>Edit</Text>
+                    </Button>
+                  </Flex>
+                </Box>
+              ))}
+          </Stack>
+        </Box>
+      </VStack>
+
+      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit Advertisement</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack spacing={4}>
+              <Image src="https://via.placeholder.com/150" />
+              <Input placeholder="From" type="date" />
+              <Input placeholder="To" type="date" />
+              <Select placeholder="Priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </Select>
+            </VStack>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="ghost">Save</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
