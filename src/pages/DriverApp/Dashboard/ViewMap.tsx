@@ -1,4 +1,4 @@
-import { AspectRatio, Box, Icon} from "@chakra-ui/react";
+import { AspectRatio, Box, Icon, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import useOpportunity from "@/hooks/useOpportunity";
