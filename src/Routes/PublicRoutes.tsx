@@ -5,6 +5,9 @@ import Login from "@/pages/Login";
 import ProductDetail from "@/pages/Consumer/ProductDetail";
 import SignUp from "@/pages/SignUp";
 import PublicLayout from "./Layouts/PublicLayout";
+import Home from "@/pages/CourierCompanyManager/Home";
+import PersonalDetails from "@/pages/CourierCompanyManager/PersonalDetails";
+
 
 
 const PublicRoutes = [
@@ -17,6 +20,9 @@ const PublicRoutes = [
       { path: "driver/login_register", element: <LoginRegister /> },
       { path: "driver/register", element: <DriverRegister /> },
       { path: "products/:id", element: <ProductDetail /> },
+      { path: "/Home", element: <Home /> },
+      { path: "/personalDetails", element: <PersonalDetails /> },
+      
     
     ],
   },
