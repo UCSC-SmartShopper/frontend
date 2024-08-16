@@ -61,13 +61,13 @@ const Navbar = () => {
   let navItems: NavItem[];
 
   switch (user?.role) {
-    case "couriercompany":
+    case "Courier Company Manager":
       navItems = courierNavItems;
       break;
-    case "admin":
+    case "Admin":
       navItems = adminNavItems;
       break;
-    case "supermarket":
+    case "Supermarket Manager":
       navItems = adminNavItems;
       break;
     default:
@@ -90,7 +90,11 @@ const Navbar = () => {
           borderColor={useColorModeValue("gray.200", "gray.900")}
           align={"center"}
           justifyContent="space-between"
-          pos={user?.role === "admin" ? "sticky" : "relative"}
+          pos={
+            user?.role === "Admin" || user?.role === "Supermarket Manager"
+              ? "sticky"
+              : "relative"
+          }
           top={0}
           zIndex={10}
         >
@@ -144,7 +148,7 @@ const Navbar = () => {
                       color: "white",
                     }}
                     // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
-                    onClick={() => navigate("/myOrders")}
+                    onClick={() => navigate("/orders")}
                   >
                     Orders
                   </MenuItem>
@@ -193,7 +197,7 @@ const Navbar = () => {
               <Text fontSize="lg" fontWeight="bold">
                 {user.name}
               </Text>
-              {user.role === "consumer" && (
+              {user.role === "Consumer" && (
                 <Box pos={"relative"} cursor="pointer">
                   <Icon
                     as={FaCartShopping}
