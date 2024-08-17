@@ -6,6 +6,7 @@ import AdminSettings from "@/pages/Admin/AdminSettings";
 import AdminSuperMarkets from "@/pages/Admin/AdminSuperMarkets";
 import AdminTransactions from "@/pages/Admin/AdminTransactions";
 import AdminLayout from "./Layouts/AdminLayout";
+import Supermarkets from "@/pages/Admin/Supermarkets";
 
 const AdminRoutes = [
   {
@@ -22,6 +23,8 @@ const AdminRoutes = [
       { path: "transactions", element: <AdminTransactions /> },
       { path: "advertisements", element: <AdminAdvertisements /> },
       { path: "settings", element: <AdminSettings /> },
+      {path: "supermarketList", element: <Supermarkets />}
+
     ],
   },
 ];
