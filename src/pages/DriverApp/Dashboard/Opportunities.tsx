@@ -11,6 +11,7 @@ const Opportunities = () => {
     (opportunity) => opportunity.status === "Pending"
   );
   
+  
 
   return (
     <>
