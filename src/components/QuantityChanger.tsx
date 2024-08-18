@@ -1,12 +1,31 @@
-import useCartStore, { CartItem } from "@/state-management/cart/store";
+import { CartItem } from "@/hooks/useCartItem";
+import useCartStore from "@/state-management/cart/store";
 import { Box, Flex, Input } from "@chakra-ui/react";
+import { useQueryClient } from "@tanstack/react-query";
+import { FaMinus, FaPlus } from "react-icons/fa6";
 
 interface Props {
   cartItem: CartItem;
 }
 
+
 const QuantityChanger = ({ cartItem }: Props) => {
-  const { incrementQuantity, decrementQuantity } = useCartStore();
+  const { updateItem } = useCartStore();
+  const queryClient = useQueryClient();
+
+  const handleIncrement = (cartItem: CartItem) => {
+    const newCartItem = { ...cartItem, quantity: cartItem.quantity + 1 };
+    if (newCartItem.quantity > 0) updateItem(newCartItem, invalidateQueries);
+  };
+
+  const handleDecrement = (cartItem: CartItem) => {
+    const newCartItem = { ...cartItem, quantity: cartItem.quantity - 1 };
+    if (newCartItem.quantity > 0) updateItem(newCartItem, invalidateQueries);
+  };
+
+  const invalidateQueries = () => {
+    queryClient.invalidateQueries({ queryKey: ["carts"] });
+  };
 
   return (
     <Flex
@@ -14,6 +33,7 @@ const QuantityChanger = ({ cartItem }: Props) => {
       alignItems="center"
       justifyContent="flex-end"
       p={3}
+      pt={0}
       gap={2}
     >
       <Box>Quantity</Box>
@@ -21,16 +41,10 @@ const QuantityChanger = ({ cartItem }: Props) => {
         <Box
           as="button"
           cursor="pointer"
-          roundedLeft="md"
-          bg="gray.100"
-          py="1"
-          px="3.5"
-          _hover={{ bg: "gray.200" }}
-          onClick={() =>
-            decrementQuantity(cartItem.supermarketItem?.productId || -1)
-          }
+          px="2"
+          onClick={() => handleDecrement(cartItem)}
         >
-          -
+          <FaMinus />
         </Box>
         <Input
           textAlign="center"
@@ -48,16 +62,10 @@ const QuantityChanger = ({ cartItem }: Props) => {
         <Box
           as="button"
           cursor="pointer"
-          roundedRight="md"
-          bg="gray.100"
-          py="1"
-          px="3"
-          _hover={{ bg: "gray.200" }}
-          onClick={() =>
-            incrementQuantity(cartItem.supermarketItem?.productId || -1)
-          }
+          px="2"
+          onClick={() => handleIncrement(cartItem)}
         >
-          +
+          <FaPlus />
         </Box>
       </Flex>
     </Flex>

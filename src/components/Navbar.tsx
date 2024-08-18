@@ -9,24 +9,71 @@ import {
   Image,
   Text,
   useColorModeValue,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { FaCartShopping } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Banner from "../assets/smart-shopper-banner.svg";
 import ActionButton from "./Buttons/ActionButton";
+import useCart from "@/hooks/useCart";
+import { useEffect } from "react";
+import UserPlaceholder from "../assets/avatar-placeholder.png";
+
+interface NavItem {
+  text: string;
+  path: string;
+}
 
 const Navbar = () => {
   const { user, logout } = useAuthStore();
-  const { items } = useCartStore();
+  const { items, setItems } = useCartStore();
+  const { data: cart } = useCart();
 
   const navigate = useNavigate();
   const location = useLocation();
 
   const hideNavbarPaths = ["/driver"];
-  const showTopNav = !hideNavbarPaths.some((path) => location.pathname.startsWith(path));
-  const consumerNavItems = ["Home", "Supermarkets", "About Us"];
-  const courierNavItems = ["Home", "Request", "Deliveries"];
-  const navItems = user?.role === "Courier Company" ? courierNavItems : consumerNavItems;
+  const showTopNav = !hideNavbarPaths.some((path) =>
+    location.pathname.startsWith(path)
+  );
+
+  const consumerNavItems: NavItem[] = [
+    { text: "Home", path: "/" },
+    { text: "Supermarkets", path: "/supermarkets" },
+    { text: "About Us", path: "/about" },
+  ];
+
+  const courierNavItems: NavItem[] = [
+    { text: "Home", path: "/" },
+    { text: "Request", path: "/requests" },
+    { text: "Deliveries", path: "/deliveries" },
+  ];
+
+  const adminNavItems: NavItem[] = [];
+
+  useEffect(() => {
+    if (cart?.results) setItems(cart.results);
+  }, [cart]);
+
+  let navItems: NavItem[];
+
+  switch (user?.role) {
+    case "Courier Company Manager":
+      navItems = courierNavItems;
+      break;
+    case "Admin":
+      navItems = adminNavItems;
+      break;
+    case "Supermarket Manager":
+      navItems = adminNavItems;
+      break;
+    default:
+      navItems = consumerNavItems;
+      break;
+  }
 
   return (
     <>
@@ -43,17 +90,25 @@ const Navbar = () => {
           borderColor={useColorModeValue("gray.200", "gray.900")}
           align={"center"}
           justifyContent="space-between"
-          pos={location.pathname === "/admin" ? "sticky" : "relative"}
+          pos={
+            user?.role === "Admin" || user?.role === "Supermarket Manager"
+              ? "sticky"
+              : "relative"
+          }
           top={0}
           zIndex={10}
         >
           <HStack gap={5}>
-            <Image src={Banner} />
+            <Image
+              src={Banner}
+              onClick={() => navigate("/")}
+              cursor="pointer"
+            />
 
             {navItems.map((item) => (
-              <Link to={`/${item.toLowerCase()}`} key={item}>  {/* Use Link component for navigation */}
+              <Link to={item.path} key={item.text}>
                 <Text fontSize="lg" fontWeight="bold">
-                  {item}
+                  {item.text}
                 </Text>
               </Link>
             ))}
@@ -61,39 +116,113 @@ const Navbar = () => {
 
           {user ? (
             <HStack marginX={10} gap={5}>
-              <Avatar
-                name="Dan Abrahmov"
-                src="https://bit.ly/dan-abramov"
-                boxSize={10}
-                onClick={logout}
-              />
+              <Menu>
+                <MenuButton>
+                  <Avatar
+                    name="Dan Abrahmov"
+                    src={UserPlaceholder}
+                    boxSize={10}
+                    cursor="pointer"
+                  />
+                </MenuButton>
+                <MenuList
+                  py={0}
+                  bg="white"
+                  borderColor={"primary"}
+                  borderWidth={3}
+                  color={"white"}
+                >
+                  <MenuItem
+                    bg="white"
+                    color="primary"
+                    _hover={{
+                      borderRadius: 5,
+                      borderWidth: 2,
+                      borderColor: "orange.500",
+                    }}
+                    _focus={{
+                      borderRadius: 5,
+                      borderWidth: 2,
+                      borderColor: "orange.500",
+                      bg: "primary",
+                      color: "white",
+                    }}
+                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    onClick={() => navigate("/orders")}
+                  >
+                    Orders
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    color="primary"
+                    _hover={{
+                      borderRadius: 5,
+                      borderWidth: 2,
+                      borderColor: "orange.500",
+                    }}
+                    _focus={{
+                      borderRadius: 5,
+                      borderWidth: 2,
+                      borderColor: "orange.500",
+                      bg: "primary",
+                      color: "white",
+                    }}
+                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    onClick={() => navigate("/profile")}
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem
+                    bg="white"
+                    color="primary"
+                    _hover={{
+                      borderRadius: 5,
+                      borderWidth: 2,
+                      borderColor: "orange.500",
+                    }}
+                    _focus={{
+                      borderRadius: 5,
+                      borderWidth: 2,
+                      borderColor: "orange.500",
+                      bg: "primary",
+                      color: "white",
+                    }}
+                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
+                    onClick={logout}
+                  >
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </Menu>
               <Text fontSize="lg" fontWeight="bold">
                 {user.name}
               </Text>
-              <Box pos={"relative"}>
-                <Icon
-                  as={FaCartShopping}
-                  w={8}
-                  h={8}
-                  color="black"
-                  onClick={() => navigate("/cart")}
-                />
-                <Text
-                  as="div"
-                  fontSize={"xs"}
-                  px={2}
-                  py={1}
-                  color="white"
-                  fontWeight={"bold"}
-                  pos={"absolute"}
-                  bottom={0}
-                  right={-5}
-                  bg="primary"
-                  rounded={"full"}
-                >
-                  {items.length}
-                </Text>
-              </Box>
+              {user.role === "Consumer" && (
+                <Box pos={"relative"} cursor="pointer">
+                  <Icon
+                    as={FaCartShopping}
+                    w={8}
+                    h={8}
+                    color="black"
+                    onClick={() => navigate("/cart")}
+                  />
+                  <Text
+                    as="div"
+                    fontSize={"xs"}
+                    px={2}
+                    py={1}
+                    color="white"
+                    fontWeight={"bold"}
+                    pos={"absolute"}
+                    bottom={0}
+                    right={-5}
+                    bg="primary"
+                    rounded={"full"}
+                  >
+                    {items.length}
+                  </Text>
+                </Box>
+              )}
             </HStack>
           ) : (
             <HStack paddingX={0}>

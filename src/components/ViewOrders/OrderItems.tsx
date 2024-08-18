@@ -1,42 +1,52 @@
+import { Order } from "@/hooks/useOrder";
 import {
   Box,
-  Text,
-  Flex,
-  Image,
   Button,
+  Flex,
   Modal,
-  useDisclosure,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
   ModalBody,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import AddProductReview from "./AddProductReview";
+import SupermarketItem from "./SupermarketItem";
 
-const OrderItems = () => {
+interface Props {
+  order: Order;
+}
+
+const OrderItems = ({ order }: Props) => {
   const {
     isOpen: isAddReviewOpen,
     onOpen: onAddReviewOpen,
     onClose: onAddReviewClose,
   } = useDisclosure();
 
-  const items = [
-    {
-      image: "https://via.placeholder.com/50",
-      name: "Munchee Super Cream Cracker",
-      price: 145,
-      supermarket: "Keells",
-      supermarketLogo: "https://via.placeholder.com/50",
-    },
-    {
-      image: "https://via.placeholder.com/50",
-      name: "Gradient Graphic T-shirt",
-      price: 145,
-      supermarket: "Spar",
-      supermarketLogo: "https://via.placeholder.com/50",
-    },
-  ];
+  const totalCost = order.orderItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+
+  // const items = [
+  //   {
+  //     image: "https://via.placeholder.com/50",
+  //     name: "Munchee Super Cream Cracker",
+  //     price: 145,
+  //     supermarket: "Keells",
+  //     supermarketLogo: "https://via.placeholder.com/50",
+  //   },
+  //   {
+  //     image: "https://via.placeholder.com/50",
+  //     name: "Gradient Graphic T-shirt",
+  //     price: 145,
+  //     supermarket: "Spar",
+  //     supermarketLogo: "https://via.placeholder.com/50",
+  //   },
+  // ];
 
   return (
     <Box
@@ -54,61 +64,18 @@ const OrderItems = () => {
       <Text fontSize="xl" fontWeight="bold" mb={4} color="primary">
         Order Items
       </Text>
-      {items.map((item, index) => (
-        <Flex
-          p={4}
+      {order.orderItems.map((item, index) => (
+        <SupermarketItem
           key={index}
-          bg="background"
-          borderRadius={10}
-          alignItems="center"
-          justifyContent="space-between"
-          mb={4}
-        >
-          <Flex alignItems="center">
-            <Image
-              src={item.image}
-              alt={item.name}
-              boxSize="50px"
-              borderRadius="md"
-              mr={4}
-            />
-            <Box>
-              <Text fontWeight="bold">{item.name}</Text>
-              <Text color="gray.500">${item.price}</Text>
-            </Box>
-          </Flex>
-          <Flex alignItems="center" gap={4}>
-            <Image
-              src={item.supermarketLogo}
-              alt={item.supermarket}
-              boxSize="50px"
-            />
-            <Button
-              size="sm"
-              color="primary"
-              bg="white"
-              borderWidth={2}
-              borderColor="primary"
-              borderRadius={10}
-              onClick={onAddReviewOpen}
-              _hover={{ bg: "#E46C0A", color: "#FFFFFF" }}
-              _active={{
-                bg: "#E46C0A",
-                color: "#FFFFFF",
-                transform: "scale(0.98)",
-                borderColor: "#E46C0A",
-              }}
-            >
-              Add Reviews
-            </Button>
-          </Flex>
-        </Flex>
+          orderItem={item}
+          onAddReviewOpen={onAddReviewOpen}
+        />
       ))}
       <Flex justifyContent="flex-end" mt={4}>
         <Text>
           Delivery Fee:{" "}
           <Text as="span" fontWeight="bold">
-            200.00 LKR
+            200 LKR
           </Text>
         </Text>
       </Flex>
@@ -116,7 +83,7 @@ const OrderItems = () => {
         <Text>
           Total:{" "}
           <Text as="span" fontWeight="bold">
-            24 500.00 LKR
+            {totalCost} LKR
           </Text>
         </Text>
       </Flex>
@@ -138,10 +105,15 @@ const OrderItems = () => {
             Add Product Review
           </ModalHeader>
           <ModalBody>
-            <AddProductReview productImage="https://via.placeholder.com/50" supermarketImage="https://via.placeholder.com/25" productName="Gradient Graphic T-shirt" price={45.6} />
+            <AddProductReview
+              productImage="https://via.placeholder.com/50"
+              supermarketImage="https://via.placeholder.com/25"
+              productName="Gradient Graphic T-shirt"
+              price={45.6}
+            />
           </ModalBody>
           <ModalFooter>
-            <Flex width="100%" justifyContent="center" columnGap={5} >
+            <Flex width="100%" justifyContent="center" columnGap={5}>
               <Button
                 variant="outline"
                 colorScheme="orange"

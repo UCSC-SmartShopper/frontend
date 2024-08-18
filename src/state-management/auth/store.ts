@@ -1,8 +1,9 @@
 import { create, StateCreator } from "zustand";
 import { persist } from "zustand/middleware";
+import { jwtDecode } from "jwt-decode";
 
 export interface Credentials {
-  email: string;
+  email_or_number: string;
   password: string;
 }
 
@@ -12,19 +13,26 @@ export interface LoginResponse {
 }
 
 export interface User {
+  id?: number;
   name: string;
   role: string;
-  email: string
+  email: string;
   password?: string;
   number: string;
   profilePic: string;
   status: string;
+
+  consumerId?: number;
+  supermarketId?: number;
+  driverId?: number;
+  adminId?: number;
 }
 
-export interface AuthStore {
+interface AuthStore {
   user: User | null;
-  login: (formData: LoginResponse) => User | null;
+  login: (formData: LoginResponse) => void;
   logout: () => void;
+  expireToken: () => void;
 }
 
 const authStore: StateCreator<AuthStore> = (set) => ({
@@ -32,12 +40,26 @@ const authStore: StateCreator<AuthStore> = (set) => ({
 
   login: (res: LoginResponse) => {
     if (!res.user) return null;
-    document.cookie = `token=${res.jwtToken}`;
+    localStorage.setItem("token", res.jwtToken);
     set(() => ({ user: res.user }));
-    return res.user;
   },
   logout: () => {
-    (document.cookie = `token=""`), set(() => ({ user: null }));
+    localStorage.removeItem("token");
+    set(() => ({ user: null }));
+  },
+
+  expireToken: () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+
+      if (decoded.exp && decoded.exp * 1000 < Date.now()) {
+        localStorage.removeItem("token");
+        set(() => ({ user: null }));
+      }
+    }else{
+      set(() => ({ user: null }));
+    }
   },
 });
 

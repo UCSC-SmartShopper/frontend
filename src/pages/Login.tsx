@@ -10,7 +10,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 
 import GroceryImage from "../assets/signup-login/grocery-shopping-amico.svg";
 import FacebookIcon from "../assets/social-media-icons/facebook.svg";
@@ -21,22 +21,27 @@ import SubmitButton from "../components/Buttons/SubmitButton";
 import MiddleContainer from "../components/Containers/MiddleContainer";
 import LoginInput from "../components/Inputs/LoginInput";
 
+import APIClient from "@/services/api-client";
+import useAuthStore, {
+  Credentials,
+  LoginResponse
+} from "@/state-management/auth/store";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import { useForm } from "react-hook-form";
+import { FaUser } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import LinkButton from "../components/Buttons/LinkButton";
 import ErrorText from "../components/Errors/ErrorText";
-import useAuthStore, {
-  Credentials,
-  LoginResponse,
-  User,
-} from "@/state-management/auth/store";
-import { useNavigate } from "react-router-dom";
-import APIClient from "@/services/api-client";
 // import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
-  email: z.string().email("Invalid email address"),
+  email_or_number: z
+    .string()
+    .regex(
+      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$|^0\d{9}$/,
+      "Enter valid email address or phone number"
+    ),
   password: z.string().min(6),
 });
 
@@ -53,36 +58,17 @@ const Login = () => {
   const { login } = useAuthStore();
   const navigate = useNavigate();
 
-  const validate = (data: FormData) => {
+  const handleLogin = (data: FormData) => {
     const credentials: Credentials = {
-      email: data.email,
+      email_or_number: data.email_or_number,
       password: data.password,
     };
     const apiClient = new APIClient<LoginResponse>("/login");
 
     apiClient.login(credentials).then((res) => {
-      const user: User | null = login(res);
-      if (user) {
-        switch (user.role) {
-          case "driver":
-            navigate("/driver");
-            break;
-          default:
-            navigate("/");
-        }
-      }
+      login(res);
+      navigate("/");
     });
-
-    // const user = login(data);
-    // if (user) {
-    //   switch (user.role) {
-    //     case "driver":
-    //       navigate("/driver");
-    //       break;
-    //     default:
-    //       navigate("/");
-    //   }
-    // }
   };
 
   return (
@@ -120,15 +106,17 @@ const Login = () => {
               </Box>
             </VStack>
 
-            <form onSubmit={handleSubmit(validate)}>
+            <form onSubmit={handleSubmit(handleLogin)}>
               <LoginInput
-                register={register("email")}
-                type="email"
-                placeholder="Email"
-                icon={FaEnvelope}
+                register={register("email_or_number")}
+                type="text"
+                placeholder="Email or Phone Number"
+                icon={FaUser}
                 // label="Email"
               />
-              {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
+              {errors.email_or_number && (
+                <ErrorText>{errors.email_or_number.message}</ErrorText>
+              )}
               <LoginInput
                 register={register("password")}
                 type="password"
@@ -177,4 +165,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login; 

@@ -1,13 +1,13 @@
-import { Box, Divider, Text, VStack } from "@chakra-ui/react";
+import { Box, Text, VStack } from "@chakra-ui/react";
 
 import SupermarketPriceRow from "./SupermarketPriceRow";
 
-import { SupermarketItem } from "@/hooks/usePriceLists";
+import { SupermarketItem } from "@/hooks/useSupermarketItems";
 
 interface Props {
   supermarketItems: SupermarketItem[];
   selectedSupermarketItem: SupermarketItem | null;
-  setSupermarketItem: (priceList: SupermarketItem) => void;
+  setSupermarketItem: (supermarketItem: SupermarketItem) => void;
 }
 
 const PriceComparison = ({
@@ -20,18 +20,12 @@ const PriceComparison = ({
       <Text fontSize="2xl" fontWeight="bold" mb={8}>
         Price Comparison
       </Text>
-      <VStack
-        w="full"
-        spacing={4}
-        divider={
-          <Divider borderColor="gray.400" alignSelf="flex-start" w={570} />
-        }
-      >
+      <VStack w="full" spacing={4}>
         {supermarketItems.map((item, index) => (
           <SupermarketPriceRow
             key={index}
             supermarketItem={item}
-            selectedPriceList={selectedSupermarketItem}
+            selectedSupermarketItem={selectedSupermarketItem}
             onClick={() => setSupermarketItem(item)}
           />
         ))}

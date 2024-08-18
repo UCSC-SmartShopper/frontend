@@ -9,9 +9,15 @@ import SubmitButton from "../../../../components/Buttons/SubmitButton";
 import ErrorText from "../../../../components/Errors/ErrorText";
 import LoginInput from "../../../../components/Inputs/LoginInput";
 
-import { z } from "zod";
+import APIClient from "@/services/api-client";
+import useAuthStore, {
+  Credentials,
+  LoginResponse
+} from "@/state-management/auth/store";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -21,12 +27,28 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const DriverLogin = () => {
+  const { login } = useAuthStore();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
 
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  const validate = (data: FormData) => {
+    const credentials: Credentials = {
+      email_or_number: data.email,
+      password: data.password,
+    };
+    const apiClient = new APIClient<LoginResponse>("/login");
+    
+    apiClient.login(credentials).then((res) => {
+      login(res);
+      navigate("/");
+    });
+  };
+
   return (
     <VStack py="6vh" h="100vh" gap="4vh">
       <VStack>
@@ -50,7 +72,7 @@ const DriverLogin = () => {
         h="full"
         as="form"
         justifyContent="space-between"
-        onSubmit={handleSubmit((data) => console.log(data))}
+        onSubmit={handleSubmit(validate)}
       >
         <Box w="full">
           <LoginInput

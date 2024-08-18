@@ -1,97 +1,65 @@
-import { SupermarketItem } from "@/hooks/usePriceLists";
+import { CartItem } from "@/hooks/useCartItem";
 import APIClient from "@/services/api-client";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
-export interface CartItem {
-  supermarketItem: SupermarketItem | null;
+interface CartItemInsert {
   quantity: number;
+  supermarketitemId: number;
 }
 
 interface CartStore {
   items: CartItem[];
   setItems: (items: CartItem[]) => void;
-  addItem: (item: CartItem) => void;
-  removeItem: (productId: number) => void;
 
-  incrementQuantity: (priceListId: number) => void;
-  decrementQuantity: (priceListId: number) => void;
-  fetchData: () => void;
+  addItem: (item: CartItem, invalidateQueries: () => void) => void;
+  removeItem: (productId: number, invalidateQueries: () => void) => void;
+  updateItem: (item: CartItem, invalidateQueries: () => void) => void;
+
+  getProductInCart: (productId: number) => CartItem | undefined;
 }
 
-const apiClient = new APIClient<CartItem>("/carts");
+const apiClient = new APIClient<CartItem | CartItemInsert>("/carts");
 
-const useCartStore = create<CartStore>()(
-  persist(
-    (set) => ({
-      items: [],
+const useCartStore = create<CartStore>()((set) => ({
+  items: [],
 
-      setItems: (items: CartItem[]) => {
-        set({ items });
-      },
+  setItems: (items: CartItem[]) => {
+    set({ items });
+  },
 
-      addItem: (newCartItem: CartItem) => {
-        set((state) =>
-          // check if the item is already in the cart replace it with the new item
-          {
-            return state.items.some(
-              (i) =>
-                i.supermarketItem?.productId ===
-                newCartItem.supermarketItem?.productId
-            )
-              ? // replace newCartItem
-                {
-                  items: state.items.map((i) =>
-                    i.supermarketItem?.productId ===
-                    newCartItem.supermarketItem?.productId
-                      ? newCartItem
-                      : i
-                  ),
-                }
-              : { items: [...state.items, newCartItem] };
-          }
-        );
-      },
+  addItem: (item: CartItem) => {
+    const cartItemInsert: CartItemInsert = {
+      quantity: item.quantity,
+      supermarketitemId: item.supermarketItem.id,
+    };
+    apiClient.create(cartItemInsert);
 
-      removeItem: (productId: number) => {
-        set((state) => ({
-          items: state.items.filter(
-            (i) => i.supermarketItem?.productId !== productId
-          ),
-        }));
-      },
+    set((state) => ({ items: [...state.items, item] }));
+  },
 
-      incrementQuantity: (supermarketItemId: number) => {
-        set((state) => ({
-          items: state.items.map((i) =>
-            i.supermarketItem?.id === supermarketItemId
-              ? { ...i, quantity: i.quantity + 1 }
-              : i
-          ),
-        }));
-      },
+  removeItem: (id, invalidateQueries) => {
+    apiClient.delete(id).then(invalidateQueries);
 
-      decrementQuantity: (priceListId: number) => {
-        set((state) => ({
-          items: state.items.map((i) =>
-            i.supermarketItem?.id === priceListId
-              ? { ...i, quantity: i.quantity - 1 }
-              : i
-          ),
-        }));
-      },
+    set((state) => ({
+      items: state.items.filter((i) => i.id !== id),
+    }));
+  },
 
-      fetchData: () => {
-        apiClient
-          .getAll({ params: { userId: 6 } })
-          .then((data) => data.results)
-          .then((results) => {
-            set({ items: results });
-          });
-      },
-    }),
-    { name: "cart-store" }
-  )
-);
+  updateItem: (item: CartItem, invalidateQueries: () => void) => {
+    apiClient.update(item).then(() => {
+      invalidateQueries();
+    });
+
+    set((state) => ({
+      items: state.items.map((i) => (i.id === item.id ? item : i)),
+    }));
+  },
+
+  getProductInCart: (productId: number): CartItem | undefined => {
+    return useCartStore
+      .getState()
+      .items.find((i) => i.supermarketItem?.productId === productId);
+  },
+}));
 
 export default useCartStore;

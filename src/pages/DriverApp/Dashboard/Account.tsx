@@ -1,5 +1,5 @@
-// import useAuthStore from "@/state-management/auth/store";
 import {
+  Button,
   Divider,
   HStack,
   Icon,
@@ -14,10 +14,11 @@ import { FaCar } from "react-icons/fa";
 import { MdStarRate, MdContactSupport } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
+import useAuthStore from "@/state-management/auth/store";
 
 const Account = () => {
-  // const { user, logout } = useAuthStore();
   const navigate = useNavigate();
+  const { logout } = useAuthStore();
 
   const rows = [
     {
@@ -82,12 +83,10 @@ const Account = () => {
             <Icon as={PiCaretRightThin} boxSize={5} />
           </HStack>
         ))}
+        <Button mt="5%" bg="primary" color="white" onClick={logout}>
+          Logout
+        </Button>
       </Stack>
-      {/* <Heading>{user?.username}</Heading>
-      <button onClick={logout}>Logout</button>
-      <Box p={4}>
-        <Icon as={MdLogout} />
-      </Box> */}
     </>
   );
 };

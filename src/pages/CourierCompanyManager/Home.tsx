@@ -1,26 +1,33 @@
-import React from "react";
 import {
+  Avatar,
   Box,
+  Button,
   Container,
+  Icon,
   SimpleGrid,
   Stat,
+  StatHelpText,
   StatLabel,
   StatNumber,
-  StatHelpText,
-  Icon,
   Table,
-  Thead,
   Tbody,
-  Tr,
-  Th,
   Td,
-  Button,
-  Avatar,
   Text,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
 import { FaClipboardList, FaTruck, FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import LineChart from "../../components/Charts/LineChart";
+
+interface Person {
+  name: string;
+  phone: string;
+  completed: number;
+  earnings: string;
+  avatar: string;
+}
 
 const deliveryPersonnel = [
   {
@@ -49,7 +56,7 @@ const deliveryPersonnel = [
 const Home = () => {
   const navigate = useNavigate();
 
-  const handleViewMore = (person) => {
+  const handleViewMore = (person:Person) => {
     navigate("/PersonalDetails", { state: { person } });
   };
 
