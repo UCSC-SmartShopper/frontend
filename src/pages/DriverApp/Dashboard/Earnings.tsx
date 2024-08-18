@@ -10,9 +10,11 @@ import {
 import ReactApexChart from "react-apexcharts";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Earnings = () => {
   const [isRotated, setIsRotated] = useState(false);
+  const navigate = useNavigate();
   const data = [
     {
       name: "series1",
@@ -53,7 +55,9 @@ const Earnings = () => {
     },
   ];
 
-  const displayDetails = () => {setIsRotated(!isRotated)};
+  const displayDetails = () => {
+    setIsRotated(!isRotated);
+  };
   return (
     <VStack bg="background" h="100vh" px="8vw" gap="2vh">
       <HStack w="full" justifyContent={"space-between"} mt="3vh">
@@ -95,7 +99,7 @@ const Earnings = () => {
         <Text fontSize="lg" fontWeight="bold">
           Recent Deliveries
         </Text>
-        <Button variant="link" color="primary">
+        <Button onClick={()=>navigate("../driver/deliveries")} variant="link" color="primary">
           Show more
         </Button>
       </HStack>
@@ -105,7 +109,7 @@ const Earnings = () => {
       <VStack spacing={4} mt={2} w="full">
         <Box bg="white" borderRadius="lg" shadow="md" p={4} w="full">
           <HStack>
-            <VStack align="start" spacing={0} flex="1">
+            <VStack align="start"  flex="1">
               <Text fontWeight="bold">Warrington, PA 76102</Text>
               <Text color="gray.500" fontSize="sm">
                 Yesterday at 16:34
@@ -119,10 +123,21 @@ const Earnings = () => {
               aria-label="Go to delivery"
               icon={<ChevronRightIcon />}
               variant="ghost"
-              transform={isRotated?"rotate(90deg)":"rotate(0deg)"}
-            //   transition="transform 0.2s ease-in-out"
+              transform={isRotated ? "rotate(90deg)" : "rotate(0deg)"}
             />
           </HStack>
+
+          {isRotated && (
+            <Box>
+              <HStack justify="space-between">
+                <Text>Delivery cost</Text>
+                <Text>100</Text>
+              </HStack>
+              {/* <Text>Trip Cost</Text>
+              <Text>No of Supermarkets</Text>
+              <Text>Supermarkets</Text> */}
+            </Box>
+          )}
         </Box>
       </VStack>
     </VStack>

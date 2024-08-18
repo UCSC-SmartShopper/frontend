@@ -24,7 +24,7 @@ const DriverRoutes = [
       { path: "driver/account/edit", element: <EditAccount /> },
       { path: "driver/account/change-password", element: <ChangePassword /> },
       { path: "driver/account/vehicle", element: <VehicleDetails /> },
-      { path: "driver/account/deliveries", element: <Deliveries /> },
+      { path: "driver/deliveries", element: <Deliveries /> },
       { path: "driver/account/ratings", element: <Ratings /> },
       { path: "driver/account/support", element: <Support /> },
       { path: "driver/opportunities/viewmap/:id", element: <ViewMap /> },
