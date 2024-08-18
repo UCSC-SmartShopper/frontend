@@ -16,8 +16,8 @@ const PublicRoutes = [
       { path: "driver/login", element: <DriverLogin /> },
       { path: "driver/login_register", element: <LoginRegister /> },
       { path: "driver/register", element: <DriverRegister /> },
-      { path: "supermarket", element: <Supermarkets /> },
- 
+      {path : "supermarket", element: <Supermarkets/>},
+    
     ],
   },
 ];
