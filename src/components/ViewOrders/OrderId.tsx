@@ -24,12 +24,31 @@ import OrderReceipt from "./OrderReceipt";
 import DriverDetailsPopup from "./DriveDetails";
 import AddDriverReview from "./AddDriverReview";
 import TrackOrder from "./TrackOrder";
+import { Order } from "@/hooks/useOrder";
+import useSupermarket from "@/hooks/useSupermarket";
 
-interface OrderIdProps {
-  status: string;
+interface Props {
+  order: Order;
+}
+interface SupermarketInfoRowProps {
+  supermarketId: number;
 }
 
-const OrderId = ({ status }: OrderIdProps) => {
+const SupermarketInfoRow = ({ supermarketId }: SupermarketInfoRowProps) => {
+  const supermarket = useSupermarket(supermarketId);
+  console.log(supermarket.data);
+
+  return (
+    <Text textAlign="left" paddingLeft={10}>
+      {supermarket.data?.name}
+      <br />
+    </Text>
+  );
+};
+
+const OrderId = ({ order }: Props) => {
+  const supermarketList: number[] = order.supermarketOrders.map(i=>i.supermarketId);
+
   const {
     isOpen: isReceiptOpen,
     onOpen: onReceiptOpen,
@@ -71,7 +90,7 @@ const OrderId = ({ status }: OrderIdProps) => {
         >
           <Flex justify="space-between" align="center" flexWrap="wrap" mb={4}>
             <Text fontSize="2xl" fontWeight="bold">
-              Order ID: 223345678
+              Order ID: {order.id}
             </Text>
             <Flex align="center" gap={4}>
               <Button
@@ -115,22 +134,23 @@ const OrderId = ({ status }: OrderIdProps) => {
             </Flex>
           </Flex>
           <Box
-            bg={
-              status === "completed"
-                ? "#5BFF89"
-                : status === "ready"
-                ? "yellow.200"
-                : status === "active"
-                ? "blue.200"
-                : "red.200"
-            }
+            bg="#5BFF89"
+            // order.status === "completed"
+            //   ? "#5BFF89"
+            //   : order.status === "ready"
+            //   ? "yellow.200"
+            //   : order.status === "active"
+            //   ? "blue.200"
+            //   : "yellow.300"
+
             borderRadius="full"
             textAlign="center"
             p={2}
             maxWidth="200px"
           >
             <Text fontSize="md" fontWeight="bold">
-              {status.charAt(0).toUpperCase() + status.slice(1)}
+              {/* {order.status.charAt(0).toUpperCase() + order.status.slice(1)} */}
+              Complete
             </Text>
           </Box>
 
@@ -149,7 +169,7 @@ const OrderId = ({ status }: OrderIdProps) => {
               </Text>
               <Grid templateColumns="1fr 2fr" gap={2}>
                 <Text>Order Placed on</Text>
-                <Text>: 12.04.2024</Text>
+                <Text>: 01.08.2024</Text>
                 <Text>Payment method</Text>
                 <Text>: Credit/Debit Card</Text>
                 <Text>Order Total</Text>
@@ -168,13 +188,14 @@ const OrderId = ({ status }: OrderIdProps) => {
               <Text fontSize="lg" fontWeight="bold" color="primary" mb={2}>
                 Supermarkets
               </Text>
-              <Text textAlign="left" paddingLeft={10}>
-                Keells Supermarket, Pannipitiya
-                <br />
-                Spar Supermarket, Maharagama
-                <br />
-                Arpico Supermarket, Moragahahena
-              </Text>
+              <Box>
+                {supermarketList.map((supermarketId) => (
+                  <SupermarketInfoRow
+                    key={supermarketId}
+                    supermarketId={supermarketId}
+                  />
+                ))}
+              </Box>
             </Box>
           </Flex>
 
@@ -256,7 +277,7 @@ const OrderId = ({ status }: OrderIdProps) => {
             </Text>
             <Grid templateColumns="1fr 2fr" gap={2}>
               <Text>Shipping Address</Text>
-              <Text>: Kaluthara, Western, Srilanka, 129987</Text>
+              <Text>: {order.shippingAddress}</Text>
               <Text>Contact Number</Text>
               <Text>: +993345887</Text>
               <Text>Name</Text>
@@ -350,7 +371,7 @@ const OrderId = ({ status }: OrderIdProps) => {
         closeOnOverlayClick={false}
       >
         <ModalOverlay backdropFilter="blur(5px)" />
-        <ModalContent borderRadius="15px" >
+        <ModalContent borderRadius="15px">
           <ModalHeader textAlign="center" fontWeight="bold" fontSize="25">
             Driver Details
           </ModalHeader>
@@ -366,7 +387,7 @@ const OrderId = ({ status }: OrderIdProps) => {
                 borderColor={"primary"}
                 borderWidth={1}
                 _hover={{ bg: "primary", color: "white" }}
-                _active={{ bg: "primary", color: "white"}}
+                _active={{ bg: "primary", color: "white" }}
                 borderRadius="12px"
                 onClick={onDriverClose}
               >
@@ -394,10 +415,16 @@ const OrderId = ({ status }: OrderIdProps) => {
             Add Product Review
           </ModalHeader>
           <ModalBody>
-            <AddDriverReview driverImage="https://via.placeholder.com/50" driverName="Bimsara Anjana Jayadewa" courierCompany="Uber pvt limited." driverID={123456} driverNumber="+94719944045"/>
+            <AddDriverReview
+              driverImage="https://via.placeholder.com/50"
+              driverName="Bimsara Anjana Jayadewa"
+              courierCompany="Uber pvt limited."
+              driverID={123456}
+              driverNumber="+94719944045"
+            />
           </ModalBody>
           <ModalFooter>
-            <Flex width="100%" justifyContent="center" columnGap={5} >
+            <Flex width="100%" justifyContent="center" columnGap={5}>
               <Button
                 variant="outline"
                 colorScheme="orange"

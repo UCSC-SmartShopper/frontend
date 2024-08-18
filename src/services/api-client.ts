@@ -6,23 +6,31 @@ export interface FetchResponse<T> {
   next: string | null;
   results: T[];
 }
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:9090",
-  withCredentials: true,
+  baseURL: VITE_BASE_URL || "http://localhost:9090",
+
 });
 
-class APIClient<T> {
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers["Jwt-key"] = `Bearer ${token}`;
+  }
+  return config;
+});
+
+class APIClient<T, R = T> {
   endpoint: string;
 
   constructor(endpoint: string) {
     this.endpoint = endpoint;
   }
 
-  getAll = async (requestConfig: AxiosRequestConfig) => {
-    // console.log(token.state);
-    return await axiosInstance
-      .get<FetchResponse<T>>(this.endpoint, { ...requestConfig })
+  getAll = (requestConfig: AxiosRequestConfig) => {
+    return axiosInstance
+      .get<FetchResponse<R>>(this.endpoint, { ...requestConfig })
       .then((res) => res.data);
   };
 
@@ -30,13 +38,26 @@ class APIClient<T> {
     axiosInstance.get<T>(this.endpoint + "/" + id).then((res) => res.data);
 
   create = (data: T) => {
-    return axiosInstance.post<T>(this.endpoint, data).then((res) => res.data);
+    return axiosInstance.post<R>(this.endpoint, data).then((res) => res.data);
   };
 
-  login = (data: Credentials) => {
+  update = (data: T) => {
+    return axiosInstance.patch<R>(this.endpoint, data).then((res) => res.data);
+  };
+
+  delete = (id: number) => {
     return axiosInstance
-      .post<T>(this.endpoint, data)
+      .delete<R>(this.endpoint, { params: { id } })
       .then((res) => res.data);
+  };
+
+  // ------------------------------------------- Special methods -------------------------------------------
+  login = (data: Credentials) => {
+    return axiosInstance.post<R>(this.endpoint, data).then((res) => res.data);
+  };
+
+  register = (data: Credentials) => {
+    return axiosInstance.post<R>(this.endpoint, data).then((res) => res.data);
   };
 }
 

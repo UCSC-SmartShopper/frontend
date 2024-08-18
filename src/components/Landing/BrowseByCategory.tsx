@@ -11,7 +11,6 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import SimpleSlider, { SliderMethods } from "../SimpleSlider";
 
 import BeveragesIcon from "../../assets/landing/categoryIcons/beverages.svg?react";
-// import FrozenIcon from "../../assets/landing/categoryIcons/frozen.svg?react";
 import GroceryIcon from "../../assets/landing/categoryIcons/grocery.svg?react";
 import FrozenIcon from "../../assets/landing/categoryIcons/snow-svgrepo-com.svg?react";
 
@@ -92,6 +91,7 @@ const BrowseByCategory = () => {
                 gap={2}
                 shadow='md'
                 borderWidth='1.5px'
+                _hover={{ borderWidth: 2, borderColor: "primary" }}
               >
                 {category.icon}
                 <Text fontWeight={600}>{category.name}</Text>
