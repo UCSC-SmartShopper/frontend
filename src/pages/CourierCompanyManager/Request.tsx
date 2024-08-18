@@ -19,24 +19,24 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-import FaceImage from "../../assets/CourierCompany/Avatar3.svg";
-import MiddleContainer from "../../components/Containers/MiddleContainer";
-import BikeImage from "../../assets/CourierCompany/bike 1.svg";
-import FaceImage2 from "../../assets/CourierCompany/Avatar 1.svg";
-import FaceImage3 from "../../assets/CourierCompany/Avatar2.svg";
-import FaceImage4 from "../../assets/CourierCompany/Avatar4.svg";
 import APIClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
+import MiddleContainer from "../../components/Containers/MiddleContainer";
 
 interface DriverRequest {
+  id: number;
   name: string;
   nic: string;
-  phone: string;
-  vehicleType: string;
+  email: string;
+  contactNo: string;
+
+  courierCompany: string;
   vehicleName: string;
   vehicleNumber: string;
+  vehicleType: string;
   vehicleColor: string;
-  avatar: string;
+
+  profilePic: string;
   vehicleImage: string;
 }
 
@@ -45,25 +45,6 @@ const apiClient = new APIClient<DriverRequest>("/driver_requests");
 const Request = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedPerson, setSelectedPerson] = useState<DriverRequest>();
-
-  // Sample data for delivery personnel
-  const deliveryPersonnel: DriverRequest[] = [
-    {
-      name: "Kaveesha Hettige",
-      nic: "763344567V",
-      phone: "+947788905",
-      vehicleType: "Motor Cycle",
-      vehicleName: "TVS ntorq 125",
-      vehicleNumber: "VQ 3344",
-      vehicleColor: "",
-      avatar: FaceImage, // Replace with actual image URL
-      vehicleImage: BikeImage, // Replace with actual image URL
-    },
-    
-    
-  ];
-
-
 
   const driverRequests = useQuery({
     queryKey: ["driver_requests"],
@@ -82,7 +63,7 @@ const Request = () => {
       </Heading>
       <Container maxW="1330px" mt={4}>
         <VStack spacing={6}>
-          {deliveryPersonnel.map((person, index) => (
+          {driverRequests.data?.results.map((person, index) => (
             <Box
               key={index}
               p={4}
@@ -93,7 +74,7 @@ const Request = () => {
               alignItems="center"
               w="100%"
             >
-              <Avatar src={person.avatar} size="lg" />
+              <Avatar src={person.profilePic} size="lg" />
               <Box ml={4} flex="1">
                 <Text fontSize="lg" fontWeight="bold">
                   {person.name}
@@ -128,7 +109,7 @@ const Request = () => {
                 borderRadius="lg"
                 p={4}
               >
-                <Avatar src={selectedPerson.avatar} size="xl" mr={4} />
+                <Avatar src={selectedPerson.profilePic} size="xl" mr={4} />
                 <Box>
                   <Text fontSize="lg" fontWeight="bold">
                     Driver Personal Details
@@ -141,7 +122,7 @@ const Request = () => {
                     <Text>{selectedPerson.nic}</Text>
 
                     <Text>Contact No:</Text>
-                    <Text>{selectedPerson.phone}</Text>
+                    <Text>{selectedPerson.contactNo}</Text>
                   </Grid>
                 </Box>
               </Box>
@@ -167,7 +148,7 @@ const Request = () => {
                     <Text>{selectedPerson.vehicleNumber}</Text>
 
                     <Text>Vehicle Color:</Text>
-                    <Text>{selectedPerson.vehicleColor}</Text>
+                    <Box w={20} h={8} bg={selectedPerson.vehicleColor}></Box>
                   </Grid>
                 </Box>
                 <Image
