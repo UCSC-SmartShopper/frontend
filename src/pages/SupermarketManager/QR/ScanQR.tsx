@@ -1,7 +1,8 @@
-import TextButton from "@/components/Buttons/TextButton";
-import { border, Box, Flex, Grid, Heading, Text } from "@chakra-ui/react";
-import React, { Component } from "react";
+
+import {  Box, Flex, Grid, Heading, Text } from "@chakra-ui/react";
+import { Component } from "react";
 import QrReader from "react-qr-scanner";
+import OrderDetails from "./OrderDetails";
 // import QrGen from './QrGenarator';
 
 interface TestState {
@@ -31,9 +32,7 @@ class Test extends Component<{}, TestState> {
     console.log("Current state:", this.state);
   }
 
-  btn() {
-    console.log("Button clicked");
-  }
+  
 
   handleScan(data: any) {
     if (data) {
@@ -88,54 +87,8 @@ class Test extends Component<{}, TestState> {
             <Heading fontSize="2xl" color="primary" mb={2}>
               Order Details
             </Heading>
-            <Box
-              flex="1"
-              p={4}
-              mt={3}
-              borderWidth="1px"
-              borderRadius="10"
-              borderColor="gray.200"
-            >
-              <Grid templateColumns="1fr 2fr" gap={1}>
-                <Text>Order Placed On</Text>
-                <Text>: 12th August 2024</Text>
-                <Text>Payment Method</Text>
-                <Text>: Credit Card</Text>
-                <Text>Order Total</Text>
-                <Text>: $150.00</Text>
-                <Text>Delivery Cost</Text>
-                <Text>: $5.00</Text>
-                <Text>Shipping Address</Text>
-                <Text>: 1234 Elm Street, Springfield, IL</Text>
-              </Grid>
-            </Box>
-            <Box
-              flex="1"
-              p={4}
-              mt={3}
-              borderWidth="1px"
-              borderRadius="10"
-              borderColor="gray.200"
-            >
-              <Text fontSize="lg" fontWeight="bold" color="primary" mb={2}>
-                Driver Details
-              </Text>
-              <Grid templateColumns="1fr 2fr" gap={1}>
-                <Text>Driver name</Text>
-                <Text>: Nethmi Kaveesha</Text>
-                <Text>Contact Number</Text>
-                <Text>: 071122244</Text>
-                <Text>Vehicle Type</Text>
-                <Text>: Bike</Text>
-                <Text>Vehicle Number</Text>
-                <Text>: BAY 5050</Text>
-              </Grid>
-            </Box>
-            <TextButton
-              text="View Order"
-              hoverColor="primary"
-              onClick={() => this.btn}
-            />
+            <OrderDetails id={16}/>
+            
           </Box>
         </Grid>
       </>
