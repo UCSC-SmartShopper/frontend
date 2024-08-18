@@ -63,6 +63,9 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: {
+        full: "0 2px 5px rgba(0, 0, 0, 0.25)", 
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -77,6 +80,7 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+
     },
   },
   plugins: [require("tailwindcss-animate"), flowbite.plugin(),],
