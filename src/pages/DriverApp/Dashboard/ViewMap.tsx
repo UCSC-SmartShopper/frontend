@@ -1,13 +1,112 @@
-import { AspectRatio, Box, Icon} from "@chakra-ui/react";
+import {
+  AspectRatio,
+  Box,
+  Flex,
+  HStack,
+  Icon,
+  Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
+  Spacer,
+  Stack,
+  Text,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { IoMdArrowRoundBack } from "react-icons/io";
-// import useOpportunity from "@/hooks/useOpportunity";
 
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { CgMenuRound } from "react-icons/cg";
+import { FaPhoneAlt } from "react-icons/fa";
+
+import QR from "@/assets/qr_code.png";
+
+import useOpportunity from "@/hooks/useOpportunity";
+import useSupermarket from "@/hooks/useSupermarket";
+import { useState } from "react";
+import SubmitButton from "@/components/Buttons/SubmitButton";
+
+{
+  /**********************************************Supermarket rows componenr****************************************/
+}
+
+interface SupermarketRowInterface {
+  supermarketId: number;
+}
+
+const SupermarketRow = ({ supermarketId }: SupermarketRowInterface) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const supermarket = useSupermarket(supermarketId);
+  return (
+    <>
+      {" "}
+      <HStack w="full" cursor="pointer" onClick={onOpen}>
+        <Image src={QR} w="5vw" />
+        <Text>{supermarket.data?.address}</Text>
+        <Spacer />
+        <Icon as={FaPhoneAlt} color="primary" />
+      </HStack>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent width="80vw">
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack>
+              <Text as="span" fontWeight="bold">
+                {supermarket.data?.address}
+                <br />
+              </Text>
+              <Image src={QR} w="5vw" />
+              <HStack>
+                <Text>Call</Text>
+                <Icon as={FaPhoneAlt} color="primary" />
+              </HStack>
+              <Text as="span" fontWeight="bold">
+                {supermarket.data?.contactNo}
+                <br />
+              </Text>
+            </VStack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};
+
+{
+  /**********************************************Viewmap component***************************************************/
+}
 const ViewMap = () => {
   const { id } = useParams();
   if (!id) return null;
   const navigate = useNavigate();
-  // const opportunity = useOpportunity(Number(id));
+  const [showDetails, setShowDetails] = useState(false);
+  const opportunity = useOpportunity(Number(id));
+
+  const supermarketsLength =
+    opportunity.data?.opportunitysupermarket.length || 0;
+
+  const orderDetails = [
+    { label: "Order Placed on", value: opportunity.data?.orderPlacedOn },
+    { label: "Customer", value: `${opportunity.data?.customer}` },
+    { label: "Delivery Cost", value: `${opportunity.data?.deliveryCost}` },
+    { label: "No of Supermarkets", value: supermarketsLength },
+    { label: "Trip Cost", value: `${opportunity.data?.tripCost}` },
+    { label: "Total Distance", value: `${opportunity.data?.totalDistance}` },
+    {
+      label: "Delivery Location",
+      value: `${opportunity.data?.deliveryLocation}`,
+    },
+  ];
+
+  const handleMenu = () => {
+    setShowDetails(!showDetails);
+  };
+
+  const handleComplete = () => {};
 
   return (
     <>
@@ -32,9 +131,71 @@ const ViewMap = () => {
             loading="lazy"
           ></iframe>
         </AspectRatio>
+
+        <Box
+          bg="white"
+          pos="absolute"
+          bottom={0}
+          w="full"
+          h="8vh"
+          borderTopRadius={10}
+          p={4}
+        >
+          <Flex alignItems="center" justifyContent="space-between">
+            <SubmitButton onClick={handleComplete}>
+              Delivery Completed
+            </SubmitButton>
+            <Icon
+              ml={4}
+              as={CgMenuRound}
+              w={8}
+              h={8}
+              onClick={handleMenu}
+              cursor="pointer"
+            />
+          </Flex>
+        </Box>
+
+        {/********************************** * Details Panel ***************************************/}
+
+        {showDetails && (
+          <Box
+            zIndex={20}
+            pos="absolute"
+            bg="white"
+            bottom="8vh"
+            w="full"
+            borderTopRadius={10}
+          >
+            <Box borderWidth={3} p={4} borderRadius="10" m={4}>
+              <Stack>
+                <HStack>
+                  <Text fontWeight="bold">Scan QR</Text>
+                  <Spacer />
+                  <Text fontWeight="bold">Call</Text>
+                </HStack>
+                {opportunity.data?.opportunitysupermarket.map((i, index) => (
+                  <SupermarketRow key={index} supermarketId={i.supermarketId} />
+                ))}
+              </Stack>
+            </Box>
+
+            <Box p={4} m={4}>
+              <VStack>
+                <Text fontWeight="bold">Order Details</Text>
+                {orderDetails.map((orderDetail, index) => (
+                  <HStack key={index} w="full" align="space-between">
+                    <Text>{orderDetail.label}</Text>
+                    <Spacer />
+                    <Text>{orderDetail.value}</Text>
+                  </HStack>
+                ))}
+              </VStack>
+            </Box>
+          </Box>
+        )}
       </Box>
     </>
   );
 };
-
 export default ViewMap;
