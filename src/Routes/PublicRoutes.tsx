@@ -7,6 +7,9 @@ import SignUp from "@/pages/SignUp";
 import PublicLayout from "./Layouts/PublicLayout";
 import Home from "@/pages/CourierCompanyManager/Home";
 import PersonalDetails from "@/pages/CourierCompanyManager/PersonalDetails";
+import Request from "@/pages/CourierCompanyManager/Request";
+import Deliveries from "@/pages/CourierCompanyManager/Deliveries";
+
 
 
 
@@ -22,6 +25,8 @@ const PublicRoutes = [
       { path: "products/:id", element: <ProductDetail /> },
       { path: "/Home", element: <Home /> },
       { path: "/personalDetails", element: <PersonalDetails /> },
+      { path: "/deliveries", element: < Deliveries/> },
+      { path: "/request", element: < Request/> },
       
     
     ],

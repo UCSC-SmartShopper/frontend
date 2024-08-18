@@ -9,7 +9,6 @@ import {
   Icon,
   VStack,
   Flex,
-  Center,
   Divider,
 } from "@chakra-ui/react";
 
