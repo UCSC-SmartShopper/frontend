@@ -5,12 +5,6 @@ import Login from "@/pages/Login";
 import SignUp from "@/pages/SignUp";
 import Supermarkets from "@/pages/Supermarkets";
 import PublicLayout from "./Layouts/PublicLayout";
-import Home from "@/pages/CourierCompanyManager/Home";
-import PersonalDetails from "@/pages/CourierCompanyManager/PersonalDetails";
-import Request from "@/pages/CourierCompanyManager/Request";
-import Deliveries from "@/pages/CourierCompanyManager/Deliveries";
-
-
 
 
 const PublicRoutes = [
@@ -22,13 +16,8 @@ const PublicRoutes = [
       { path: "driver/login", element: <DriverLogin /> },
       { path: "driver/login_register", element: <LoginRegister /> },
       { path: "driver/register", element: <DriverRegister /> },
-      {path : "supermarket", element: <Supermarkets/>},
-      { path: "/Home", element: <Home /> },
-      { path: "/personalDetails", element: <PersonalDetails /> },
-      { path: "/deliveries", element: < Deliveries/> },
-      { path: "/request", element: < Request/> },
-      
-    
+      { path: "supermarket", element: <Supermarkets /> },
+ 
     ],
   },
 ];

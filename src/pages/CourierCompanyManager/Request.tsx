@@ -25,8 +25,10 @@ import BikeImage from "../../assets/CourierCompany/bike 1.svg";
 import FaceImage2 from "../../assets/CourierCompany/Avatar 1.svg";
 import FaceImage3 from "../../assets/CourierCompany/Avatar2.svg";
 import FaceImage4 from "../../assets/CourierCompany/Avatar4.svg";
+import APIClient from "@/services/api-client";
+import { useQuery } from "@tanstack/react-query";
 
-interface DeliveryPerson {
+interface DriverRequest {
   name: string;
   nic: string;
   phone: string;
@@ -38,12 +40,14 @@ interface DeliveryPerson {
   vehicleImage: string;
 }
 
+const apiClient = new APIClient<DriverRequest>("/driver_requests");
+
 const Request = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedPerson, setSelectedPerson] = useState<DeliveryPerson>();
+  const [selectedPerson, setSelectedPerson] = useState<DriverRequest>();
 
   // Sample data for delivery personnel
-  const deliveryPersonnel: DeliveryPerson[] = [
+  const deliveryPersonnel: DriverRequest[] = [
     {
       name: "Kaveesha Hettige",
       nic: "763344567V",
@@ -55,42 +59,18 @@ const Request = () => {
       avatar: FaceImage, // Replace with actual image URL
       vehicleImage: BikeImage, // Replace with actual image URL
     },
-    {
-      name: "Kaveesha Hettige",
-      nic: "763344567V",
-      phone: "+947788905",
-      vehicleType: "Motor Cycle",
-      vehicleName: "TVS ntorq 125",
-      vehicleNumber: "VQ 3344",
-      vehicleColor: "",
-      avatar: FaceImage2, // Replace with actual image URL
-      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
-    },
-    {
-      name: "Kaveesha Hettige",
-      nic: "763344567V",
-      phone: "+947788905",
-      vehicleType: "Motor Cycle",
-      vehicleName: "TVS ntorq 125",
-      vehicleNumber: "VQ 3344",
-      vehicleColor: "",
-      avatar: FaceImage3, // Replace with actual image URL
-      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
-    },
-    {
-      name: "Kaveesha Hettige",
-      nic: "763344567V",
-      phone: "+947788905",
-      vehicleType: "Motor Cycle",
-      vehicleName: "TVS ntorq 125",
-      vehicleNumber: "VQ 3344",
-      vehicleColor: "",
-      avatar: FaceImage4, // Replace with actual image URL
-      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
-    },
+    
+    
   ];
 
-  const handleViewClick = (person: DeliveryPerson) => {
+
+
+  const driverRequests = useQuery({
+    queryKey: ["driver_requests"],
+    queryFn: () => apiClient.getAll({}),
+  });
+
+  const handleViewClick = (person: DriverRequest) => {
     setSelectedPerson(person);
     onOpen();
   };
