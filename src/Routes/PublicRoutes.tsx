@@ -7,6 +7,7 @@ import Supermarkets from "@/pages/Supermarkets";
 import PublicLayout from "./Layouts/PublicLayout";
 // import Supermarkets from "@/pages/Supermarkets";
 import QrScanner from "@/components/Qr/QrScanner";
+import Test from "@/pages/Test";
 import path from "path";
 
 
@@ -20,7 +21,8 @@ const PublicRoutes = [
       { path: "driver/login_register", element: <LoginRegister /> },
       { path: "driver/register", element: <DriverRegister /> },
       {path : "supermarket", element: <Supermarkets/>},
-      {path : "qr", element: <QrScanner />}
+      {path : "qr", element: <QrScanner />},
+      {path : "test", element: <Test />}
     
     ],
   },
