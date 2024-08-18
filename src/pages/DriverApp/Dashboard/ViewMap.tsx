@@ -28,6 +28,7 @@ import useOpportunity from "@/hooks/useOpportunity";
 import useSupermarket from "@/hooks/useSupermarket";
 import { useState } from "react";
 import SubmitButton from "@/components/Buttons/SubmitButton";
+import APIClient from "@/services/api-client";
 
 {
   /**********************************************Supermarket rows componenr****************************************/
@@ -42,7 +43,6 @@ const SupermarketRow = ({ supermarketId }: SupermarketRowInterface) => {
   const supermarket = useSupermarket(supermarketId);
   return (
     <>
-      {" "}
       <HStack w="full" cursor="pointer" onClick={onOpen}>
         <Image src={QR} w="5vw" />
         <Text>{supermarket.data?.address}</Text>
@@ -54,12 +54,12 @@ const SupermarketRow = ({ supermarketId }: SupermarketRowInterface) => {
         <ModalContent width="80vw">
           <ModalCloseButton />
           <ModalBody>
-            <VStack>
+            <VStack p={4}>
               <Text as="span" fontWeight="bold">
                 {supermarket.data?.address}
                 <br />
               </Text>
-              <Image src={QR} w="5vw" />
+              <Image src={QR} w="40vw" h="40vw" />
               <HStack>
                 <Text>Call</Text>
                 <Icon as={FaPhoneAlt} color="primary" />
@@ -106,7 +106,11 @@ const ViewMap = () => {
     setShowDetails(!showDetails);
   };
 
-  const handleComplete = () => {};
+  const handleComplete = () => {
+    const apiClient = new APIClient("/complete_delivery/" + id);
+    apiClient.create({}).then
+    navigate("/driver");
+  };
 
   return (
     <>
@@ -125,7 +129,7 @@ const ViewMap = () => {
         >
           <Icon as={IoMdArrowRoundBack} w={8} h={8} />
         </Box>
-        <AspectRatio ratio={9 / 20}>
+        <AspectRatio ratio={9 / 20} h="94vh">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.9029768701894!2d79.85857797499636!3d6.902205493097101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25963120b1509%3A0x2db2c18a68712863!2sUniversity%20of%20Colombo%20School%20of%20Computing%20(UCSC)!5e0!3m2!1sen!2slk!4v1721984297174!5m2!1sen!2slk"
             loading="lazy"
@@ -140,6 +144,7 @@ const ViewMap = () => {
           h="8vh"
           borderTopRadius={10}
           p={4}
+          zIndex={50}
         >
           <Flex alignItems="center" justifyContent="space-between">
             <SubmitButton onClick={handleComplete}>
