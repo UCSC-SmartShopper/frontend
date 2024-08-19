@@ -32,11 +32,11 @@ import {
   
         <Box px={5} w="full">
           <Grid templateColumns={{ base: "1fr", md: "1fr 2fr" }} gap={2}>
-            <Text>Supermarket Name</Text>
+            <Text fontWeight={'600'}>Supermarket Name</Text>
             <Text>: {supermarket?.name}</Text>
-            <Text>Contact Number</Text>
+            <Text fontWeight={'600'}>Contact Number</Text>
             <Text>: {supermarket?.contactNo}</Text>
-            <Text>Address</Text>
+            <Text fontWeight={'600'}>Address</Text>
             <Text>: {supermarket?.address}</Text>
           </Grid>
         </Box>
@@ -44,7 +44,8 @@ import {
         <Box p={5} w="full">
           <Box
             as="iframe"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58726988.13620551!2d1.814277899999986!3d6.902205499999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25963120b1509%3A0x2db2c18a68712863!2sUniversity%20of%20Colombo%20School%20of%20Computing%20(UCSC)!5e1!3m2!1sen!2slk!4v1724074546478!5m2!1sen!2slk"
+            
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3584.789428869815!2d79.91832237448237!3d6.852039719259376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25078cb171be1%3A0x3a7d6840696d56f9!2s226%20High%20Level%20Rd%2C%20Maharagama%2010280!5e1!3m2!1sen!2slk!4v1724079750346!5m2!1sen!2slk" 
             width="100%"
             height="200"
             loading="lazy"
