@@ -32,7 +32,7 @@ interface Props {
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import LoginInput from "@/components/Inputs/LoginInput";
 import ErrorText from "@/components/Errors/ErrorText";
 import { DriverDetails } from "./DriverRegister";
@@ -44,11 +44,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const SelectVehicle = ({
-  setStage,
-  driverDetails,
-  setDriverDetails,
-}: Props) => {
+const SelectVehicle = ({ setStage }: Props) => {
   const {
     register,
     handleSubmit,
@@ -74,16 +70,6 @@ const SelectVehicle = ({
   const handleColorSelection = (color: string) => {
     setSelectedColor(color);
     setShowColorPicker(false); // Close color picker modal after selecting a color
-  };
-
-  const saveData = (data: FormData) => {
-    setDriverDetails({
-      ...driverDetails,
-      vehicleName: data.name,
-      vehicleNumber: data.number,
-      vehicleType: selectedVehicle.name,
-      vehicleColor: selectedColor,
-    });
   };
 
   const colors = [
@@ -127,8 +113,8 @@ const SelectVehicle = ({
       {/* --------------- Form --------------- */}
       <VStack
         as="form"
-        onSubmit={handleSubmit((data) => {
-          saveData(data);
+        onSubmit={handleSubmit(() => {
+          console.log(4);
           setStage(4);
         })}
         gap="2vh"
@@ -204,7 +190,7 @@ const SelectVehicle = ({
         <Box w="full">
           <LoginInput
             register={register("name")}
-            type="text"
+            type="name"
             placeholder="Vehicle Name"
           />
           {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
@@ -215,7 +201,7 @@ const SelectVehicle = ({
         <Box w="full">
           <LoginInput
             register={register("number")}
-            type="text"
+            type="number"
             placeholder="Vehicle Number"
           />
           {errors.number && <ErrorText>{errors.number.message}</ErrorText>}

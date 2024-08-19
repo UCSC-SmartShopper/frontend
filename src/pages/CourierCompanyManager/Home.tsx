@@ -53,10 +53,10 @@ const deliveryPersonnel = [
   },
 ];
 
-const CourierCompanyHome = () => {
+const Home = () => {
   const navigate = useNavigate();
 
-  const handleViewMore = (person: Person) => {
+  const handleViewMore = (person:Person) => {
     navigate("/PersonalDetails", { state: { person } });
   };
 
@@ -150,4 +150,4 @@ const CourierCompanyHome = () => {
   );
 };
 
-export default CourierCompanyHome;
+export default Home;

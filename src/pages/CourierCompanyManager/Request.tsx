@@ -19,39 +19,78 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-import APIClient from "@/services/api-client";
-import { useQuery } from "@tanstack/react-query";
+import FaceImage from "../../assets/CourierCompany/Avatar3.svg";
 import MiddleContainer from "../../components/Containers/MiddleContainer";
+import BikeImage from "../../assets/CourierCompany/bike 1.svg";
+import FaceImage2 from "../../assets/CourierCompany/Avatar 1.svg";
+import FaceImage3 from "../../assets/CourierCompany/Avatar2.svg";
+import FaceImage4 from "../../assets/CourierCompany/Avatar4.svg";
 
-interface DriverRequest {
-  id: number;
+interface DeliveryPerson {
   name: string;
   nic: string;
-  email: string;
-  contactNo: string;
-
-  courierCompany: string;
+  phone: string;
+  vehicleType: string;
   vehicleName: string;
   vehicleNumber: string;
-  vehicleType: string;
   vehicleColor: string;
-
-  profilePic: string;
+  avatar: string;
   vehicleImage: string;
 }
 
-const apiClient = new APIClient<DriverRequest>("/driver_requests");
-
 const Request = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedPerson, setSelectedPerson] = useState<DriverRequest>();
+  const [selectedPerson, setSelectedPerson] = useState<DeliveryPerson>();
 
-  const driverRequests = useQuery({
-    queryKey: ["driver_requests"],
-    queryFn: () => apiClient.getAll({}),
-  });
+  // Sample data for delivery personnel
+  const deliveryPersonnel: DeliveryPerson[] = [
+    {
+      name: "Kaveesha Hettige",
+      nic: "763344567V",
+      phone: "+947788905",
+      vehicleType: "Motor Cycle",
+      vehicleName: "TVS ntorq 125",
+      vehicleNumber: "VQ 3344",
+      vehicleColor: "",
+      avatar: FaceImage, // Replace with actual image URL
+      vehicleImage: BikeImage, // Replace with actual image URL
+    },
+    {
+      name: "Kaveesha Hettige",
+      nic: "763344567V",
+      phone: "+947788905",
+      vehicleType: "Motor Cycle",
+      vehicleName: "TVS ntorq 125",
+      vehicleNumber: "VQ 3344",
+      vehicleColor: "",
+      avatar: FaceImage2, // Replace with actual image URL
+      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
+    },
+    {
+      name: "Kaveesha Hettige",
+      nic: "763344567V",
+      phone: "+947788905",
+      vehicleType: "Motor Cycle",
+      vehicleName: "TVS ntorq 125",
+      vehicleNumber: "VQ 3344",
+      vehicleColor: "",
+      avatar: FaceImage3, // Replace with actual image URL
+      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
+    },
+    {
+      name: "Kaveesha Hettige",
+      nic: "763344567V",
+      phone: "+947788905",
+      vehicleType: "Motor Cycle",
+      vehicleName: "TVS ntorq 125",
+      vehicleNumber: "VQ 3344",
+      vehicleColor: "",
+      avatar: FaceImage4, // Replace with actual image URL
+      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
+    },
+  ];
 
-  const handleViewClick = (person: DriverRequest) => {
+  const handleViewClick = (person: DeliveryPerson) => {
     setSelectedPerson(person);
     onOpen();
   };
@@ -63,7 +102,7 @@ const Request = () => {
       </Heading>
       <Container maxW="1330px" mt={4}>
         <VStack spacing={6}>
-          {driverRequests.data?.results.map((person, index) => (
+          {deliveryPersonnel.map((person, index) => (
             <Box
               key={index}
               p={4}
@@ -74,7 +113,7 @@ const Request = () => {
               alignItems="center"
               w="100%"
             >
-              <Avatar src={person.profilePic} size="lg" />
+              <Avatar src={person.avatar} size="lg" />
               <Box ml={4} flex="1">
                 <Text fontSize="lg" fontWeight="bold">
                   {person.name}
@@ -109,7 +148,7 @@ const Request = () => {
                 borderRadius="lg"
                 p={4}
               >
-                <Avatar src={selectedPerson.profilePic} size="xl" mr={4} />
+                <Avatar src={selectedPerson.avatar} size="xl" mr={4} />
                 <Box>
                   <Text fontSize="lg" fontWeight="bold">
                     Driver Personal Details
@@ -122,7 +161,7 @@ const Request = () => {
                     <Text>{selectedPerson.nic}</Text>
 
                     <Text>Contact No:</Text>
-                    <Text>{selectedPerson.contactNo}</Text>
+                    <Text>{selectedPerson.phone}</Text>
                   </Grid>
                 </Box>
               </Box>
@@ -148,7 +187,7 @@ const Request = () => {
                     <Text>{selectedPerson.vehicleNumber}</Text>
 
                     <Text>Vehicle Color:</Text>
-                    <Box w={20} h={8} bg={selectedPerson.vehicleColor}></Box>
+                    <Text>{selectedPerson.vehicleColor}</Text>
                   </Grid>
                 </Box>
                 <Image
