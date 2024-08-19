@@ -10,7 +10,6 @@ import Ratings from "@/pages/DriverApp/Dashboard/Ratings";
 import Support from "@/pages/DriverApp/Dashboard/Support";
 import ChangePassword from "@/pages/DriverApp/Dashboard/ChangePassword";
 import ViewMap from "@/pages/DriverApp/Dashboard/ViewMap";
-import Earnings from "@/pages/DriverApp/Dashboard/Earnings";
 
 const DriverRoutes = [
   {
@@ -19,12 +18,11 @@ const DriverRoutes = [
       { path: "driver", element: <Home /> },
       { path: "driver/opportunities", element: <Opportunities /> },
       { path: "driver/opportunities/:id", element: <ViewOpportunity /> },
-      { path: "driver/earnings", element: <Earnings /> },
       { path: "driver/account", element: <Account /> },
       { path: "driver/account/edit", element: <EditAccount /> },
       { path: "driver/account/change-password", element: <ChangePassword /> },
       { path: "driver/account/vehicle", element: <VehicleDetails /> },
-      { path: "driver/deliveries", element: <Deliveries /> },
+      { path: "driver/account/deliveries", element: <Deliveries /> },
       { path: "driver/account/ratings", element: <Ratings /> },
       { path: "driver/account/support", element: <Support /> },
       { path: "driver/opportunities/viewmap/:id", element: <ViewMap /> },
