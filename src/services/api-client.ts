@@ -6,21 +6,22 @@ export interface FetchResponse<T> {
   next: string | null;
   results: T[];
 }
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:9090",
+  baseURL: VITE_BASE_URL || "http://localhost:9090",
+
 });
 
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
-    config.headers["Authorization"] = `Bearer ${token}`;
+    config.headers["Jwt-key"] = `Bearer ${token}`;
   }
   return config;
 });
 
-
-class APIClient<T> {
+class APIClient<T, R = T> {
   endpoint: string;
 
   constructor(endpoint: string) {
@@ -29,7 +30,7 @@ class APIClient<T> {
 
   getAll = (requestConfig: AxiosRequestConfig) => {
     return axiosInstance
-      .get<FetchResponse<T>>(this.endpoint, { ...requestConfig })
+      .get<FetchResponse<R>>(this.endpoint, { ...requestConfig })
       .then((res) => res.data);
   };
 
@@ -37,26 +38,26 @@ class APIClient<T> {
     axiosInstance.get<T>(this.endpoint + "/" + id).then((res) => res.data);
 
   create = (data: T) => {
-    return axiosInstance.post<T>(this.endpoint, data).then((res) => res.data);
+    return axiosInstance.post<R>(this.endpoint, data).then((res) => res.data);
   };
 
   update = (data: T) => {
-    return axiosInstance.patch<T>(this.endpoint, data).then((res) => res.data);
+    return axiosInstance.patch<R>(this.endpoint, data).then((res) => res.data);
   };
 
   delete = (id: number) => {
     return axiosInstance
-      .delete<T>(this.endpoint, { params: { id } })
+      .delete<R>(this.endpoint, { params: { id } })
       .then((res) => res.data);
   };
 
   // ------------------------------------------- Special methods -------------------------------------------
   login = (data: Credentials) => {
-    return axiosInstance.post<T>(this.endpoint, data).then((res) => res.data);
+    return axiosInstance.post<R>(this.endpoint, data).then((res) => res.data);
   };
 
   register = (data: Credentials) => {
-    return axiosInstance.post<T>(this.endpoint, data).then((res) => res.data);
+    return axiosInstance.post<R>(this.endpoint, data).then((res) => res.data);
   };
 }
 
