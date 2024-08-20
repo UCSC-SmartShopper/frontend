@@ -43,6 +43,7 @@ const ProductGrid = ({ productQuery }: Props) => {
           w="full"
           spacing={6}
           justifyContent={"center"}
+          px={4}
 
           // marginX={{ base: 0, md: "12%" }}
         >

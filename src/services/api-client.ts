@@ -48,7 +48,7 @@ class APIClient<T, R = T> {
 
   delete = (id: number) => {
     return axiosInstance
-      .delete<R>(this.endpoint, { params: { id } })
+      .delete<R>(this.endpoint + "/" + id)
       .then((res) => res.data);
   };
 
