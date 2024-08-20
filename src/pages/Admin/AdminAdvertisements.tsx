@@ -25,12 +25,19 @@ import {
 import { CiImageOn, CiEdit } from "react-icons/ci";
 import useAdvertisements from "@/hooks/useAdvertisements";
 import { Advertisement } from "@/hooks/useAdvertisement";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import APIClient from "@/services/api-client";
+
+const apiClient = new APIClient<Advertisement>("/advertisements/1");
 
 const AdminAdvertisements: React.FC = () => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const { data: Advertisements } = useAdvertisements();
-  const [selectedAd, setSelectedAd] = useState<Advertisement|null>(null);
+  const [selectedAd, setSelectedAd] = useState<Advertisement>(
+    {} as Advertisement
+  );
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const queryClient = useQueryClient();
 
   const handleIconClick = () => {
     inputFileRef.current?.click();
@@ -43,11 +50,18 @@ const AdminAdvertisements: React.FC = () => {
     }
   };
 
-  const handleEditClick = (ad:Advertisement) => {
-    setSelectedAd(ad); 
-    onOpen(); 
+  const handleEditClick = (ad: Advertisement) => {
+    setSelectedAd(ad);
+    onOpen();
   };
 
+  const { mutate: saveAdvertisement } = useMutation({
+    mutationFn: () =>
+      apiClient.update(selectedAd).then(() => {
+        queryClient.invalidateQueries({ queryKey: ["advertisements"] });
+        onClose();
+      }),
+  });
 
   return (
     <>
@@ -101,7 +115,9 @@ const AdminAdvertisements: React.FC = () => {
                   <Text fontSize="md">Priority:</Text>
                   <Select placeholder="Select priority">
                     <option value="low">Low</option>
-                    <option value="medium" selected>Medium</option>
+                    <option value="medium" selected>
+                      Medium
+                    </option>
                     <option value="high">High</option>
                   </Select>
                 </Box>
@@ -115,41 +131,46 @@ const AdminAdvertisements: React.FC = () => {
           </Box>
         </Box>
 
-        <Box width='full'>
+        <Box width="full">
           <Heading size="lg" mb={6}>
             Current Advertisements
           </Heading>
-          <Stack spacing={10} direction='row'>
-  {(Advertisements && Array.isArray(Advertisements) ? Advertisements : []).map(
-    (ad, index) => (
-      <Box
-        key={index}
-        p={4}
-        shadow="md"
-        borderWidth="1px"
-        borderRadius={15}
-        w="full"  // Increase width here or use 'full' or a percentage like '50%'
-        bg="white"
-      >
-        <Text fontSize="md">From: {ad.startDate}</Text>
-        <Text fontSize="md">To: {ad.endDate}</Text>
-        <Text fontSize="md">Priority: {ad.priority}</Text>
-        <Image
-          src="https://via.placeholder.com/150"
-          alt="Advertisement Banner"
-          borderRadius={10}
-          mb={4}
-        />
-        <Flex justifyContent={'flex-end'}>
-          <Button bg="primary" size="sm" onClick={() => handleEditClick(ad)}>
-            <Icon as={CiEdit} />
-            <Text px={2}>Edit</Text>
-          </Button>
-        </Flex>
-      </Box>
-    )
-  )}
-</Stack>
+          <Stack spacing={10} direction="row">
+            {(Advertisements && Array.isArray(Advertisements)
+              ? Advertisements
+              : []
+            ).map((ad, index) => (
+              <Box
+                key={index}
+                p={4}
+                shadow="md"
+                borderWidth="1px"
+                borderRadius={15}
+                w="full" // Increase width here or use 'full' or a percentage like '50%'
+                bg="white"
+              >
+                <Text fontSize="md">From: {ad.startDate}</Text>
+                <Text fontSize="md">To: {ad.endDate}</Text>
+                <Text fontSize="md">Priority: {ad.priority}</Text>
+                <Image
+                  src="https://via.placeholder.com/150"
+                  alt="Advertisement Banner"
+                  borderRadius={10}
+                  mb={4}
+                />
+                <Flex justifyContent={"flex-end"}>
+                  <Button
+                    bg="primary"
+                    size="sm"
+                    onClick={() => handleEditClick(ad)}
+                  >
+                    <Icon as={CiEdit} />
+                    <Text px={2}>Edit</Text>
+                  </Button>
+                </Flex>
+              </Box>
+            ))}
+          </Stack>
         </Box>
       </VStack>
 
@@ -161,21 +182,41 @@ const AdminAdvertisements: React.FC = () => {
           <ModalBody>
             <VStack spacing={4}>
               <Image src="https://via.placeholder.com/150" />
-              <HStack width='full'>
-              <Text width="15%">From: </Text>
-              <Input focusBorderColor='primary'  width="85%" value={selectedAd?.startDate} type="date" />
+              <HStack width="full">
+                <Text width="15%">From: </Text>
+                <Input
+                  focusBorderColor="primary"
+                  width="85%"
+                  value={selectedAd?.startDate}
+                  onChange={(e) =>
+                    setSelectedAd({
+                      ...selectedAd,
+                      startDate: e.target.value,
+                    })
+                  }
+                  type="date"
+                />
               </HStack>
-              <HStack width='full'>
-              <Text width="15%">To:</Text>
-              <Input focusBorderColor='primary' width="85%" value={selectedAd?.endDate} type="date" />
+              <HStack width="full">
+                <Text width="15%">To:</Text>
+                <Input
+                  focusBorderColor="primary"
+                  width="85%"
+                  value={selectedAd?.endDate}
+                  type="date"
+                />
               </HStack>
-              <HStack width='full'>
-              <Text width="15%">Priority:</Text>
-              <Select width="85%" focusBorderColor='primary' value={selectedAd?.priority}>
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </Select>
+              <HStack width="full">
+                <Text width="15%">Priority:</Text>
+                <Select
+                  width="85%"
+                  focusBorderColor="primary"
+                  value={selectedAd?.priority}
+                >
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </Select>
               </HStack>
             </VStack>
           </ModalBody>
@@ -183,7 +224,13 @@ const AdminAdvertisements: React.FC = () => {
             <Button bg="primary" size="md" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Save</Button>
+            <Button
+              variant="ghost"
+              type="submit"
+              onClick={() => saveAdvertisement()}
+            >
+              Save
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
