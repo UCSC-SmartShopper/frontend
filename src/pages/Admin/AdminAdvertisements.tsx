@@ -21,6 +21,7 @@ import {
   ModalOverlay,
   Stack,
   HStack,
+  Grid,
 } from "@chakra-ui/react";
 import { CiImageOn, CiEdit } from "react-icons/ci";
 import useAdvertisements from "@/hooks/useAdvertisements";
@@ -28,15 +29,25 @@ import { Advertisement } from "@/hooks/useAdvertisement";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import APIClient from "@/services/api-client";
 
-const apiClient = new APIClient<Advertisement>("/advertisements/1");
+const apiClient = new APIClient<Advertisement>("/advertisements");
 
 const AdminAdvertisements: React.FC = () => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const { data: Advertisements } = useAdvertisements();
+  const [visibleCount, setVisibleCount] = useState(3);
   const [selectedAd, setSelectedAd] = useState<Advertisement>(
     {} as Advertisement
   );
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [formData, setFormData] = useState({
+    image: "",
+    status: "Active",
+    startDate: "",
+    endDate: "",
+    priority: "",
+  });
+
   const queryClient = useQueryClient();
 
   const handleIconClick = () => {
@@ -57,11 +68,39 @@ const AdminAdvertisements: React.FC = () => {
 
   const { mutate: saveAdvertisement } = useMutation({
     mutationFn: () =>
-      apiClient.update(selectedAd).then(() => {
-        queryClient.invalidateQueries({ queryKey: ["advertisements"] });
-        onClose();
+      apiClient
+        .update(selectedAd.id, {
+          image: selectedAd.image,
+          status: selectedAd.status,
+          startDate: selectedAd.startDate,
+          endDate: selectedAd.endDate,
+          priority: selectedAd.priority,
+        })
+        .then(() => {
+          queryClient.invalidateQueries({ queryKey: ["advertisements"] });
+          onClose();
+        }),
+  });
+
+  const { mutate: publishAdvertisement } = useMutation({
+    mutationFn: () =>
+      apiClient.create({
+        image: "https://via.placeholder.com/150",
+        status: formData.status,
+        startDate: formData.startDate,
+        endDate: formData.endDate,
+        priority: formData.priority,
       }),
   });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const showMoreItems = () => {
+    setVisibleCount((prevCount) => prevCount + 3); // Show 3 more items on each click
+  };
 
   return (
     <>
@@ -105,24 +144,42 @@ const AdminAdvertisements: React.FC = () => {
               <Stack spacing={4} direction="row" flex="1">
                 <Box flex="1">
                   <Text fontSize="md">From:</Text>
-                  <Input type="date" />
+                  <Input
+                    type="date"
+                    name="startDate"
+                    value={formData.startDate}
+                    onChange={handleInputChange}
+                  />
                 </Box>
                 <Box flex="1">
                   <Text fontSize="md">To:</Text>
-                  <Input type="date" />
+                  <Input
+                    type="date"
+                    name="endDate"
+                    value={formData.endDate}
+                    onChange={handleInputChange}
+                  />
                 </Box>
                 <Box flex="1">
                   <Text fontSize="md">Priority:</Text>
-                  <Select placeholder="Select priority">
-                    <option value="low">Low</option>
-                    <option value="medium" selected>
+                  <Select
+                    name="priority"
+                    value={formData.priority}
+                    onChange={handleInputChange}
+                  >
+                    <option value="Low">Low</option>
+                    <option value="Medium">
                       Medium
                     </option>
-                    <option value="high">High</option>
+                    <option value="High">High</option>
                   </Select>
                 </Box>
                 <Box flex="1" py={5}>
-                  <Button bg="primary" size="lg">
+                  <Button
+                    bg="primary"
+                    size="lg"
+                    onClick={() => publishAdvertisement()}
+                  >
                     Publish
                   </Button>
                 </Box>
@@ -135,18 +192,17 @@ const AdminAdvertisements: React.FC = () => {
           <Heading size="lg" mb={6}>
             Current Advertisements
           </Heading>
-          <Stack spacing={10} direction="row">
-            {(Advertisements && Array.isArray(Advertisements)
-              ? Advertisements
-              : []
-            ).map((ad, index) => (
+          <Grid templateColumns="repeat(3, 1fr)" gap={10}>
+          {(Advertisements && Array.isArray(Advertisements)
+          ? Advertisements.slice(0, visibleCount)
+          : []
+        ).map((ad, index) => (
               <Box
                 key={index}
                 p={4}
                 shadow="md"
                 borderWidth="1px"
                 borderRadius={15}
-                w="full" // Increase width here or use 'full' or a percentage like '50%'
                 bg="white"
               >
                 <Text fontSize="md">From: {ad.startDate}</Text>
@@ -170,7 +226,14 @@ const AdminAdvertisements: React.FC = () => {
                 </Flex>
               </Box>
             ))}
-          </Stack>
+          </Grid>
+          {Advertisements && Array.isArray(Advertisements) && visibleCount < Advertisements.length && (
+        <Flex justifyContent="center" mt={6}>
+          <Button onClick={showMoreItems} bg="primary" size="md">
+            See More
+          </Button>
+        </Flex>
+      )}
         </Box>
       </VStack>
 
@@ -203,6 +266,12 @@ const AdminAdvertisements: React.FC = () => {
                   focusBorderColor="primary"
                   width="85%"
                   value={selectedAd?.endDate}
+                  onChange={(e) =>
+                    setSelectedAd({
+                      ...selectedAd,
+                      endDate: e.target.value,
+                    })
+                  }
                   type="date"
                 />
               </HStack>
@@ -212,10 +281,16 @@ const AdminAdvertisements: React.FC = () => {
                   width="85%"
                   focusBorderColor="primary"
                   value={selectedAd?.priority}
+                  onChange={(e) =>
+                    setSelectedAd({
+                      ...selectedAd,
+                      priority: e.target.value,
+                    })
+                  }
                 >
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
                 </Select>
               </HStack>
             </VStack>
