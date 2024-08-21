@@ -25,6 +25,8 @@ const DriverRegister = () => {
     {} as DriverDetails
   );
 
+  console.log(driverDetails);
+
   return (
     <>
       {stage === 0 && (
