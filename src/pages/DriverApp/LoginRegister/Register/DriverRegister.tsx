@@ -20,9 +20,9 @@ export interface DriverDetails {
 }
 
 const DriverRegister = () => {
-  const [stage, setStage] = useState(1);
+  const [stage, setStage] = useState(0);
   const [driverDetails, setDriverDetails] = useState<DriverDetails>(
-    {id:2} as DriverDetails
+    {} as DriverDetails
   );
 
   return (
