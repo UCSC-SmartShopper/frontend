@@ -6,34 +6,18 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Select,
   Show,
-  Stack,
-  Text,
   VStack,
 } from "@chakra-ui/react";
-import Slide from "../../components/Landing/Slide";
 import ProductGrid from "../../components/ProductGrid";
-import SimpleSlider from "../../components/SimpleSlider";
 
-import SmartListsImage from "../../assets/landing/ecommerce-checkout-laptop-animate.svg";
-import FastDeliveryImage from "../../assets/landing/in-no-time-animate (1).svg";
-import BestPricesImage from "../../assets/landing/online-ads-animate.svg";
-import Footer from "../../components/Footer";
-import AdvertisementGrid from "../../components/Landing/AdvertisementGrid";
-import BestSellingProducts from "../../components/Landing/BestSellingProducts";
-import BrowseByCategory from "../../components/Landing/BrowseByCategory";
-import Section from "../../components/Landing/Section";
-import Navbar from "../../components/Navbar";
-import { useRef } from "react";
+import DropDown from "@/components/Buttons/DropDown";
+import useProductQueryStore from "@/state-management/productQuery/store";
+import useDebounce from "@/utils/useDebounce";
+import { useEffect, useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
-
-export interface ProductQuery {
-  genreId?: number;
-  platformId?: number;
-  sortOrder: string;
-  searchText: string;
-}
+import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
 
 const ConsumerHome = () => {
   return (
@@ -53,37 +37,15 @@ const ConsumerHome = () => {
             boxShadow={"md"}
             borderWidth={1}
             borderRadius={15}
-            w="75vw"
+            w="70vw"
             py={5}
             gap={5}
           >
-            <Center as="form">
-              <InputGroup borderColor="primary" w="80%">
-                <InputLeftElement>
-                  <Icon as={IoSearchSharp} color="primary" />
-                </InputLeftElement>
-                <Input
-                  // value={searchQuery}
-                  // onChange={(e) => {
-                  //   setSearchQuery(e.target.value);
-                  // }}
-                  placeholder="Search..."
-                  borderRadius="full"
-                />
-              </InputGroup>
-            </Center>
+            <SearchBar />
             <FilterProducts />
           </VStack>
-        <Stack spacing={3}>
-          <Select placeholder="extra small size" size="xs" />
-          <Select placeholder="small size" size="sm" />
-          <Select placeholder="medium size" size="md" />
-          <Select placeholder="large size" size="lg" />
-        </Stack>
-          <ProductGrid productQuery={{} as ProductQuery} />
-          {/* <BrowseByCategory /> */}
-          {/* <AdvertisementGrid /> */}
-          {/* <BestSellingProducts /> */}
+
+          <ProductGrid />
         </VStack>
         <Footer />
       </Box>
@@ -93,29 +55,94 @@ const ConsumerHome = () => {
 
 export default ConsumerHome;
 
+const SearchBar = () => {
+  const { productQuery, setSearchText } = useProductQueryStore();
+  const [SearchValue, setSearchValue] = useState("");
+
+  const debouncedSearch = useDebounce(SearchValue);
+
+  useEffect(() => {
+    setSearchText(debouncedSearch);
+  }, [debouncedSearch]);
+
+  return (
+    <Center w="full">
+      <InputGroup
+        borderColor={productQuery.searchText !== "" ? "primary" : ""}
+        w="80%"
+      >
+        <InputLeftElement>
+          <Icon as={IoSearchSharp} color="primary" />
+        </InputLeftElement>
+        <Input
+          value={SearchValue}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+          }}
+          placeholder="Search..."
+          borderRadius="full"
+          focusBorderColor="primary"
+        />
+      </InputGroup>
+    </Center>
+  );
+};
+
 const FilterProducts = () => {
+  const { productQuery, setCategory, setPrice, setSortOrder } =
+    useProductQueryStore();
+
   const filters = [
     {
       label: "Category",
-      values: ["Electronics", "Clothing", "Shoes", "Food", "Furniture"],
+      value: productQuery.category,
+      values: [
+        "All Categories",
+        "Electronics",
+        "Clothing",
+        "Shoes",
+        "Food",
+        "Furniture",
+      ],
+      fn: setCategory,
     },
-    { label: "Price", values: ["Low to High", "High to Low"] },
-    { label: "Sort", values: ["Newest", "Oldest", "Best Selling"] },
+    {
+      label: "Price",
+      value: productQuery.price,
+      values: [
+        "Lower than Rs 250",
+        "Rs 250 - Rs 500",
+        "Rs 500 - Rs 1000",
+        "Rs 1000 - Rs 2000",
+        "Rs 2000 - Rs 5000",
+        "More than Rs 5000",
+      ],
+      fn: setPrice,
+    },
+    {
+      label: "Sort By",
+      value: productQuery.sortOrder,
+      values: [
+        "Newest",
+        "Oldest",
+        "Best Selling",
+        "Price: Low to High",
+        "Price: High to Low",
+      ],
+      fn: setSortOrder,
+    },
   ];
 
   return (
     <HStack w="full" gap={10} px={10}>
       {filters.map((filter) => (
-        <Stack w="full" spacing={3}>
-          <Text>{filter.label}</Text>
-          <Select size="sm">
-            {filter.values.map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </Select>
-        </Stack>
+        <DropDown
+          key={filter.label}
+          label={filter.label}
+          value={filter.value || filter.values[0]}
+          values={filter.values}
+          onClick={(value) => filter.fn(value)}
+        />
       ))}
     </HStack>
   );
