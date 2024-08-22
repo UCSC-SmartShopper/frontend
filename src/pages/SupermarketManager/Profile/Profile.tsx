@@ -8,13 +8,21 @@ import {
   Heading,
   Input,
   Text,
+  Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay,useDisclosure
 } from "@chakra-ui/react";
 import React from "react";
 import SupermarketDetails from "./SupermarketDetails";
 import useAuthStore from "@/state-management/auth/store";
+import UpdatePassword from "./UpdatePassword";
 
 const Profile = () => {
   const user = useAuthStore().user;
+
+  const {
+    isOpen: isForgetPassword,
+    onOpen: onForgetPassword,
+    onClose: onForgetPasswordClose,
+  } = useDisclosure();
 
   return (
     <Box p={{ base: 2, md: 5 }}>
@@ -58,6 +66,7 @@ const Profile = () => {
                   size="sm"
                   color={"white"}
                   _hover={{ bg: "primary" }}
+                  onClick={onForgetPassword}
                 >
                   Change Password
                 </Button>
@@ -102,9 +111,28 @@ const Profile = () => {
               </Box>
             </Box>
             <SupermarketDetails id={user?.supermarketId} />
+            
           </Grid>
         </Flex>
       </Box>
+      {/* ..............change password...................... */}
+      <Modal
+        isOpen={isForgetPassword}
+        onClose={onForgetPasswordClose}
+        isCentered
+        // closeOnOverlayClick={false}
+      >
+        <ModalOverlay />
+        <ModalContent borderRadius="15px" maxW="30vw">
+          <ModalHeader textAlign="left" fontWeight="semibold" fontSize="20">
+            Change Password
+          </ModalHeader>
+          <ModalBody>
+            <UpdatePassword id={user?.id}/>
+          </ModalBody>
+          
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
