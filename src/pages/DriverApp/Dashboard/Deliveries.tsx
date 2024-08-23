@@ -9,6 +9,7 @@ interface SupermarketRowInterface {
 }
 const SupermarketAddress = ({ supermarketId }: SupermarketRowInterface) => {
   const supermarket = useSupermarket(supermarketId);
+  console.log(supermarket)
   return (
     <Text as="span" fontWeight="bold">
       {supermarket.data?.address}
@@ -18,7 +19,8 @@ const SupermarketAddress = ({ supermarketId }: SupermarketRowInterface) => {
 };
 
 const Deliveries = () => {
-  const opportunities = useOpportunities("Delivered");
+  const opportunities = useOpportunities({status:"Delivered",month:""});
+  console.log(opportunities.data);
   const [isRotated, setIsRotated] = useState(false);
   const displayDetails = () => {
     setIsRotated(!isRotated);
@@ -35,7 +37,7 @@ const Deliveries = () => {
     },
     { label: "Trip cost", value: 150},
   ];
-  console.log("1");
+
   return (
     <VStack spacing={4} mt={4} w="full" justifyContent="center">
       {opportunities.data?.results.map((opportunity, index) => (
@@ -68,13 +70,16 @@ const Deliveries = () => {
 
           {isRotated && (
             <Box>
+
               {details.map((detail, index) => (
                 <HStack key={index} justify="space-between">
                   <Text>{detail.label}</Text>
                   <Text>{detail.value}</Text>
                 </HStack>
               ))}
-              {opportunities.data?.results[0].opportunitysupermarket.map(
+
+
+              {opportunity.opportunitysupermarket.map(
                 (i, index) => (
                   <HStack justify="space-between">
                     <Text>Supermarkets</Text>
@@ -85,7 +90,7 @@ const Deliveries = () => {
                   </HStack>
                 )
               )}
-               {/* <Text>hi</Text> */}
+
             </Box>
           )}
         </Box>
