@@ -1,7 +1,21 @@
 import useOpportunities from "@/hooks/useOpportunities";
+import useSupermarket from "@/hooks/useSupermarket";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Box, HStack, IconButton, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
+
+interface SupermarketRowInterface {
+  supermarketId: number;
+}
+const SupermarketAddress = ({ supermarketId }: SupermarketRowInterface) => {
+  const supermarket = useSupermarket(supermarketId);
+  return (
+    <Text as="span" fontWeight="bold">
+      {supermarket.data?.address}
+      <br />
+    </Text>
+  );
+};
 
 const Deliveries = () => {
   const opportunities = useOpportunities("Delivered");
@@ -9,7 +23,19 @@ const Deliveries = () => {
   const displayDetails = () => {
     setIsRotated(!isRotated);
   };
-  // console.log(opportunities.data?.results);
+
+  const details = [
+    {
+      label: "Delivery cost",
+      value: 100,
+    },
+    {
+      label: "Number of Stops",
+      value: 2,
+    },
+    { label: "Trip cost", value: 150},
+  ];
+  console.log("1");
   return (
     <VStack spacing={4} mt={4} w="full" justifyContent="center">
       {opportunities.data?.results.map((opportunity, index) => (
@@ -42,10 +68,24 @@ const Deliveries = () => {
 
           {isRotated && (
             <Box>
-              <HStack justify="space-between">
-                <Text>Delivery cost</Text>
-                <Text>100</Text>
-              </HStack>
+              {details.map((detail, index) => (
+                <HStack key={index} justify="space-between">
+                  <Text>{detail.label}</Text>
+                  <Text>{detail.value}</Text>
+                </HStack>
+              ))}
+              {opportunities.data?.results[0].opportunitysupermarket.map(
+                (i, index) => (
+                  <HStack justify="space-between">
+                    <Text>Supermarkets</Text>
+                    <SupermarketAddress
+                      key={index}
+                      supermarketId={i.supermarketId}
+                    />
+                  </HStack>
+                )
+              )}
+               {/* <Text>hi</Text> */}
             </Box>
           )}
         </Box>
