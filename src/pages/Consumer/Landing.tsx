@@ -38,20 +38,20 @@ const Landing = () => {
 
       <Box w="100%" h="90vh" className="w-[100vw] h-[90vh] overflow-x-hidden">
         <SimpleSlider>
-          <Slide 
-            image={SmartListsImage} 
-            title="SmartLists" 
-            onExploreMoreClick={handleExploreMoreClick} 
+          <Slide
+            image={SmartListsImage}
+            title="SmartLists"
+            onExploreMoreClick={handleExploreMoreClick}
           />
-          <Slide 
-            image={BestPricesImage} 
-            title="BestPrices" 
-            onExploreMoreClick={handleExploreMoreClick} 
+          <Slide
+            image={BestPricesImage}
+            title="BestPrices"
+            onExploreMoreClick={handleExploreMoreClick}
           />
-          <Slide 
-            image={FastDeliveryImage} 
-            title="FastDelivery" 
-            onExploreMoreClick={handleExploreMoreClick} 
+          <Slide
+            image={FastDeliveryImage}
+            title="FastDelivery"
+            onExploreMoreClick={handleExploreMoreClick}
           />
         </SimpleSlider>
 
@@ -67,7 +67,7 @@ const Landing = () => {
           <BestSellingProducts />
           <div ref={newArrivalsRef}>
             <Section heading="New Arrivals" title="Product for you">
-              <ProductGrid productQuery={{} as ProductQuery} />
+              <ProductGrid />
             </Section>
           </div>
         </VStack>

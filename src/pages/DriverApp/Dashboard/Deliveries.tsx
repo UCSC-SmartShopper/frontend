@@ -9,7 +9,6 @@ interface SupermarketRowInterface {
 }
 const SupermarketAddress = ({ supermarketId }: SupermarketRowInterface) => {
   const supermarket = useSupermarket(supermarketId);
-  console.log(supermarket)
   return (
     <Text as="span" fontWeight="bold">
       {supermarket.data?.address}
@@ -19,24 +18,15 @@ const SupermarketAddress = ({ supermarketId }: SupermarketRowInterface) => {
 };
 
 const Deliveries = () => {
-  const opportunities = useOpportunities({status:"Delivered",month:""});
+  const opportunities = useOpportunities({
+    status: "Delivered",
+    month: "",
+  });
   console.log(opportunities.data);
   const [isRotated, setIsRotated] = useState(false);
   const displayDetails = () => {
     setIsRotated(!isRotated);
   };
-
-  const details = [
-    {
-      label: "Delivery cost",
-      value: 100,
-    },
-    {
-      label: "Number of Stops",
-      value: 2,
-    },
-    { label: "Trip cost", value: 150},
-  ];
 
   return (
     <VStack spacing={4} mt={4} w="full" justifyContent="center">
@@ -53,11 +43,11 @@ const Deliveries = () => {
             <VStack align="start" flex="1">
               <Text fontWeight="bold">{opportunity.deliveryLocation}</Text>
               <Text color="gray.500" fontSize="sm">
-                Yesterday at 16:34
+                {opportunity.orderPlacedOn}
               </Text>
             </VStack>
             <Text fontWeight="bold" color="red.500">
-              Rs 100
+              {opportunity.tripCost}
             </Text>
             <IconButton
               onClick={displayDetails}
@@ -70,27 +60,24 @@ const Deliveries = () => {
 
           {isRotated && (
             <Box>
+              <HStack justify="space-between">
+                <Text>Delivery Cost</Text>
+                <Text>{opportunity.deliveryCost}</Text>
+              </HStack>
+              <HStack justify="space-between">
+                <Text>Number of Stops</Text>
+                <Text>{opportunity.opportunitysupermarket.length}</Text>
+              </HStack>
 
-              {details.map((detail, index) => (
-                <HStack key={index} justify="space-between">
-                  <Text>{detail.label}</Text>
-                  <Text>{detail.value}</Text>
+              {opportunity.opportunitysupermarket.map((i, index) => (
+                <HStack justify="space-between">
+                  <Text>Supermarkets</Text>
+                  <SupermarketAddress
+                    key={index}
+                    supermarketId={i.supermarketId}
+                  />
                 </HStack>
               ))}
-
-
-              {opportunity.opportunitysupermarket.map(
-                (i, index) => (
-                  <HStack justify="space-between">
-                    <Text>Supermarkets</Text>
-                    <SupermarketAddress
-                      key={index}
-                      supermarketId={i.supermarketId}
-                    />
-                  </HStack>
-                )
-              )}
-
             </Box>
           )}
         </Box>
