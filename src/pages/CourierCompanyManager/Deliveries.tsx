@@ -35,6 +35,7 @@ import useOpportunities, { OpportunityQuery } from "@/hooks/useOpportunities";
 import { Opportunity } from "@/hooks/useOpportunity";
 import Stars from "../../assets/CourierCompany/stars.svg";
 import MiddleContainer from "../../components/Containers/MiddleContainer";
+import useDriver from "@/hooks/useDriver";
 
 const Deliveries = () => {
   const [selectedOpportunity, setSelectedOpportunity] = useState<Opportunity>();
@@ -169,33 +170,27 @@ interface DeliveryRowProps {
 }
 
 const DeliveryRow = ({ opportunity, handleViewClick }: DeliveryRowProps) => {
-  const driver = {
-    name: "Kaveesha Hettige",
-    phone: "+947788905",
-    nic: "763344567V",
-    avatar: "https://via.placeholder.com/50",
-    deliveriesCompleted: 8,
-    revenue: 34.995,
-  };
+  const driver = useDriver(opportunity.driverId);
+  console.log(driver.data);
 
   return (
     <Tr>
       <Td>
         <Checkbox />
       </Td>
-      <Td>{opportunity.orderId}</Td>
+      <Td>#{opportunity.id}</Td>
       <Td>{opportunity.orderPlacedOn}</Td>
       <Td>
         <Text color={opportunity.status === "Active" ? "green.400" : "red.500"}>
           {opportunity.status}
         </Text>
       </Td>
-      <Td bg="red">
+      <Td>
         <HStack>
-          <Avatar src={driver.avatar} size="sm" />
+          <Avatar src={driver.data?.user.profilePic} size="sm" />
           <Box>
-            <Text>{driver.name}</Text>
-            <Text>{driver.phone}</Text>
+            <Text>{driver.data?.user.name}</Text>
+            <Text>{driver.data?.user.number}</Text>
           </Box>
         </HStack>
       </Td>
