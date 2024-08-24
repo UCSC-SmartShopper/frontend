@@ -28,8 +28,8 @@ interface NavItem {
 }
 
 const Navbar = () => {
-  const { user, logout } = useAuthStore();
   const { data: cart } = useCart();
+  const { user, logout } = useAuthStore();
   const { items, setItems } = useCartStore();
   const { pathname } = useLocation();
 

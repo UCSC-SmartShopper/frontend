@@ -24,7 +24,6 @@ import {
   Tr,
   VStack,
 } from "@chakra-ui/react";
-import moment from "moment";
 import { useState } from "react";
 import { AiOutlineRise } from "react-icons/ai";
 import { IoMdPeople } from "react-icons/io";
@@ -102,7 +101,7 @@ const AdminCustomers = () => {
         <Box w="30%">
           <VStack w="full" gap={5}>
             {consumerCards.map((card, index) => (
-              <Card px={3} w={"20vw"} key={index}>
+              <Card px={3} w={"20vw"} key={index} bg={"green.200"}>
                 <CardBody>
                   <Flex gap={20}>
                     <Heading size="md">{card.title}</Heading>
@@ -123,7 +122,7 @@ const AdminCustomers = () => {
                       borderRadius={5}
                     />
                     <Text fontSize="sm" color="green.400" pl={2}>
-                      {card.percentage}
+                      {/* {card.percentage} */}
                     </Text>
                   </Flex>
                 </CardBody>
