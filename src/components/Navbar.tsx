@@ -28,10 +28,10 @@ interface NavItem {
 }
 
 const Navbar = () => {
-  const { pathname } = useLocation();
+  const { data: cart } = useCart();
   const { user, logout } = useAuthStore();
   const { items, setItems } = useCartStore();
-  const { data: cart } = useCart();
+  const { pathname } = useLocation();
 
   const navigate = useNavigate();
 
@@ -48,6 +48,7 @@ const Navbar = () => {
     { text: "Home", path: "/" },
     { text: "Request", path: "/requests" },
     { text: "Deliveries", path: "/deliveries" },
+    { text: "Drivers", path: "/drivers" },
   ];
 
   const adminNavItems: NavItem[] = [];
