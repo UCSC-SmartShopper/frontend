@@ -37,19 +37,26 @@ import { SiCashapp } from "react-icons/si";
 import LineChart from "../../components/Charts/LineChart";
 import PieChart from "../../components/Charts/PieChart";
 import useSuperMarkets from "@/hooks/useSupermarkets";
-import { Supermarket } from "@/hooks/useSupermarket";
+import { SupermarketWithRelations } from "@/hooks/useSupermarket";
 import { useState } from "react";
+import useOrders from "@/hooks/useOrders";
 
 const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data: Supermarkets } = useSuperMarkets();
-  const [selectedSm, setSelectedSm] = useState<Supermarket>({} as Supermarket);
-  // console.log(Supermarkets);
+  const [selectedSm, setSelectedSm] =
+    useState<SupermarketWithRelations | null>();
+  console.log(Supermarkets);
 
-  const handleEditClick = (supermarket: Supermarket) => {
+  const handleEditClick = (supermarket: SupermarketWithRelations) => {
     setSelectedSm(supermarket);
     onOpen();
   };
+
+  const data = useOrders(1);
+
+  console.log("Orders");
+  console.log(data);
 
   return (
     <>
@@ -143,7 +150,7 @@ const AdminSuperMarkets = () => {
                           </HStack>
                         </Td>
                         <Td>{supermarket.address}</Td>
-                        <Td>{supermarket.supermarketmanagerId}</Td>
+                        <Td>{supermarket.supermarketManager.name}</Td>
                         <Td>{supermarket.contactNo}</Td>
                         <Td>
                           <Button
@@ -161,152 +168,165 @@ const AdminSuperMarkets = () => {
             </TableContainer>
           </Center>
         </Box>
+      </VStack>
+      {selectedSm && (
+        <Popup isOpen={isOpen} onClose={onClose} selectedSm={selectedSm} />
+      )}
+    </>
+  );
+};
 
-        <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>
-              <Box borderBottomWidth={"1px"} p={2}>
+interface PopupProps {
+  onClose: () => void;
+  isOpen: boolean;
+  selectedSm: SupermarketWithRelations;
+}
+
+const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
+  const orders = useOrders(selectedSm.id);
+
+  return (
+    <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>
+          <Box borderBottomWidth={"1px"} p={2}>
+            <VStack>
+              <Image
+                src={selectedSm.logo}
+                alt="Product Image"
+                boxSize="100px"
+                objectFit="cover"
+                borderRadius="50%"
+                mr={4}
+              />
+              <Text fontSize={"xl"}>{selectedSm.name}</Text>
+              <Flex>
+                <Icon as={FaLocationDot} boxSize={5} color={"primary"} />
+                <Text fontSize={"sm"} ml={2}>
+                  {selectedSm.address}
+                </Text>
+              </Flex>
+
+              <Box>
+                <HStack
+                  fontSize={{ base: "sm", md: "md" }}
+                  spacing={2}
+                  color="yellow.400"
+                >
+                  {Array(5)
+                    .fill("")
+                    .map((_, i) => (
+                      <IoStarSharp key={i} />
+                    ))}
+                </HStack>
+              </Box>
+            </VStack>
+          </Box>
+        </ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <Center>
+            <Flex>
+              <Box>
                 <VStack>
-                  <Image
-                    src={selectedSm.logo}
-                    alt="Product Image"
-                    boxSize="100px"
-                    objectFit="cover"
-                    borderRadius="50%"
-                    mr={4}
-                  />
-                  <Text fontSize={"xl"}>{selectedSm.name}</Text>
-                  <Flex>
-                    <Icon as={FaLocationDot} boxSize={5} color={"primary"} />
-                    <Text fontSize={"sm"} ml={2}>
-                    {selectedSm.address}
-                    </Text>
-                  </Flex>
-
-                  <Box>
-                    <HStack
-                      fontSize={{ base: "sm", md: "md" }}
-                      spacing={2}
-                      color="yellow.400"
-                    >
-                      {Array(5)
-                        .fill("")
-                        .map((_, i) => (
-                          <IoStarSharp key={i} />
-                        ))}
-                    </HStack>
+                  <Box mb={8}>
+                    <Icon as={SiCashapp} boxSize={5} color={"primary"} />
+                  </Box>
+                  <Box mb={8}>
+                    <Icon as={GrUserWorker} boxSize={5} color={"primary"} />
+                  </Box>
+                  <Box mb={7}>
+                    <Icon as={FaCartFlatbed} boxSize={5} color={"primary"} />
                   </Box>
                 </VStack>
               </Box>
-            </ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <Center>
-                <Flex>
-                  <Box>
-                    <VStack>
-                      <Box mb={8}>
-                        <Icon as={SiCashapp} boxSize={5} color={"primary"} />
-                      </Box>
-                      <Box mb={8}>
-                        <Icon as={GrUserWorker} boxSize={5} color={"primary"} />
-                      </Box>
-                      <Box mb={7}>
-                        <Icon
-                          as={FaCartFlatbed}
-                          boxSize={5}
-                          color={"primary"}
-                        />
-                      </Box>
-                    </VStack>
-                  </Box>
 
-                  <Box ml={1}>
-                    <VStack>
-                      <VStack>
-                        <Text fontSize={"lg"} fontWeight={"500"}>
-                          Earning
-                        </Text>
-                        <Text fontSize={"sm"}>Rs 134 000</Text>
-                      </VStack>
-                      <VStack>
-                        <Text fontSize={"lg"} fontWeight={"500"}>
-                          Manager
-                        </Text>
-                        <Text fontSize={"sm"}>Kaveesha Hettige</Text>
-                      </VStack>
-                      <VStack>
-                        <Text fontSize={"lg"} fontWeight={"500"}>
-                          Order Count
-                        </Text>
-                        <Text fontSize={"sm"}>80</Text>
-                      </VStack>
-                    </VStack>
-                  </Box>
+              <Box ml={1}>
+                <VStack>
+                  <VStack>
+                    <Text fontSize={"lg"} fontWeight={"500"}>
+                      Earning
+                    </Text>
+                    <Text fontSize={"sm"}>Rs 134 000</Text>
+                  </VStack>
+                  <VStack>
+                    <Text fontSize={"lg"} fontWeight={"500"}>
+                      Manager
+                    </Text>
+                    <Text fontSize={"sm"}>
+                      {selectedSm.supermarketManager.name}
+                    </Text>
+                  </VStack>
+                  <VStack>
+                    <Text fontSize={"lg"} fontWeight={"500"}>
+                      Order Count
+                    </Text>
+                    <Text fontSize={"sm"}>80</Text>
+                  </VStack>
+                </VStack>
+              </Box>
 
-                  <Box ml={10}>
-                    <VStack>
-                      <Box mb={8}>
-                        <Icon as={FaUser} boxSize={5} color={"primary"} />
-                      </Box>
-                      <Box mb={8}>
-                        <Icon as={MdFeedback} boxSize={5} color={"primary"} />
-                      </Box>
-                      <Box mb={7}>
-                        <Icon as={IoStarSharp} boxSize={5} color={"primary"} />
-                      </Box>
-                    </VStack>
+              <Box ml={10}>
+                <VStack>
+                  <Box mb={8}>
+                    <Icon as={FaUser} boxSize={5} color={"primary"} />
                   </Box>
-
-                  <Box ml={1}>
-                    <VStack>
-                      <VStack>
-                        <Text fontSize={"lg"} fontWeight={"500"}>
-                          Customers Shopped
-                        </Text>
-                        <Text fontSize={"sm"}>56</Text>
-                      </VStack>
-                      <VStack>
-                        <Text fontSize={"lg"} fontWeight={"500"}>
-                          Feedbacks
-                        </Text>
-                        <HStack>
-                          <Text fontSize={"sm"}>23</Text>
-                          <Button
-                            bg="white"
-                            color="primary"
-                            border="2px"
-                            borderColor="primary"
-                            size="xs"
-                            ml={5}
-                          >
-                            View
-                            <Icon as={MdNavigateNext} />
-                          </Button>
-                        </HStack>
-                      </VStack>
-                      <VStack>
-                        <Text fontSize={"lg"} fontWeight={"500"}>
-                          Rating
-                        </Text>
-                        <Text fontSize={"sm"}>5/5</Text>
-                      </VStack>
-                    </VStack>
+                  <Box mb={8}>
+                    <Icon as={MdFeedback} boxSize={5} color={"primary"} />
                   </Box>
-                </Flex>
-              </Center>
-            </ModalBody>
+                  <Box mb={7}>
+                    <Icon as={IoStarSharp} boxSize={5} color={"primary"} />
+                  </Box>
+                </VStack>
+              </Box>
 
-            <ModalFooter>
-              <Button bg="primary" color="white" mr={3} onClick={onClose}>
-                Close
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </VStack>
-    </>
+              <Box ml={1}>
+                <VStack>
+                  <VStack>
+                    <Text fontSize={"lg"} fontWeight={"500"}>
+                      Customers Shopped
+                    </Text>
+                    <Text fontSize={"sm"}>56</Text>
+                  </VStack>
+                  <VStack>
+                    <Text fontSize={"lg"} fontWeight={"500"}>
+                      Feedbacks
+                    </Text>
+                    <HStack>
+                      <Text fontSize={"sm"}>23</Text>
+                      <Button
+                        bg="white"
+                        color="primary"
+                        border="2px"
+                        borderColor="primary"
+                        size="xs"
+                        ml={5}
+                      >
+                        View
+                        <Icon as={MdNavigateNext} />
+                      </Button>
+                    </HStack>
+                  </VStack>
+                  <VStack>
+                    <Text fontSize={"lg"} fontWeight={"500"}>
+                      Rating
+                    </Text>
+                    <Text fontSize={"sm"}>5/5</Text>
+                  </VStack>
+                </VStack>
+              </Box>
+            </Flex>
+          </Center>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button bg="primary" color="white" mr={3} onClick={onClose}>
+            Close
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 };
 
