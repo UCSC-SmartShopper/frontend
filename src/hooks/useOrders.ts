@@ -6,7 +6,7 @@ const apiClient = new APIClient<Order>("/orders");
 
 const useOrders = (supermarketId=-1) => {
   return useQuery({
-    queryKey: ["orders"],
+    queryKey: ["orders",supermarketId],
     queryFn: () => apiClient.getAll({params: {supermarketId: supermarketId
     }},)
 

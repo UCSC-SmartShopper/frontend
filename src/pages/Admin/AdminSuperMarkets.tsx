@@ -40,23 +40,23 @@ import useSuperMarkets from "@/hooks/useSupermarkets";
 import { SupermarketWithRelations } from "@/hooks/useSupermarket";
 import { useState } from "react";
 import useOrders from "@/hooks/useOrders";
+import { Order } from "@/hooks/useOrder";
+import useEarning from "@/hooks/useEarning";
+//import Earnings from "../DriverApp/Dashboard/Earnings";
+import useEarnings from "@/hooks/useEarnings";
 
 const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data: Supermarkets } = useSuperMarkets();
-  const [selectedSm, setSelectedSm] =
-    useState<SupermarketWithRelations | null>();
-  console.log(Supermarkets);
+  const Supermarkets  = useSuperMarkets();
+  const [selectedSm, setSelectedSm] =useState<SupermarketWithRelations | null>();
+  console.log("supermerkts",Supermarkets);
 
   const handleEditClick = (supermarket: SupermarketWithRelations) => {
     setSelectedSm(supermarket);
     onOpen();
   };
 
-  const data = useOrders(1);
-
-  console.log("Orders");
-  console.log(data);
+  const earningBySupermarketName=useEarnings();
 
   return (
     <>
@@ -170,7 +170,7 @@ const AdminSuperMarkets = () => {
         </Box>
       </VStack>
       {selectedSm && (
-        <Popup isOpen={isOpen} onClose={onClose} selectedSm={selectedSm} />
+        <Popup isOpen={isOpen} onClose={onClose} selectedSm={selectedSm}/>
       )}
     </>
   );
@@ -180,10 +180,16 @@ interface PopupProps {
   onClose: () => void;
   isOpen: boolean;
   selectedSm: SupermarketWithRelations;
+  //earning:number;
 }
 
-const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
+const Popup = ({ onClose, isOpen, selectedSm}: PopupProps) => {
   const orders = useOrders(selectedSm.id);
+  const customerCount = new Set(orders.data?.results.map((order) => order.consumerId)).size;
+   console.log(orders);
+   const earingBySupermarket=useEarning(selectedSm.id);
+
+
 
   return (
     <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
@@ -248,7 +254,7 @@ const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
                     <Text fontSize={"lg"} fontWeight={"500"}>
                       Earning
                     </Text>
-                    <Text fontSize={"sm"}>Rs 134 000</Text>
+                    <Text fontSize={"sm"}>{earingBySupermarket.data}</Text>
                   </VStack>
                   <VStack>
                     <Text fontSize={"lg"} fontWeight={"500"}>
@@ -262,7 +268,7 @@ const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
                     <Text fontSize={"lg"} fontWeight={"500"}>
                       Order Count
                     </Text>
-                    <Text fontSize={"sm"}>80</Text>
+                    <Text fontSize={"sm"}>{orders.data?.count}</Text>
                   </VStack>
                 </VStack>
               </Box>
@@ -287,7 +293,7 @@ const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
                     <Text fontSize={"lg"} fontWeight={"500"}>
                       Customers Shopped
                     </Text>
-                    <Text fontSize={"sm"}>56</Text>
+                    <Text fontSize={"sm"}>{customerCount}</Text>
                   </VStack>
                   <VStack>
                     <Text fontSize={"lg"} fontWeight={"500"}>
@@ -331,3 +337,21 @@ const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
 };
 
 export default AdminSuperMarkets;
+
+const totalEarningsByName = (orders:Order[],supermarketName:string)=>(orders.reduce((acc, order) => {
+  // Filter orderItems by supermarketId and sum up the prices
+  const earningsFromOrder = order.orderItems
+      //.filter(item => item. === supermarketName)
+      .reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  return acc + earningsFromOrder;
+}, 0))
+
+const totalEarningsById = (orders:Order[],supermarketId:number)=>(orders.reduce((acc, order) => {
+  // Filter orderItems by supermarketId and sum up the prices
+  const earningsFromOrder = order.orderItems
+      .filter(item => item.supermarketId === supermarketId)
+      .reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  return acc + earningsFromOrder;
+}, 0))
