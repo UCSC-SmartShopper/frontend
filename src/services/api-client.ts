@@ -10,7 +10,6 @@ const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const axiosInstance = axios.create({
   baseURL: VITE_BASE_URL || "http://localhost:9090",
-
 });
 
 axiosInstance.interceptors.request.use((config) => {
@@ -37,17 +36,19 @@ class APIClient<T, R = T> {
   get = (id: string | number) =>
     axiosInstance.get<T>(this.endpoint + "/" + id).then((res) => res.data);
 
-  create = (data: T) => {
+  create = (data: Omit<T,"id">) => {
     return axiosInstance.post<R>(this.endpoint, data).then((res) => res.data);
   };
 
-  update = (data: T) => {
-    return axiosInstance.patch<R>(this.endpoint, data).then((res) => res.data);
+  update = (id: number, data: Partial<T>) => {
+    return axiosInstance
+      .patch<R>(this.endpoint + "/" + id, data)
+      .then((res) => res.data);
   };
 
   delete = (id: number) => {
     return axiosInstance
-      .delete<R>(this.endpoint, { params: { id } })
+      .delete<R>(this.endpoint + "/" + id)
       .then((res) => res.data);
   };
 
