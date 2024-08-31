@@ -24,6 +24,8 @@ const PublicRoutes = [
       { path: "driver/login_register", element: <LoginRegister /> },
       { path: "driver/register", element: <DriverRegister /> },
       { path: "supermarket", element: <Supermarkets /> },
+      {path : "qr", element: <QrScanner />},
+      {path : "test", element: <Test />}
     ],
   },
 ];
