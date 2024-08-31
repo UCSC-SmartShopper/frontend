@@ -47,10 +47,7 @@ import useSupermarketEarnings from "@/hooks/useSupermarketEarnings";
 // import APIClient from "@/services/api-client";
 // import { Review } from "@/hooks/reviews/useReview";
 
-interface SupermarketEarnings {
-  name: string;
-  earnings: number;
-}
+
 
 
 const AdminSuperMarkets = () => {
@@ -64,13 +61,14 @@ const AdminSuperMarkets = () => {
     onOpen();
   };
   
-  const { data: earningsData } = useSupermarketEarnings();
-  console.log("Earnings Data:", earningsData);
+  const earningBySupermarket = useSupermarketEarnings();
+ // console.log("earningBYSU",earningBySupermarket.data);
+  // const { data: earningsData } = useSupermarketEarnings();
+  // console.log("Earnings Data:", earningsData);
 
   
-    // Extract names and earnings into separate arrays
-    const names: string[] = earningsData?earningsData.map((item: SupermarketEarnings) => item.name):[];
-    const earnings: number[] = earningsData?earningsData.map((item: SupermarketEarnings) => item.earnings):[];
+  const names = earningBySupermarket.data?.results.map(item => item.name) ;
+  const earnings = earningBySupermarket.data?.results.map(item => item.earnings) ;
 
     // Log or use the extracted arrays
     console.log("Names:", names);
@@ -99,7 +97,8 @@ const AdminSuperMarkets = () => {
             justifyContent="center"
           >
             
-            <PieChart chartData={earnings} labels={names}/>
+            {(names && earnings) && <PieChart chartData={earnings} labels={names}/>}
+            
           </Box>
 
           {/*
