@@ -18,14 +18,14 @@ import {
 import { PiNotepad } from "react-icons/pi";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { RiArrowRightSLine } from "react-icons/ri";
-import Banner from "../../assets/smart-shopper-banner.svg";
-import QR from "../../assets/qr_code.png";
-import OrderReceipt from "./OrderReceipt";
-import DriverDetailsPopup from "./DriveDetails";
-import AddDriverReview from "./AddDriverReview";
-import TrackOrder from "./TrackOrder";
+import Banner from "@/assets/smart-shopper-banner.svg";
+import QR from "@/assets/qr_code.png";
 import { Order } from "@/hooks/useOrder";
 import useSupermarket from "@/hooks/useSupermarket";
+import TrackOrder from "@/components/ViewOrders/TrackOrder";
+import DriverDetailsPopup from "@/components/ViewOrders/DriveDetails";
+import AddDriverReview from "@/components/ViewOrders/AddDriverReview";
+import OrderReceipt from "@/components/ViewOrders/OrderReceipt";
 
 interface Props {
   order: Order;
@@ -36,7 +36,6 @@ interface SupermarketInfoRowProps {
 
 const SupermarketInfoRow = ({ supermarketId }: SupermarketInfoRowProps) => {
   const supermarket = useSupermarket(supermarketId);
-  console.log(supermarket.data);
 
   return (
     <Text textAlign="left" paddingLeft={10}>
@@ -46,8 +45,10 @@ const SupermarketInfoRow = ({ supermarketId }: SupermarketInfoRowProps) => {
   );
 };
 
-const OrderId = ({ order }: Props) => {
-  const supermarketList: number[] = order.supermarketOrders.map(i=>i.supermarketId);
+const OrderDetails = ({ order }: Props) => {
+  const supermarketList: number[] = order.supermarketOrders.map(
+    (i) => i.supermarketId
+  );
 
   const {
     isOpen: isReceiptOpen,
@@ -444,4 +445,4 @@ const OrderId = ({ order }: Props) => {
     </>
   );
 };
-export default OrderId;
+export default OrderDetails;
