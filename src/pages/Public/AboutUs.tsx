@@ -7,6 +7,9 @@ import {
   Grid,
   GridItem,
   VStack,
+  Flex,
+  Icon,
+  Button,
 } from "@chakra-ui/react";
 import Footer from "@/components/Footer";
 import OrderFood from "../../assets/AboutUs/Order food-pana.svg";
@@ -19,6 +22,7 @@ import Arpico from "../../assets/supermarket-icons/Arpico.svg";
 import Cargills from "../../assets/supermarket-icons/cargills.svg";
 import Glomark from "../../assets/supermarket-icons/glomark.svg";
 import Laughs from "../../assets/supermarket-icons/laughs.svg";
+import { PhoneIcon, EmailIcon, InfoIcon } from "@chakra-ui/icons";
 
 interface StatProps {
   number: string;
@@ -151,6 +155,49 @@ const AboutPage = () => {
             </Box>
           </GridItem>
         </Grid>
+
+        <div className="bg-gray-100 py-5">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-4">Contact Us</h2>
+            <p className="text-center text-gray-600 mb-8">
+              Any question or remarks? Just write us an e-mail!
+            </p>
+            <Box className="bg-orange-200 rounded-lg p-8 flex items-center justify-between">
+              <div>
+                <Text fontSize="xl" fontWeight="bold" mb={4}>
+                  Contact Information
+                </Text>
+                <Flex direction="column" gap={2}>
+                  <Flex align="center" gap={2}>
+                    <PhoneIcon />
+                    <Text>+1012 3456 789</Text>
+                  </Flex>
+                  <Flex align="center" gap={2}>
+                    <EmailIcon />
+                    <Text>smartshopper@gmail.com</Text>
+                  </Flex>
+                  <Flex align="center" gap={2}>
+                    <Icon as={InfoIcon} />
+                    <Text>
+                      132 Dartmouth Street Boston,
+                      <br /> Massachusetts 02156 United States
+                    </Text>
+                  </Flex>
+                </Flex>
+              </div>
+              <Box>
+                <Button
+                  colorScheme="orange"
+                  size="lg"
+                  className="mt-4 md:mt-0"
+                  rightIcon={<EmailIcon />}
+                >
+                  Send E-Mail
+                </Button>
+              </Box>
+            </Box>
+          </div>
+        </div>
       </Container>
       <Footer />
     </>
