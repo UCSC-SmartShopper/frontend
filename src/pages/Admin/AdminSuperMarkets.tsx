@@ -40,12 +40,18 @@ import useSuperMarkets from "@/hooks/useSupermarkets";
 import { SupermarketWithRelations } from "@/hooks/useSupermarket";
 import { useState } from "react";
 import useOrders from "@/hooks/useOrders";
-import { Order } from "@/hooks/useOrder";
+// import { Order } from "@/hooks/useOrder";
 import useSupermarketEarning from "@/hooks/useSupermarketEarning";
 //import Earnings from "../DriverApp/Dashboard/Earnings";
 import useSupermarketEarnings from "@/hooks/useSupermarketEarnings";
-import APIClient from "@/services/api-client";
-import { Review } from "@/hooks/reviews/useReview";
+// import APIClient from "@/services/api-client";
+// import { Review } from "@/hooks/reviews/useReview";
+
+interface SupermarketEarnings {
+  name: string;
+  earnings: number;
+}
+
 
 const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -57,8 +63,20 @@ const AdminSuperMarkets = () => {
     setSelectedSm(supermarket);
     onOpen();
   };
-  const earningBySupermarketName = useSupermarketEarnings();
-  console.log(earningBySupermarketName.data);
+  
+  const { data: earningsData } = useSupermarketEarnings();
+  console.log("Earnings Data:", earningsData);
+
+  
+    // Extract names and earnings into separate arrays
+    const names: string[] = earningsData?earningsData.map((item: SupermarketEarnings) => item.name):[];
+    const earnings: number[] = earningsData?earningsData.map((item: SupermarketEarnings) => item.earnings):[];
+
+    // Log or use the extracted arrays
+    console.log("Names:", names);
+    console.log("Earnings:", earnings);
+  
+
 
   return (
     <>
@@ -80,7 +98,8 @@ const AdminSuperMarkets = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <PieChart />
+            
+            <PieChart chartData={earnings} labels={names}/>
           </Box>
 
           {/*

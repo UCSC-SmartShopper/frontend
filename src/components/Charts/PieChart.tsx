@@ -1,11 +1,18 @@
 import { Box } from "@chakra-ui/react";
 import Chart from "react-apexcharts";
 
-const PieChart = () => {
+
+// Define the PieChartProps interface
+interface PieChartProps {
+  chartData: number[];
+  labels: string[];
+}
+
+const PieChart: React.FC<PieChartProps> = ({ chartData, labels }) => {
   const data = {
-    series: [44, 55, 13, 43, 22],
+    series: chartData,
     options: {
-      labels: ["Keells", "Cargills", "Arpico", "Glomark", "Spar"],
+      labels: labels,
       colors: ["#FF4768", "#1E90FF", "#FFD700", "#00CED1", "#8A2BE2"],
       legend: {
         position: "bottom" as "top" | "right" | "bottom" | "left",
