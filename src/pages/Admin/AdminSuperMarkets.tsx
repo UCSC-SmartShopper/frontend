@@ -41,9 +41,9 @@ import { SupermarketWithRelations } from "@/hooks/useSupermarket";
 import { useState } from "react";
 import useOrders from "@/hooks/useOrders";
 import { Order } from "@/hooks/useOrder";
-import useEarning from "@/hooks/useEarning";
+import useEarning from "@/hooks/useSupermarketEarning";
 //import Earnings from "../DriverApp/Dashboard/Earnings";
-import useEarnings from "@/hooks/useEarnings";
+import useEarnings from "@/hooks/useSupermarketEarnings";
 
 const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
