@@ -14,7 +14,9 @@ import {
   ModalFooter,
   useDisclosure,
   Center,
+  HStack,
 } from "@chakra-ui/react";
+import { FaPhoneAlt } from "react-icons/fa";
 import { PiNotepad } from "react-icons/pi";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { RiArrowRightSLine } from "react-icons/ri";
@@ -22,11 +24,12 @@ import Banner from "@/assets/smart-shopper-banner.svg";
 import QR from "@/assets/qr_code.png";
 import { Order } from "@/hooks/useOrder";
 import useSupermarket from "@/hooks/useSupermarket";
-import TrackOrder from "@/components/ViewOrders/TrackOrder";
-import DriverDetailsPopup from "@/components/ViewOrders/DriveDetails";
+import { getDateTime } from "@/utils/Time";
+import useAuthStore from "@/state-management/auth/store";
 import AddDriverReview from "@/components/ViewOrders/AddDriverReview";
+import DriverDetailsPopup from "@/components/ViewOrders/DriveDetails";
 import OrderReceipt from "@/components/ViewOrders/OrderReceipt";
-
+import TrackOrder from "@/components/ViewOrders/TrackOrder";
 interface Props {
   order: Order;
 }
@@ -36,18 +39,29 @@ interface SupermarketInfoRowProps {
 
 const SupermarketInfoRow = ({ supermarketId }: SupermarketInfoRowProps) => {
   const supermarket = useSupermarket(supermarketId);
+  console.log(supermarket.data);
 
   return (
-    <Text textAlign="left" paddingLeft={10}>
-      {supermarket.data?.name}
-      <br />
-    </Text>
+    <HStack gap={8} ml={5}>
+      <Image src={supermarket.data?.logo} width={30} />
+      <Text>{supermarket.data?.name}</Text>
+      <HStack>
+        <FaPhoneAlt />
+        <Text>{supermarket.data?.contactNo}</Text>
+      </HStack>
+    </HStack>
   );
 };
 
-const OrderDetails = ({ order }: Props) => {
+const OrderId = ({ order }: Props) => {
+  const user = useAuthStore((state) => state.user);
   const supermarketList: number[] = order.supermarketOrders.map(
     (i) => i.supermarketId
+  );
+
+  const totalCost = order.orderItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
   );
 
   const {
@@ -91,7 +105,7 @@ const OrderDetails = ({ order }: Props) => {
         >
           <Flex justify="space-between" align="center" flexWrap="wrap" mb={4}>
             <Text fontSize="2xl" fontWeight="bold">
-              Order ID: {order.id}
+              Order ID: #{order.id}
             </Text>
             <Flex align="center" gap={4}>
               <Button
@@ -135,23 +149,22 @@ const OrderDetails = ({ order }: Props) => {
             </Flex>
           </Flex>
           <Box
-            bg="#5BFF89"
-            // order.status === "completed"
-            //   ? "#5BFF89"
-            //   : order.status === "ready"
-            //   ? "yellow.200"
-            //   : order.status === "active"
-            //   ? "blue.200"
-            //   : "yellow.300"
-
+            bg={
+              order.status === "Completed"
+                ? "#5BFF89"
+                : order.status === "ToPay"
+                ? "primary"
+                : order.status === "Processing"
+                ? "blue.200"
+                : "black"
+            }
             borderRadius="full"
             textAlign="center"
             p={2}
             maxWidth="200px"
           >
             <Text fontSize="md" fontWeight="bold">
-              {/* {order.status.charAt(0).toUpperCase() + order.status.slice(1)} */}
-              Complete
+              {order.status}
             </Text>
           </Box>
 
@@ -170,13 +183,13 @@ const OrderDetails = ({ order }: Props) => {
               </Text>
               <Grid templateColumns="1fr 2fr" gap={2}>
                 <Text>Order Placed on</Text>
-                <Text>: 01.08.2024</Text>
-                <Text>Payment method</Text>
-                <Text>: Credit/Debit Card</Text>
+                <Text>: {getDateTime(order.orderPlacedOn)}</Text>
+                <Text>Shipping Method</Text>
+                <Text>: {order.shippingMethod}</Text>
                 <Text>Order Total</Text>
-                <Text>: 2547.00 LKR</Text>
+                <Text>: {totalCost} LKR</Text>
                 <Text>Delivery Cost</Text>
-                <Text>: 300.00 LKR</Text>
+                <Text>: 200 LKR</Text>
               </Grid>
             </Box>
             <Box
@@ -208,6 +221,7 @@ const OrderDetails = ({ order }: Props) => {
             borderRadius="15"
             borderColor="gray.300"
             mb={4}
+            bg="red"
           >
             <Flex
               justify="space-between"
@@ -272,6 +286,7 @@ const OrderDetails = ({ order }: Props) => {
             </Flex>
           </Box>
 
+          {/* ------------------------------------ Shipping Details ------------------------------------ */}
           <Box p={4} borderWidth="1px" borderRadius="15" borderColor="gray.300">
             <Text fontSize="lg" fontWeight="bold" color="primary" mb={2}>
               Shipping Details
@@ -280,9 +295,9 @@ const OrderDetails = ({ order }: Props) => {
               <Text>Shipping Address</Text>
               <Text>: {order.shippingAddress}</Text>
               <Text>Contact Number</Text>
-              <Text>: +993345887</Text>
+              <Text>: {user?.number}</Text>
               <Text>Name</Text>
-              <Text>: Chathusika Ayantha</Text>
+              <Text>: {user?.name}</Text>
             </Grid>
           </Box>
         </Box>
@@ -445,4 +460,4 @@ const OrderDetails = ({ order }: Props) => {
     </>
   );
 };
-export default OrderDetails;
+export default OrderId;
