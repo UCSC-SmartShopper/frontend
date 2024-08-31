@@ -40,12 +40,15 @@ import useSuperMarkets from "@/hooks/useSupermarkets";
 import { SupermarketWithRelations } from "@/hooks/useSupermarket";
 import { useState } from "react";
 import useOrders from "@/hooks/useOrders";
-import { Order } from "@/hooks/useOrder";
+// import { Order } from "@/hooks/useOrder";
 import useSupermarketEarning from "@/hooks/useSupermarketEarning";
 //import Earnings from "../DriverApp/Dashboard/Earnings";
 import useSupermarketEarnings from "@/hooks/useSupermarketEarnings";
-import APIClient from "@/services/api-client";
-import { Review } from "@/hooks/reviews/useReview";
+// import APIClient from "@/services/api-client";
+// import { Review } from "@/hooks/reviews/useReview";
+
+
+
 
 const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -57,8 +60,21 @@ const AdminSuperMarkets = () => {
     setSelectedSm(supermarket);
     onOpen();
   };
-  const earningBySupermarketName = useSupermarketEarnings();
-  console.log(earningBySupermarketName.data);
+  
+  const earningBySupermarket = useSupermarketEarnings();
+ // console.log("earningBYSU",earningBySupermarket.data);
+  // const { data: earningsData } = useSupermarketEarnings();
+  // console.log("Earnings Data:", earningsData);
+
+  
+  const names = earningBySupermarket.data?.results.map(item => item.name) ;
+  const earnings = earningBySupermarket.data?.results.map(item => item.earnings) ;
+
+    // Log or use the extracted arrays
+    console.log("Names:", names);
+    console.log("Earnings:", earnings);
+  
+
 
   return (
     <>
@@ -80,7 +96,9 @@ const AdminSuperMarkets = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <PieChart />
+            
+            {(names && earnings) && <PieChart chartData={earnings} labels={names}/>}
+            
           </Box>
 
           {/*
@@ -190,6 +208,7 @@ const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
   ).size;
   console.log(orders);
   const earingBySupermarket = useSupermarketEarning(selectedSm.id);
+  console.log("earningBYSU",earingBySupermarket);
 
   // const apiClient = new APIClient<Review>("stats/feedbacks_by_supermarket_id");
 
@@ -343,22 +362,22 @@ const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
 
 export default AdminSuperMarkets;
 
-const totalEarningsByName = (orders: Order[], supermarketName: string) =>
-  orders.reduce((acc, order) => {
-    // Filter orderItems by supermarketId and sum up the prices
-    const earningsFromOrder = order.orderItems
-      //.filter(item => item. === supermarketName)
-      .reduce((sum, item) => sum + item.price * item.quantity, 0);
+// const totalEarningsByName = (orders: Order[], supermarketName: string) =>
+//   orders.reduce((acc, order) => {
+//     // Filter orderItems by supermarketId and sum up the prices
+//     const earningsFromOrder = order.orderItems
+//       //.filter(item => item. === supermarketName)
+//       .reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    return acc + earningsFromOrder;
-  }, 0);
+//     return acc + earningsFromOrder;
+//   }, 0);
 
-const totalEarningsById = (orders: Order[], supermarketId: number) =>
-  orders.reduce((acc, order) => {
-    // Filter orderItems by supermarketId and sum up the prices
-    const earningsFromOrder = order.orderItems
-      .filter((item) => item.supermarketId === supermarketId)
-      .reduce((sum, item) => sum + item.price * item.quantity, 0);
+// const totalEarningsById = (orders: Order[], supermarketId: number) =>
+//   orders.reduce((acc, order) => {
+//     // Filter orderItems by supermarketId and sum up the prices
+//     const earningsFromOrder = order.orderItems
+//       .filter((item) => item.supermarketId === supermarketId)
+//       .reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    return acc + earningsFromOrder;
-  }, 0);
+//     return acc + earningsFromOrder;
+//   }, 0);
