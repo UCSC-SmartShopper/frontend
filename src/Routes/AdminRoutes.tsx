@@ -1,11 +1,20 @@
-import AdminAdvertisements from "@/pages/Admin/AdminAdvertisements";
-import AdminCourierServices from "@/pages/Admin/AdminCourierServices";
-import AdminCustomers from "@/pages/Admin/AdminCustomers";
-import AdminOverview from "@/pages/Admin/AdminOverview";
-import AdminSettings from "@/pages/Admin/AdminSettings";
-import AdminSuperMarkets from "@/pages/Admin/AdminSuperMarkets";
-import AdminTransactions from "@/pages/Admin/AdminTransactions";
+import loadable from "@loadable/component";
+
+const AdminAdvertisements = loadable(
+  () => import("@/pages/Admin/AdminAdvertisements")
+);
+const AdminCourierServices = loadable(
+  () => import("@/pages/Admin/AdminCourierServices")
+);
+const AdminCustomers = loadable(() => import("@/pages/Admin/AdminCustomers"));
+const AdminOverview = loadable(() => import("@/pages/Admin/AdminOverview"));
+const AdminSettings = loadable(() => import("@/pages/Admin/AdminSettings"));
+const AdminTransactions = loadable(
+  () => import("@/pages/Admin/AdminTransactions")
+);
+
 import AdminLayout from "./Layouts/AdminLayout";
+import Supermarkets from "@/pages/Admin/Supermarkets";
 
 const AdminRoutes = [
   {
@@ -13,15 +22,11 @@ const AdminRoutes = [
     children: [
       { path: "overview", element: <AdminOverview /> },
       { path: "customers", element: <AdminCustomers /> },
-      { path: "supermarkets", element: <AdminSuperMarkets /> },
       { path: "courier-services", element: <AdminCourierServices /> },
-
-      // this is a shared route
-      // { path: "orders", element: <AdminOrders /> },
-
       { path: "transactions", element: <AdminTransactions /> },
       { path: "advertisements", element: <AdminAdvertisements /> },
       { path: "settings", element: <AdminSettings /> },
+      { path: "supermarketList", element: <Supermarkets /> },
     ],
   },
 ];

@@ -26,6 +26,8 @@ import { hsvaToHex } from "@uiw/color-convert";
 
 interface Props {
   setStage: (n: number) => void;
+  driverDetails: DriverDetails;
+  setDriverDetails: (s: DriverDetails) => void;
 }
 
 import { z } from "zod";
@@ -33,6 +35,7 @@ import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import { useForm } from "react-hook-form";
 import LoginInput from "@/components/Inputs/LoginInput";
 import ErrorText from "@/components/Errors/ErrorText";
+import { DriverDetails } from "./DriverRegister";
 
 const schema = z.object({
   name: z.string().min(1, "vehicle name is required"),
@@ -41,7 +44,11 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const SelectVehicle = ({ setStage }: Props) => {
+const SelectVehicle = ({
+  setStage,
+  driverDetails,
+  setDriverDetails,
+}: Props) => {
   const {
     register,
     handleSubmit,
@@ -67,6 +74,16 @@ const SelectVehicle = ({ setStage }: Props) => {
   const handleColorSelection = (color: string) => {
     setSelectedColor(color);
     setShowColorPicker(false); // Close color picker modal after selecting a color
+  };
+
+  const saveData = (data: FormData) => {
+    setDriverDetails({
+      ...driverDetails,
+      vehicleName: data.name,
+      vehicleNumber: data.number,
+      vehicleType: selectedVehicle.name,
+      vehicleColor: selectedColor,
+    });
   };
 
   const colors = [
@@ -110,8 +127,8 @@ const SelectVehicle = ({ setStage }: Props) => {
       {/* --------------- Form --------------- */}
       <VStack
         as="form"
-        onSubmit={handleSubmit(() => {
-          console.log(4);
+        onSubmit={handleSubmit((data) => {
+          saveData(data);
           setStage(4);
         })}
         gap="2vh"
@@ -187,7 +204,7 @@ const SelectVehicle = ({ setStage }: Props) => {
         <Box w="full">
           <LoginInput
             register={register("name")}
-            type="name"
+            type="text"
             placeholder="Vehicle Name"
           />
           {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
@@ -198,7 +215,7 @@ const SelectVehicle = ({ setStage }: Props) => {
         <Box w="full">
           <LoginInput
             register={register("number")}
-            type="number"
+            type="text"
             placeholder="Vehicle Number"
           />
           {errors.number && <ErrorText>{errors.number.message}</ErrorText>}

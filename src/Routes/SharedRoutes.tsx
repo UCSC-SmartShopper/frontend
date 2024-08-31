@@ -1,13 +1,16 @@
-import OrderPage from "@/pages/Order/OrderPage";
-import SharedLayout from "./Layouts/SharedLayout";
-import OrdersPage from "@/pages/Order/OrdersPage";
+import SupermarketsPage from "@/pages/SupermarketsPage";
+import loadable from "@loadable/component";
 
+const OrderPage = loadable(() => import("@/pages/Order/OrderPage"));
+const OrdersPage = loadable(() => import("@/pages/Order/OrdersPage"));
+const SharedLayout = loadable(() => import("./Layouts/SharedLayout"));
 const SharedRoutes = [
   {
     element: <SharedLayout />,
     children: [
-      { path: "orders/:id", element: <OrderPage /> },
+      { path: "supermarkets", element: <SupermarketsPage /> },
       { path: "orders", element: <OrdersPage /> },
+      { path: "orders/:id", element: <OrderPage /> },
     ],
   },
 ];

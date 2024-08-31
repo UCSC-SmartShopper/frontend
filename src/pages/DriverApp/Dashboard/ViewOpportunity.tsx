@@ -15,9 +15,10 @@ import { FaLocationDot } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import PickupLocation from "./PickupLocation";
+import APIClient from "@/services/api-client";
 
 const ViewOpportunity = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // recieve the id from the url
   if (!id) return null;
 
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const ViewOpportunity = () => {
 
   const orderDetails = [
     { label: "Order Placed on", value: opportunity.data?.orderPlacedOn },
-    { label: "Customer", value: `${opportunity.data?.customer}` },
+    { label: "Customer", value: `${opportunity.data?.consumer.name}` },
     { label: "Delivery Cost", value: `${opportunity.data?.deliveryCost}` },
     { label: "Start Location", value: `${opportunity.data?.startLocation}` },
     {
@@ -50,6 +51,12 @@ const ViewOpportunity = () => {
     count: supermarketsLength,
   });
 
+  const handleAccept = () => {
+    const apiClient = new APIClient("/accept_opportunity/" + id);
+    apiClient.create({});
+    navigate("/driver/opportunities/viewmap/" + id);
+  };
+
   return (
     <VStack minH="100vh" px="8vw" pt="3vh" pb="10vh" gap="4vh">
       <HStack w="full" pos="relative" left={-5}>
@@ -57,8 +64,6 @@ const ViewOpportunity = () => {
           p={1}
           background="white"
           borderRadius="50%"
-          // shadow="xl"
-          // borderWidth={1}
           cursor="pointer"
           onClick={() => navigate("/driver/opportunities")}
         >
@@ -77,7 +82,7 @@ const ViewOpportunity = () => {
         borderRadius="10"
       >
         <VStack align="start">
-          <Text fontWeight="bold">{opportunity.data?.customer}</Text>
+          <Text fontWeight="bold">{opportunity.data?.consumer.name}</Text>
           <HStack>
             <Icon as={FaLocationDot} color="primary" />{" "}
             <Text>{opportunity.data?.deliveryLocation}</Text>
@@ -89,7 +94,7 @@ const ViewOpportunity = () => {
               <Text>{detail.value}</Text>
             </HStack>
           ))}
-          <SubmitButton>Accept</SubmitButton>
+          <SubmitButton onClick={handleAccept}>Accept</SubmitButton>
         </VStack>
       </Box>
       <Box
@@ -132,6 +137,7 @@ const ViewOpportunity = () => {
         </Stepper>
       </Box>
       <Text fontWeight="bold">Map</Text>
+
       <Box shadow="xl" borderWidth={1} p={2} w="full" borderRadius="10">
         <AspectRatio ratio={16 / 9}>
           <iframe

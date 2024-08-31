@@ -28,17 +28,15 @@ interface NavItem {
 }
 
 const Navbar = () => {
+  const { data: cart } = useCart();
   const { user, logout } = useAuthStore();
   const { items, setItems } = useCartStore();
-  const { data: cart } = useCart();
+  const { pathname } = useLocation();
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const hideNavbarPaths = ["/driver"];
-  const showTopNav = !hideNavbarPaths.some((path) =>
-    location.pathname.startsWith(path)
-  );
+  const showTopNav = !hideNavbarPaths.some((path) => pathname.startsWith(path));
 
   const consumerNavItems: NavItem[] = [
     { text: "Home", path: "/" },
@@ -50,6 +48,7 @@ const Navbar = () => {
     { text: "Home", path: "/" },
     { text: "Request", path: "/requests" },
     { text: "Deliveries", path: "/deliveries" },
+    { text: "Drivers", path: "/drivers" },
   ];
 
   const adminNavItems: NavItem[] = [];
@@ -61,13 +60,13 @@ const Navbar = () => {
   let navItems: NavItem[];
 
   switch (user?.role) {
-    case "couriercompany":
+    case "Courier Company Manager":
       navItems = courierNavItems;
       break;
-    case "admin":
+    case "Admin":
       navItems = adminNavItems;
       break;
-    case "supermarket":
+    case "Supermarket Manager":
       navItems = adminNavItems;
       break;
     default:
@@ -90,7 +89,11 @@ const Navbar = () => {
           borderColor={useColorModeValue("gray.200", "gray.900")}
           align={"center"}
           justifyContent="space-between"
-          pos={(user?.role === "admin" ||user?.role === "supermarket")  ? "sticky" : "relative"}
+          pos={
+            user?.role === "Admin" || user?.role === "Supermarket Manager"
+              ? "sticky"
+              : "relative"
+          }
           top={0}
           zIndex={10}
         >
@@ -103,7 +106,13 @@ const Navbar = () => {
 
             {navItems.map((item) => (
               <Link to={item.path} key={item.text}>
-                <Text fontSize="lg" fontWeight="bold">
+                <Text
+                  fontSize="lg"
+                  fontWeight="bold"
+                  textDecoration={pathname === item.path ? "underline 2px" : ""}
+                  color={pathname === item.path ? "primary" : ""}
+                  textDecorationColor="primary"
+                >
                   {item.text}
                 </Text>
               </Link>
@@ -144,49 +153,9 @@ const Navbar = () => {
                       color: "white",
                     }}
                     // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
-                    onClick={() => navigate("/overview")}
-                  >
-                    Overview
-                  </MenuItem>
-                  <MenuItem
-                    bg="white"
-                    color="primary"
-                    _hover={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                    }}
-                    _focus={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                      bg: "primary",
-                      color: "white",
-                    }}
-                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
-                    onClick={() => navigate("/myOrders")}
+                    onClick={() => navigate("/orders")}
                   >
                     Orders
-                  </MenuItem>
-                  <MenuItem
-                    bg="white"
-                    color="primary"
-                    _hover={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                    }}
-                    _focus={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                      bg: "primary",
-                      color: "white",
-                    }}
-                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
-                    onClick={() => navigate("/feedbacks")}
-                  >
-                    Feedbacks
                   </MenuItem>
                   <MenuItem
                     bg="white"
@@ -233,7 +202,7 @@ const Navbar = () => {
               <Text fontSize="lg" fontWeight="bold">
                 {user.name}
               </Text>
-              {user.role === "consumer" && (
+              {user.role === "Consumer" && (
                 <Box pos={"relative"} cursor="pointer">
                   <Icon
                     as={FaCartShopping}
@@ -262,10 +231,10 @@ const Navbar = () => {
             </HStack>
           ) : (
             <HStack paddingX={0}>
-              {location.pathname !== "/login" ? (
+              {pathname !== "/login" ? (
                 <ActionButton url="/login">Login</ActionButton>
               ) : null}
-              {location.pathname !== "/signup" ? (
+              {pathname !== "/signup" ? (
                 <ActionButton url="/signup">Register</ActionButton>
               ) : null}
             </HStack>

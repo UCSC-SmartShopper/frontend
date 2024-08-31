@@ -25,6 +25,9 @@ import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import { useForm } from "react-hook-form";
 import ErrorText from "@/components/Errors/ErrorText";
 import termsAndConditions from "./TermsAndConditions";
+import { DriverDetails } from "./DriverRegister";
+import APIClient from "@/services/api-client";
+import { useMutation } from "@tanstack/react-query";
 
 const schema = z
   .object({
@@ -38,9 +41,11 @@ const schema = z
 type FormData = z.infer<typeof schema>;
 interface Props {
   setStage: (n: number) => void;
+  driverDetails: DriverDetails;
+  setDriverDetails: (s: DriverDetails) => void;
 }
 
-const EnterPassword = ({ setStage }: Props) => {
+const EnterPassword = ({ setStage, driverDetails }: Props) => {
   const {
     register,
     handleSubmit,
@@ -48,6 +53,21 @@ const EnterPassword = ({ setStage }: Props) => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const apiClient = new APIClient<DriverDetails>(
+    "/update_driver_signup/" + driverDetails.id
+  );
+
+  const { mutate } = useMutation({
+    mutationFn: (data: FormData) =>
+      apiClient.create({
+        ...driverDetails,
+        password: data.password,
+      }),
+    onSuccess: () => {
+      setStage(6);
+    },
+  });
 
   return (
     <VStack py="6vh" h="100vh" gap="4vh">
@@ -63,7 +83,7 @@ const EnterPassword = ({ setStage }: Props) => {
         h="full"
         px="10vw"
         justifyContent="space-between"
-        onSubmit={handleSubmit(() => setStage(6))}
+        onSubmit={handleSubmit((data) => mutate(data))}
       >
         <Box w="full">
           <LoginInput
@@ -147,4 +167,3 @@ const EnterPassword = ({ setStage }: Props) => {
 };
 
 export default EnterPassword;
-
