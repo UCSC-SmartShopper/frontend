@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const apiClient = new APIClient<number>("stats/earnings");
 
-const useEarning = (supermarketId: number) => {
+const useSupermarketEarning = (supermarketId: number) => {
   return useQuery({
     queryKey: ["earnings", supermarketId],
     queryFn: () => apiClient.get(supermarketId),
@@ -12,4 +12,4 @@ const useEarning = (supermarketId: number) => {
   });
 };
 
-export default useEarning;
+export default useSupermarketEarning;

@@ -41,7 +41,7 @@ import { SupermarketWithRelations } from "@/hooks/useSupermarket";
 import { useState } from "react";
 import useOrders from "@/hooks/useOrders";
 import { Order } from "@/hooks/useOrder";
-import useEarning from "@/hooks/useSupermarketEarning";
+import useSupermarketEarning from "@/hooks/useSupermarketEarning";
 //import Earnings from "../DriverApp/Dashboard/Earnings";
 import useEarnings from "@/hooks/useSupermarketEarnings";
 
