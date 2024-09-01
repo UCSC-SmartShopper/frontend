@@ -33,25 +33,52 @@ import { IoBusiness, IoCall } from "react-icons/io5";
 import { MdFeedback } from "react-icons/md";
 import { SiCashapp } from "react-icons/si";
 import { TbTruckDelivery } from "react-icons/tb";
+import { IoIosColorPalette } from "react-icons/io";
+import { AiOutlineFieldNumber } from "react-icons/ai";
 import LineChart from "../../components/Charts/LineChart";
 import { IoStarSharp } from "react-icons/io5";
 import useDrivers from "@/hooks/useDrivers";
 import { Driver } from "@/hooks/useDriver";
 import { useState } from "react";
+import APIClient from "@/services/api-client";
+import { useQuery } from "@tanstack/react-query";
 const AdminCourierServices = () => {
-
-  const drivers=useDrivers();
-  const driverArray=drivers.data?.results;
-  //console.log("drivers",drivers.data?.results);
+  const drivers = useDrivers();
+  const driverArray = drivers.data?.results;
+  console.log("drivers", drivers.data?.results);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedDriver,setSelecteddriver]=useState<Driver | null>();
+  const [selectedDriver, setSelecteddriver] = useState<Driver | null>();
+
+  // const useCourierCompanyEarning = (courierCompanyId: number) => {
+  //   const apiClient = new APIClient<number>("stats/supermarket_earnings");
+  //   return useQuery({
+  //     queryKey: ["earningsC", courierCompanyId],
+  //     queryFn: () => apiClient.get(courierCompanyId),
+  //     retry: 2,
+  //   });
+  // };
+
+  //const earingByCourierCompany = useCourierCompanyEarning(1);
+
+  const driverEarning = (driverId: number) => {
+    const apiClient = new APIClient<number>("stats/drivers_earnings");
+    return useQuery({
+      queryKey: ["earningsD", driverId],
+      queryFn: () => apiClient.get(driverId),
+      retry: 2,
+    });
+  };
+
+  const driverEarningData = driverEarning(selectedDriver?.user.id || 1);
+  console.log("driverIDDDD", selectedDriver?.user.id);
+  console.log("driverEarningData", driverEarningData);
 
   const deliveryPersonPopup = [
     [
       {
         icon: <Icon as={SiCashapp} boxSize={5} color={"primary"} />,
         title: "Earning",
-        value: "Rs 134 000",
+        value: driverEarningData.data,
       },
       {
         icon: <Icon as={MdFeedback} boxSize={5} color={"primary"} />,
@@ -71,6 +98,18 @@ const AdminCourierServices = () => {
         value: "4/5",
       },
     ],
+    [
+      {
+        icon: <Icon as={IoIosColorPalette} boxSize={6} color={"primary"} />,
+        title: "Vehicle Color",
+        value: selectedDriver?.vehicleColor,
+      },
+      {
+        icon: <Icon as={AiOutlineFieldNumber} boxSize={6} color={"primary"} />,
+        title: "Vehicle Number",
+        value: selectedDriver?.vehicleNumber,
+      },
+    ],
   ];
 
   const handleEditClick = (driver: Driver) => {
@@ -84,12 +123,10 @@ const AdminCourierServices = () => {
         <Flex w="full" gap={5}>
           {/* ------- Courier Company Earnings ------- */}
           <Box p={5} shadow="md" borderWidth="1px" w="60%" borderRadius={15}>
-            <Heading  size="md">
-              Courier Company Earnings
-            </Heading>
+            <Heading size="md">Courier Company Earnings</Heading>
 
             <Center>
-              <LineChart  width="80%"/>
+              <LineChart width="80%" />
             </Center>
           </Box>
 
@@ -113,7 +150,7 @@ const AdminCourierServices = () => {
                     boxSize="40px"
                     objectFit="cover"
                   />
-                  <Text ml='0.3rem'>{company.name}</Text>
+                  <Text ml="0.3rem">{company.name}</Text>
                   <Text ml="auto">{company.count}</Text>
                 </HStack>
               </VStack>
@@ -150,43 +187,47 @@ const AdminCourierServices = () => {
               <Thead>
                 <Tr>
                   <Th>Name</Th>
-                  <Th>Company</Th>
                   <Th>Contact Number</Th>
+                  <Th>Company</Th>
                   <Th>Vehicle Type</Th>
                   <Th>Vehicle Model</Th>
                   <Th></Th>
                 </Tr>
               </Thead>
               <Tbody>
-                {driverArray && Array.isArray(driverArray)&&
-                driverArray.map((driver)=>(
-                <Tr>
-                  <Td>
-                    <HStack>
-                      <Image
-                        src={driver.user.profilePic}
-                        alt="driver Image"
-                        boxSize="50px"
-                        objectFit="cover"
-                        borderRadius="50%"
-                        mr={4}
-                      />
-                      <Text>{driver.user.name}</Text>
-                    </HStack>
-                  </Td>
-                  <Td>{driver.courierCompany}</Td>
-                  <Td>{driver.user.number}</Td>
-                  <Td>{driver.vehicleType}</Td>
-                  <Td>{driver.vehicleName}</Td>
-                  <Td>
-                    <Button bg="primary" size="sm" onClick={() => handleEditClick(driver)}>
-                      View More
-                    </Button>
-                  </Td>
-                </Tr>
-                 )
-                )
-                }
+                {driverArray &&
+                  Array.isArray(driverArray) &&
+                  driverArray.map((driver) => (
+                    <Tr>
+                      <Td>
+                        <HStack>
+                          <Image
+                            src={driver.user.profilePic}
+                            alt="driver Image"
+                            boxSize="30px"
+                            objectFit="contain"
+                            aspectRatio={16 / 9}
+                            borderRadius="50%"
+                            mr={4}
+                          />
+                          <Text>{driver.user.name}</Text>
+                        </HStack>
+                      </Td>
+                      <Td>{driver.user.number}</Td>
+                      <Td>{driver.courierCompany}</Td>
+                      <Td>{driver.vehicleType}</Td>
+                      <Td>{driver.vehicleName}</Td>
+                      <Td>
+                        <Button
+                          bg="primary"
+                          size="sm"
+                          onClick={() => handleEditClick(driver)}
+                        >
+                          View More
+                        </Button>
+                      </Td>
+                    </Tr>
+                  ))}
               </Tbody>
             </Table>
           </TableContainer>

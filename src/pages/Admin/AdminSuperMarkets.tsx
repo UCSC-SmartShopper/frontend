@@ -97,7 +97,7 @@ const AdminSuperMarkets = () => {
             justifyContent="center"
           >
             
-            {(names && earnings) && <PieChart chartData={earnings} labels={names}/>}
+            {/* {(names && earnings) && <PieChart chartData={earnings} labels={names}/>} */}
             
           </Box>
 
@@ -210,10 +210,6 @@ const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
   const earingBySupermarket = useSupermarketEarning(selectedSm.id);
   console.log("earningBYSU",earingBySupermarket);
 
-  // const apiClient = new APIClient<Review>("stats/feedbacks_by_supermarket_id");
-
-  // const reviews = apiClient.getAll({ supermarketId: selectedSm.id });
-  // console.log(reviews.data);
 
   return (
     <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
@@ -361,23 +357,3 @@ const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
 };
 
 export default AdminSuperMarkets;
-
-// const totalEarningsByName = (orders: Order[], supermarketName: string) =>
-//   orders.reduce((acc, order) => {
-//     // Filter orderItems by supermarketId and sum up the prices
-//     const earningsFromOrder = order.orderItems
-//       //.filter(item => item. === supermarketName)
-//       .reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-//     return acc + earningsFromOrder;
-//   }, 0);
-
-// const totalEarningsById = (orders: Order[], supermarketId: number) =>
-//   orders.reduce((acc, order) => {
-//     // Filter orderItems by supermarketId and sum up the prices
-//     const earningsFromOrder = order.orderItems
-//       .filter((item) => item.supermarketId === supermarketId)
-//       .reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-//     return acc + earningsFromOrder;
-//   }, 0);
