@@ -27,7 +27,12 @@ const Deliveries = () => {
   const displayDetails = () => {
     setIsRotated(!isRotated);
   };
-  
+
+  const formatDateTime = (orderPlacedOn: any) => {
+    const { day, hour, minute, month, year } = orderPlacedOn;
+    return `${day}/${month}/${year} ${hour}:${minute}`;
+  };
+
   return (
     <VStack spacing={4} mt={4} w="full" justifyContent="center">
       {opportunities.data?.results.map((opportunity, index) => (
@@ -43,8 +48,7 @@ const Deliveries = () => {
             <VStack align="start" flex="1">
               <Text fontWeight="bold">{opportunity.deliveryLocation}</Text>
               <Text color="gray.500" fontSize="sm">
-                {/* {opportunity.orderPlacedOn} */}
-                {opportunity.orderPlacedOn}
+                {formatDateTime(opportunity.orderPlacedOn)}
               </Text>
             </VStack>
             <Text fontWeight="bold" color="red.500">
@@ -73,9 +77,7 @@ const Deliveries = () => {
               {opportunity.opportunitysupermarket.map((i, index) => (
                 <HStack justify="space-between" key={index}>
                   <Text>Supermarkets</Text>
-                  <SupermarketAddress
-                    supermarketId={i.supermarketId}
-                  />
+                  <SupermarketAddress supermarketId={i.supermarketId} />
                 </HStack>
               ))}
             </Box>

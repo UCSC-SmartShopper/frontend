@@ -11,8 +11,15 @@ import ReactApexChart from "react-apexcharts";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useOpportunities from "@/hooks/useOpportunities";
 
 const Earnings = () => {
+  const opportunities = useOpportunities({
+    status: "Delivered",
+    month: "",
+    limit: 2,
+  });
+
   const [isRotated, setIsRotated] = useState(false);
   const navigate = useNavigate();
   const data = [
@@ -107,6 +114,7 @@ const Earnings = () => {
       {/********************* Delivered Item Card *********************/}
 
       <VStack spacing={4} mt={2} w="full">
+      {opportunities.data?.results.map((opportunity, index) => (
         <Box bg="white" borderRadius="lg" shadow="md" p={4} w="full">
           <HStack>
             <VStack align="start"  flex="1">
@@ -139,6 +147,7 @@ const Earnings = () => {
             </Box>
           )}
         </Box>
+           ))}
       </VStack>
     </VStack>
   );
