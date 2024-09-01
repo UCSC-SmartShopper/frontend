@@ -64,10 +64,6 @@ const AdminSuperMarkets = () => {
     setSelectedSm(supermarket);
     onOpen();
   };
-
-  
-
- 
   
   const earningBySupermarket = useSupermarketEarnings();
  // console.log("earningBYSU",earningBySupermarket.data);
