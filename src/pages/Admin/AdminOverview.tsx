@@ -31,6 +31,35 @@ import { getMoment } from "@/utils/Time";
 import APIClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
 import useSupermarketEarnings from "@/hooks/useSupermarketEarnings";
+
+interface OrderItem {
+  id: number;
+  supermarketId: number;
+  productId: number;
+  quantity: number;
+  price: number;
+  _orderId: number;
+}
+
+interface OrderWithRelations {
+  orderItems: OrderItem[];
+  id: number;
+  consumerId: number;
+  status: string;
+  shippingAddress: string;
+  shippingMethod: string;
+  location: string;
+  deliveryFee: number;
+  orderPlacedOn: {
+      year: number;
+      month: number;
+      day: number;
+      hour: number;
+      minute: number;
+      second: number;
+  };
+}
+
 const AdminOverview = () => {
 
 
@@ -51,10 +80,44 @@ const AdminOverview = () => {
 
   const churnedCustomers = totalConsumers - activeConsumers;
 
-  const earnings=useSupermarketEarnings();
-  console.log("earnings",earnings.data?.results);
-const totalSales=earnings.data?.results.map((results)=>results.earnings).reduce((a,b)=>a+b,0);
+//   const earnings=useSupermarketEarnings();
+//   //console.log("earnings",earnings.data?.results);
+// const totalSales=earnings.data?.results.map((results)=>results.earnings).reduce((a,b)=>a+b,0);
   //console.log("sales",totalSales);
+
+
+  const salesData = () => {
+    const apiClient = new APIClient<OrderWithRelations>("stats/supermarket_sales");
+    return useQuery({
+      queryKey: ["sales"],
+      queryFn: () => apiClient.getAll({}),
+      staleTime: 1000 * 5, // 5 seconds
+    });
+  };
+
+  console.log("sales",salesData().data?.results);
+
+  let totalSales = 0;
+  const monthlySales: { [key: number]: number } = {};
+  salesData().data?.results.forEach((order) => {
+    const { month, year } = order.orderPlacedOn;
+    if (year === 2024) {  // Replace with the year you want to filter by
+        const orderTotal = order.orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        totalSales += orderTotal;
+        if (monthlySales[month]) {
+            monthlySales[month] += orderTotal;
+        } else {
+            monthlySales[month] = orderTotal;
+        }
+    }
+
+});
+const monthNames = [
+  "January", "February", "March", "April", "May", "June", 
+  "July", "August", "September", "October", "November", "December"
+];
+  const months = Object.keys(monthlySales).map((monthNum) => monthNames[Number(monthNum) - 1]);
+  const sales = Object.values(monthlySales);
 
 
   const customerCards = [
@@ -83,12 +146,13 @@ const totalSales=earnings.data?.results.map((results)=>results.earnings).reduce(
       icon: FcSalesPerformance,
       color: "yellow",
       background: "yellow.100",
-      value: totalSales,
+      value: totalSales + " LKR",
       percentage: "8.5% Up from yesterday",
       rdicon: AiOutlineRise,
       rdiconColor: "green.400",
     },
   ];
+
 
   return (
     <VStack gap={"8vh"} fontWeight="bold" my="5vh" px={10}>
@@ -101,9 +165,9 @@ const totalSales=earnings.data?.results.map((results)=>results.earnings).reduce(
             Monthly Sales
           </Heading>
           <Heading as="h3" size="sm" mb={4}>
-            Total Revenue - 350000 LKR
+            Total Sales -  {totalSales.toLocaleString()} LKR
           </Heading>
-          <BarGraph />
+          <BarGraph chartData={sales} labels={months} />
         </Box>
 
         {/*
