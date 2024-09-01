@@ -7,7 +7,7 @@ import { useState } from "react";
 interface SupermarketRowInterface {
   supermarketId: number;
 }
-const SupermarketAddress = ({ supermarketId }: SupermarketRowInterface) => {
+export const SupermarketAddress = ({ supermarketId }: SupermarketRowInterface) => {
   const supermarket = useSupermarket(supermarketId);
   return (
     <Text as="span" fontWeight="bold">
@@ -52,7 +52,7 @@ const Deliveries = () => {
               </Text>
             </VStack>
             <Text fontWeight="bold" color="red.500">
-              {opportunity.tripCost}
+              Rs.{opportunity.tripCost}
             </Text>
             <IconButton
               onClick={displayDetails}
@@ -67,7 +67,7 @@ const Deliveries = () => {
             <Box>
               <HStack justify="space-between">
                 <Text>Delivery Cost</Text>
-                <Text>{opportunity.deliveryCost}</Text>
+                <Text>Rs.{opportunity.deliveryCost}</Text>
               </HStack>
               <HStack justify="space-between">
                 <Text>Number of Stops</Text>
