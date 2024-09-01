@@ -30,7 +30,7 @@ import { useState } from "react";
 import { getMoment } from "@/utils/Time";
 import APIClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
-import useSupermarketEarnings from "@/hooks/useSupermarketEarnings";
+import useProduct from "@/hooks/useProduct";
 
 interface OrderItem {
   id: number;
@@ -99,6 +99,8 @@ const AdminOverview = () => {
 
   let totalSales = 0;
   const monthlySales: { [key: number]: number } = {};
+  const productSales: { [key: string]: number } = {};
+
   salesData().data?.results.forEach((order) => {
     const { month, year } = order.orderPlacedOn;
     if (year === 2024) {  // Replace with the year you want to filter by
@@ -109,6 +111,15 @@ const AdminOverview = () => {
         } else {
             monthlySales[month] = orderTotal;
         }
+
+        // Update product sales
+        order.orderItems.forEach((item) => {
+          if (productSales[item.productId]) {
+            productSales[item.productId] += item.quantity;
+          } else {
+            productSales[item.productId] = item.quantity;
+          }
+        });
     }
 
 });
@@ -118,6 +129,25 @@ const monthNames = [
 ];
   const months = Object.keys(monthlySales).map((monthNum) => monthNames[Number(monthNum) - 1]);
   const sales = Object.values(monthlySales);
+
+
+  //products with id and quantity
+  const topProducts = Object.entries(productSales)
+    .sort(([, qtyA], [, qtyB]) => qtyB - qtyA)
+    .slice(0, 5); // Get top 5 products
+
+
+    //console.log("topProducts",topProducts);
+
+    //for each for get data of top products
+    topProducts.forEach(([productId]) => {
+      const productDetail=useProduct(Number(productId));
+      //add productDetail to an array
+      
+      console.log("productDetail",productDetail.data?.results);
+
+    });
+
 
 
   const customerCards = [
