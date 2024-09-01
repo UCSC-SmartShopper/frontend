@@ -1,6 +1,6 @@
 import ActionButton from "@/components/Buttons/ActionButton";
 import RatingStars from "@/components/Inputs/Rating";
-import { numOfDrivers } from "@/data/numberOfDrivers";
+import { numOfDrivers } from "@/data/numberOfDeivers";
 import {
   Box,
   Button,
