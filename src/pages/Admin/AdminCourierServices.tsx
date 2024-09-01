@@ -1,6 +1,6 @@
 import ActionButton from "@/components/Buttons/ActionButton";
 import RatingStars from "@/components/Inputs/Rating";
-import { numOfDrivers } from "@/data/numberOfDeivers";
+import { numOfDrivers } from "@/data/numberOfDrivers";
 import {
   Box,
   Button,
@@ -42,10 +42,14 @@ import { Driver } from "@/hooks/useDriver";
 import { useState } from "react";
 import APIClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
+
+interface CompanyDriverCount {
+  company: string;
+  count: number;
+}
+
 const AdminCourierServices = () => {
   const drivers = useDrivers();
-  const driverArray = drivers.data?.results;
-  console.log("drivers", drivers.data?.results);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedDriver, setSelecteddriver] = useState<Driver | null>();
 
@@ -69,9 +73,22 @@ const AdminCourierServices = () => {
     });
   };
 
+  const getCompanyDriverCounts = (drivers: Driver[]): CompanyDriverCount[] => {
+    const counts: { [key: string]: number } = drivers.reduce((acc, driver) => {
+      acc[driver.courierCompany] = (acc[driver.courierCompany] || 0) + 1;
+      return acc;
+    }, {} as { [key: string]: number });
+  
+    return Object.entries(counts).map(([company, count]) => ({ company, count }));
+  };
+
+  const driverArray: Driver[] = drivers.data?.results || [];
+
+  const companyDriverCounts = getCompanyDriverCounts(driverArray);
+
   const driverEarningData = driverEarning(selectedDriver?.user.id || 1);
-  console.log("driverIDDDD", selectedDriver?.user.id);
-  console.log("driverEarningData", driverEarningData);
+  // console.log("driverIDDDD", selectedDriver?.user.id);
+  // console.log("driverEarningData", driverEarningData);
 
   const deliveryPersonPopup = [
     [
@@ -133,28 +150,29 @@ const AdminCourierServices = () => {
           {/* ------- Number of Drivers Card ------- */}
           <Box p={5} shadow="md" borderWidth="1px" w="40%" borderRadius={15}>
             <Heading size="md">Number of Drivers</Heading>
-            {numOfDrivers.map((company, index) => (
-              <VStack mt={5} key={index}>
-                <HStack
-                  w="full"
-                  px="1vw"
-                  h="10vh"
-                  rounded={10}
-                  borderWidth="1px"
-                  borderColor="background"
-                  shadow="md"
-                >
-                  <Image
-                    src={company.image}
+            {companyDriverCounts.map((item, index) => (
+        <VStack mt={5} key={index}>
+          <HStack
+            w="full"
+            px="1vw"
+            h="10vh"
+            rounded={10}
+            borderWidth="1px"
+            borderColor="background"
+            shadow="md"
+          >
+            <Image
+                    src="https://via.placeholder.com/150"
                     alt="Product Image"
                     boxSize="40px"
                     objectFit="cover"
                   />
-                  <Text ml="0.3rem">{company.name}</Text>
-                  <Text ml="auto">{company.count}</Text>
-                </HStack>
-              </VStack>
-            ))}
+
+            <Text ml="0.3rem">{item.company}</Text>
+            <Text ml="auto">{item.count}</Text>
+          </HStack>
+        </VStack>
+      ))}
             <ActionButton inverted={true} className="!w-full mt-5">
               View All
             </ActionButton>

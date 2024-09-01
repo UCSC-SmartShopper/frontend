@@ -44,15 +44,19 @@ import useOrders from "@/hooks/useOrders";
 import useSupermarketEarning from "@/hooks/useSupermarketEarning";
 //import Earnings from "../DriverApp/Dashboard/Earnings";
 import useSupermarketEarnings from "@/hooks/useSupermarketEarnings";
+import SearchBar from "@/components/SearchBar";
 // import APIClient from "@/services/api-client";
 // import { Review } from "@/hooks/reviews/useReview";
-
-
-
-
+import { SupermarketQuery } from "@/hooks/useSupermarkets";
 const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const supermarkets = useSuperMarkets();
+  
+  
+  const [supermarketQuery, setSupermarketQuery] = useState<SupermarketQuery>(
+    {} as SupermarketQuery
+  );
+  const supermarkets = useSuperMarkets(supermarketQuery);
+
   const [selectedSm, setSelectedSm] =
     useState<SupermarketWithRelations | null>();
 
@@ -60,6 +64,10 @@ const AdminSuperMarkets = () => {
     setSelectedSm(supermarket);
     onOpen();
   };
+
+  
+
+ 
   
   const earningBySupermarket = useSupermarketEarnings();
  // console.log("earningBYSU",earningBySupermarket.data);
@@ -122,6 +130,13 @@ const AdminSuperMarkets = () => {
             <Heading as="h3" size="md">
               Super Market Details
             </Heading>
+            <SearchBar
+            width="65%"
+            value={supermarketQuery.searchText || ""}
+            setValue={(value) => {
+              setSupermarketQuery({ searchText: value });
+            }}
+          />
             <Flex>
               <Box px={2}>
                 <Select placeholder="Select option" defaultValue={"August"}>
