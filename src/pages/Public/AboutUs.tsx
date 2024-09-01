@@ -156,18 +156,29 @@ const AboutPage = () => {
           </GridItem>
         </Grid>
 
-        <div className="bg-gray-100 py-5">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-4">Contact Us</h2>
-            <p className="text-center text-gray-600 mb-8">
+        {/* Contact Us Section */}
+        <Box as="section" bg="gray.100" py={10}>
+          <Box maxW="container.lg" mx="auto">
+            <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={1}>
+              Contact Us
+            </Text>
+            <Text textAlign="center" color="gray.600" mb={4}>
               Any question or remarks? Just write us an e-mail!
-            </p>
-            <Box className="bg-orange-200 rounded-lg p-8 flex items-center justify-between">
-              <div>
+            </Text>
+            <Box
+              bg="orange.200"
+              rounded="lg"
+              p={8}
+              display="flex"
+              flexDirection={{ base: "column", md: "row" }}
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Box mb={{ base: 4, md: 0 }}>
                 <Text fontSize="xl" fontWeight="bold" mb={4}>
                   Contact Information
                 </Text>
-                <Flex direction="column" gap={2}>
+                <Flex direction="row" gap={6}>
                   <Flex align="center" gap={2}>
                     <PhoneIcon />
                     <Text>+1012 3456 789</Text>
@@ -184,20 +195,13 @@ const AboutPage = () => {
                     </Text>
                   </Flex>
                 </Flex>
-              </div>
-              <Box>
-                <Button
-                  colorScheme="orange"
-                  size="lg"
-                  className="mt-4 md:mt-0"
-                  rightIcon={<EmailIcon />}
-                >
-                  Send E-Mail
-                </Button>
               </Box>
+              <Button colorScheme="orange" size="lg" rightIcon={<EmailIcon />}>
+                Send E-Mail
+              </Button>
             </Box>
-          </div>
-        </div>
+          </Box>
+        </Box>
       </Container>
       <Footer />
     </>
