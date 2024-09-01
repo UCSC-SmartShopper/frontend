@@ -22,12 +22,12 @@ const Deliveries = () => {
     status: "Delivered",
     month: "",
   });
-  console.log(opportunities.data);
+  // console.log(opportunities.data);
   const [isRotated, setIsRotated] = useState(false);
   const displayDetails = () => {
     setIsRotated(!isRotated);
   };
-
+  
   return (
     <VStack spacing={4} mt={4} w="full" justifyContent="center">
       {opportunities.data?.results.map((opportunity, index) => (
@@ -43,6 +43,7 @@ const Deliveries = () => {
             <VStack align="start" flex="1">
               <Text fontWeight="bold">{opportunity.deliveryLocation}</Text>
               <Text color="gray.500" fontSize="sm">
+                {/* {opportunity.orderPlacedOn} */}
                 {opportunity.orderPlacedOn}
               </Text>
             </VStack>
@@ -70,10 +71,9 @@ const Deliveries = () => {
               </HStack>
 
               {opportunity.opportunitysupermarket.map((i, index) => (
-                <HStack justify="space-between">
+                <HStack justify="space-between" key={index}>
                   <Text>Supermarkets</Text>
                   <SupermarketAddress
-                    key={index}
                     supermarketId={i.supermarketId}
                   />
                 </HStack>
