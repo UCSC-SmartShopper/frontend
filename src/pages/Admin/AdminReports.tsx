@@ -39,9 +39,11 @@ const AdminReports: React.FC = () => {
                 value={reportType}
                 onChange={(e) => setReportType(e.target.value)}
               >
-                <option value="">Select Report Type</option>
-                <option value="sales">Sales</option>
-                <option value="drivers">Drivers</option>
+                <option value="customerEngagement">Customer Engagement</option>
+                <option value="supermarketsEarning">Supermarket Earning</option>
+                <option value="smartShopperRevenuew">SmartShopper Revenue</option>
+                <option value="courierCompanyEarning">Courier Company Earnings</option>
+                <option value="sales">Sales</option>  {/* Summarizes total sales for a given period */} 
                 <option value="orders">Orders</option>
               </Select>
             </FormControl>
