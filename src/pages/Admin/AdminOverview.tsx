@@ -137,16 +137,15 @@ const monthNames = [
     .slice(0, 5); // Get top 5 products
 
 
-    //console.log("topProducts",topProducts);
+    console.log("topProducts",topProducts);
 
     //for each for get data of top products
-    topProducts.forEach(([productId]) => {
-      const productDetail=useProduct(Number(productId));
-      //add productDetail to an array
-      
-      console.log("productDetail",productDetail.data?.results);
+    // topProducts.forEach(([productId, quantity]) => {
+    //   console.log("productId",productId);
+    //   const productDetail=useProduct(Number(productId));
 
-    });
+    // });
+    
 
 
 

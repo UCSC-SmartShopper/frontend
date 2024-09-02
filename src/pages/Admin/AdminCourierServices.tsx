@@ -1,6 +1,5 @@
 import ActionButton from "@/components/Buttons/ActionButton";
 import RatingStars from "@/components/Inputs/Rating";
-import { numOfDrivers } from "@/data/numberOfDeivers";
 import {
   Box,
   Button,
@@ -150,7 +149,7 @@ const AdminCourierServices = () => {
           {/* ------- Number of Drivers Card ------- */}
           <Box p={5} shadow="md" borderWidth="1px" w="40%" borderRadius={15}>
             <Heading size="md">Number of Drivers</Heading>
-            {companyDriverCounts.map((item, index) => (
+            {companyDriverCounts.slice(0, 3).map((item, index) => (
         <VStack mt={5} key={index}>
           <HStack
             w="full"
