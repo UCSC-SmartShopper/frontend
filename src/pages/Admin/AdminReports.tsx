@@ -12,6 +12,7 @@ import {
   FormLabel,
   
 } from '@chakra-ui/react';
+import jsPDF from 'jspdf';
 
 const AdminReports: React.FC = () => {
   // State for form values and filters
@@ -21,6 +22,14 @@ const AdminReports: React.FC = () => {
 
   // Responsive padding based on screen size
   const padding = useBreakpointValue({ base: '4', md: '6' });
+
+
+    const generateReport=()=>{
+        const doc = new jsPDF();
+        doc.text('Hello world!', 10, 10);
+        doc.save('report.pdf');
+    }
+
 
   return (
     <Box p={padding} maxW="container.xl" mx="auto">
@@ -69,7 +78,7 @@ const AdminReports: React.FC = () => {
             </FormControl>
 
             <HStack spacing={4} mt={4}>
-              <Button bg="primary" color="white" onClick={() => {/* Generate report logic */}}>
+              <Button bg="primary" color="white" onClick={generateReport}>
                 Generate Report
               </Button>
             </HStack>
@@ -79,9 +88,8 @@ const AdminReports: React.FC = () => {
         {/* Report Display Area */}
         <Box p={4} shadow="md" borderWidth="1px" borderRadius="md">
           <Heading size="md" mb={4}>Generated Report</Heading>
-          {/* Display generated report or a placeholder */}
+         
           <Box p={4} bg="gray.100" borderRadius="md">
-            {/* Placeholder for report content */}
             <p>No report generated yet. Please apply filters and generate a report.</p>
           </Box>
         </Box>
