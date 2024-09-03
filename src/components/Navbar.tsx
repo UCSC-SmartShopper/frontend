@@ -128,7 +128,7 @@ const Navbar = () => {
               <Menu>
                 <MenuButton>
                   <Avatar
-                    name="Dan Abrahmov"
+                    name="Bimsara Jayadewa"
                     src={UserPlaceholder}
                     boxSize={10}
                     cursor="pointer"
