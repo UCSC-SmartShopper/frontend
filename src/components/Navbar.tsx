@@ -125,6 +125,7 @@ const Navbar = () => {
 
           {user ? (
             <HStack marginX={10} gap={5}>
+              {user.role === "Consumer" && (
               <Menu>
                 <MenuButton>
                   <Avatar
@@ -238,6 +239,64 @@ const Navbar = () => {
                   </MenuItem>
                 </MenuList>
               </Menu>
+              )}
+              {user.role === "Admin" && (
+              <Menu>
+                  <Avatar
+                    name="Bimsara Jayadewa"
+                    src={UserPlaceholder}
+                    boxSize={10}
+                  />
+              </Menu>
+              )}
+              {user.role === "Supermarket Manager" && (
+              <Menu>
+                  <Avatar
+                    name="Bimsara Jayadewa"
+                    src={UserPlaceholder}
+                    boxSize={10}
+                  />
+              </Menu>
+              )}
+              {user.role === "Courier Company Manager" && (
+              <Menu>
+                <MenuButton>
+                  <Avatar
+                    name="Bimsara Jayadewa"
+                    src={UserPlaceholder}
+                    boxSize={10}
+                    cursor="pointer"
+                  />
+                </MenuButton>
+                <MenuList
+                  py={0}
+                  bg="white"
+                  borderColor={"primary"}
+                  borderWidth={3}
+                  color={"white"}
+                >
+                  <MenuItem
+                    bg="white"
+                    color="primary"
+                    _hover={{
+                      borderRadius: 5,
+                      borderWidth: 2,
+                      borderColor: "orange.500",
+                    }}
+                    _focus={{
+                      borderRadius: 5,
+                      borderWidth: 2,
+                      borderColor: "orange.500",
+                      bg: "primary",
+                      color: "white",
+                    }}
+                    onClick={logout}
+                  >
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+              )}
               <Text fontSize="lg" fontWeight="bold">
                 {user.name}
               </Text>
