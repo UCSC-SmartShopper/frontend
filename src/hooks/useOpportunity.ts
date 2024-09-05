@@ -15,7 +15,7 @@ export interface Opportunity {
   deliveryLocation: string;
   status: string;
 
-  orderId: number;
+  _orderId: number;
   driverId: number;
 }
 const apiClient = new APIClient<Opportunity>("/opportunities");
