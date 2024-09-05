@@ -78,6 +78,9 @@ const Navbar = () => {
       break;
   }
 
+  // Function to determine if the menu item is active
+  const isActive = (path: string) => pathname === path;
+
   return (
     <>
       {showTopNav && (
@@ -126,176 +129,195 @@ const Navbar = () => {
           {user ? (
             <HStack marginX={10} gap={5}>
               {user.role === "Consumer" && (
-              <Menu>
-                <MenuButton>
-                  <Avatar
-                    name="Bimsara Jayadewa"
-                    src={UserPlaceholder}
-                    boxSize={10}
-                    cursor="pointer"
-                  />
-                </MenuButton>
-                <MenuList
-                  py={0}
-                  bg="white"
-                  borderColor={"primary"}
-                  borderWidth={3}
-                  color={"white"}
-                >
-                  <MenuItem
+                <Menu>
+                  <MenuButton>
+                    <Avatar
+                      name="Bimsara Jayadewa"
+                      src={UserPlaceholder}
+                      boxSize={10}
+                      cursor="pointer"
+                    />
+                  </MenuButton>
+                  <MenuList
+                    py={0}
                     bg="white"
-                    color="primary"
-                    _hover={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                    }}
-                    _focus={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                      bg: "primary",
-                      color: "white",
-                    }}
-                    onClick={() => navigate("/overview")}
+                    borderColor={"primary"}
+                    borderWidth={3}
+                    color={"white"}
                   >
-                    Overview
-                  </MenuItem>
-                  <MenuItem
-                    bg="white"
-                    color="primary"
-                    _hover={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                    }}
-                    _focus={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                      bg: "primary",
-                      color: "white",
-                    }}
-                    onClick={() => navigate("/orders")}
-                  >
-                    Orders
-                  </MenuItem>
-                  <MenuItem
-                    bg="white"
-                    color="primary"
-                    _hover={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                    }}
-                    _focus={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                      bg: "primary",
-                      color: "white",
-                    }}
-                    onClick={() => navigate("/feedbacks")}
-                  >
-                    Feedbacks
-                  </MenuItem>
-                  <MenuItem
-                    bg="white"
-                    color="primary"
-                    _hover={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                    }}
-                    _focus={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                      bg: "primary",
-                      color: "white",
-                    }}
-                    onClick={() => navigate("/profile")}
-                  >
-                    Profile
-                  </MenuItem>
-                  <MenuItem
-                    bg="white"
-                    color="primary"
-                    _hover={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                    }}
-                    _focus={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                      bg: "primary",
-                      color: "white",
-                    }}
-                    onClick={logout}
-                  >
-                    Logout
-                  </MenuItem>
-                </MenuList>
-              </Menu>
+                    <MenuItem
+                      bg={isActive("/overview") ? "orange.500" : "white"}
+                      color={isActive("/overview") ? "white" : "primary"}
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={() => navigate("/overview")}
+                    >
+                      Overview
+                    </MenuItem>
+                    <MenuItem
+                      bg={isActive("/orders") ? "orange.500" : "white"}
+                      color={isActive("/orders") ? "white" : "primary"}
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={() => navigate("/orders")}
+                    >
+                      Orders
+                    </MenuItem>
+                    <MenuItem
+                      bg={isActive("/feedbacks") ? "orange.500" : "white"}
+                      color={isActive("/feedbacks") ? "white" : "primary"}
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={() => navigate("/feedbacks")}
+                    >
+                      Feedbacks
+                    </MenuItem>
+                    <MenuItem
+                      bg={isActive("/profile") ? "orange.500" : "white"}
+                      color={isActive("/profile") ? "white" : "primary"}
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={() => navigate("/profile")}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem
+                      bg="white"
+                      color="primary"
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={logout}
+                    >
+                      Logout
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
               )}
               {user.role === "Admin" && (
-              <Menu>
+                <Menu>
                   <Avatar
-                    name="Bimsara Jayadewa"
+                    name="Kavisha Hettige"
                     src={UserPlaceholder}
                     boxSize={10}
                   />
-              </Menu>
+                </Menu>
               )}
               {user.role === "Supermarket Manager" && (
-              <Menu>
+                <Menu>
                   <Avatar
-                    name="Bimsara Jayadewa"
+                    name="Milinda Shehan"
                     src={UserPlaceholder}
                     boxSize={10}
                   />
-              </Menu>
+                </Menu>
               )}
               {user.role === "Courier Company Manager" && (
-              <Menu>
-                <MenuButton>
-                  <Avatar
-                    name="Bimsara Jayadewa"
-                    src={UserPlaceholder}
-                    boxSize={10}
-                    cursor="pointer"
-                  />
-                </MenuButton>
-                <MenuList
-                  py={0}
-                  bg="white"
-                  borderColor={"primary"}
-                  borderWidth={3}
-                  color={"white"}
-                >
-                  <MenuItem
+                <Menu>
+                  <MenuButton>
+                    <Avatar
+                      name="Sarala Janson"
+                      src={UserPlaceholder}
+                      boxSize={10}
+                      cursor="pointer"
+                    />
+                  </MenuButton>
+                  <MenuList
+                    py={0}
                     bg="white"
-                    color="primary"
-                    _hover={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                    }}
-                    _focus={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                      bg: "primary",
-                      color: "white",
-                    }}
-                    onClick={logout}
+                    borderColor={"primary"}
+                    borderWidth={3}
+                    color={"white"}
                   >
-                    Logout
-                  </MenuItem>
-                </MenuList>
-              </Menu>
+                    <MenuItem
+                      bg={isActive("/profile") ? "orange.500" : "white"}
+                      color={isActive("/profile") ? "white" : "primary"}
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={() => navigate("/profile")}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem
+                      bg="white"
+                      color="primary"
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={logout}
+                    >
+                      Logout
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
               )}
               <Text fontSize="lg" fontWeight="bold">
                 {user.name}
