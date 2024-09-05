@@ -1,10 +1,11 @@
+import React, { useState } from "react";
 import {
   Box,
   Button,
   Flex,
   Grid,
   GridItem,
-  HStack, 
+  HStack,
   Image,
   Input,
   Modal,
@@ -20,6 +21,9 @@ import {
 } from "@chakra-ui/react";
 
 const ProfileDetail = () => {
+  const [profileImage, setProfileImage] = useState<string | ArrayBuffer | null>(null);
+  const [modalImage, setModalImage] = useState<string | ArrayBuffer | null>(null);
+
   const {
     isOpen: isEdit,
     onOpen: onEdit,
@@ -32,22 +36,33 @@ const ProfileDetail = () => {
     onClose: onForgetPasswordClose,
   } = useDisclosure();
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageData = reader.result;
+        setProfileImage(imageData);
+        setModalImage(imageData); // Update both states
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <Box bg="white" borderRadius="10px" boxShadow="md" overflow="hidden" pb={4}>
       <Box bg="primary" position="relative" p={4} h="70">
-        <HStack>
-          <Image
-            src="https://via.placeholder.com/100"
-            alt="Profile"
-            borderRadius="full"
-            boxSize="100px"
-            position="absolute"
-            top="100%"
-            left="12%"
-            transform="translate(-50%, -50%)"
-            border="4px solid white"
-          />
-        </HStack>
+        <Image
+          src={(profileImage as string) || "https://via.placeholder.com/100"}
+          alt="Profile"
+          borderRadius="full"
+          boxSize="100px"
+          position="absolute"
+          top="100%"
+          left="12%"
+          transform="translate(-50%, -50%)"
+          border="4px solid white"
+        />
       </Box>
       <Flex justifyContent="space-between" alignItems="center" mb={4} mr={4}>
         <Text fontSize="xl" fontWeight="bold" ml="40">
@@ -167,8 +182,32 @@ const ProfileDetail = () => {
                         justifyContent="center"
                         mb={2}
                         bgColor="#EDF2F6"
+                        position="relative"
                       >
-                        <Text>Upload your photo</Text>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          display="none"
+                          id="modal-image-upload"
+                          onChange={handleImageChange} // Use the same handler
+                        />
+                        <Image
+                          src={(modalImage as string) || "https://via.placeholder.com/250"}
+                          alt="Profile"
+                          borderRadius="md"
+                          boxSize="full"
+                          objectFit="cover"
+                        />
+                        <Button
+                          position="absolute"
+                          bottom={2}
+                          right={2}
+                          variant="outline"
+                          colorScheme="teal"
+                          onClick={() => document.getElementById("modal-image-upload")?.click()}
+                        >
+                          Upload Photo
+                        </Button>
                       </Box>
                       <Text>Jayadewa T.B. A</Text>
                     </VStack>
@@ -256,9 +295,9 @@ const ProfileDetail = () => {
             <Box w="100%">
               <HStack>
                 <VStack w="100%">
-                  <Input placeholder="Current Password" bgColor="#F5F5F5"/>
-                  <Input placeholder="New Password" bgColor="#F5F5F5"/>
-                  <Input placeholder="Confirm New Password" bgColor="#F5F5F5"/>
+                  <Input placeholder="Current Password" bgColor="#F5F5F5" />
+                  <Input placeholder="New Password" bgColor="#F5F5F5" />
+                  <Input placeholder="Confirm New Password" bgColor="#F5F5F5" />
                 </VStack>
               </HStack>
             </Box>
