@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import APIClient from "@/services/api-client";
 import useAuthStore from "@/state-management/auth/store";
 import {
   Box,
@@ -22,14 +24,13 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const ProfileDetail = () => {
-  const [profileImage, setProfileImage] = useState<string | ArrayBuffer | null>(
-    null
-  );
-  const [modalImage, setModalImage] = useState<string | ArrayBuffer | null>(
-    null
-  );
+  const queryClient = useQueryClient();
   const { user } = useAuthStore();
   const {
     isOpen: isEdit,
@@ -43,6 +44,13 @@ const ProfileDetail = () => {
     onClose: onForgetPasswordClose,
   } = useDisclosure();
 
+  const [profileImage, setProfileImage] = useState<string | ArrayBuffer | null>(
+    user?.profilePic || null
+  );
+  const [modalImage, setModalImage] = useState<string | ArrayBuffer | null>(
+    user?.profilePic || null
+  );
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -55,6 +63,48 @@ const ProfileDetail = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  const profileSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Invalid email"),
+    number: z.string().optional(),
+    profilePic: z.string().optional(),
+  });
+
+  type ProfileData = z.infer<typeof profileSchema>;
+  const apiClient = new APIClient<ProfileData>("/users");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      name: user?.name || "",
+      email: user?.email || "",
+      number: user?.number || "",
+      profilePic: user?.profilePic || "",
+    },
+  });
+
+  const { mutate: updateProfile } = useMutation({
+    mutationFn: (data: ProfileData) =>
+      apiClient.update(user?.id || 0, {
+        name: data.name,
+        email: data.email,
+        number: data.number,
+        // profilePic: modalImage,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user_profile"] });
+      toast.success("Profile updated successfully");
+      onEditClose();
+    },
+    onError: () => {
+      toast.error("Failed to update profile");
+    },
+  });
 
   return (
     <Box bg="white" borderRadius="10px" boxShadow="md" overflow="hidden" pb={4}>
@@ -97,7 +147,7 @@ const ProfileDetail = () => {
       </Box>
       <Flex justifyContent="space-between" alignItems="center" mb={4} mr={4}>
         <Text fontSize="xl" fontWeight="bold" ml="40">
-        {user?.name}
+          {user?.name}
         </Text>
         <Button
           w="auto"
@@ -170,7 +220,7 @@ const ProfileDetail = () => {
         <ModalOverlay backdropFilter="blur(5px)" />
         <ModalContent borderRadius="15px" maxW="60vw">
           <ModalHeader textAlign="left" fontWeight="semibold" fontSize="20">
-            <Flex justifyContent="space-between" mt={3}>
+          <Flex justifyContent="space-between" mt={3}>
               Update Profile
               <Button
                 w="auto"
@@ -222,7 +272,7 @@ const ProfileDetail = () => {
                           id="modal-image-upload"
                           onChange={handleImageChange}
                         />
-                        {profileImage ? (
+                        {modalImage ? (
                           <Image
                             src={modalImage as string}
                             alt="Profile"
@@ -264,35 +314,43 @@ const ProfileDetail = () => {
                       </Text>
                       <Input
                         placeholder="Please enter your full name"
-                        value={user?.name}
+                        {...register("name")}
                         bgColor="#EDF2F6"
+                        isInvalid={!!errors.name}
                       />
-                      <Text fontWeight="medium" color="gray.600">
-                        Username:
-                      </Text>
-                      <Input
-                        placeholder="Please enter your username"
-                        value={user?.name?.split(" ")[0]}
-                        bgColor="#EDF2F6"
-                      />
+                      {errors.name && (
+                        <Text color="red.500" fontSize="sm">
+                          {errors.name.message}
+                        </Text>
+                      )}
                       <Text fontWeight="medium" color="gray.600">
                         Email:
                       </Text>
                       <Input
                         placeholder="Please enter your email"
-                        value={user?.email}
+                        {...register("email")}
                         bgColor="#EDF2F6"
+                        isInvalid={!!errors.email}
                       />
+                      {errors.email && (
+                        <Text color="red.500" fontSize="sm">
+                          {errors.email.message}
+                        </Text>
+                      )}
                       <Text fontWeight="medium" color="gray.600">
                         Phone number:
                       </Text>
                       <Input
-                        name="phoneNumber"
-                        value={user?.number}
-                        // onChange={handleInputChange}
                         placeholder="Please enter your phone number"
+                        {...register("number")}
                         bgColor="#EDF2F6"
+                        isInvalid={!!errors.number}
                       />
+                      {errors.number && (
+                        <Text color="red.500" fontSize="sm">
+                          {errors.number.message}
+                        </Text>
+                      )}
                     </Stack>
                   </Flex>
                 </Stack>
@@ -310,7 +368,7 @@ const ProfileDetail = () => {
                 _hover={{ bg: "white", color: "primary" }}
                 _active={{ bg: "white", color: "primary" }}
                 borderRadius="12px"
-                onClick={onEditClose}
+                onClick={handleSubmit((data) => updateProfile(data))}
               >
                 Update
               </Button>
