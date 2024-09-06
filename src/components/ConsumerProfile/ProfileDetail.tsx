@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useAuthStore from "@/state-management/auth/store";
 import {
   Box,
   Button,
@@ -6,6 +7,7 @@ import {
   Grid,
   GridItem,
   HStack,
+  Icon,
   Image,
   Input,
   Modal,
@@ -19,11 +21,16 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import { FaRegUser } from "react-icons/fa";
 
 const ProfileDetail = () => {
-  const [profileImage, setProfileImage] = useState<string | ArrayBuffer | null>(null);
-  const [modalImage, setModalImage] = useState<string | ArrayBuffer | null>(null);
-
+  const [profileImage, setProfileImage] = useState<string | ArrayBuffer | null>(
+    null
+  );
+  const [modalImage, setModalImage] = useState<string | ArrayBuffer | null>(
+    null
+  );
+  const { user } = useAuthStore();
   const {
     isOpen: isEdit,
     onOpen: onEdit,
@@ -43,7 +50,7 @@ const ProfileDetail = () => {
       reader.onloadend = () => {
         const imageData = reader.result;
         setProfileImage(imageData);
-        setModalImage(imageData); // Update both states
+        setModalImage(imageData);
       };
       reader.readAsDataURL(file);
     }
@@ -52,21 +59,45 @@ const ProfileDetail = () => {
   return (
     <Box bg="white" borderRadius="10px" boxShadow="md" overflow="hidden" pb={4}>
       <Box bg="primary" position="relative" p={4} h="70">
-        <Image
-          src={(profileImage as string) || "https://via.placeholder.com/100"}
-          alt="Profile"
-          borderRadius="full"
-          boxSize="100px"
-          position="absolute"
-          top="100%"
-          left="12%"
-          transform="translate(-50%, -50%)"
-          border="4px solid white"
-        />
+        {profileImage ? (
+          <Image
+            src={profileImage as string}
+            alt="Profile"
+            borderRadius="full"
+            boxSize="100px"
+            position="absolute"
+            top="100%"
+            left="12%"
+            transform="translate(-50%, -50%)"
+            border="4px solid white"
+          />
+        ) : (
+          <Box
+            borderRadius="full"
+            boxSize="100px"
+            position="absolute"
+            top="100%"
+            left="12%"
+            transform="translate(-50%, -50%)"
+            border="4px solid white"
+            bg="gray.200"
+          >
+            <Icon
+              as={FaRegUser}
+              boxSize="50px"
+              bg="gray.200"
+              color="gray.500"
+              position="absolute"
+              top="45%"
+              left="49%"
+              transform="translate(-50%, -50%)"
+            />
+          </Box>
+        )}
       </Box>
       <Flex justifyContent="space-between" alignItems="center" mb={4} mr={4}>
         <Text fontSize="xl" fontWeight="bold" ml="40">
-          Bimsara Anjana
+        {user?.name}
         </Text>
         <Button
           w="auto"
@@ -100,7 +131,7 @@ const ProfileDetail = () => {
             </Text>
           </GridItem>
           <GridItem>
-            <Text color="gray.800">Bimsara</Text>
+            <Text color="gray.800">{user?.name?.split(" ")[0]}</Text>
           </GridItem>
           <GridItem>
             <Text fontWeight="medium" color="gray.600">
@@ -108,7 +139,7 @@ const ProfileDetail = () => {
             </Text>
           </GridItem>
           <GridItem>
-            <Text color="gray.800">bimsarajayadewa@gmail.com</Text>
+            <Text color="gray.800">{user?.email}</Text>
           </GridItem>
           <GridItem>
             <Text fontWeight="medium" color="gray.600">
@@ -116,7 +147,7 @@ const ProfileDetail = () => {
             </Text>
           </GridItem>
           <GridItem>
-            <Text color="gray.800">0719944045</Text>
+            <Text color="gray.800">{user?.number}</Text>
           </GridItem>
           <GridItem>
             <Text fontWeight="medium" color="gray.600">
@@ -189,27 +220,43 @@ const ProfileDetail = () => {
                           accept="image/*"
                           display="none"
                           id="modal-image-upload"
-                          onChange={handleImageChange} // Use the same handler
+                          onChange={handleImageChange}
                         />
-                        <Image
-                          src={(modalImage as string) || "https://via.placeholder.com/250"}
-                          alt="Profile"
-                          borderRadius="md"
-                          boxSize="full"
-                          objectFit="cover"
-                        />
+                        {profileImage ? (
+                          <Image
+                            src={modalImage as string}
+                            alt="Profile"
+                            borderRadius="md"
+                            boxSize="full"
+                            objectFit="cover"
+                            border="4px solid white"
+                          />
+                        ) : (
+                          <Box
+                            borderRadius="md"
+                            boxSize="full"
+                            border="4px solid white"
+                            bg="gray.200"
+                          >
+                            {user?.profilePic}
+                          </Box>
+                        )}
                         <Button
                           position="absolute"
                           bottom={2}
                           right={2}
                           variant="outline"
                           colorScheme="teal"
-                          onClick={() => document.getElementById("modal-image-upload")?.click()}
+                          onClick={() =>
+                            document
+                              .getElementById("modal-image-upload")
+                              ?.click()
+                          }
                         >
                           Upload Photo
                         </Button>
                       </Box>
-                      <Text>Jayadewa T.B. A</Text>
+                      <Text>{user?.name}</Text>
                     </VStack>
                     <Stack spacing={2} flex="1">
                       <Text fontWeight="medium" color="gray.600">
@@ -217,6 +264,7 @@ const ProfileDetail = () => {
                       </Text>
                       <Input
                         placeholder="Please enter your full name"
+                        value={user?.name}
                         bgColor="#EDF2F6"
                       />
                       <Text fontWeight="medium" color="gray.600">
@@ -224,6 +272,7 @@ const ProfileDetail = () => {
                       </Text>
                       <Input
                         placeholder="Please enter your username"
+                        value={user?.name?.split(" ")[0]}
                         bgColor="#EDF2F6"
                       />
                       <Text fontWeight="medium" color="gray.600">
@@ -231,12 +280,16 @@ const ProfileDetail = () => {
                       </Text>
                       <Input
                         placeholder="Please enter your email"
+                        value={user?.email}
                         bgColor="#EDF2F6"
                       />
                       <Text fontWeight="medium" color="gray.600">
                         Phone number:
                       </Text>
                       <Input
+                        name="phoneNumber"
+                        value={user?.number}
+                        // onChange={handleInputChange}
                         placeholder="Please enter your phone number"
                         bgColor="#EDF2F6"
                       />
