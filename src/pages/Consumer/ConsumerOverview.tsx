@@ -31,7 +31,7 @@ const statsWithIcons = [
   { stat: "Amount Spent", icon: BsFillCreditCardFill },
 ];
 
-const Overview = () => {
+const ConsumerOverview = () => {
   // const [isLoadMore, setLoadMore] = useState(false);
 
   // Fetch all products (assuming `useProducts` can fetch favorite products)
@@ -104,4 +104,4 @@ const Overview = () => {
   );
 };
 
-export default Overview;
+export default ConsumerOverview;

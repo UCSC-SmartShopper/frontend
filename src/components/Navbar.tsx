@@ -160,7 +160,7 @@ const Navbar = () => {
                         bg: "primary",
                         color: "white",
                       }}
-                      onClick={() => navigate("/overview")}
+                      onClick={() => navigate("/consumer_overview")}
                     >
                       Overview
                     </MenuItem>
