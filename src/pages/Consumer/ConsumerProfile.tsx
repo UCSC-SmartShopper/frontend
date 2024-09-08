@@ -2,7 +2,7 @@
 import { Box, Flex, Grid, GridItem, Text, VStack } from "@chakra-ui/react";
 import ProfileDetail from "../../components/ConsumerProfile/ProfileDetail";
 import ShippingAddress from "../../components/ConsumerProfile/ShippingAddress";
-// import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import APIClient from "@/services/api-client";
 
 export interface Activity {
@@ -24,7 +24,7 @@ const ConsumerProfile = () => {
     data: activities,
     isLoading,
     error,
-  } = useQuery("activities", fetchActivities);
+  } = useQuery(["activities"], fetchActivities);
 
   if (isLoading) return <Text>Loading activities...</Text>;
   if (error) return <Text>Error loading activities</Text>;
@@ -60,7 +60,7 @@ const ConsumerProfile = () => {
                 Your Activities
               </Text>
               <VStack gap={0} pl={4} pr={4}>
-                {activities.map((item) => (
+                {activities?.map((item) => (
                   <Box
                     w="full"
                     key={item.id}
