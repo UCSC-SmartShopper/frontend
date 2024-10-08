@@ -1,20 +1,26 @@
-import { Center, SimpleGrid, Text } from "@chakra-ui/react";
+import { Center, SimpleGrid } from "@chakra-ui/react";
 
-import React, { useState } from "react";
+import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useProducts from "../hooks/useProducts";
 import ActionButton from "./Buttons/ActionButton";
 import ProductCard from "./ProductGrid/ProductCard";
 import ProductCardContainer from "./ProductGrid/ProductCardContainer";
+import ProductCartSkelton from "./ProductGrid/ProductCartSkelton";
 
 const ProductGrid = () => {
-  const [isLoadMore, setLoadMore] = useState(false);
+  const {
+    data: products,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useProducts();
 
-  const { data: products, error, fetchNextPage, hasNextPage } = useProducts();
+  const skeletons = [1, 2, 3, 4];
 
-  // const skeletons = [1, 2, 3, 4];
-
-  if (error) return <Text>{error.message}</Text>;
+  // if (error) return <Text>{error.message}</Text>;
 
   // sum of products in each page
   const fetchProductsCount =
@@ -24,7 +30,7 @@ const ProductGrid = () => {
     <>
       <InfiniteScroll
         dataLength={fetchProductsCount}
-        next={() => (isLoadMore ? fetchNextPage() : null)}
+        next={() => fetchNextPage()}
         hasMore={!!hasNextPage} // !! to convert to boolean
         loader={null}
       >
@@ -46,17 +52,24 @@ const ProductGrid = () => {
               ))}
             </React.Fragment>
           ))}
+          {(isFetchingNextPage||error || isLoading) &&
+            skeletons.map((skeleton) => (
+              <ProductCardContainer key={skeleton}>
+                <ProductCartSkelton />
+              </ProductCardContainer>
+            ))}
         </SimpleGrid>
         <Center>
-          <ActionButton
-            onClick={() => {
-              setLoadMore(true);
-              fetchNextPage();
-            }}
-            className="my-8"
-          >
-            View All Products
-          </ActionButton>
+          {hasNextPage && (
+            <ActionButton
+              onClick={() => {
+                fetchNextPage();
+              }}
+              className="my-8"
+            >
+              Load More
+            </ActionButton>
+          )}
         </Center>
       </InfiniteScroll>
     </>

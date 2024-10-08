@@ -22,6 +22,9 @@ import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
+import useLikedProducts from "@/services/LikedProducts/useLikedProducts";
+import useDeleteLikedProducts from "@/services/LikedProducts/useDeleteLikedProducts";
+import useCreateLikedProducts from "@/services/LikedProducts/useCreateLikedProducts";
 
 const ViewProduct = () => {
   const {
@@ -47,6 +50,11 @@ const ViewProduct = () => {
   } = useSupermarketItems(productId);
 
   const [isLiked, setIsLiked] = useState(false);
+
+  const { data: likedProducts } = useLikedProducts();
+  const createLikedProduct = useCreateLikedProducts();
+  const deleteLikedProduct = useDeleteLikedProducts();
+
   const [selectedSupermarketItem, setSupermarketItem] =
     useState<SupermarketItem | null>(null);
 
@@ -57,6 +65,17 @@ const ViewProduct = () => {
   const shouldUpdateCart =
     cartItemInCart &&
     selectedSupermarketItem?.id !== cartItemInCart.supermarketItem?.id;
+
+  useEffect(() => {
+    console.log(111111);
+    if (likedProducts?.results) {
+      const isLiked = likedProducts.results.some(
+        (likedProduct) => likedProduct.productId === productId
+      );
+      console.log(isLiked);
+      setIsLiked(isLiked);
+    }
+  }, [likedProducts?.results]);
 
   useEffect(() => {
     if (supermarketItems?.results) {
@@ -105,6 +124,20 @@ const ViewProduct = () => {
     }
   };
 
+  const toggleLiked = () => {
+    setIsLiked(!isLiked);
+    const productId = product.data?.id || -1;
+
+    if (isLiked) {
+      const likedProduct = likedProducts?.results.find(
+        (i) => i.productId === productId
+      );
+      deleteLikedProduct.mutate(likedProduct?.id || -1);
+    } else {
+      createLikedProduct.mutate({ productId });
+    }
+  };
+
   const invalidateQueries = () => {
     queryClient.invalidateQueries({ queryKey: ["carts"] });
   };
@@ -126,7 +159,7 @@ const ViewProduct = () => {
               py={2}
               as="button"
               color={isLiked ? "red" : "black"}
-              onClick={() => setIsLiked(!isLiked)}
+              onClick={toggleLiked}
               _hover={{ color: "red", transform: "scale(1.10)" }}
             >
               {isLiked ? (
