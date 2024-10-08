@@ -7,21 +7,28 @@ import {
   Grid,
   GridItem,
   VStack,
+  Flex,
+  Icon,
+  Button,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import Footer from "@/components/Footer";
+import ActionButton from "@/components/Buttons/ActionButton";
+import useConsumers, { ConsumerQuery } from "@/hooks/useConsumers";
+import useSuperMarkets from "@/hooks/useSupermarkets";
+
 import OrderFood from "../../assets/AboutUs/Order food-pana.svg";
 import GroceryShopping from "../../assets/AboutUs/Grocery shopping-amico (1).svg";
-import ActionButton from "@/components/Buttons/ActionButton";
-
 import Keels from "../../assets/supermarket-icons/Keels.svg";
 import Spar from "../../assets/supermarket-icons/Spar.svg";
 import Arpico from "../../assets/supermarket-icons/Arpico.svg";
 import Cargills from "../../assets/supermarket-icons/cargills.svg";
 import Glomark from "../../assets/supermarket-icons/glomark.svg";
 import Laughs from "../../assets/supermarket-icons/laughs.svg";
+import { PhoneIcon, EmailIcon, InfoIcon } from "@chakra-ui/icons";
 
 interface StatProps {
-  number: string;
+  number: number;
   label: string;
 }
 
@@ -35,6 +42,16 @@ const Stat = ({ number, label }: StatProps) => (
 );
 
 const AboutPage = () => {
+
+  const [consumerQuery] = useState<ConsumerQuery>(
+    {} as ConsumerQuery
+  );
+  const consumers = useConsumers(consumerQuery);
+  const totalConsumers = consumers.data?.results.length || 0;
+
+  const supermarkets = useSuperMarkets();
+  const totalSupermarkets = supermarkets.data?.results.length || 0;
+
   return (
     <>
       <Container maxW="container.xl" py={9} px="5vw">
@@ -95,10 +112,10 @@ const AboutPage = () => {
         </Grid>
 
         <SimpleGrid columns={{ base: 2, md: 4 }} gap={5} mb="10vh">
-          <Stat number="15K" label="Happy Customers" />
-          <Stat number="150K" label="Monthly Visitors" />
-          <Stat number="15" label="Major Supermarkets" />
-          <Stat number="100+" label="Categories" />
+          <Stat number={totalConsumers} label="Happy Customers" />
+          <Stat number={totalConsumers} label="Monthly Visitors" />
+          <Stat number={totalSupermarkets} label="Major Supermarkets" />
+          <Stat number={totalConsumers} label="Categories" />
         </SimpleGrid>
 
         <VStack>
@@ -151,6 +168,53 @@ const AboutPage = () => {
             </Box>
           </GridItem>
         </Grid>
+
+        {/* Contact Us Section */}
+        <Box as="section" bg="gray.100" py={10}>
+          <Box maxW="container.lg" mx="auto">
+            <Text fontSize="3xl" fontWeight="bold" textAlign="center" mb={1}>
+              Contact Us
+            </Text>
+            <Text textAlign="center" color="gray.600" mb={4}>
+              Any question or remarks? Just write us an e-mail!
+            </Text>
+            <Box
+              bg="orange.200"
+              rounded="lg"
+              p={8}
+              display="flex"
+              flexDirection={{ base: "column", md: "row" }}
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Box mb={{ base: 4, md: 0 }}>
+                <Text fontSize="xl" fontWeight="bold" mb={4}>
+                  Contact Information
+                </Text>
+                <Flex direction="row" gap={6}>
+                  <Flex align="center" gap={2}>
+                    <PhoneIcon />
+                    <Text>+1012 3456 789</Text>
+                  </Flex>
+                  <Flex align="center" gap={2}>
+                    <EmailIcon />
+                    <Text>smartshopper@gmail.com</Text>
+                  </Flex>
+                  <Flex align="center" gap={2}>
+                    <Icon as={InfoIcon} />
+                    <Text>
+                      132 Dartmouth Street Boston,
+                      <br /> Massachusetts 02156 United States
+                    </Text>
+                  </Flex>
+                </Flex>
+              </Box>
+              <Button colorScheme="orange" size="lg" rightIcon={<EmailIcon />}>
+                Send E-Mail
+              </Button>
+            </Box>
+          </Box>
+        </Box>
       </Container>
       <Footer />
     </>

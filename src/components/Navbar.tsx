@@ -32,10 +32,14 @@ const Navbar = () => {
   const { user, logout } = useAuthStore();
   const { items, setItems } = useCartStore();
   const { pathname } = useLocation();
-
   const navigate = useNavigate();
 
-  const hideNavbarPaths = ["/driver"];
+  // Call useColorModeValue at the top level
+  const bgColor = useColorModeValue("white", "gray.800");
+  const color = useColorModeValue("gray.600", "white");
+  const borderColor = useColorModeValue("gray.200", "gray.900");
+
+  const hideNavbarPaths = ["/driver/"];
   const showTopNav = !hideNavbarPaths.some((path) => pathname.startsWith(path));
 
   const consumerNavItems: NavItem[] = [
@@ -55,7 +59,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (cart?.results) setItems(cart.results);
-  }, [cart]);
+  }, [cart, setItems]);
 
   let navItems: NavItem[];
 
@@ -74,19 +78,22 @@ const Navbar = () => {
       break;
   }
 
+  // Function to determine if the menu item is active
+  const isActive = (path: string) => pathname === path;
+
   return (
     <>
       {showTopNav && (
         <Flex
           w={"100%"}
-          bg={useColorModeValue("white", "gray.800")}
-          color={useColorModeValue("gray.600", "white")}
+          bg={bgColor}
+          color={color}
           minH={"10vh"}
           py={{ base: 2 }}
           px={{ base: 4 }}
           borderBottom={1}
           borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.900")}
+          borderColor={borderColor}
           align={"center"}
           justifyContent="space-between"
           pos={
@@ -121,84 +128,197 @@ const Navbar = () => {
 
           {user ? (
             <HStack marginX={10} gap={5}>
-              <Menu>
-                <MenuButton>
+              {user.role === "Consumer" && (
+                <Menu>
+                  <MenuButton>
+                    <Avatar
+                      name="Bimsara Jayadewa"
+                      src={UserPlaceholder}
+                      boxSize={10}
+                      cursor="pointer"
+                    />
+                  </MenuButton>
+                  <MenuList
+                    py={0}
+                    bg="white"
+                    borderColor={"primary"}
+                    borderWidth={3}
+                    color={"white"}
+                  >
+                    <MenuItem
+                      bg={isActive("/overview") ? "orange.500" : "white"}
+                      color={isActive("/overview") ? "white" : "primary"}
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={() => navigate("/consumer_overview")}
+                    >
+                      Overview
+                    </MenuItem>
+                    <MenuItem
+                      bg={isActive("/orders") ? "orange.500" : "white"}
+                      color={isActive("/orders") ? "white" : "primary"}
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={() => navigate("/orders")}
+                    >
+                      Orders
+                    </MenuItem>
+                    <MenuItem
+                      bg={isActive("/feedbacks") ? "orange.500" : "white"}
+                      color={isActive("/feedbacks") ? "white" : "primary"}
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={() => navigate("/feedbacks")}
+                    >
+                      Feedbacks
+                    </MenuItem>
+                    <MenuItem
+                      bg={isActive("/profile") ? "orange.500" : "white"}
+                      color={isActive("/profile") ? "white" : "primary"}
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={() => navigate("/profile")}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem
+                      bg="white"
+                      color="primary"
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={logout}
+                    >
+                      Logout
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              )}
+              {user.role === "Admin" && (
+                <Menu>
                   <Avatar
-                    name="Dan Abrahmov"
+                    name="Kavisha Hettige"
                     src={UserPlaceholder}
                     boxSize={10}
-                    cursor="pointer"
                   />
-                </MenuButton>
-                <MenuList
-                  py={0}
-                  bg="white"
-                  borderColor={"primary"}
-                  borderWidth={3}
-                  color={"white"}
-                >
-                  <MenuItem
+                </Menu>
+              )}
+              {user.role === "Supermarket Manager" && (
+                <Menu>
+                  <Avatar
+                    name="Milinda Shehan"
+                    src={UserPlaceholder}
+                    boxSize={10}
+                  />
+                </Menu>
+              )}
+              {user.role === "Courier Company Manager" && (
+                <Menu>
+                  <MenuButton>
+                    <Avatar
+                      name="Sarala Janson"
+                      src={UserPlaceholder}
+                      boxSize={10}
+                      cursor="pointer"
+                    />
+                  </MenuButton>
+                  <MenuList
+                    py={0}
                     bg="white"
-                    color="primary"
-                    _hover={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                    }}
-                    _focus={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                      bg: "primary",
-                      color: "white",
-                    }}
-                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
-                    onClick={() => navigate("/orders")}
+                    borderColor={"primary"}
+                    borderWidth={3}
+                    color={"white"}
                   >
-                    Orders
-                  </MenuItem>
-                  <MenuItem
-                    bg="white"
-                    color="primary"
-                    _hover={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                    }}
-                    _focus={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                      bg: "primary",
-                      color: "white",
-                    }}
-                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
-                    onClick={() => navigate("/profile")}
-                  >
-                    Profile
-                  </MenuItem>
-                  <MenuItem
-                    bg="white"
-                    color="primary"
-                    _hover={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                    }}
-                    _focus={{
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: "orange.500",
-                      bg: "primary",
-                      color: "white",
-                    }}
-                    // _active={{ borderRadius: 5, borderWidth: 2, borderColor: "orange.500", bg: "primary", color: "white" }}
-                    onClick={logout}
-                  >
-                    Logout
-                  </MenuItem>
-                </MenuList>
-              </Menu>
+                    <MenuItem
+                      bg={isActive("/profile") ? "orange.500" : "white"}
+                      color={isActive("/profile") ? "white" : "primary"}
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={() => navigate("/profile")}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem
+                      bg="white"
+                      color="primary"
+                      _hover={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                      }}
+                      _focus={{
+                        borderRadius: 5,
+                        borderWidth: 2,
+                        borderColor: "orange.500",
+                        bg: "primary",
+                        color: "white",
+                      }}
+                      onClick={logout}
+                    >
+                      Logout
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              )}
               <Text fontSize="lg" fontWeight="bold">
                 {user.name}
               </Text>
