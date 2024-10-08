@@ -19,78 +19,49 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-import FaceImage from "../../assets/CourierCompany/Avatar3.svg";
+import APIClient from "@/services/api-client";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import MiddleContainer from "../../components/Containers/MiddleContainer";
-import BikeImage from "../../assets/CourierCompany/bike 1.svg";
-import FaceImage2 from "../../assets/CourierCompany/Avatar 1.svg";
-import FaceImage3 from "../../assets/CourierCompany/Avatar2.svg";
-import FaceImage4 from "../../assets/CourierCompany/Avatar4.svg";
 
-interface DeliveryPerson {
+interface DriverRequest {
+  id: number;
   name: string;
   nic: string;
-  phone: string;
-  vehicleType: string;
+  email: string;
+  contactNo: string;
+
+  courierCompany: string;
   vehicleName: string;
   vehicleNumber: string;
+  vehicleType: string;
   vehicleColor: string;
-  avatar: string;
+
+  profilePic: string;
   vehicleImage: string;
 }
 
+const apiClient = new APIClient<DriverRequest>("/driver_requests");
+const acceptApiClient = new APIClient<{ id: number }>("/accept_driver_request");
+
 const Request = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedPerson, setSelectedPerson] = useState<DeliveryPerson>();
+  const [selectedPerson, setSelectedPerson] = useState<DriverRequest>();
+  const queryClient = useQueryClient();
 
-  // Sample data for delivery personnel
-  const deliveryPersonnel: DeliveryPerson[] = [
-    {
-      name: "Kaveesha Hettige",
-      nic: "763344567V",
-      phone: "+947788905",
-      vehicleType: "Motor Cycle",
-      vehicleName: "TVS ntorq 125",
-      vehicleNumber: "VQ 3344",
-      vehicleColor: "",
-      avatar: FaceImage, // Replace with actual image URL
-      vehicleImage: BikeImage, // Replace with actual image URL
-    },
-    {
-      name: "Kaveesha Hettige",
-      nic: "763344567V",
-      phone: "+947788905",
-      vehicleType: "Motor Cycle",
-      vehicleName: "TVS ntorq 125",
-      vehicleNumber: "VQ 3344",
-      vehicleColor: "",
-      avatar: FaceImage2, // Replace with actual image URL
-      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
-    },
-    {
-      name: "Kaveesha Hettige",
-      nic: "763344567V",
-      phone: "+947788905",
-      vehicleType: "Motor Cycle",
-      vehicleName: "TVS ntorq 125",
-      vehicleNumber: "VQ 3344",
-      vehicleColor: "",
-      avatar: FaceImage3, // Replace with actual image URL
-      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
-    },
-    {
-      name: "Kaveesha Hettige",
-      nic: "763344567V",
-      phone: "+947788905",
-      vehicleType: "Motor Cycle",
-      vehicleName: "TVS ntorq 125",
-      vehicleNumber: "VQ 3344",
-      vehicleColor: "",
-      avatar: FaceImage4, // Replace with actual image URL
-      vehicleImage: "https://via.placeholder.com/150", // Replace with actual image URL
-    },
-  ];
+  const driverRequests = useQuery({
+    queryKey: ["driver_requests"],
+    queryFn: () => apiClient.getAll({}),
+  });
 
-  const handleViewClick = (person: DeliveryPerson) => {
+  const { mutate: acceptDriverRequest } = useMutation({
+    mutationFn: () =>
+      acceptApiClient.create({ id: selectedPerson?.id || -1 }).then(() => {
+        onClose();
+        queryClient.invalidateQueries({ queryKey: ["driver_requests"] });
+      }),
+  });
+
+  const handleViewClick = (person: DriverRequest) => {
     setSelectedPerson(person);
     onOpen();
   };
@@ -102,18 +73,19 @@ const Request = () => {
       </Heading>
       <Container maxW="1330px" mt={4}>
         <VStack spacing={6}>
-          {deliveryPersonnel.map((person, index) => (
+          {driverRequests.data?.results.map((person, index) => (
             <Box
               key={index}
               p={4}
               boxShadow="md"
-              borderRadius="md"
+              borderRadius={15}
               bg="white"
               display="flex"
               alignItems="center"
               w="100%"
+              borderWidth={1}
             >
-              <Avatar src={person.avatar} size="lg" />
+              <Avatar src={person.profilePic} size="lg" />
               <Box ml={4} flex="1">
                 <Text fontSize="lg" fontWeight="bold">
                   {person.name}
@@ -136,7 +108,7 @@ const Request = () => {
       {selectedPerson && (
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent maxW="500px">
+          <ModalContent maxW="40vw">
             <ModalHeader>Driver Request</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -144,13 +116,14 @@ const Request = () => {
                 display="flex"
                 alignItems="center"
                 mb={4}
-                borderWidth="1px"
-                borderRadius="lg"
+                borderWidth={1}
+                borderRadius={15}
+                boxShadow={"md"}
                 p={4}
               >
-                <Avatar src={selectedPerson.avatar} size="xl" mr={4} />
+                <Avatar src={selectedPerson.profilePic} size="xl" mr={4} />
                 <Box>
-                  <Text fontSize="lg" fontWeight="bold">
+                  <Text fontSize="lg" fontWeight="bold" mb={5}>
                     Driver Personal Details
                   </Text>
                   <Grid templateColumns="150px 1fr" gap={2}>
@@ -161,15 +134,16 @@ const Request = () => {
                     <Text>{selectedPerson.nic}</Text>
 
                     <Text>Contact No:</Text>
-                    <Text>{selectedPerson.phone}</Text>
+                    <Text>{selectedPerson.contactNo}</Text>
                   </Grid>
                 </Box>
               </Box>
               <Box
                 display="flex"
                 mb={4}
-                borderWidth="1px"
-                borderRadius="lg"
+                borderWidth={1}
+                borderRadius={15}
+                boxShadow={"md"}
                 p={4}
               >
                 <Box flex="1">
@@ -187,7 +161,7 @@ const Request = () => {
                     <Text>{selectedPerson.vehicleNumber}</Text>
 
                     <Text>Vehicle Color:</Text>
-                    <Text>{selectedPerson.vehicleColor}</Text>
+                    <Box w={20} h={8} bg={selectedPerson.vehicleColor}></Box>
                   </Grid>
                 </Box>
                 <Image
@@ -198,7 +172,7 @@ const Request = () => {
                 />
               </Box>
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter justifyContent={"center"} >
               <Button
                 type="submit"
                 width="200px"
@@ -218,6 +192,7 @@ const Request = () => {
                 color="white"
                 mt={3}
                 ml={2}
+                onClick={() => acceptDriverRequest()}
               >
                 Accept
               </Button>

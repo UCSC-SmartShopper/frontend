@@ -1,14 +1,30 @@
-import Home from "@/pages/DriverApp/Dashboard/Home";
-import Opportunities from "@/pages/DriverApp/Dashboard/Opportunities";
-import ViewOpportunity from "@/pages/DriverApp/Dashboard/ViewOpportunity";
-import DriverLayout from "./Layouts/DriverLayout";
-import Account from "@/pages/DriverApp/Dashboard/Account";
-import EditAccount from "@/pages/DriverApp/Dashboard/EditAccount";
-import VehicleDetails from "@/pages/DriverApp/Dashboard/VehicleDetails";
-import Deliveries from "@/pages/DriverApp/Dashboard/Deliveries";
-import Ratings from "@/pages/DriverApp/Dashboard/Ratings";
-import Support from "@/pages/DriverApp/Dashboard/Support";
-import ChangePassword from "@/pages/DriverApp/Dashboard/ChangePassword";
+import loadable from "@loadable/component";
+
+const Home = loadable(() => import("@/pages/DriverApp/Dashboard/Home"));
+const DriverLayout = loadable(() => import("./Layouts/DriverLayout"));
+const Account = loadable(() => import("@/pages/DriverApp/Dashboard/Account"));
+const Ratings = loadable(() => import("@/pages/DriverApp/Dashboard/Ratings"));
+const Support = loadable(() => import("@/pages/DriverApp/Dashboard/Support"));
+const ViewMap = loadable(() => import("@/pages/DriverApp/Dashboard/ViewMap"));
+const Earnings = loadable(() => import("@/pages/DriverApp/Dashboard/Earnings"));
+const ViewOpportunity = loadable(
+  () => import("@/pages/DriverApp/Dashboard/ViewOpportunity")
+);
+const EditAccount = loadable(
+  () => import("@/pages/DriverApp/Dashboard/EditAccount")
+);
+const VehicleDetails = loadable(
+  () => import("@/pages/DriverApp/Dashboard/VehicleDetails")
+);
+const ChangePassword = loadable(
+  () => import("@/pages/DriverApp/Dashboard/ChangePassword")
+);
+const Opportunities = loadable(
+  () => import("@/pages/DriverApp/Dashboard/Opportunities")
+);
+const Deliveries = loadable(
+  () => import("@/pages/DriverApp/Dashboard/Deliveries")
+);
 
 const DriverRoutes = [
   {
@@ -17,13 +33,15 @@ const DriverRoutes = [
       { path: "driver", element: <Home /> },
       { path: "driver/opportunities", element: <Opportunities /> },
       { path: "driver/opportunities/:id", element: <ViewOpportunity /> },
+      { path: "driver/earnings", element: <Earnings /> },
       { path: "driver/account", element: <Account /> },
       { path: "driver/account/edit", element: <EditAccount /> },
       { path: "driver/account/change-password", element: <ChangePassword /> },
       { path: "driver/account/vehicle", element: <VehicleDetails /> },
-      { path: "driver/account/deliveries", element: <Deliveries /> },
+      { path: "driver/deliveries", element: <Deliveries /> },
       { path: "driver/account/ratings", element: <Ratings /> },
       { path: "driver/account/support", element: <Support /> },
+      { path: "driver/opportunities/viewmap/:id", element: <ViewMap /> },
     ],
   },
 ];

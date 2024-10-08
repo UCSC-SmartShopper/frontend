@@ -46,7 +46,7 @@ const useCartStore = create<CartStore>()((set) => ({
   },
 
   updateItem: (item: CartItem, invalidateQueries: () => void) => {
-    apiClient.update(item).then(() => {
+    apiClient.update(item.id, {...item}).then(() => {
       invalidateQueries();
     });
 

@@ -1,3 +1,25 @@
+import loadable from "@loadable/component";
+
+const ConsumerCartDetails = loadable(
+  () => import("@/pages/Consumer/CartDetails")
+);
+const ConsumerProfile = loadable(
+  () => import("@/pages/Consumer/ConsumerProfile")
+);
+const ProductReview = loadable(() => import("@/pages/Consumer/Reviews"));
+const ConsumerViewOrders = loadable(
+  () => import("@/pages/Consumer/Order/CustomerViewOrder")
+);
+const ConsumerPaymentSuccessful = loadable(
+  () => import("@/pages/Consumer/PaymentSuccessful")
+);
+const ConsumerLayout = loadable(() => import("./Layouts/ConsumerLayout"));
+const ConsumerCheckout = loadable(() => import("@/pages/Consumer/Checkout"));
+const CartComparison = loadable(
+  () => import("@/pages/Consumer/CartComparison/CartComparison")
+);
+const ViewProduct = loadable(() => import("@/pages/Consumer/ViewProduct"));
+const AboutUs = loadable(() => import("@/pages/Consumer/AboutUs"));
 import AboutUs from "@/pages/Consumer/AboutUs";
 import CartComparison from "@/pages/Consumer/CartComparison/CartComparison";
 import ConsumerCartDetails from "@/pages/Consumer/CartDetails";
@@ -33,22 +55,16 @@ const ConsumerRoutes = [
     children: [
       { path: "products/:id", element: <ViewProduct /> },
       { path: "profile", element: <ConsumerProfile /> },
-      {
-        path: "review",
-        element: (
-          <ConsumerReviews
-            feedbackData={reviewData}
-            productName={productName}
-            reviews={reviews}
-            superMarketLogo={SupermarketLogo}
-          />
-        ),
-      },
+      { path: "view-orders/:id", element: <ConsumerViewOrders /> },
       { path: "cart", element: <ConsumerCartDetails /> },
       { path: "payment-success/:id", element: <ConsumerPaymentSuccessful /> },
       { path: "checkout", element: <ConsumerCheckout /> },
       { path: "cart-comparison", element: <CartComparison /> },
       { path: "about", element: <AboutUs /> },
+      {
+        path: "reviews/supermarket_item/:id",
+        element: <ProductReview />,
+      },
     ],
   },
 ];
