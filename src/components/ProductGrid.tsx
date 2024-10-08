@@ -1,7 +1,6 @@
 import { Center, SimpleGrid } from "@chakra-ui/react";
 
 import React from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
 import useProducts from "../hooks/useProducts";
 import ActionButton from "./Buttons/ActionButton";
 import ProductCard from "./ProductGrid/ProductCard";
@@ -20,58 +19,47 @@ const ProductGrid = () => {
 
   const skeletons = [1, 2, 3, 4];
 
-  // if (error) return <Text>{error.message}</Text>;
-
-  // sum of products in each page
-  const fetchProductsCount =
-    products?.pages?.reduce((acc, page) => acc + page.results.length, 0) || 0;
-
   return (
     <>
-      <InfiniteScroll
+      {/* <InfiniteScroll
         dataLength={fetchProductsCount}
         next={() => fetchNextPage()}
         hasMore={!!hasNextPage} // !! to convert to boolean
         loader={null}
-      >
-        <SimpleGrid
-          columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-          w="full"
-          spacing={6}
-          justifyContent={"center"}
-          px={4}
+      > */}
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+        w="full"
+        spacing={6}
+        justifyContent={"center"}
+        px={4}
 
-          // marginX={{ base: 0, md: "12%" }}
-        >
-          {products?.pages?.map((page, index) => (
-            <React.Fragment key={index}>
-              {page.results.map((product) => (
-                <ProductCardContainer key={product.id}>
-                  <ProductCard product={product} />
-                </ProductCardContainer>
-              ))}
-            </React.Fragment>
-          ))}
-          {(isFetchingNextPage||error || isLoading) &&
-            skeletons.map((skeleton) => (
-              <ProductCardContainer key={skeleton}>
-                <ProductCartSkelton />
+        // marginX={{ base: 0, md: "12%" }}
+      >
+        {products?.pages?.map((page, index) => (
+          <React.Fragment key={index}>
+            {page.results.map((product) => (
+              <ProductCardContainer key={product.id}>
+                <ProductCard product={product} />
               </ProductCardContainer>
             ))}
-        </SimpleGrid>
-        <Center>
-          {hasNextPage && (
-            <ActionButton
-              onClick={() => {
-                fetchNextPage();
-              }}
-              className="my-8"
-            >
-              Load More
-            </ActionButton>
-          )}
-        </Center>
-      </InfiniteScroll>
+          </React.Fragment>
+        ))}
+        {(isFetchingNextPage || error || isLoading) &&
+          skeletons.map((skeleton) => (
+            <ProductCardContainer key={skeleton}>
+              <ProductCartSkelton />
+            </ProductCardContainer>
+          ))}
+      </SimpleGrid>
+      <Center>
+        {hasNextPage && (
+          <ActionButton onClick={fetchNextPage} className="my-8">
+            Load More
+          </ActionButton>
+        )}
+      </Center>
+      {/* </InfiniteScroll> */}
     </>
   );
 };

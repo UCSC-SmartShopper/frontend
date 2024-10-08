@@ -13,6 +13,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Hide,
 } from "@chakra-ui/react";
 import { FaCartShopping } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -104,19 +105,23 @@ const Navbar = () => {
               cursor="pointer"
             />
 
-            {navItems.map((item) => (
-              <Link to={item.path} key={item.text}>
-                <Text
-                  fontSize="lg"
-                  fontWeight="bold"
-                  textDecoration={pathname === item.path ? "underline 2px" : ""}
-                  color={pathname === item.path ? "primary" : ""}
-                  textDecorationColor="primary"
-                >
-                  {item.text}
-                </Text>
-              </Link>
-            ))}
+            <Hide below="md">
+              {navItems.map((item) => (
+                <Link to={item.path} key={item.text}>
+                  <Text
+                    fontSize="lg"
+                    fontWeight="bold"
+                    textDecoration={
+                      pathname === item.path ? "underline 2px" : ""
+                    }
+                    color={pathname === item.path ? "primary" : ""}
+                    textDecorationColor="primary"
+                  >
+                    {item.text}
+                  </Text>
+                </Link>
+              ))}
+            </Hide>
           </HStack>
 
           {user ? (

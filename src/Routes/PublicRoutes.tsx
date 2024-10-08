@@ -1,3 +1,4 @@
+import Test from "@/pages/Test";
 import loadable from "@loadable/component";
 
 const DriverLogin = loadable(
@@ -24,6 +25,8 @@ const PublicRoutes = [
       { path: "driver/login_register", element: <LoginRegister /> },
       { path: "driver/register", element: <DriverRegister /> },
       { path: "supermarket", element: <Supermarkets /> },
+
+      {path: "/test", element: <Test />},
     ],
   },
 ];

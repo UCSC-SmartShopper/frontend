@@ -12,11 +12,3 @@ export interface CartItem {
 
 const apiClient = new APIClient<CartItem>(`/carts`);
 
-const useCart = () => {
-  return useQuery({
-    queryKey: ["cart"],
-    queryFn: () => apiClient.getAll({}),
-  });
-};
-
-export default useCart;
