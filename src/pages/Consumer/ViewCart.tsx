@@ -21,7 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import cartImage from "../../assets/cart.png";
 import useCartItems from "@/services/Cart/useCartItems";
 
-const CartDetails = () => {
+const ViewCart = () => {
   const navigate = useNavigate();
   const { data: cartItems } = useCartItems();
 
@@ -167,4 +167,4 @@ const EmptyCart = () => {
   );
 };
 
-export default CartDetails;
+export default ViewCart;

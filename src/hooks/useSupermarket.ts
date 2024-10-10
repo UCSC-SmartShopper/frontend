@@ -1,5 +1,5 @@
 import APIClient from "@/services/api-client";
-import { useQuery } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 
 export interface Supermarket {
   [x: string]: any;
@@ -13,11 +13,13 @@ export interface Supermarket {
 }
 const apiClient = new APIClient<Supermarket>("/supermarkets");
 
-const useSupermarket = (id: number) => {
-  return useQuery({
-    queryKey: ["Supermarket", id],
-    queryFn: () => apiClient.get(id),
-    staleTime: 1000 * 60 * 30, // 30 minute
+const useSupermarket = (ids: number[]) => {
+  return useQueries({
+    queries: ids.map((id) => ({
+      queryKey: ["Supermarket", id],
+      queryFn: () => apiClient.get(id),
+      staleTime: 1000 * 60 * 30, // 30 minute
+    })),
   });
 };
 

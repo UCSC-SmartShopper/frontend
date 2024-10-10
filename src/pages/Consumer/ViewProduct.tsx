@@ -14,7 +14,6 @@ import PriceComparison from "@/components/PriceComparison/PriceComparison";
 import ProductDescription from "@/components/PriceComparison/ProductDescription";
 import useProduct, { Product } from "@/hooks/useProduct";
 import useSupermarketItems, {
-  SupermarketItem,
   SupermarketItemWithRelations,
 } from "@/hooks/useSupermarketItems";
 import useCartItems, { CartItem } from "@/services/Cart/useCartItems";
@@ -71,7 +70,6 @@ const ViewProduct = () => {
   // ---------------------------------- Load the Cart Item State ----------------------------------------------
   useEffect(() => {
     if (cartItems?.results && supermarketItems?.results) {
-
       const matchedCartItem = cartItems?.results.find(
         (item) => item.productId === productId
       );
@@ -89,10 +87,11 @@ const ViewProduct = () => {
     }
   }, [cartItems, supermarketItems]);
 
+  // ------------------------------------ Handle Cart Item ----------------------------------------------------
   const handleCartItem = () => {
     if (!cartItem) {
       console.log("create cart item");
-      
+
       createCartItems.mutate({
         productId: productId,
         quantity: 1,
@@ -117,6 +116,7 @@ const ViewProduct = () => {
     }
   };
 
+  // ------------------------------------ Toggle Liked ----------------------------------------------------
   const toggleLiked = () => {
     setIsLiked(!isLiked);
     const productId = product.data?.id || -1;
@@ -166,7 +166,7 @@ const ViewProduct = () => {
                   ? "Update the Cart"
                   : "Remove from Cart"
               }
-              checked={false}
+              checked={cartItem?.supermarketItem.id === selectedSupermarketItem?.id}
               onClick={handleCartItem}
             />
           </Box>

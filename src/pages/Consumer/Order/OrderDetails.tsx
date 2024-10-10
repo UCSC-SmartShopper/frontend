@@ -35,11 +35,11 @@ interface SupermarketInfoRowProps {
 }
 
 const SupermarketInfoRow = ({ supermarketId }: SupermarketInfoRowProps) => {
-  const supermarket = useSupermarket(supermarketId);
+  const supermarket = useSupermarket([supermarketId]);
 
   return (
     <Text textAlign="left" paddingLeft={10}>
-      {supermarket.data?.name}
+      {supermarket[0].data?.name}
       <br />
     </Text>
   );

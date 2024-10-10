@@ -15,8 +15,8 @@ import useProduct from "@/hooks/useProduct";
 import useSupermarket from "@/hooks/useSupermarket";
 import { useNavigate } from "react-router-dom";
 import QuantityChanger from "./QuantityChanger";
-import { CartItem } from "@/hooks/useCartItem";
 import useDeleteCartItems from "@/services/Cart/useDeleteCartItem";
+import { CartItem } from "@/services/Cart/useCartItems";
 
 interface Props {
   cartItem: CartItem;
@@ -29,7 +29,7 @@ const CartItemCard = ({ cartItem }: Props) => {
   if (!cartItem) return null;
   const product = useProduct(cartItem.supermarketItem?.productId || 0);
   const supermarket = useSupermarket(
-    cartItem.supermarketItem?.supermarketId || 0
+    [cartItem.supermarketItem?.supermarketId || 0]
   );
 
 
@@ -61,8 +61,8 @@ const CartItemCard = ({ cartItem }: Props) => {
               py={1}
               h={10}
               objectFit="cover"
-              src={supermarket.data?.logo}
-              alt="Dan Abramov"
+              src={supermarket[0].data?.logo}
+              alt="supermarket logo"
             />
             <Text
               fontSize="sm"

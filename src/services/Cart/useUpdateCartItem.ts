@@ -15,7 +15,7 @@ const useUpdateCartItems = () => {
     },
 
     onSettled: () => {
-      queryClient.resetQueries({ queryKey: ["cart_items"] });
+      queryClient.invalidateQueries({ queryKey: ["cart_items"] });
     },
   });
 };
