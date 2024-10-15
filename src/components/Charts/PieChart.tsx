@@ -1,14 +1,13 @@
 import { Box } from "@chakra-ui/react";
 import Chart from "react-apexcharts";
 
-
 // Define the PieChartProps interface
 interface PieChartProps {
   chartData: number[];
   labels: string[];
 }
 
-const PieChart: React.FC<PieChartProps> = ({ chartData, labels }) => {
+const PieChart = ({ chartData, labels }: PieChartProps) => {
   const data = {
     series: chartData,
     options: {
@@ -19,16 +18,6 @@ const PieChart: React.FC<PieChartProps> = ({ chartData, labels }) => {
         top: 0,
         fontSize: "14px", // Setting the font size of the legend
       },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-          },
-        },
-      ],
     },
   };
   return (

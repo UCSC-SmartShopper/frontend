@@ -24,9 +24,13 @@ import {
   Thead,
   Tr,
   useDisclosure,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 
+import useOrders from "@/hooks/useOrders";
+import { SupermarketWithRelations } from "@/hooks/useSupermarket";
+import useSuperMarkets from "@/hooks/useSupermarkets";
+import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { FaCartFlatbed, FaLocationDot } from "react-icons/fa6";
 import { GrUserWorker } from "react-icons/gr";
@@ -34,14 +38,10 @@ import { IoStarSharp } from "react-icons/io5";
 import { MdFeedback, MdNavigateNext } from "react-icons/md";
 import { SiCashapp } from "react-icons/si";
 import LineChart from "../../components/Charts/LineChart";
-import PieChart from "../../components/Charts/PieChart";
-import useSuperMarkets from "@/hooks/useSupermarkets";
-import { SupermarketWithRelations } from "@/hooks/useSupermarket";
-import { useState } from "react";
-import useOrders from "@/hooks/useOrders";
 // import { Order } from "@/hooks/useOrder";
 import useSupermarketEarning from "@/hooks/useSupermarketEarning";
 //import Earnings from "../DriverApp/Dashboard/Earnings";
+import PieChart from "@/components/Charts/PieChart";
 import useSupermarketEarnings from "@/hooks/useSupermarketEarnings";
 import SearchBar from "@/components/SearchBar";
 // import APIClient from "@/services/api-client";
@@ -63,21 +63,20 @@ const AdminSuperMarkets = () => {
     setSelectedSm(supermarket);
     onOpen();
   };
-  
+
   const earningBySupermarket = useSupermarketEarnings();
- // console.log("earningBYSU",earningBySupermarket.data);
+  // console.log("earningBYSU",earningBySupermarket.data);
   // const { data: earningsData } = useSupermarketEarnings();
   // console.log("Earnings Data:", earningsData);
 
-  
-  const names = earningBySupermarket.data?.results.map(item => item.name) ;
-  const earnings = earningBySupermarket.data?.results.map(item => item.earnings) ;
+  const names =
+    earningBySupermarket.data?.results.map((item) => item.name) || [];
+  const earnings =
+    earningBySupermarket.data?.results.map((item) => item.earnings) || [];
 
-    // Log or use the extracted arrays
-    console.log("Names:", names);
-    console.log("Earnings:", earnings);
-  
-
+  // Log or use the extracted arrays
+  console.log("Names:", names);
+  console.log("Earnings:", earnings);
 
   return (
     <>
@@ -89,7 +88,7 @@ const AdminSuperMarkets = () => {
         <Flex w="full" gap={5}>
           {/*
           Supermarket Earnings Card
-        */}
+          */}
           <Box
             shadow="md"
             borderWidth="1px"
@@ -106,12 +105,12 @@ const AdminSuperMarkets = () => {
 
           {/*
           Supermarket Earnings Card
-        */}
+          */}
           <Box shadow="md" borderWidth="1px" w="60%" borderRadius={15}>
             <Box>
               {/* <Heading as="h3" size="lg">
               Customers
-            </Heading> */}
+              </Heading> */}
 
               <Center>
                 <LineChart width="80%" />
@@ -218,7 +217,7 @@ const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
   ).size;
   console.log(orders);
   const earingBySupermarket = useSupermarketEarning(selectedSm.id);
-  console.log("earningBYSU",earingBySupermarket);
+  console.log("earningBYSU", earingBySupermarket);
 
 
   return (
