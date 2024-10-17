@@ -16,12 +16,14 @@ import { Product } from "@/hooks/useProduct";
 import useLikedProducts from "@/services/LikedProducts/useLikedProducts";
 import useCreateLikedProducts from "@/services/LikedProducts/useCreateLikedProducts";
 import useDeleteLikedProducts from "@/services/LikedProducts/useDeleteLikedProducts";
+import useAuthStore from "@/state-management/auth/store";
 
 interface Props {
   product: Product;
 }
 
 const ProductCard = ({ product }: Props) => {
+  const user = useAuthStore((state) => state.user);
   const [isLiked, setIsLiked] = useState(false);
   const { data: likedProducts } = useLikedProducts();
 
@@ -63,25 +65,24 @@ const ProductCard = ({ product }: Props) => {
       onClick={() => navigate(`/products/${product.id}`)}
     >
       <Center h={240}>
-        <IconButton
-          zIndex={999}
-          borderRadius={5}
-          color="primary"
-          icon={isLiked ? <FaHeart /> : <FaRegHeart />}
-          aria-label="Search database"
-          size="md"
-          position={"absolute"}
-          top={6}
-          right={4}
-          bg="#edf2f7"
-          onClick={(event) => {
-            event.stopPropagation();
-            toggleLiked();
-          }}
-        />
-
-        {/* <FaRegHeart className="absolute top-1 right-6 text-2xl" /> */}
-        {/* <IconButton  className="absolute top-6 right-6 text-2xl"/> */}
+        {user && (
+          <IconButton
+            zIndex={999}
+            borderRadius={5}
+            color="primary"
+            icon={isLiked ? <FaHeart /> : <FaRegHeart />}
+            aria-label="Search database"
+            size="md"
+            position={"absolute"}
+            top={6}
+            right={4}
+            bg="#edf2f7"
+            onClick={(event) => {
+              event.stopPropagation();
+              toggleLiked();
+            }}
+          />
+        )}
 
         <Image src={product.imageUrl} w={170} />
       </Center>
