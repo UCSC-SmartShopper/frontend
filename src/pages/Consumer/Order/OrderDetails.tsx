@@ -38,18 +38,13 @@ interface SupermarketInfoRowProps {
 }
 
 const SupermarketInfoRow = ({ supermarketId }: SupermarketInfoRowProps) => {
-  const supermarket = useSupermarket(supermarketId);
-  console.log(supermarket.data);
+  const supermarket = useSupermarket([supermarketId]);
 
   return (
-    <HStack gap={8} ml={5}>
-      <Image src={supermarket.data?.logo} width={30} />
-      <Text>{supermarket.data?.name}</Text>
-      <HStack>
-        <FaPhoneAlt />
-        <Text>{supermarket.data?.contactNo}</Text>
-      </HStack>
-    </HStack>
+    <Text textAlign="left" paddingLeft={10}>
+      {supermarket[0].data?.name}
+      <br />
+    </Text>
   );
 };
 

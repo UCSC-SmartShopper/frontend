@@ -42,7 +42,7 @@ interface SupermarketRowInterface {
 
 const SupermarketRow = ({ supermarketOrder }: SupermarketRowInterface) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const supermarket = useSupermarket(supermarketOrder.supermarketId);
+  const supermarket = useSupermarket([supermarketId]);
   return (
     <>
       <HStack
@@ -55,7 +55,7 @@ const SupermarketRow = ({ supermarketOrder }: SupermarketRowInterface) => {
         }}
       >
         <Image src={QR} w="5vw" />
-        <Text>{supermarket.data?.address}</Text>
+        <Text>{supermarket[0].data?.address}</Text>
         <Spacer />
         <Icon as={FaPhoneAlt} color="primary" />
       </HStack>
@@ -66,7 +66,7 @@ const SupermarketRow = ({ supermarketOrder }: SupermarketRowInterface) => {
           <ModalBody>
             <VStack p={4}>
               <Text as="span" fontWeight="bold">
-                {supermarket.data?.address}
+                {supermarket[0].data?.address}
                 <br />
               </Text>
               <Image src={supermarketOrder.qrCode} w="40vw" h="40vw" />
@@ -75,7 +75,7 @@ const SupermarketRow = ({ supermarketOrder }: SupermarketRowInterface) => {
                 <Icon as={FaPhoneAlt} color="primary" />
               </HStack>
               <Text as="span" fontWeight="bold">
-                {supermarket.data?.contactNo}
+                {supermarket[0].data?.contactNo}
                 <br />
               </Text>
             </VStack>
