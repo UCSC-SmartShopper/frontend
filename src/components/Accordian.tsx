@@ -1,11 +1,11 @@
-import useSupermarket from "@/hooks/useSupermarket";
+import useSupermarket from "@/services/Supermarket/useSupermarket";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import {
   AccordionButton,
   AccordionItem,
   AccordionPanel,
   HStack,
-  Image
+  Image,
 } from "@chakra-ui/react";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 const SupermarketInformation = ({ supermarketId }: Props) => {
   const supermarket = useSupermarket([supermarketId]);
-  
+
   return (
     <AccordionItem>
       {({ isExpanded }) => (
@@ -34,7 +34,7 @@ const SupermarketInformation = ({ supermarketId }: Props) => {
           </h2>
           <AccordionPanel pb={4}>
             {supermarket[0].data?.address}
-            {supermarket[0].data?.description}
+            {/* {supermarket[0].data?.description} */}
           </AccordionPanel>
         </>
       )}

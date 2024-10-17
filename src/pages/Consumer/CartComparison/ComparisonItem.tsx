@@ -1,7 +1,7 @@
 import { Grid, GridItem, HStack, Image, Stack, Text } from "@chakra-ui/react";
 
 import useProduct from "@/hooks/useProduct";
-import useSupermarket from "@/hooks/useSupermarket";
+import useSupermarket from "@/services/Supermarket/useSupermarket";
 import DeleteImage from "../../../assets/delete.svg";
 import { CartItem } from "@/services/Cart/useCartItems";
 
@@ -14,7 +14,7 @@ const ComparisonItem = ({ cartItem }: Props) => {
     cartItem.supermarketItem?.productId || 0
   );
 
-  const supermarket  = useSupermarket([
+  const supermarket = useSupermarket([
     cartItem.supermarketItem?.supermarketId || 0,
   ]);
 

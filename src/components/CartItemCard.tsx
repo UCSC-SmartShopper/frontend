@@ -12,7 +12,7 @@ import {
 import { AiOutlineClose } from "react-icons/ai";
 
 import useProduct from "@/hooks/useProduct";
-import useSupermarket from "@/hooks/useSupermarket";
+import useSupermarket from "@/services/Supermarket/useSupermarket";
 import { useNavigate } from "react-router-dom";
 import QuantityChanger from "./QuantityChanger";
 import useDeleteCartItems from "@/services/Cart/useDeleteCartItem";
@@ -28,10 +28,9 @@ const CartItemCard = ({ cartItem }: Props) => {
 
   if (!cartItem) return null;
   const product = useProduct(cartItem.supermarketItem?.productId || 0);
-  const supermarket = useSupermarket(
-    [cartItem.supermarketItem?.supermarketId || 0]
-  );
-
+  const supermarket = useSupermarket([
+    cartItem.supermarketItem?.supermarketId || 0,
+  ]);
 
   return (
     <Card

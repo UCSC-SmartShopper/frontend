@@ -23,7 +23,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import Banner from "@/assets/smart-shopper-banner.svg";
 import QR from "@/assets/qr_code.png";
 import { Order } from "@/hooks/useOrder";
-import useSupermarket from "@/hooks/useSupermarket";
+import useSupermarket from "@/services/Supermarket/useSupermarket";
 import { getDateTime } from "@/utils/Time";
 import useAuthStore from "@/state-management/auth/store";
 import AddDriverReview from "@/components/ViewOrders/AddDriverReview";
@@ -217,7 +217,7 @@ const OrderDetails = ({ order }: Props) => {
           <Divider my={4} />
 
           {/* ------------------------------------ Driver Details ------------------------------------ */}
-          {["Completed","Processing"].includes(order.status) && (
+          {["Completed", "Processing"].includes(order.status) && (
             <Box
               p={4}
               borderWidth="1px"

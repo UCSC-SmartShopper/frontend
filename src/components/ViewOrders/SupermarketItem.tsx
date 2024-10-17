@@ -1,6 +1,6 @@
 import { OrderItem } from "@/hooks/useOrder";
 import useProduct from "@/hooks/useProduct";
-import useSupermarket from "@/hooks/useSupermarket";
+import useSupermarket from "@/services/Supermarket/useSupermarket";
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 
 interface Props {

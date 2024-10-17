@@ -1,5 +1,5 @@
-import useReviews from "@/hooks/reviews/useReviews";
-import useSupermarket from "@/hooks/useSupermarket";
+import useReviews from "@/services/Reviews/useReviews";
+import useSupermarket from "@/services/Supermarket/useSupermarket";
 import { SupermarketItem } from "@/hooks/useSupermarketItems";
 import {
   Box,
@@ -74,7 +74,10 @@ const SupermarketPriceRow = ({
             Reviews
           </Text>
           <Box>
-            <RatingStars value={totalStars / reviewCount} reviews={reviewCount} />
+            <RatingStars
+              value={totalStars / reviewCount}
+              reviews={reviewCount}
+            />
           </Box>
         </Stack>
       </VStack>
