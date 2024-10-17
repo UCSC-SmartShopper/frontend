@@ -1,21 +1,12 @@
 import useCartItems from "@/services/Cart/useCartItems";
-import useCreateCartItems from "@/services/Cart/useCreateCartItems";
 import useUpdateCartItems from "@/services/Cart/useUpdateCartItem";
 import { Button } from "@chakra-ui/react";
 
 const Test = () => {
   const {data:cartItems} = useCartItems();
-  const createSupermarketItem = useCreateCartItems();
   const updateSupermarketItem = useUpdateCartItems();
 
-  const handleClick = () => {
-    createSupermarketItem.mutate({
-      quantity: 1,
-      supermarketitemId: 1,
-      productId: 1,
-      consumerId: 1,
-    });
-  };
+  
 
   const handleUpdate = () => {
     updateSupermarketItem.mutate({
@@ -39,4 +30,4 @@ const Test = () => {
   );
 };
 
-export default SupermarketAdd;
+export default Test;
