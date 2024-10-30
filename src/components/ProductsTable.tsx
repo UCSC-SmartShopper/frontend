@@ -17,7 +17,7 @@ import {
   Th,
   Thead,
   Tr,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { FaEdit } from "react-icons/fa";
 import "reactjs-popup/dist/index.css";
@@ -26,20 +26,17 @@ import { useEffect, useState } from "react";
 
 import useSupermarketProducts from "@/hooks/useSupermarketProducts";
 import useAuthStore from "@/state-management/auth/store";
-import useProduct from "@/hooks/useProduct";
-
+import useProduct from "@/services/Products/useProduct";
 
 const productTable = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  
 
-  const [image , setImage] = useState<string>('');
-  const [name , setName] = useState<string>('');
-  const [description , setDescription] = useState<string>('');
-  const [available , setAvailable] = useState<boolean>(true);
+  const [image, setImage] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [available, setAvailable] = useState<boolean>(true);
   // const [Price , setPrice] = useState<number>(0);
   // const [Stock , setStock] = useState<number>(0);
-
 
   const handleEdit = (product: any) => {
     setImage(product.imgSrc);
@@ -47,10 +44,10 @@ const productTable = () => {
     setDescription(product.qty);
     setAvailable(true);
     onOpen();
-  }
-const { user } = useAuthStore();
-console.log(user?.id);
- const productsList = useSupermarketProducts(1);
+  };
+  const { user } = useAuthStore();
+  console.log(user?.id);
+  const productsList = useSupermarketProducts(1);
   const products = productsList.data?.results || [];
   const product = useProduct(1);
   console.log(product.data);
@@ -58,8 +55,8 @@ console.log(user?.id);
   const setItemDetails = (id: number) => {
     const product = useProduct(id).data;
     console.log(product);
-  return product;
-  }
+    return product;
+  };
 
   return (
     <>
@@ -112,7 +109,7 @@ console.log(user?.id);
               </Th>
             </Tr>
           </Thead>
-          <Tbody >
+          <Tbody>
             {products.map((product) => (
               <Tr
                 key={product.id}
@@ -178,7 +175,7 @@ console.log(user?.id);
                     }}
                   >
                     <Flex alignItems="center">
-                      <Icon as={FaEdit} onClick={() => handleEdit(product)}/>
+                      <Icon as={FaEdit} onClick={() => handleEdit(product)} />
                     </Flex>
                   </Link>
                 </Td>
@@ -188,15 +185,25 @@ console.log(user?.id);
         </Table>
       </Box>
 
-
-      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} size={'2xl'} >
+      <Modal
+        blockScrollOnMount={false}
+        isOpen={isOpen}
+        onClose={onClose}
+        size={"2xl"}
+      >
         <ModalOverlay />
         <ModalContent borderRadius={15}>
           <ModalHeader>Edit Item Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <EditItemDetails Price={10} Stock={20} image={image} name={name} description={description} available={available} />
-            
+            <EditItemDetails
+              Price={10}
+              Stock={20}
+              image={image}
+              name={name}
+              description={description}
+              available={available}
+            />
           </ModalBody>
 
           {/* <ModalFooter>
@@ -207,8 +214,6 @@ console.log(user?.id);
           </ModalFooter> */}
         </ModalContent>
       </Modal>
-      
-      
     </>
   );
 };

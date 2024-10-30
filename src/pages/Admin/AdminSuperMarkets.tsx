@@ -27,7 +27,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import useOrders from "@/hooks/useOrders";
+import useOrders from "@/services/Orders/useOrders";
 import { SupermarketWithRelations } from "@/services/Supermarket/useSupermarket";
 import useSuperMarkets from "@/services/Supermarket/useSupermarkets";
 import { useState } from "react";

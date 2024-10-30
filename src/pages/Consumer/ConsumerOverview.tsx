@@ -18,7 +18,7 @@ import {
   BsFillCreditCardFill,
 } from "react-icons/bs";
 import { RxHeartFilled } from "react-icons/rx";
-import useProducts from "../../hooks/useProducts";
+import useProducts from "../../services/Products/useProducts";
 import ProductCard from "../../components/ProductGrid/ProductCard";
 import ProductCardContainer from "../../components/ProductGrid/ProductCardContainer";
 import ActionButton from "../../components/Buttons/ActionButton";

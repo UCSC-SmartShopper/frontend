@@ -1,5 +1,5 @@
-import { OrderItem } from "@/hooks/useOrder";
-import useProduct from "@/hooks/useProduct";
+import { OrderItem } from "@/services/Orders/useOrder";
+import useProduct from "@/services/Products/useProduct";
 import useSupermarket from "@/services/Supermarket/useSupermarket";
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 

@@ -1,4 +1,4 @@
-import useOrder from "@/hooks/useOrder";
+import useOrder from "@/services/Orders/useOrder";
 import OrderDetails from "./OrderDetails";
 import OrderItems from "./OrderItems";
 import { Box } from "@chakra-ui/react";

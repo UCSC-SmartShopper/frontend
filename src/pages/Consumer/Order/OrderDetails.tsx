@@ -22,7 +22,7 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { RiArrowRightSLine } from "react-icons/ri";
 import Banner from "@/assets/smart-shopper-banner.svg";
 import QR from "@/assets/qr_code.png";
-import { Order } from "@/hooks/useOrder";
+import { Order } from "@/services/Orders/useOrder";
 import useSupermarket from "@/services/Supermarket/useSupermarket";
 import { getDateTime } from "@/utils/Time";
 import useAuthStore from "@/state-management/auth/store";

@@ -1,4 +1,4 @@
-import { Order } from "@/hooks/useOrder";
+import { Order } from "@/services/Orders/useOrder";
 import APIClient from "@/services/api-client";
 import useAuthStore from "@/state-management/auth/store";
 import { getDateTime } from "@/utils/Time";

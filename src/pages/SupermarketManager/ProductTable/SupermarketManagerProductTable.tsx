@@ -1,5 +1,5 @@
 import SubmitButton from "@/components/Buttons/SubmitButton";
-import useProduct, { Product } from "@/hooks/useProduct";
+import useProduct, { Product } from "@/services/Products/useProduct";
 import useSupermarketItems, {
   SupermarketItem,
 } from "@/hooks/useSupermarketItems";

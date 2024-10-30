@@ -30,7 +30,7 @@ import { useState } from "react";
 import SubmitButton from "@/components/Buttons/SubmitButton";
 import APIClient from "@/services/api-client";
 import useConsumer from "@/hooks/useConsumer";
-import useOrder, { SupermarketOrder } from "@/hooks/useOrder";
+import useOrder, { SupermarketOrder } from "@/services/Orders/useOrder";
 
 {
   /**********************************************Supermarket rows component****************************************/

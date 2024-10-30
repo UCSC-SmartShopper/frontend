@@ -1,4 +1,4 @@
-import useOrder from "@/hooks/useOrder";
+import useOrder from "@/services/Orders/useOrder";
 import OrderItemsTable from "@/pages/SupermarketManager/OrderItemsTable";
 import { Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";

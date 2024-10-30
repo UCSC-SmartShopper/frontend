@@ -1,4 +1,4 @@
-import { Order } from "@/hooks/useOrder";
+import { Order } from "@/services/Orders/useOrder";
 import {
   Box,
   Button,
