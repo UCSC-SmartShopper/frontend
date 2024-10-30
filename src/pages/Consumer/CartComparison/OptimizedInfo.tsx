@@ -1,5 +1,5 @@
 
-import { CartItem } from "@/services/Cart/useCartItems";
+import { CartItem } from "@/services/types";
 import { Box, Divider, Grid, GridItem, Stack, Text } from "@chakra-ui/react";
 interface Props {
   index: number;

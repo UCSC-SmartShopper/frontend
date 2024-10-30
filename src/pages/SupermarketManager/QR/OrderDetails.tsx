@@ -1,6 +1,5 @@
 import { Box, Grid, Spinner, Text } from "@chakra-ui/react";
 import useOrder from "@/services/Orders/useOrder";
-import { getDateTime } from "@/utils/Time";
 import TextButton from "@/components/Buttons/TextButton";
 
 import { useNavigate } from "react-router-dom";
@@ -39,7 +38,7 @@ export interface Order {
 }
 
 const OrderDetails = ({ id }: props) => {
-  const { data: order, isLoading, isError } = useOrder(id);
+  const { data: order, isLoading, isError } = useOrder([id])[0];
 
   //  onclick navigate to the order page
   const navigate = useNavigate();
@@ -74,7 +73,7 @@ const OrderDetails = ({ id }: props) => {
       >
         <Grid templateColumns="1fr 2fr" gap={1}>
           <Text>Order Placed On</Text>
-          <Text>: {getDateTime(order.orderPlacedOn)}</Text>
+          <Text>: {order.orderPlacedOn.getDateTime()}</Text>
           <Text>Payment Method</Text>
           <Text>: {order.shippingMethod}</Text>
           <Text>Order Total</Text>

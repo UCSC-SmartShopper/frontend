@@ -6,7 +6,7 @@ import OrderOverview from "./OrderOverview";
 
 const SupermarketViewOrder = () => {
   const { id } = useParams();
-  const order = useOrder(Number(id));
+  const order = useOrder([Number(id)])[0];
 
   if (order.isLoading) return <p>Loading...</p>;
   if (order.isError) return <p>Error</p>;

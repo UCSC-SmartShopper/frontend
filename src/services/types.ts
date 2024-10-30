@@ -95,7 +95,7 @@ export interface BaseOrder {
 }
 
 export interface Order extends BaseOrder {
-  orderItems: BaseOrderItems[];
+  orderItems: BaseOrderItem[];
   supermarketOrders: BaseSupermarketOrder[];
   opportunity: BaseOpportunity[];
 }
@@ -103,13 +103,17 @@ export interface Order extends BaseOrder {
 // ---------------------------------------------- Order Items ----------------------------------------------
 // This table is used to store the items in an order.
 
-export interface BaseOrderItems {
+export interface BaseOrderItem {
   id: number;
   supermarketId: number;
   productId: number;
   quantity: number;
   price: number;
   _orderId: number;
+}
+
+export interface OrderItem extends BaseOrderItem {
+  _order : BaseOrder;
 }
 
 // ---------------------------------------------- Supermarket Order ----------------------------------------------

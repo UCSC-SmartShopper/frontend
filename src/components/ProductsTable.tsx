@@ -21,39 +21,37 @@ import {
 } from "@chakra-ui/react";
 import { FaEdit } from "react-icons/fa";
 import "reactjs-popup/dist/index.css";
-import EditItemDetails from "./EditItemDetails";
-import { useEffect, useState } from "react";
+// import EditItemDetails from "./EditItemDetails";
+// import {  useState } from "react";
 
 import useSupermarketProducts from "@/hooks/useSupermarketProducts";
-import useAuthStore from "@/state-management/auth/store";
 import useProduct from "@/services/Products/useProduct";
+import useAuthStore from "@/state-management/auth/store";
 
 const productTable = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen,  onClose } = useDisclosure();
 
-  const [image, setImage] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [available, setAvailable] = useState<boolean>(true);
+  // const [image, setImage] = useState<string>("");
+  // const [name, setName] = useState<string>("");
+  // const [description, setDescription] = useState<string>("");
+  // const [available, setAvailable] = useState<boolean>(true);
   // const [Price , setPrice] = useState<number>(0);
   // const [Stock , setStock] = useState<number>(0);
 
-  const handleEdit = (product: any) => {
-    setImage(product.imgSrc);
-    setName(product.name);
-    setDescription(product.qty);
-    setAvailable(true);
-    onOpen();
-  };
+  // const handleEdit = (product: any) => {
+  //   setImage(product.imgSrc);
+  //   setName(product.name);
+  //   setDescription(product.qty);
+  //   setAvailable(true);
+  //   onOpen();
+  // };
   const { user } = useAuthStore();
   console.log(user?.id);
   const productsList = useSupermarketProducts(1);
   const products = productsList.data?.results || [];
-  const product = useProduct(1);
-  console.log(product.data);
 
   const setItemDetails = (id: number) => {
-    const product = useProduct(id).data;
+    const product = useProduct([id])[0].data;
     console.log(product);
     return product;
   };
@@ -175,7 +173,8 @@ const productTable = () => {
                     }}
                   >
                     <Flex alignItems="center">
-                      <Icon as={FaEdit} onClick={() => handleEdit(product)} />
+                      {/* <Icon as={FaEdit} onClick={() =>  handleEdit(product)} /> */}
+                      <Icon as={FaEdit} />
                     </Flex>
                   </Link>
                 </Td>
@@ -196,14 +195,14 @@ const productTable = () => {
           <ModalHeader>Edit Item Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <EditItemDetails
+            {/* <EditItemDetails
               Price={10}
               Stock={20}
               image={image}
               name={name}
               description={description}
               available={available}
-            />
+            /> */}
           </ModalBody>
 
           {/* <ModalFooter>

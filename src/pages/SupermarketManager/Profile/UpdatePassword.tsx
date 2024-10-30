@@ -1,19 +1,6 @@
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Input,
-  VStack,
-  useDisclosure,
-} from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Flex, HStack, Input, VStack } from "@chakra-ui/react";
 
-interface UpdatePasswordProps {
-  id: any;
-}
-
-const UpdatePassword = ({ id }: UpdatePasswordProps) => {
+const UpdatePassword = () => {
   return (
     <>
       <Box w="100%">

@@ -8,7 +8,7 @@ const CustomerViewOrder = () => {
   const { id } = useParams();
   if (!id) return null;
 
-  const order = useOrder(Number(id));
+  const order = useOrder([Number(id)])[0];
 
   if (!order.data) return null;
 
