@@ -11,19 +11,20 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { PiCaretRightThin } from "react-icons/pi";
 import { useRef } from "react";
 import { BsCameraFill } from "react-icons/bs";
 import useDriver from "@/hooks/useDriver";
 import useAuthStore from "@/state-management/auth/store";
-
+import APIClient from "@/services/api-client";
 
 const EditAccount = () => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  const user= useAuthStore((state) => state.user);
+  const user = useAuthStore((state) => state.user);
   const driver = useDriver(user?.driverId || 0);
+  const apiClient = new APIClient("/upload_profile_image");
 
   const userDetails = [
     { label: "NIC", value: driver.data?.nic },
@@ -32,6 +33,23 @@ const EditAccount = () => {
     { label: "Courier Company Name", value: driver.data?.courierCompany },
   ];
 
+  const handleImageUpload = () => {
+    const file = inputFileRef.current?.files?.item(0);
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      apiClient
+        .create(formData)
+        .then(() => {
+          console.log("Image Uploaded");
+        })
+        .catch((error) => {
+          console.error("Error uploading image:", error);
+        });
+    }
+  };
   return (
     <>
       <VStack h="23vh" px="8vw" pt="3vh" pb="10vh" borderWidth={2}>
@@ -51,26 +69,32 @@ const EditAccount = () => {
         </HStack>
         <Center>
           {/* --------------- Profile image upload --------------- */}
-
-          <Input type="file" display="none" ref={inputFileRef} />
-          <Image
-            boxSize="100px"
-            borderRadius="full"
-            src={driver.data?.user.profilePic}
-            alt="Profile Image"
-          />
-          <Center
-            p={1}
-            position="absolute"
-            background="white"
-            borderRadius="50%"
-            shadow="xl"
-            borderWidth={1}
-            cursor="pointer"
-            onClick={() => (inputFileRef.current as HTMLInputElement).click()}
-          >
-            <Icon as={BsCameraFill} color="primary" />
-          </Center>
+          <Form onSubmit={() => {}}>
+            <Input
+              type="file"
+              display="none"
+              ref={inputFileRef}
+              onChange={handleImageUpload}
+            />
+            <Image
+              boxSize="100px"
+              borderRadius="full"
+              src={driver.data?.user.profilePic}
+              alt="Profile Image"
+            />
+            <Center
+              p={1}
+              position="absolute"
+              background="white"
+              borderRadius="50%"
+              shadow="xl"
+              borderWidth={1}
+              cursor="pointer"
+              onClick={() => (inputFileRef.current as HTMLInputElement).click()}
+            >
+              <Icon as={BsCameraFill} color="primary" />
+            </Center>
+          </Form>
         </Center>
       </VStack>
       <Stack p={5} divider={<Divider borderColor={"gray.300"} />}>
