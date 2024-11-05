@@ -11,7 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { PiCaretRightThin } from "react-icons/pi";
 import { useRef } from "react";
 import { BsCameraFill } from "react-icons/bs";
@@ -30,6 +30,7 @@ const EditAccount = () => {
     { label: "Contact", value: driver.data?.user.number },
     { label: "Courier Company Name", value: driver.data?.courierCompany },
   ];
+  
   return (
     <>
       <VStack h="23vh" px="8vw" pt="3vh" pb="10vh" borderWidth={2}>
