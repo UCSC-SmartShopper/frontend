@@ -32,7 +32,7 @@ const statsWithIcons = [
 
 const ConsumerOverview = () => {
   const likedProducts = useLikedProducts();
-  const likedProductsIds = likedProducts.data?.results.map((product) => product.id) || [];
+  const likedProductsIds = likedProducts.data?.results.map((product) => product.productId) || [];
   const favoriteProducts = useProduct(likedProductsIds);
 
   return (
