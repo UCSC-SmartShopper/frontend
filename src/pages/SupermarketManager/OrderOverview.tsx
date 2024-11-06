@@ -1,4 +1,5 @@
 import { Order } from "@/hooks/useOrder";
+import useDriver from "@/hooks/useDriver"
 import APIClient from "@/services/api-client";
 import useAuthStore from "@/state-management/auth/store";
 import { getDateTime } from "@/utils/Time";
@@ -19,12 +20,38 @@ import {
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 interface Props {
   order: Order;
 }
+interface Opportunity{
+  
+  id: number;
+  driverId: number;
+
+
+}
 
 const OrderOverview = ({ order }: Props) => {
+  console.log(order);
+  const [driverId , setDriverId] = React.useState<number>(0);
+  const opportunityClient = new APIClient<Opportunity>("opportunity_by_order_id");
+  
+  console.log("hhhh" , driverId);
+  const driver = useDriver(1);
+  console.log("Driver" , driver.data);
+
+  opportunityClient.get(order.id)
+  .then((data) => {
+    console.log("Opportunity fetched", data);
+    setDriverId(data.driverId);
+  })
+  .catch((error) => {
+    console.error("Error fetching opportunity:", error);
+  });
+
+
   const user = useAuthStore((state) => state.user);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const queryClient = useQueryClient();
@@ -132,6 +159,8 @@ const OrderOverview = ({ order }: Props) => {
                 <Text>: {getDateTime(order.orderPlacedOn)}</Text>
                 <Text>Order Total</Text>
                 <Text>: {totalAmount} LKR</Text>
+                
+                
               </Grid>
             </Box>
             <Box
@@ -140,14 +169,14 @@ const OrderOverview = ({ order }: Props) => {
               borderWidth="1px"
               borderRadius="15"
               borderColor="gray.300"
-              bg="red"
+              // bg="red"
             >
               <Text fontSize="lg" fontWeight="bold" color="primary" mb={2}>
                 Driver Details
               </Text>
               <Grid templateColumns="1fr 2fr" gap={2}>
                 <Text>Driver name</Text>
-                <Text>: Nethmi Kaveesha</Text>
+                <Text>: hhhh</Text>
                 <Text>Contact Number</Text>
                 <Text>: 071122244</Text>
                 <Text>Vehicle Type</Text>

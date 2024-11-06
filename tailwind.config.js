@@ -79,13 +79,4 @@ export default {
     },
   },
   plugins: [require("tailwindcss-animate"), flowbite.plugin(),],
-    extend: {},
-    colors: {
-      'primary': '#ff7708',
-    }
-  },
-  plugins: [flowbite.plugin(),],
-  corePlugins: {
-    preflight: false,
- }
 }

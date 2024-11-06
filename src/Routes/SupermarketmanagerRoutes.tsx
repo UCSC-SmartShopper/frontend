@@ -1,6 +1,6 @@
-import SupermarketManagerDashboard from "@/pages/SupermarketManager/Dashboard";
-import SupermarketManagerProducts from "@/pages/SupermarketManager/Products";
-import SupermarketManagerLayout from "./Layouts/SupermarketManagerLayout";
+// import SupermarketManagerDashboard from "@/pages/SupermarketManager/Dashboard";
+// import SupermarketManagerProducts from "@/pages/SupermarketManager/Products";
+// import SupermarketManagerLayout from "./Layouts/SupermarketManagerLayout";
 import SupermarketManagerScan from "@/pages/SupermarketManager/QR/ScanQR";
 import SupermarketManagerProfile from "@/pages/SupermarketManager/Profile/Profile";
 import loadable from "@loadable/component";
