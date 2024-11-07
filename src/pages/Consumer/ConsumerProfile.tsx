@@ -2,13 +2,11 @@ import { Box, Flex, Grid, GridItem, Text, VStack } from "@chakra-ui/react";
 import ProfileDetail from "../../components/ConsumerProfile/ProfileDetail";
 import ShippingAddress from "../../components/ConsumerProfile/ShippingAddress";
 import useActivity from "@/services/Activity/useActivity";
-import Footer from "@/components/Footer";
 
 const ConsumerProfile = () => {
   const activities = useActivity().data?.results;
 
   return (
-    <>
       <Box bg="background" minH="100vh" py={7} px={{ base: 5, md: 20 }}>
         <Box bg="white" p={5} borderRadius={10} boxShadow="md">
           <Grid
@@ -84,8 +82,6 @@ const ConsumerProfile = () => {
           </Grid>
         </Box>
       </Box>
-      <Footer />
-    </>
   );
 };
 
