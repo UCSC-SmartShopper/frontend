@@ -32,6 +32,14 @@ export interface LikedProducts {
   userId?: number;
 }
 
+// ---------------------------------------------- Activity ----------------------------------------------
+
+export interface Activity {
+  id: number;
+  description: string;
+  dateTime: string;
+}
+
 // ---------------------------------------------- Supermarket ----------------------------------------------
 export interface BaseSupermarket {
   id: number;
