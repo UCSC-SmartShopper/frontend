@@ -11,17 +11,44 @@ import {
 } from "@chakra-ui/react";
 import ReactApexChart from "react-apexcharts";
 import { FaTruck } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const pendingOpportunities = useOpportunities({
+    status: "Pending",
+  }).data?.results;
 
-  const opportunities = useOpportunities({
+  const deliveredOpportunities = useOpportunities({
     status: "Delivered",
     month: "",
-  });
+  }).data?.results;
+
+  const acceptedOpportunity = useOpportunities({
+    status: "Accepted",
+    month: "",
+  }).data?.results;
+
+  const navigate = useNavigate();
   const monthlyDeliveries = Array(12).fill(0);
+
+  const pendingTodayCount =
+    pendingOpportunities && pendingOpportunities.length > 10
+      ? "10+"
+      : pendingOpportunities?.length || "None";
+
+  const tripCount = deliveredOpportunities?.filter(({ orderPlacedOn }) => {
+    const orderDate = new Date(orderPlacedOn);
+    const today = new Date();
+    return (
+      orderDate.getFullYear() === today.getFullYear() &&
+      orderDate.getMonth() === today.getMonth() &&
+      orderDate.getDate() === today.getDate()
+    );
+  }).length || "None";
   
-  if (opportunities.data?.results) {
-    opportunities.data?.results.map((opportunity) => {
+
+  if (deliveredOpportunities) {
+    deliveredOpportunities.map((opportunity) => {
       const monthIndex = new Date(opportunity.orderPlacedOn).getMonth(); // 0 is Jan, 11 is Dec
       monthlyDeliveries[monthIndex] += 1;
     });
@@ -59,14 +86,14 @@ const Home = () => {
   const cards = [
     {
       title: "Order Requests",
-      value: "10+",
+      value: pendingTodayCount,
       icon: FaTruck,
       color: "rgb(244, 114, 30)",
       background: "rgba(244, 114, 30,0.1)",
     },
     {
       title: "Today's Trips",
-      value: "25",
+      value: tripCount, 
       icon: FaTruck,
       color: "rgb(255,3,255)",
       background: "rgba(255,3,255,0.1)",
@@ -76,8 +103,18 @@ const Home = () => {
   return (
     <>
       <Center h="14vh">
-        <Button colorScheme="red" size="lg">
-          Go Offline
+        <Button
+          colorScheme={acceptedOpportunity?.length ? "yellow" : "red"}
+          size="lg"
+          onClick={() =>
+            acceptedOpportunity?.length
+              ? navigate(
+                  "/driver/opportunities/viewmap/" + acceptedOpportunity[0].id
+                )
+              : navigate("/driver/opportunities")
+          }
+        >
+          {acceptedOpportunity?.length ? "Ongoing Orders" : "Let's get started"}
         </Button>
       </Center>
       <VStack bg="background" h="80vh" px="8vw" gap="4vh">
