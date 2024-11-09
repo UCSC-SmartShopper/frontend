@@ -67,21 +67,20 @@ const Request = () => {
   };
 
   return (
-    <MiddleContainer>
+    <MiddleContainer  >
       <Heading as="h4" size="md" mt={7} pl={7}>
         Delivery Personal Requests
       </Heading>
-      <Container maxW="1330px" mt={4}>
-        <VStack spacing={6}>
+      <Container maxW="1330px" mt={4} mb={4} >
+        <VStack spacing={6} >
           {driverRequests.data?.results.map((person, index) => (
             <Box
               key={index}
-              p={4}
+              p={2}
               boxShadow="md"
               borderRadius={15}
               bg="white"
               display="flex"
-              alignItems="center"
               w="100%"
               borderWidth={1}
             >
