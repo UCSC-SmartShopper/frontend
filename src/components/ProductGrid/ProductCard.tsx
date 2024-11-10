@@ -97,7 +97,7 @@ const ProductCard = ({ product }: Props) => {
             <Text color="primary">Rs{minPrice}</Text>
             <Text as="del">Rs{maxPrice}</Text>
           </Flex>
-          <RatingStars className="mb-10" value={5} reviews={75} />
+          {/* <RatingStars className="mb-10" value={5} reviews={75} /> */}
         </Stack>
       </CardBody>
     </Card>
