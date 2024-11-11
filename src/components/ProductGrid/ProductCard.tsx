@@ -43,7 +43,7 @@ const ProductCard = ({ product }: Props) => {
       );
       setIsLiked(isLiked);
     }
-  }, [likedProducts]);
+  }, [likedProducts, product.id]);
 
   // ------------------------------------ Toggle Liked ----------------------------------------------------
   const toggleLiked = () => {
@@ -70,7 +70,6 @@ const ProductCard = ({ product }: Props) => {
       <Center h={240}>
         {user && (
           <IconButton
-            zIndex={999}
             borderRadius={5}
             color="primary"
             icon={isLiked ? <FaHeart /> : <FaRegHeart />}
@@ -98,7 +97,7 @@ const ProductCard = ({ product }: Props) => {
             <Text color="primary">Rs{minPrice}</Text>
             <Text as="del">Rs{maxPrice}</Text>
           </Flex>
-          <RatingStars className="mb-10" value={5} reviews={75} />
+          {/* <RatingStars className="mb-10" value={5} reviews={75} /> */}
         </Stack>
       </CardBody>
     </Card>

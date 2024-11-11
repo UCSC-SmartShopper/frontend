@@ -1,13 +1,14 @@
+import APIClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
-import APIClient from "../api-client";
-import { DriverRequest } from "../types";
+import { NonVerifiedDriver } from "../types";
 
-const apiClient = new APIClient<DriverRequest>("/driver_requests");
+const apiClient = new APIClient<NonVerifiedDriver>("/driver_requests");
 
 const useNonVerifiedDrivers = () => {
   return useQuery({
-    queryKey: ["driver_requests"],
+    queryKey: ["non_verified_drivers"],
     queryFn: () => apiClient.getAll({}),
+    staleTime: 1000 * 5, // 5 seconds
   });
 };
 
