@@ -228,3 +228,21 @@ export interface DriverRegistrationDetails {
   confirmPassword: string;
   OTP: string;
 }
+
+
+export interface DriverRequest {
+  id: number;
+  name: string;
+  nic: string;
+  email: string;
+  contactNo: string;
+
+  courierCompany: string;
+  vehicleName: string;
+  vehicleNumber: string;
+  vehicleType: string;
+  vehicleColor: string;
+
+  profilePic: string;
+  vehicleImage: string;
+}

@@ -48,7 +48,6 @@ const Navbar = () => {
 
   const courierNavItems: NavItem[] = [
     { text: "Home", path: "/" },
-    { text: "Request", path: "/requests" },
     { text: "Deliveries", path: "/deliveries" },
     { text: "Drivers", path: "/drivers" },
   ];

@@ -19,8 +19,23 @@ import { FaStar } from "react-icons/fa";
 import FaceImage from "../../assets/CourierCompany/Avatar3.svg";
 import StarImage from "../../assets/CourierCompany/stars.svg";
 import BikeImage from "../../assets/CourierCompany/bike 1.svg";
+import { useParams } from "react-router-dom";
+import useDriver from "@/services/Driver/useDriver";
+import useOpportunities from "@/hooks/useOpportunities";
+import useReviews from "@/services/Reviews/useReviews";
+
 
 const PersonalDetails = () => {
+  const { id } = useParams(); // recieve the id from the url
+  if (!id) return null;
+
+  const driver = useDriver([Number(id)])[0].data;
+  const opportunities= useOpportunities({status: "Delivered"}).data?.results;
+  const reviews = useReviews({
+    targetId: Number(id),
+    reviewType: "driver",
+  }).data?.results;
+  console.log(reviews)
   return (
     // <MiddleContainer width="80vw">
     <Grid gridTemplateColumns="1fr 1fr" h="100%" pl={8}>
@@ -38,26 +53,26 @@ const PersonalDetails = () => {
               <HStack>
                 <Text mt={12}>
                   Name
-                  <br />
+                  {/* <br />
                   Age
                   <br />
-                  Gender
+                  Gender */}
                   <br />
                   Contact No
                 </Text>
 
-                <Text ml={10} mt={8}>
+                <Text ml={10} mt={12}>
                   <Text color="gray.500">
-                    <b>: Kaveesha Hettige </b>
+                    <b>: {driver?.user.name}</b>
                   </Text>
-                  <Text color="gray.500">
+                  {/* <Text color="gray.500">
                     <b>: 28 </b>
                   </Text>
                   <Text color="gray.500">
                     <b>: male </b>
-                  </Text>
+                  </Text> */}
                   <Text color="gray.500">
-                    <b>: 077-123-4567 </b>
+                    <b>: {driver?.user.number} </b>
                   </Text>
                 </Text>
               </HStack>
@@ -80,13 +95,13 @@ const PersonalDetails = () => {
             </Text>
             <Text ml={10}>
               <Text color="gray.500">
-                <b>: 10 </b>
+                <b>: { opportunities?.filter((opportunity) => opportunity.driverId ===driver?.id).length||'None'} </b>
               </Text>
-              <Text color="gray.500">
+              <Text color="red">
                 {" "}
                 <b>: 5 </b>
               </Text>
-              <Text color="gray.500">
+              <Text color="red">
                 <b>: $1000 </b>
               </Text>
             </Text>
@@ -109,13 +124,16 @@ const PersonalDetails = () => {
             </Text>
             <Text ml={10}>
               <Text color="gray.500">
-                <b>: Motor Bike </b>
+                <b>: {driver?.vehicleType} </b>
               </Text>
               <Text color="gray.500">
-                <b>: 123456 </b>
+                <b>: {driver?.vehicleNumber}</b>
               </Text>
               <Text color="gray.500">
-                <b>: Black </b>
+                <Flex>
+                  <b>:</b>
+                  <Box ml={1} w={20} h={8} bg={driver?.vehicleColor}></Box>
+                </Flex>
               </Text>
             </Text>
           </HStack>
