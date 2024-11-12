@@ -215,6 +215,7 @@ export interface DriverRegistrationDetails {
   nic: string;
   email: string;
   contactNo: string;
+  profilePic: string;
 
   // Vehicle Details
   courierCompany: string;

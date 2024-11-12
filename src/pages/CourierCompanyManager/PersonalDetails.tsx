@@ -15,10 +15,7 @@ import {
 import { FaThumbsUp } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 
-// import MiddleContainer from "../../components/Containers/MiddleContainer";
-import FaceImage from "../../assets/CourierCompany/Avatar3.svg";
 import StarImage from "../../assets/CourierCompany/stars.svg";
-import BikeImage from "../../assets/CourierCompany/bike 1.svg";
 import { useParams } from "react-router-dom";
 import useDriver from "@/services/Driver/useDriver";
 import useOpportunities from "@/hooks/useOpportunities";
@@ -37,7 +34,6 @@ const PersonalDetails = () => {
   }).data?.results;
   console.log(reviews)
   return (
-    // <MiddleContainer width="80vw">
     <Grid gridTemplateColumns="1fr 1fr" h="100%" pl={8}>
       <GridItem h="100%">
         <Box borderRadius="lg" shadow="md" p={10} mb={2} mt={6} ml={5} mr={2}>
@@ -47,16 +43,12 @@ const PersonalDetails = () => {
                 Driver Personal Details
               </Text>
 
-              <Image src={FaceImage} w="50%" mt={4} ml={7} mb={4} mr={5} />
+              <Image src={driver?.user.profilePic} w="50%" mt={4} ml={7} mb={4} mr={5} />
             </GridItem>
             <GridItem>
               <HStack>
                 <Text mt={12}>
                   Name
-                  {/* <br />
-                  Age
-                  <br />
-                  Gender */}
                   <br />
                   Contact No
                 </Text>
@@ -65,12 +57,6 @@ const PersonalDetails = () => {
                   <Text color="gray.500">
                     <b>: {driver?.user.name}</b>
                   </Text>
-                  {/* <Text color="gray.500">
-                    <b>: 28 </b>
-                  </Text>
-                  <Text color="gray.500">
-                    <b>: male </b>
-                  </Text> */}
                   <Text color="gray.500">
                     <b>: {driver?.user.number} </b>
                   </Text>
@@ -80,7 +66,6 @@ const PersonalDetails = () => {
           </Grid>
           <Divider size="lg" my={4} borderColor="gray" borderWidth="1px" />
 
-          {/* <Box borderRadius="lg" shadow="md" p={4} mb={2} mt={5} ml={5} mr={2}> */}
           <Text fontSize="lg" fontWeight="bold" mb={6} mt={6}>
             Delivery Details
           </Text>
@@ -108,13 +93,11 @@ const PersonalDetails = () => {
           </HStack>
           <Divider size="sm" my={4} borderColor="gray" borderWidth="1px" />
 
-          {/* <Box borderRadius="lg" shadow="md" p={4} mb={0} mt={2} ml={5} mr={2}> */}
           <Text fontSize="lg" fontWeight="bold" mt={5}>
             Vehicle Details
           </Text>
 
           <HStack>
-            <Image src={BikeImage} w="20%" mt={5} ml={4} mb={4} mr={5} />
             <Text>
               Vehicle Type
               <br />
@@ -137,8 +120,6 @@ const PersonalDetails = () => {
               </Text>
             </Text>
           </HStack>
-          {/* </Box> */}
-          {/* </Box> */}
         </Box>
       </GridItem>
 
@@ -154,8 +135,6 @@ const PersonalDetails = () => {
         >
           Reviews
         </Text>
-
-        {/* <GridItem px={2} py={2}> */}
         <Box m={6} pl={20} pr={20}>
           <VStack alignItems="flex-start">
             <HStack
@@ -203,8 +182,6 @@ const PersonalDetails = () => {
             ))}
           </VStack>
         </Box>
-        {/* </GridItem> */}
-
         {/* Scrollable container */}
         <Box mt={4} p={4} overflowY="auto" maxH="300px">
           <Box borderEndWidth="1px" borderRadius="lg" boxShadow="md" pt={2}>
@@ -344,7 +321,6 @@ const PersonalDetails = () => {
         </Box>
       </GridItem>
     </Grid>
-    // </MiddleContainer>
   );
 };
 

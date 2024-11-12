@@ -13,36 +13,23 @@ import {
   StatHelpText,
   StatLabel,
   StatNumber,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Text,
   useDisclosure,
   VStack,
-  Image,
 } from "@chakra-ui/react";
 import { FaClipboardList, FaTruck, FaUser } from "react-icons/fa";
 import ReactApexChart from "react-apexcharts";
-import APIClient from "@/services/api-client";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import SearchBar from "@/components/SearchBar";
-import { DriverRequest } from "@/services/types";
+import { NonVerifiedDriver } from "@/services/types";
 import useNonVerifiedDrivers from "@/services/Driver/useNonVerifiedDrivers";
+import DriverRequestPopup from "./DriverRequestPopup";
 
 const CourierCompanyHome = () => {
-  const acceptApiClient = new APIClient<{ id: number }>(
-    "/accept_driver_request"
-  );
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const [selectedPerson, setSelectedPerson] = useState<DriverRequest>();
-  const queryClient = useQueryClient();
+  const [selectedPerson, setSelectedPerson] = useState<NonVerifiedDriver>();
 
   const driverRequests = useNonVerifiedDrivers().data?.results;
 
@@ -51,19 +38,10 @@ const CourierCompanyHome = () => {
       .some(field => field.toLowerCase().includes(searchQuery.toLowerCase()))
   );
   
-  const handleViewClick = (person: DriverRequest) => {
+  const handleViewClick = (person: NonVerifiedDriver) => {
     setSelectedPerson(person);
     onOpen();
   };
-
-  const { mutate: acceptDriverRequest } = useMutation({
-    mutationFn: () =>
-      acceptApiClient.create({ id: selectedPerson?.id || -1 }).then(() => {
-        onClose();
-        queryClient.invalidateQueries({ queryKey: ["driver_requests"] });
-      }),
-  });
-
   const monthlyDeliveries = Array(12).fill(0);
   const options = {
     xaxis: {
@@ -200,111 +178,13 @@ const CourierCompanyHome = () => {
                   ))}
                 </VStack>
               </Container>
-
-              {selectedPerson && (
-                <Modal isOpen={isOpen} onClose={onClose}>
-                  <ModalOverlay />
-                  <ModalContent maxW="40vw">
-                    <ModalHeader>Driver Request</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                      <Box
-                        display="flex"
-                        alignItems="center"
-                        mb={4}
-                        borderWidth={1}
-                        borderRadius={15}
-                        boxShadow={"md"}
-                        p={4}
-                      >
-                        <Avatar
-                          src={selectedPerson.profilePic}
-                          size="xl"
-                          mr={4}
-                        />
-                        <Box>
-                          <Text fontSize="lg" fontWeight="bold" mb={5}>
-                            Driver Personal Details
-                          </Text>
-                          <Grid templateColumns="150px 1fr" gap={2}>
-                            <Text>Name:</Text>
-                            <Text>{selectedPerson.name}</Text>
-
-                            <Text>NIC Number:</Text>
-                            <Text>{selectedPerson.nic}</Text>
-
-                            <Text>Contact No:</Text>
-                            <Text>{selectedPerson.contactNo}</Text>
-                          </Grid>
-                        </Box>
-                      </Box>
-                      <Box
-                        display="flex"
-                        mb={4}
-                        borderWidth={1}
-                        borderRadius={15}
-                        boxShadow={"md"}
-                        p={4}
-                      >
-                        <Box flex="1">
-                          <Text fontSize="lg" fontWeight="bold">
-                            Vehicle Details
-                          </Text>
-                          <Grid templateColumns="150px 1fr" gap={2}>
-                            <Text>Vehicle Type:</Text>
-                            <Text>{selectedPerson.vehicleType}</Text>
-
-                            <Text>Vehicle Name:</Text>
-                            <Text>{selectedPerson.vehicleName}</Text>
-
-                            <Text>Vehicle Number:</Text>
-                            <Text>{selectedPerson.vehicleNumber}</Text>
-
-                            <Text>Vehicle Color:</Text>
-                            <Box
-                              w={20}
-                              h={8}
-                              bg={selectedPerson.vehicleColor}
-                            ></Box>
-                          </Grid>
-                        </Box>
-                        <Image
-                          mt={4}
-                          src={selectedPerson.vehicleImage}
-                          boxSize="150px"
-                          ml={2}
-                        />
-                      </Box>
-                    </ModalBody>
-                    <ModalFooter justifyContent={"center"}>
-                      <Button
-                        type="submit"
-                        width="200px"
-                        bg="white"
-                        color="primary"
-                        mt={3}
-                        mr={10}
-                        border="2px"
-                        borderColor="primary"
-                        onClick={onClose}
-                      >
-                        Back
-                      </Button>
-                      <Button
-                        type="submit"
-                        width="200px"
-                        bg="primary"
-                        color="white"
-                        mt={3}
-                        ml={2}
-                        onClick={() => acceptDriverRequest()}
-                      >
-                        Accept
-                      </Button>
-                    </ModalFooter>
-                  </ModalContent>
-                </Modal>
-              )}
+                {selectedPerson && (
+        <DriverRequestPopup
+          selectedPerson={selectedPerson}
+          isOpen={isOpen}
+          onClose={onClose}
+        />
+      )}
             </Stack>
           </GridItem>
         </HStack>
