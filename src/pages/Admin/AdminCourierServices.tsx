@@ -36,58 +36,15 @@ import { IoIosColorPalette } from "react-icons/io";
 import { AiOutlineFieldNumber } from "react-icons/ai";
 import LineChart from "../../components/Charts/LineChart";
 import { IoStarSharp } from "react-icons/io5";
-import useDrivers from "@/hooks/useDrivers";
-import { Driver } from "@/hooks/useDriver";
 import { useState } from "react";
-import APIClient from "@/services/api-client";
-import { useQuery } from "@tanstack/react-query";
-
-interface CompanyDriverCount {
-  company: string;
-  count: number;
-}
-
+import useDrivers from "@/services/Driver/useDrivers";
+import { Driver } from "@/services/types";
 const AdminCourierServices = () => {
   const drivers = useDrivers();
+  const driverArray = drivers.data?.results;
+  //console.log("drivers",drivers.data?.results);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedDriver, setSelecteddriver] = useState<Driver | null>();
-
-  // const useCourierCompanyEarning = (courierCompanyId: number) => {
-  //   const apiClient = new APIClient<number>("stats/supermarket_earnings");
-  //   return useQuery({
-  //     queryKey: ["earningsC", courierCompanyId],
-  //     queryFn: () => apiClient.get(courierCompanyId),
-  //     retry: 2,
-  //   });
-  // };
-
-  //const earingByCourierCompany = useCourierCompanyEarning(1);
-
-  const driverEarning = (driverId: number) => {
-    const apiClient = new APIClient<number>("stats/drivers_earnings");
-    return useQuery({
-      queryKey: ["earningsD", driverId],
-      queryFn: () => apiClient.get(driverId),
-      retry: 2,
-    });
-  };
-
-  const getCompanyDriverCounts = (drivers: Driver[]): CompanyDriverCount[] => {
-    const counts: { [key: string]: number } = drivers.reduce((acc, driver) => {
-      acc[driver.courierCompany] = (acc[driver.courierCompany] || 0) + 1;
-      return acc;
-    }, {} as { [key: string]: number });
-  
-    return Object.entries(counts).map(([company, count]) => ({ company, count }));
-  };
-
-  const driverArray: Driver[] = drivers.data?.results || [];
-
-  const companyDriverCounts = getCompanyDriverCounts(driverArray);
-
-  const driverEarningData = driverEarning(selectedDriver?.user.id || 1);
-  // console.log("driverIDDDD", selectedDriver?.user.id);
-  // console.log("driverEarningData", driverEarningData);
 
   const deliveryPersonPopup = [
     [
@@ -166,12 +123,11 @@ const AdminCourierServices = () => {
                     boxSize="40px"
                     objectFit="cover"
                   />
-
-            <Text ml="0.3rem">{item.company}</Text>
-            <Text ml="auto">{item.count}</Text>
-          </HStack>
-        </VStack>
-      ))}
+                  <Text ml="0.3rem">{company.name}</Text>
+                  <Text ml="auto">{company.count}</Text>
+                </HStack>
+              </VStack>
+            ))}
             <ActionButton inverted={true} className="!w-full mt-5">
               View All
             </ActionButton>
@@ -221,17 +177,16 @@ const AdminCourierServices = () => {
                           <Image
                             src={driver.user.profilePic}
                             alt="driver Image"
-                            boxSize="30px"
-                            objectFit="contain"
-                            aspectRatio={16 / 9}
+                            boxSize="50px"
+                            objectFit="cover"
                             borderRadius="50%"
                             mr={4}
                           />
                           <Text>{driver.user.name}</Text>
                         </HStack>
                       </Td>
-                      <Td>{driver.user.number}</Td>
                       <Td>{driver.courierCompany}</Td>
+                      <Td>{driver.user.number}</Td>
                       <Td>{driver.vehicleType}</Td>
                       <Td>{driver.vehicleName}</Td>
                       <Td>

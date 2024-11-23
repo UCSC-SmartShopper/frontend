@@ -1,8 +1,8 @@
 import { Box, Text, VStack } from "@chakra-ui/react";
 
 import SupermarketPriceRow from "./SupermarketPriceRow";
+import { SupermarketItem } from "@/services/types";
 
-import { SupermarketItem } from "@/hooks/useSupermarketItems";
 
 interface Props {
   supermarketItems: SupermarketItem[];

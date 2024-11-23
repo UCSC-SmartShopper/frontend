@@ -1,8 +1,8 @@
 import APIClient, { FetchResponse } from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
-import { SupermarketWithRelations } from "./useSupermarket";
+import { Supermarket } from "../types";
 
-const apiClient = new APIClient<SupermarketWithRelations>("/supermarkets");
+const apiClient = new APIClient<Supermarket>("/supermarkets");
 
 export interface SupermarketQuery {
   searchText?: string;

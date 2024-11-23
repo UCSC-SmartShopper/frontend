@@ -1,9 +1,9 @@
 import Logo from "@/assets/logo.svg";
 import SubmitButton from "@/components/Buttons/SubmitButton";
-import { Order, OrderItem } from "@/hooks/useOrder";
-import useProduct from "@/hooks/useProduct";
+import useProduct from "@/services/Products/useProduct";
+import { BaseOrderItem, Order } from "@/services/types";
 import useAuthStore from "@/state-management/auth/store";
-import { getDateTime } from "@/utils/Time";
+import { DateTime } from "@/utils/Time";
 import {
   Box,
   Button,
@@ -108,7 +108,7 @@ const OrderItemsTable = ({ order }: Props) => {
             </Flex>
             <DetailsBox
               orderId={order.id}
-              orderPlacedOn={getDateTime(order.orderPlacedOn)}
+              orderPlacedOn={DateTime.toString(order.orderPlacedOn)}
               shippingMethod={order.shippingMethod}
               orderCost={123}
             />
@@ -126,8 +126,8 @@ const OrderItemsTable = ({ order }: Props) => {
   );
 };
 
-const OrderItemRow = ({ orderItem }: { orderItem: OrderItem }) => {
-  const product = useProduct(orderItem.productId);
+const OrderItemRow = ({ orderItem }: { orderItem: BaseOrderItem }) => {
+  const product = useProduct([orderItem.productId])[0];
   const orderItemPrice = orderItem.price * orderItem.quantity;
 
   return (

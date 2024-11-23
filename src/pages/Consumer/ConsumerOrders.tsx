@@ -16,57 +16,48 @@ import {
 import { DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import useOrders from "@/hooks/useOrders";
-import { Order } from "@/hooks/useOrder";
-import { getDateTime } from "@/utils/Time";
-
-// const orders: Order[] = [
-//   {
-//       id: "10001",
-//       details: "Kring New Fit office chair, mesh + PU, black",
-//       status: "ToPay",
-//       date: "16/10/2021",
-//       collector: "customer",
-//       total: "$200.00",
-//     },
-//     {
-//       id: "10002",
-//       details: "Kring New Fit office chair, mesh + PU, black",
-//       status: "Ready",
-//       date: "16/10/2021",
-//       collector: "delivery person",
-//       total: "$200.00",
-//     },
-// ];
+import useOrders from "@/services/Orders/useOrders";
+import { Order } from "@/services/types";
+import { DateTime } from "@/utils/Time";
 
 const statusColor: Record<Order["status"], string> = {
   ToPay: "red",
-  Completed: "green",
+  Prepared: "green",
   Cancelled: "yellow",
   Ready: "orange",
+  Delivered: "blue",
+  Processing: "purple",
+  Placed: "gray",
 };
 
 const ConsumerOrders = () => {
+  // const orders = useOrders();
+  // console.log(orders.data);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("View All");
 
-  const orders = useOrders();
-  console.log(orders.data);
+  const { data, isLoading, isError, error } = useOrders();
+  if (isLoading) {
+    return <Box className="p-5 h-screen bg-gray-100">Loading orders...</Box>;
+  }
+
+  if (isError) {
+    return (
+      <Box className="p-5 h-screen bg-gray-100">
+        Error fetching orders:{" "}
+        {error instanceof Error ? error.message : "Unknown error"}
+      </Box>
+    );
+  }
 
   const filteredOrders = (): Order[] => {
     switch (activeTab) {
       case "To Pay":
-        // return orders.data.filter(order => order.status === "ToPay");
-        return (
-          orders.data?.results.filter((order) => order.status === "ToPay") || []
-        );
+        return data?.results.filter((order) => order.status === "ToPay") || [];
       case "Processed":
-        // return orders.filter(order => order.status !== "ToPay");
-        return (
-          orders.data?.results.filter((order) => order.status !== "ToPay") || []
-        );
+        return data?.results.filter((order) => order.status !== "ToPay") || [];
       default:
-        return orders.data?.results || [];
+        return data?.results || [];
     }
   };
 
@@ -138,7 +129,7 @@ const ConsumerOrders = () => {
                     </Link>
                   </Td>
                   <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    {getDateTime(order.orderPlacedOn)}
+                    {DateTime.toString(order.orderPlacedOn)}
                   </Td>
                   <Td className="p-3 text-sm text-gray-700 whitespace-nowrap text-center">
                     <Badge
@@ -161,7 +152,7 @@ const ConsumerOrders = () => {
                       aria-label="View Order"
                       variant="outline"
                       colorScheme="blue"
-                      onClick={() => navigate("/view-orders/" + order.id)}
+                      onClick={() => navigate("/orders/" + order.id)}
                       mr={2}
                     />
                     <IconButton

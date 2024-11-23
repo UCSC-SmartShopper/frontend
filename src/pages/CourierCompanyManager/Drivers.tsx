@@ -1,6 +1,7 @@
 import MiddleContainer from "@/components/Containers/MiddleContainer";
-import { Driver } from "@/hooks/useDriver";
-import useDrivers from "@/hooks/useDrivers";
+import useDrivers from "@/services/Driver/useDrivers";
+import { Driver } from "@/services/types";
+
 import {
   Avatar,
   Box,
@@ -19,10 +20,10 @@ const Drivers = () => {
   const drivers = useDrivers();
   const navigate = useNavigate();
   const handleViewMore = (person: Driver) => {
-    navigate("/PersonalDetails", { state: { person } });
+    navigate("/PersonalDetails/"+person.id);
   };
   return (
-    <MiddleContainer width="90vw">
+    <MiddleContainer width="90vw" mt={10}>
       <Box p={4} borderRadius="md" bg="white" mt={4}>
         <Text fontSize="xl" fontWeight="bold" mb={4}>
           Delivery Personal Details

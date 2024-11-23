@@ -1,35 +1,33 @@
-import {
-  Box,
-  Text,
-  Image,
-  Flex,
-  Button,
-  Divider,
-  Grid,
-  Modal,
-  ModalContent,
-  ModalOverlay,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-  Center,
-  HStack,
-} from "@chakra-ui/react";
-import { FaPhoneAlt } from "react-icons/fa";
-import { PiNotepad } from "react-icons/pi";
-import { MdOutlineLocationOn } from "react-icons/md";
-import { RiArrowRightSLine } from "react-icons/ri";
-import Banner from "@/assets/smart-shopper-banner.svg";
 import QR from "@/assets/qr_code.png";
-import { Order } from "@/hooks/useOrder";
-import useSupermarket from "@/hooks/useSupermarket";
-import { getDateTime } from "@/utils/Time";
-import useAuthStore from "@/state-management/auth/store";
+import Banner from "@/assets/smart-shopper-banner.svg";
 import AddDriverReview from "@/components/ViewOrders/AddDriverReview";
 import DriverDetailsPopup from "@/components/ViewOrders/DriveDetails";
 import OrderReceipt from "@/components/ViewOrders/OrderReceipt";
 import TrackOrder from "@/components/ViewOrders/TrackOrder";
+import useSupermarket from "@/services/Supermarket/useSupermarket";
+import { Order } from "@/services/types";
+import useAuthStore from "@/state-management/auth/store";
+import { DateTime } from "@/utils/Time";
+import {
+  Box,
+  Button,
+  Center,
+  Divider,
+  Flex,
+  Grid,
+  Image,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { MdOutlineLocationOn } from "react-icons/md";
+import { PiNotepad } from "react-icons/pi";
+import { RiArrowRightSLine } from "react-icons/ri";
 interface Props {
   order: Order;
 }
@@ -38,18 +36,13 @@ interface SupermarketInfoRowProps {
 }
 
 const SupermarketInfoRow = ({ supermarketId }: SupermarketInfoRowProps) => {
-  const supermarket = useSupermarket(supermarketId);
-  console.log(supermarket.data);
+  const supermarket = useSupermarket([supermarketId]);
 
   return (
-    <HStack gap={8} ml={5}>
-      <Image src={supermarket.data?.logo} width={30} />
-      <Text>{supermarket.data?.name}</Text>
-      <HStack>
-        <FaPhoneAlt />
-        <Text>{supermarket.data?.contactNo}</Text>
-      </HStack>
-    </HStack>
+    <Text textAlign="left" paddingLeft={10}>
+      {supermarket[0].data?.name}
+      <br />
+    </Text>
   );
 };
 
@@ -156,7 +149,7 @@ const OrderDetails = ({ order }: Props) => {
           </Flex>
           <Box
             bg={
-              order.status === "Completed"
+              order.status === "Delivered"
                 ? "#5BFF89"
                 : order.status === "ToPay"
                 ? "primary"
@@ -189,7 +182,7 @@ const OrderDetails = ({ order }: Props) => {
               </Text>
               <Grid templateColumns="1fr 2fr" gap={2}>
                 <Text>Order Placed on</Text>
-                <Text>: {getDateTime(order.orderPlacedOn)}</Text>
+                <Text>: {DateTime.toString(order.orderPlacedOn)}</Text>
                 <Text>Shipping Method</Text>
                 <Text>: {order.shippingMethod}</Text>
                 <Text>Order Total</Text>
@@ -222,7 +215,7 @@ const OrderDetails = ({ order }: Props) => {
           <Divider my={4} />
 
           {/* ------------------------------------ Driver Details ------------------------------------ */}
-          {["Completed","Processing"].includes(order.status) && (
+          {["Completed", "Processing"].includes(order.status) && (
             <Box
               p={4}
               borderWidth="1px"

@@ -24,12 +24,11 @@ import {
   Thead,
   Tr,
   useDisclosure,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
 
-import useOrders from "@/hooks/useOrders";
-import { SupermarketWithRelations } from "@/hooks/useSupermarket";
-import useSuperMarkets from "@/hooks/useSupermarkets";
+import useOrders from "@/services/Orders/useOrders";
+import useSuperMarkets from "@/services/Supermarket/useSupermarkets";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { FaCartFlatbed, FaLocationDot } from "react-icons/fa6";
@@ -43,7 +42,7 @@ import useSupermarketEarning from "@/hooks/useSupermarketEarning";
 //import Earnings from "../DriverApp/Dashboard/Earnings";
 import PieChart from "@/components/Charts/PieChart";
 import useSupermarketEarnings from "@/hooks/useSupermarketEarnings";
-import SearchBar from "@/components/SearchBar";
+import { Supermarket } from "@/services/types";
 // import APIClient from "@/services/api-client";
 // import { Review } from "@/hooks/reviews/useReview";
 import { SupermarketQuery } from "@/hooks/useSupermarkets";
@@ -57,9 +56,9 @@ const AdminSuperMarkets = () => {
   const supermarkets = useSuperMarkets(supermarketQuery);
 
   const [selectedSm, setSelectedSm] =
-    useState<SupermarketWithRelations | null>();
+    useState<Supermarket | null>();
 
-  const handleEditClick = (supermarket: SupermarketWithRelations) => {
+  const handleEditClick = (supermarket: Supermarket) => {
     setSelectedSm(supermarket);
     onOpen();
   };
@@ -98,9 +97,7 @@ const AdminSuperMarkets = () => {
             alignItems="center"
             justifyContent="center"
           >
-            
-            {/* {(names && earnings) && <PieChart chartData={earnings} labels={names}/>} */}
-            
+            <PieChart chartData={earnings} labels={names} />
           </Box>
 
           {/*
@@ -206,7 +203,7 @@ const AdminSuperMarkets = () => {
 interface PopupProps {
   onClose: () => void;
   isOpen: boolean;
-  selectedSm: SupermarketWithRelations;
+  selectedSm: Supermarket;
   //earning:number;
 }
 

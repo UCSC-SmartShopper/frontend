@@ -1,31 +1,53 @@
-import { CartItem } from "@/hooks/useCartItem";
-import useCartStore from "@/state-management/cart/store";
-import { Box, Flex, Input } from "@chakra-ui/react";
-import { useQueryClient } from "@tanstack/react-query";
+import { BaseCartItem } from "@/services/Cart/useCreateCartItems";
+import useUpdateCartItems from "@/services/Cart/useUpdateCartItem";
+import { CartItem } from "@/services/types";
+import useDebounce from "@/utils/useDebounce";
+import { Box, Flex, Input, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 
 interface Props {
   cartItem: CartItem;
 }
 
-
 const QuantityChanger = ({ cartItem }: Props) => {
-  const { updateItem } = useCartStore();
-  const queryClient = useQueryClient();
+  const updateCartItem = useUpdateCartItems();
+  const [newBaseCartItem, setNewBaseCartItem] = useState<CartItem>(cartItem);
 
-  const handleIncrement = (cartItem: CartItem) => {
-    const newCartItem = { ...cartItem, quantity: cartItem.quantity + 1 };
-    if (newCartItem.quantity > 0) updateItem(newCartItem, invalidateQueries);
+  const debouncedCartItem = useDebounce(newBaseCartItem);
+
+  // -------------------------------------------- Increase and Decrease Quantity ------------------------------------------------
+  useEffect(() => {
+    if (debouncedCartItem.quantity !== cartItem.quantity) {
+      const newBaseCartItem: BaseCartItem = {
+        id: debouncedCartItem.id,
+        consumerId: -1,
+        productId: debouncedCartItem.productId,
+        supermarketitemId: debouncedCartItem.supermarketItem.id || -1,
+        quantity: debouncedCartItem.quantity,
+      };
+      if (newBaseCartItem.quantity > 0) updateCartItem.mutate(newBaseCartItem);
+    }
+  }, [debouncedCartItem]);
+
+  // // -------------------------------------------- Increase Quantity ------------------------------------------------
+  const handleIncrement = () => {
+    setNewBaseCartItem({
+      ...newBaseCartItem,
+      quantity: newBaseCartItem.quantity + 1,
+    });
   };
 
-  const handleDecrement = (cartItem: CartItem) => {
-    const newCartItem = { ...cartItem, quantity: cartItem.quantity - 1 };
-    if (newCartItem.quantity > 0) updateItem(newCartItem, invalidateQueries);
+  // // -------------------------------------------- Decrease Quantity ------------------------------------------------
+  const handleDecrement = () => {
+    if (newBaseCartItem.quantity > 1)
+      setNewBaseCartItem({
+        ...newBaseCartItem,
+        quantity: newBaseCartItem.quantity - 1,
+      });
   };
 
-  const invalidateQueries = () => {
-    queryClient.invalidateQueries({ queryKey: ["carts"] });
-  };
+  const availableQuantity = cartItem.supermarketItem.availableQuantity || 0;
 
   return (
     <Flex
@@ -38,14 +60,12 @@ const QuantityChanger = ({ cartItem }: Props) => {
     >
       <Box>Quantity</Box>
       <Flex flexDirection="row" alignItems="center" justifyContent="center">
-        <Box
-          as="button"
-          cursor="pointer"
-          px="2"
-          onClick={() => handleDecrement(cartItem)}
-        >
+        {/* -------------------- Decrease Quantity ---------------------- */}
+        <Box as="button" cursor="pointer" px="2" onClick={handleDecrement}>
           <FaMinus />
         </Box>
+
+        {/* ----------------------- Quantity  ------------------------- */}
         <Input
           textAlign="center"
           bg="white"
@@ -56,18 +76,22 @@ const QuantityChanger = ({ cartItem }: Props) => {
           min="1"
           size="md"
           w="8ch"
-          value={cartItem.quantity}
+          value={newBaseCartItem?.quantity || 10}
           readOnly
         />
-        <Box
-          as="button"
-          cursor="pointer"
-          px="2"
-          onClick={() => handleIncrement(cartItem)}
-        >
+
+        {/* -------------------- Increase Quantity ---------------------- */}
+        <Box as="button" cursor="pointer" px="2" onClick={handleIncrement}>
           <FaPlus />
         </Box>
       </Flex>
+      <Text
+        fontSize={14}
+        fontWeight={600}
+        color={availableQuantity < 10 ? "red" : "black"}
+      >
+        Available : {availableQuantity < 99 ? availableQuantity : "99+"}
+      </Text>
     </Flex>
   );
 };
