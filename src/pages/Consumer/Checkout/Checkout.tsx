@@ -36,6 +36,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdOutlineLocationOn } from "react-icons/md";
+import useCreateUserPreference from "@/services/UserPreference/useCreateUserPreference";
 
 const Checkout = () => {
   const cartCheckout = useCartCheckout();
@@ -57,9 +58,19 @@ const Checkout = () => {
   //     navigate("/payment-success/" + res.id);
   //   },
   // });
+  const createPreference=useCreateUserPreference();
 
   const handleCheckout = () => {
     const res = cartCheckout.mutate(checkoutRequest);
+    cart?.results.map((item) => {
+      createPreference.mutate({
+        userId: user?.id||0,
+        preferenceType: "Purchases",
+        referenceId: item.productId,
+      });
+      console.log(item.productId);
+    });
+
     console.log(res);
   };
 
