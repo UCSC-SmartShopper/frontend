@@ -26,7 +26,7 @@
     "@types/react-slick": "^0.23.13",
     "@uiw/react-color-wheel": "^2.3.0",
     "@use-gesture/react": "^10.3.1",
-    "apexcharts": "^3.50.0",
+    "apexcharts": "^4.0.0",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
     "class-variance-authority": "^0.7.0",
