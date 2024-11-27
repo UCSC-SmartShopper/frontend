@@ -17,27 +17,15 @@ import { CiBookmark } from "react-icons/ci";
 import ComparisonItem from "./ComparisonItem";
 import OptimizedInfo from "./OptimizedInfo";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useCartItems from "@/services/Cart/useCartItems";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import { string } from "zod";
-import useAuthStore from "@/state-management/auth/store";
-import useUser from "@/services/User/useUser";
+import useOptimizer from "@/hooks/useOptimizer";
 
 const CartComparison = () => {
   const { data: cartItems } = useCartItems();
   const navigate = useNavigate();
   const [selectedCart, setSelectedCart] = useState(1);
-  const [data, setData] = useState<any>(null);
-  console.log(data);
-  const [error, setError] = useState<string | null>(null);
-  console.log(error);
-  const [loading, setLoading] = useState<boolean>(true);
-  console.log(loading);
-
-  const { user: authUser, logout } = useAuthStore();
-  console.log(logout);
-  const user = useUser([authUser?.id || 0])[0].data;
 
   const map_key = import.meta.env.Google_Map_Api_key;
 
@@ -45,6 +33,8 @@ const CartComparison = () => {
     lat: 6.902006000053197, // Replace with desired latitude
     lng: 79.86131779568856, // Replace with desired longitude
   };
+
+  //const optimizedCart=useOptimizer();
 
   return (
     <Box px="5vw" py="5vh">
