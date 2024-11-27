@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useCartItems from "@/services/Cart/useCartItems";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import useOptimizer from "@/hooks/useOptimizer";
+import useSupermarket from "@/services/Supermarket/useSupermarket";
 
 const CartComparison = () => {
   const { data: cartItems } = useCartItems();
@@ -34,7 +34,16 @@ const CartComparison = () => {
     lng: 79.86131779568856, // Replace with desired longitude
   };
 
+  //fetching data from optimzed algorithm
   //const optimizedCart=useOptimizer();
+
+  console.log('hi',cartItems?.results);
+
+  const uniqueSupermarketIds = Array.from(
+    new Set(cartItems?.results?.map((item) => item.supermarketItem.supermarketId))
+  );
+
+  const supermarkets = useSupermarket(uniqueSupermarketIds);
 
   return (
     <Box px="5vw" py="5vh">
