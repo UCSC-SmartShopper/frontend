@@ -83,20 +83,21 @@ const Checkout = () => {
     checkoutRequest?.shippingMethod === "Home Delivery"
       ? deliveryCost.data || 250
       : 0;
-  const createPreference=useCreateUserPreference();
+
+  const createPreference = useCreateUserPreference();
 
   const handleCheckout = () => {
     cartCheckout.mutate(checkoutRequest);
-    cart?.results.map((item) => {
+    cartItems?.results.map((item) => {
       createPreference.mutate({
-        userId: user?.id||0,
+        userId: user?.id || 0,
         preferenceType: "Purchases",
         referenceId: item.productId,
       });
       console.log(item.productId);
     });
-
   };
+
   if (cartCheckout.isSuccess) {
     navigate("/orders/" + cartCheckout.data);
   }
