@@ -11,7 +11,6 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import SimpleSlider, { SliderMethods } from "../SimpleSlider";
 
 import BeveragesIcon from "../../assets/landing/categoryIcons/beverages.svg?react";
-import GroceryIcon from "../../assets/landing/categoryIcons/grocery.svg?react";
 import CondimentIcon from "../../assets/landing/categoryIcons/condiments.svg?react";
 import BakingIcon from "../../assets/landing/categoryIcons/baking.svg?react";
 import FoodIcon from "../../assets/landing/categoryIcons/food.svg?react";
@@ -51,7 +50,6 @@ const BrowseByCategory = () => {
   const categories = [
     { name: "Drinks", icon: <BeveragesIcon {...iconProps} /> },
     { name: "Condiment", icon: <CondimentIcon {...iconProps} /> },
-    { name: "Grocery", icon: <GroceryIcon {...iconProps} /> },
     { name: "Baking", icon: <BakingIcon {...iconProps} /> },
     { name: "Food", icon: <FoodIcon {...iconProps} /> },
     { name: "Decoration", icon: <DecorationIcon {...iconProps} /> },
