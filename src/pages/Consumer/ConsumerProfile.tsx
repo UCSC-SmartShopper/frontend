@@ -5,7 +5,7 @@ import useActivity from "@/services/Activity/useActivity";
 
 const ConsumerProfile = () => {
   const { data: activities } = useActivity();
-  console.log(activities);
+  console.log(activities?.results);
 
   return (
     <Box bg="background" minH="100vh" py={7} px={{ base: 5, md: 20 }}>
@@ -38,7 +38,7 @@ const ConsumerProfile = () => {
                 Your Activities
               </Text>
               <VStack gap={0} pl={4} pr={4}>
-              {( activities?.results?.length ) ? (
+              {( activities?.results.length ) ? (
                   activities.results.map((item) => (
                   <Box
                     w="full"
@@ -62,10 +62,10 @@ const ConsumerProfile = () => {
                       </Text>
                       <Box textAlign="right" whiteSpace="nowrap" flexShrink={0}>
                         <Text fontSize={10} color="gray.400">
-                          {item.dateTime.split("T")[0]}
+                          {`${item.dateTime.day}:${item.dateTime.month}:${item.dateTime.year}`}
                         </Text>
                         <Text fontSize={10} color="gray.400">
-                          {item.dateTime.split("T")[1].split(".")[0]}
+                          {`${item.dateTime.hour}:${item.dateTime.minute}:${item.dateTime.second}`}
                         </Text>
                       </Box>
                     </Flex>

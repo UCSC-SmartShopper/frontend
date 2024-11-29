@@ -14,6 +14,7 @@ import {
 import Footer from "@/components/Footer";
 import ActionButton from "@/components/Buttons/ActionButton";
 import useSuperMarkets from "@/services/Supermarket/useSupermarkets";
+import useProducts from "@/services/Products/useProducts";
 
 import OrderFood from "../../assets/AboutUs/Order food-pana.svg";
 import GroceryShopping from "../../assets/AboutUs/Grocery shopping-amico (1).svg";
@@ -40,8 +41,9 @@ const Stat = ({ number, label }: StatProps) => (
 );
 
 const AboutPage = () => {
-  const totalSupermarkets = useSuperMarkets().data?.results.length || 0;
-
+  const totalSupermarkets = new Set(useSuperMarkets().data?.results.map((result: { name: string }) => result.name)).size;
+  const totalCategories = new Set(useProducts().data?.pages[0]?.results.map((result: { category: string}) => result.category)).size;
+ console.log(useProducts().data?.pages);
   return (
     <>
       <Container maxW="container.xl" py={9} px="5vw">
@@ -105,7 +107,7 @@ const AboutPage = () => {
           <Stat number={"200+"} label="Happy Customers" />
           <Stat number={"10k+"} label="Monthly Visitors" />
           <Stat number={totalSupermarkets} label="Major Supermarkets" />
-          <Stat number={12} label="Categories" />
+          <Stat number={totalCategories} label="Categories" />
         </SimpleGrid>
 
         <VStack>
