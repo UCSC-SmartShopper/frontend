@@ -17,13 +17,18 @@ import { CiBookmark } from "react-icons/ci";
 import ComparisonItem from "./ComparisonItem";
 import OptimizedInfo from "./OptimizedInfo";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Key, useState } from "react";
 import useCartItems from "@/services/Cart/useCartItems";
 import useSupermarket from "@/services/Supermarket/useSupermarket";
+import useOptimizer from "@/hooks/useOptimizer";
 import Map from "@/pages/Public/Map";
+import { CartItem } from "@/services/types";
 
 const CartComparison = () => {
   const { data: cartItems } = useCartItems();
+  const { data: optimizedCart } = useOptimizer();
+  console.log('optimizedCart :',optimizedCart);
+  console.log('cartItems :',cartItems);
   const navigate = useNavigate();
   const [selectedCart, setSelectedCart] = useState(1);
 
@@ -156,12 +161,12 @@ const CartComparison = () => {
                 gap={5}
                 divider={<Divider borderColor="gray.400" />}
               >
-                {cartItems?.results.map((item, index) => (
+                {optimizedCart?.map((item: CartItem, index: Key | null | undefined) => (
                   <ComparisonItem key={index} cartItem={item} />
                 ))}
               </VStack>
               <Divider borderColor="gray.400" mb={3} />
-              {(cartItems?.results.length || 0) > 4 && (
+              {(optimizedCart?.length || 0) > 4 && (
                 <Button width="lg" bg="primary" color="white" mt={4} mb={4}>
                   View More
                 </Button>
@@ -172,7 +177,7 @@ const CartComparison = () => {
                 <Map centers={centers}/>
                 </AspectRatio>
               </Box>
-              <OptimizedInfo index={2} cartItems={cartItems?.results || []} />
+              <OptimizedInfo index={2} cartItems={optimizedCart || []} />
             </VStack>
           </Box>
         </GridItem>
