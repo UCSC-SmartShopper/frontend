@@ -56,7 +56,7 @@ const SupermarketRow = ({ supermarketOrder }: SupermarketRowInterface) => {
         }}
       >
         <Image src={QR} w="5vw" />
-        <Text>{supermarket[0].data?.address}</Text>
+        <Text>{supermarket[0].data?.name+", "+supermarket[0].data?.city}</Text>
         <Spacer />
         <Icon as={FaPhoneAlt} color="primary" />
       </HStack>
@@ -170,13 +170,14 @@ const ViewMap = () => {
           h="93vh"
           style={{ pointerEvents: showDetails ? "none" : "auto" }}
         >
-          <SupermarketLocation
+         <SupermarketLocation
             supermarketIds={
-              order.data?.supermarketOrders?.map(
+              opportunity.data?.opportunitysupermarket?.map(
                 (s) => s.supermarketId
               ) || []
             }
           />
+
         </AspectRatio>
 
         <Box
