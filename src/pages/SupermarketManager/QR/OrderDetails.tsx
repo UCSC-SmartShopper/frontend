@@ -7,8 +7,7 @@ import TextButton from "@/components/Buttons/TextButton";
 import { useNavigate } from "react-router-dom";
 import { DateTime } from "@/utils/Time";
 
-
-interface props {
+interface Props {
   id: number;
 }
 
@@ -36,41 +35,37 @@ export interface Order {
   shippingMethod: string;
   location: string;
   orderItems: OrderItem[];
-
   supermarketOrders: SupermarketOrder[];
   orderPlacedOn: Date;
+  deliveryFee?: number;
 }
 
-const OrderDetails = ({ id }: props) => {
-  const { data: order, isLoading, isError } = useOrder([id])[0];
-  const opportunityId = order?.opportunity[0].id;
-  const { data: opportunity } = useOpportunity(opportunityId? opportunityId : 0);
-  const driverId = opportunity?.driverId;
-  const { data: driver } = useDriver(driverId ? [driverId] : [])[0];
-  //  onclick navigate to the order page
-  const navigate = useNavigate();
-  const btn = () => {
-    navigate(`/orders/${id}`);
-  };
+const OrderDetails = ({ id }: Props) => {
+  const { data: order, isLoading, isError } = useOrder([id])[0] || {};
+  const opportunityId = order?.opportunity?.[0]?.id || 0;
+  const { data: opportunity } = useOpportunity(opportunityId);
+  const driverId = opportunity?.driverId || 0;
+  const { data: driver } = useDriver(driverId ? [driverId] : [])[0] || {};
 
-  if (isLoading)
-    return (
-      <>
-        <Spinner size="xl" />
-      </>
-    );
-  if (isError) return <p>Error loading order details.</p>;
-  if (!order) return <p>No order data found.</p>;
+  const navigate = useNavigate();
+
+  if (isLoading) {
+    return <Spinner size="xl" />;
+  }
+
+  if (isError) {
+    return <Text>Error loading order details.</Text>;
+  }
+
+  if (!order) {
+    return <Text>No order data found.</Text>;
+  }
 
   // Calculate the order total from order items
-  const orderTotal = order.orderItems.reduce(
+  const orderTotal = order.orderItems?.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
-
-
-
-
 
   return (
     <Box>
@@ -88,14 +83,14 @@ const OrderDetails = ({ id }: props) => {
           <Text>Payment Method</Text>
           <Text>: {order.shippingMethod}</Text>
           <Text>Order Total</Text>
-          <Text>: {orderTotal.toFixed(2)}</Text>
+          <Text>: {orderTotal?.toFixed(2) || "0.00"}</Text>
           <Text>Delivery Cost</Text>
-          <Text>: {order.deliveryFee}</Text>
+          <Text>: {order.deliveryFee || "0.00"}</Text>
           <Text>Shipping Address</Text>
           <Text>: {order.shippingAddress}</Text>
-          
         </Grid>
       </Box>
+
       <Box
         flex="1"
         p={4}
@@ -109,23 +104,22 @@ const OrderDetails = ({ id }: props) => {
         </Text>
         <Grid templateColumns="1fr 2fr" gap={1}>
           <Text>Driver Name</Text>
-      <Text>: {driver?.user.name}</Text>{" "}
-          {/* This should ideally come from the order data */}
+          <Text>: {driver?.user?.name || "Not Available"}</Text>
           <Text>Contact Number</Text>
-          <Text>: {driver?.user.number}</Text>{" "}
-          {/* This should ideally come from the order data */}
+          <Text>: {driver?.user?.number || "Not Available"}</Text>
           <Text>Vehicle Type</Text>
-          <Text>: {driver?.vehicleType}</Text>{" "}
-          {/* This should ideally come from the order data */}
+          <Text>: {driver?.vehicleType || "Not Available"}</Text>
           <Text>Vehicle Number</Text>
-          <Text>: {driver?.vehicleName} {driver?.vehicleNumber}</Text>{" "}
-          {/* This should ideally come from the order data */}
+          <Text>
+            : {driver?.vehicleName || "Unknown"} {driver?.vehicleNumber || ""}
+          </Text>
         </Grid>
       </Box>
+
       <TextButton
         text="View Order"
         hoverColor="primary"
-        onClick={() => btn()}
+        onClick={() => navigate(`/orders/${id}`)}
       />
     </Box>
   );

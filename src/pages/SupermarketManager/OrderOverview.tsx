@@ -1,4 +1,4 @@
-import useDriver from "@/hooks/useDriver"
+
 import APIClient from "@/services/api-client";
 import { Order } from "@/services/types";
 import useAuthStore from "@/state-management/auth/store";
@@ -34,13 +34,13 @@ interface Opportunity{
 }
 
 const OrderOverview = ({ order }: Props) => {
-  console.log(order);
+  console.log(order , "order");
   const [driverId , setDriverId] = React.useState<number>(0);
   const opportunityClient = new APIClient<Opportunity>("opportunity_by_order_id");
+
   
   console.log("hhhh" , driverId);
-  const driver = useDriver(1);
-  console.log("Driver" , driver.data);
+
 
   opportunityClient.get(order.id)
   .then((data) => {
