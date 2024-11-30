@@ -274,17 +274,17 @@ const AdminCustomers = () => {
               </Tbody>
             </Table>
             {consumers.data && consumers.data.count > visibleRows && (
-            <div style={{ textAlign: "center", marginTop: "20px" }}>
+            
                 <Button
-                  bg="primary"
-                  size="sm"
+                 size="md" mt={8} fontWeight="bold" bg="background"
                   onClick={handleClickMore}
-                  color={"white"}
+                  
                   >
                 More Customers
                 </Button>
-              </div>
+              
       )}
+       
           </TableContainer>
         </Center>
       </Box>

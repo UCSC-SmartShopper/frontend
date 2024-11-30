@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   CardBody,
-  Center,
   Flex,
   Heading,
   HStack,
@@ -64,6 +63,7 @@ const AdminOverview = () => {
   const [consumerQuery, setConsumerQuery] = useState<ConsumerQuery>({} as ConsumerQuery);
   console.log(setConsumerQuery);
   const [visibleCount, setVisibleCount] = useState(3); 
+  
   const consumers = useConsumers(consumerQuery);
   const totalConsumers = consumers.data?.results.length || 0;
   const activeConsumers =
@@ -258,6 +258,7 @@ const AdminOverview = () => {
             </Thead>
             <Tbody>
               {topProducts.map(([productId, quantity], index) => (
+                console.log(productId),
                 <Tr key={index}>
                   <Td>
                     <HStack>
