@@ -60,10 +60,12 @@ interface OrderWithRelations {
 }
 
 const AdminOverview = () => {
-  const [consumerQuery, setConsumerQuery] = useState<ConsumerQuery>({} as ConsumerQuery);
+  const [consumerQuery, setConsumerQuery] = useState<ConsumerQuery>(
+    {} as ConsumerQuery
+  );
   console.log(setConsumerQuery);
-  const [visibleCount, setVisibleCount] = useState(3); 
-  
+  const [visibleCount, setVisibleCount] = useState(3);
+
   const consumers = useConsumers(consumerQuery);
   const totalConsumers = consumers.data?.results.length || 0;
   const activeConsumers =
@@ -76,7 +78,8 @@ const AdminOverview = () => {
 
   const { data: salesData } = useQuery({
     queryKey: ["sales"],
-    queryFn: () => new APIClient<OrderWithRelations>("stats/supermarket_sales").getAll({}),
+    queryFn: () =>
+      new APIClient<OrderWithRelations>("stats/supermarket_sales").getAll({}),
     staleTime: 1000 * 5,
   });
 
@@ -87,13 +90,17 @@ const AdminOverview = () => {
   salesData?.results.forEach((order) => {
     const { month, year } = order.orderPlacedOn;
     if (year === 2024) {
-      const orderTotal = order.orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const orderTotal = order.orderItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
       totalSales += orderTotal;
 
       monthlySales[month] = (monthlySales[month] || 0) + orderTotal;
 
       order.orderItems.forEach((item) => {
-        productSales[item.productId] = (productSales[item.productId] || 0) + item.quantity;
+        productSales[item.productId] =
+          (productSales[item.productId] || 0) + item.quantity;
       });
     }
   });
@@ -113,41 +120,40 @@ const AdminOverview = () => {
     "December",
   ];
 
-  const months = Object.keys(monthlySales).map((monthNum) => monthNames[Number(monthNum) - 1]);
+  const months = Object.keys(monthlySales).map(
+    (monthNum) => monthNames[Number(monthNum) - 1]
+  );
   const sales = Object.values(monthlySales);
 
   const topProducts = Object.entries(productSales)
     .sort(([, qtyA], [, qtyB]) => qtyB - qtyA)
     .slice(0, 5);
 
-    const productIds = topProducts.map(([productId]) => Number(productId));
-  
-    // Call useProduct to get data for the product IDs
-    const productQueries = useProduct(productIds);
-  
-    // Extract data or loading/error states
-    const productDetails = productQueries.map((query) => query.data);
-    const isLoading = productQueries.some((query) => query.isLoading);
-    const hasError = productQueries.some((query) => query.isError);
-  
-    useEffect(() => {
-      console.log("Product Details:", productDetails);
-    }, [productDetails]);
-  
-    if (isLoading) {
-      return <div>Loading...</div>;
-    }
-  
-    if (hasError) {
-      return <div>Error loading product details</div>;
-    }
+  const productIds = topProducts.map(([productId]) => Number(productId));
 
+  // Call useProduct to get data for the product IDs
+  const productQueries = useProduct(productIds);
+
+  // Extract data or loading/error states
+  const productDetails = productQueries.map((query) => query.data);
+  const isLoading = productQueries.some((query) => query.isLoading);
+  const hasError = productQueries.some((query) => query.isError);
+
+  useEffect(() => {
+    console.log("Product Details:", productDetails);
+  }, [productDetails]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (hasError) {
+    return <div>Error loading product details</div>;
+  }
 
   const handleViewMore = () => {
     setVisibleCount((prevCount) => prevCount + 3); // Show 3 more items each click
   };
-
-  
 
   const customerCards = [
     {
@@ -201,7 +207,11 @@ const AdminOverview = () => {
           </Heading>
           <DoughnutChart
             chartData={[totalConsumers, activeConsumers, churnedCustomers]}
-            labels={["Total Customers", "Active Customers", "Churned Customers"]}
+            labels={[
+              "Total Customers",
+              "Active Customers",
+              "Churned Customers",
+            ]}
           />
         </Box>
       </Flex>
@@ -257,32 +267,49 @@ const AdminOverview = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {topProducts.map(([productId, quantity], index) => (
-                console.log(productId),
-                <Tr key={index}>
-                  <Td>
-                    <HStack>
-                      <Image
-                        src={productDetails[index]?.imageUrl || "https://via.placeholder.com/150"}
-                        alt="Product Image"
-                        boxSize="40px"
-                        objectFit="cover"
-                        mr={2}
-                      />
-                      <Text>{productDetails[index]?.name || "Loading..."}</Text>
-                    </HStack>
-                  </Td>
-                  <Td>{productDetails[index]?.description || "Loading..."}</Td>
-                  <Td>{productDetails[index]?.price+" LKR" || "Loading..."}</Td>
-                  <Td>{quantity}</Td>
-                </Tr>
-              ))}
+              {topProducts.map(([productId, quantity], index) => {
+                console.log(productId); // Properly log the productId
+                return (
+                  <Tr key={index}>
+                    <Td>
+                      <HStack>
+                        <Image
+                          src={
+                            productDetails[index]?.imageUrl ||
+                            "https://via.placeholder.com/150"
+                          }
+                          alt="Product Image"
+                          boxSize="40px"
+                          objectFit="cover"
+                          mr={2}
+                        />
+                        <Text>
+                          {productDetails[index]?.name || "Loading..."}
+                        </Text>
+                      </HStack>
+                    </Td>
+                    <Td>
+                      {productDetails[index]?.description || "Loading..."}
+                    </Td>
+                    <Td>
+                      {productDetails[index]?.price + " LKR" || "Loading..."}
+                    </Td>
+                    <Td>{quantity}</Td>
+                  </Tr>
+                );
+              })}
             </Tbody>
           </Table>
         </TableContainer>
 
         {visibleCount < topProducts.length && ( // Show button only if more items exist
-          <Button size="md" mt={8} fontWeight="bold" bg="background" onClick={handleViewMore}>
+          <Button
+            size="md"
+            mt={8}
+            fontWeight="bold"
+            bg="background"
+            onClick={handleViewMore}
+          >
             View More
           </Button>
         )}

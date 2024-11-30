@@ -237,7 +237,7 @@ const AdminCustomers = () => {
                       <HStack>
                         <Image
                           // consumer.user.profilePic
-                          src={"https://via.placeholder.com/150"}
+                          src={"https://via.placeholder.com/150"} //{consumer.user.profilePic}
                           alt="Consumer Image"
                           boxSize="50px"
                           objectFit="cover"
