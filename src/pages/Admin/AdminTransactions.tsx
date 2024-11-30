@@ -48,7 +48,7 @@ const AdminTransactions = () => {
           </Heading>
 
             <Center>
-              <LineChart  width="80%"/>
+              {/* <LineChart  width="80%"/> */}
               {/* <PieChart/> */}
             </Center>
           </Box>

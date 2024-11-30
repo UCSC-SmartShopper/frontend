@@ -41,17 +41,42 @@ import useDrivers from "@/services/Driver/useDrivers";
 import { Driver } from "@/services/types";
 const AdminCourierServices = () => {
   const drivers = useDrivers();
-  const driverArray = drivers.data?.results;
-  //console.log("drivers",drivers.data?.results);
+  console.log("drivers",drivers.data?.results);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedDriver, setSelecteddriver] = useState<Driver | null>();
+
+  //console.log("ddd",drivers)
+  //company driver count from drivers and need image for company
+  console.log("drivers",drivers.data?.results);
+  const driverArray=drivers.data?.results;
+  console.log("driverArray",driverArray);
+
+  const companyMap = new Map<string, { profilePic: string; count: number }>();
+  drivers.data?.results.forEach((item) => {
+    const company = item.courierCompany || "Unknown Company";
+    const profilePic = item.user?.profilePic || "";
+
+    if (companyMap.has(company)) {
+      const data = companyMap.get(company)!;
+      companyMap.set(company, { profilePic: data.profilePic, count: data.count + 1 });
+    } else {
+      companyMap.set(company, { profilePic, count: 1 });
+    }
+  });
+
+  const companyDriverCounts = Array.from(companyMap).map(([name, data]) => ({
+    name,
+    ...data,
+  }));
+
+  console.log("companyDriverCounts",companyDriverCounts);
 
   const deliveryPersonPopup = [
     [
       {
         icon: <Icon as={SiCashapp} boxSize={5} color={"primary"} />,
         title: "Earning",
-        value: driverEarningData.data,
+        //value: driverEarningData.data,
       },
       {
         icon: <Icon as={MdFeedback} boxSize={5} color={"primary"} />,
@@ -99,14 +124,14 @@ const AdminCourierServices = () => {
             <Heading size="md">Courier Company Earnings</Heading>
 
             <Center>
-              <LineChart width="80%" />
+              {/* <LineChart width="80%" /> */}
             </Center>
           </Box>
 
           {/* ------- Number of Drivers Card ------- */}
           <Box p={5} shadow="md" borderWidth="1px" w="40%" borderRadius={15}>
             <Heading size="md">Number of Drivers</Heading>
-            {companyDriverCounts.slice(0, 3).map((item, index) => (
+            {companyDriverCounts && companyDriverCounts.slice(0, 3).map((company, index) => (
         <VStack mt={5} key={index}>
           <HStack
             w="full"
@@ -118,7 +143,7 @@ const AdminCourierServices = () => {
             shadow="md"
           >
             <Image
-                    src="https://via.placeholder.com/150"
+                    src={company.profilePic}
                     alt="Product Image"
                     boxSize="40px"
                     objectFit="cover"
@@ -167,8 +192,8 @@ const AdminCourierServices = () => {
                   <Th></Th>
                 </Tr>
               </Thead>
-              <Tbody>
-                {driverArray &&
+              <Tbody> 
+                 {driverArray &&
                   Array.isArray(driverArray) &&
                   driverArray.map((driver) => (
                     <Tr>
@@ -200,7 +225,7 @@ const AdminCourierServices = () => {
                       </Td>
                     </Tr>
                   ))}
-              </Tbody>
+              </Tbody> 
             </Table>
           </TableContainer>
         </Box>
