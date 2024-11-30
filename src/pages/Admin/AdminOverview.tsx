@@ -62,6 +62,7 @@ interface OrderWithRelations {
 
 const AdminOverview = () => {
   const [consumerQuery, setConsumerQuery] = useState<ConsumerQuery>({} as ConsumerQuery);
+  console.log(setConsumerQuery);
   const [visibleCount, setVisibleCount] = useState(3); 
   const consumers = useConsumers(consumerQuery);
   const totalConsumers = consumers.data?.results.length || 0;

@@ -5,7 +5,7 @@ import { Consumer } from "./useConsumer";
 const apiClient = new APIClient<Consumer>("/consumers");
 
 export interface ConsumerQuery {
-  searchText?: string;
+  searchText: string;
   month?: number;
   page?: number;
   limit?: number;
@@ -23,6 +23,7 @@ const useConsumers = (consumerQuery: ConsumerQuery) => {
           _limit: consumerQuery.limit || 10,
         },
       }),
+      staleTime: 1000 * 5, // 5 seconds
   });
 };
 
