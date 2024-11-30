@@ -1,9 +1,12 @@
 import { Box, Grid, Spinner, Text } from "@chakra-ui/react";
 import useOrder from "@/services/Orders/useOrder";
+import useOpportunity from "@/hooks/useOpportunity";
+import useDriver from "@/services/Driver/useDriver";
 import TextButton from "@/components/Buttons/TextButton";
 
 import { useNavigate } from "react-router-dom";
 import { DateTime } from "@/utils/Time";
+
 
 interface props {
   id: number;
@@ -40,7 +43,10 @@ export interface Order {
 
 const OrderDetails = ({ id }: props) => {
   const { data: order, isLoading, isError } = useOrder([id])[0];
-
+  const opportunityId = order?.opportunity[0].id;
+  const { data: opportunity } = useOpportunity(opportunityId? opportunityId : 0);
+  const driverId = opportunity?.driverId;
+  const { data: driver } = useDriver(driverId ? [driverId] : [])[0];
   //  onclick navigate to the order page
   const navigate = useNavigate();
   const btn = () => {
@@ -62,6 +68,10 @@ const OrderDetails = ({ id }: props) => {
     0
   );
 
+
+
+
+
   return (
     <Box>
       <Box
@@ -80,9 +90,10 @@ const OrderDetails = ({ id }: props) => {
           <Text>Order Total</Text>
           <Text>: {orderTotal.toFixed(2)}</Text>
           <Text>Delivery Cost</Text>
-          <Text>: XXXXXX</Text>
+          <Text>: {order.deliveryFee}</Text>
           <Text>Shipping Address</Text>
           <Text>: {order.shippingAddress}</Text>
+          
         </Grid>
       </Box>
       <Box
@@ -98,16 +109,16 @@ const OrderDetails = ({ id }: props) => {
         </Text>
         <Grid templateColumns="1fr 2fr" gap={1}>
           <Text>Driver Name</Text>
-          <Text>: Nethmi Kaveesha</Text>{" "}
+      <Text>: {driver?.user.name}</Text>{" "}
           {/* This should ideally come from the order data */}
           <Text>Contact Number</Text>
-          <Text>: 071122244</Text>{" "}
+          <Text>: {driver?.user.number}</Text>{" "}
           {/* This should ideally come from the order data */}
           <Text>Vehicle Type</Text>
-          <Text>: Bike</Text>{" "}
+          <Text>: {driver?.vehicleType}</Text>{" "}
           {/* This should ideally come from the order data */}
           <Text>Vehicle Number</Text>
-          <Text>: BAY 5050</Text>{" "}
+          <Text>: {driver?.vehicleName} {driver?.vehicleNumber}</Text>{" "}
           {/* This should ideally come from the order data */}
         </Grid>
       </Box>
