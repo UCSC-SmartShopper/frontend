@@ -102,6 +102,9 @@ export interface BaseOrder {
   location: string;
   deliveryFee: number;
   orderPlacedOn: DateTime;
+
+  subTotal: number;
+  totalCost: number;
 }
 
 export interface Order extends BaseOrder {
@@ -172,6 +175,7 @@ export interface BaseCartItem {
   quantity: number;
   consumerId: number;
   productId: number;
+  orderId: number; // if the item is in an order, default -1
 }
 
 export interface CartItem extends BaseCartItem {
@@ -257,10 +261,10 @@ export interface DriverRegistrationDetails {
 
 // ---------------------------------------------- Non Verified Driver ---------------------------------------------------
 export enum NonVerifiedDriverStatus {
-  OTPPending,
-  OTPVerified,
-  Accepted,
-  Declined,
+  OTPPending="OTPPending",
+  OTPVerified="OTPVerified",
+  Accepted="Accepted",
+  Declined="Declined",
 }
 
 export interface NonVerifiedDriver {
@@ -319,4 +323,11 @@ export interface BaseAddress {
   location: string; // coordinates [latitude, longitude]
   priority: number;
   consumerId: number;
+}
+
+// ------------------------------------ Optimized Route ------------------------------------
+export interface OptimizedRoute {
+  supermarketIds: number[];
+  totalDistance: number;
+  deliveryCost: number;
 }
