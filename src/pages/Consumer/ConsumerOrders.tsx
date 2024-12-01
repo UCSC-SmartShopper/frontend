@@ -57,9 +57,6 @@ const ConsumerOrders = () => {
     }
   };
 
-  const getTotalCost = (order: Order) =>
-    order.orderItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
-
   return (
     <Box
       className="p-5 h-screen bg-gray-100"
@@ -140,7 +137,7 @@ const ConsumerOrders = () => {
                     {order.shippingMethod}
                   </Td>
                   <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    RS {getTotalCost(order)}
+                    RS {order.totalCost}
                   </Td>
                   <Td className="p-3 text-sm text-gray-700 whitespace-nowrap flex">
                     <IconButton
