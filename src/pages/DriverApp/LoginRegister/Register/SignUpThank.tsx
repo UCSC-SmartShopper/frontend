@@ -4,8 +4,13 @@ import SubmitButton from "@/components/Buttons/SubmitButton";
 import Logo from "../../../../assets/logo.svg";
 import Done from "../../../../assets/signup-login/done.svg";
 import { Link } from "react-router-dom";
+import useDriverRegisterStore from "@/state-management/DriverRegisterStore";
+import useNonVerifiedDriver from "@/services/Driver/useNonVerifiedDriver";
 
 const SignUpThank = () => {
+  const driverDetails = useDriverRegisterStore((state) => state.driverDetails);
+  const driver=useNonVerifiedDriver([driverDetails?.id]);  
+  console.log(driver[0].data?.status);
   const isButtonEnabled = false;
 
   return (
@@ -39,7 +44,7 @@ const SignUpThank = () => {
           </Link>
         </Box>
       </VStack>
-    </VStack>
+    </VStack> 
   );
 };
 
