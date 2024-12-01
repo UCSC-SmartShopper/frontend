@@ -25,12 +25,11 @@ import { FcSalesPerformance } from "react-icons/fc";
 import { IoMdPeople } from "react-icons/io";
 import BarGraph from "../../components/Charts/BarGraph";
 import DoughnutChart from "../../components/Charts/DoughnutChart";
-import useConsumers, { ConsumerQuery } from "@/hooks/useConsumers";
+import useConsumers, { ConsumerQuery } from "@/services/Consumer/useConsumers";
 import { useState } from "react";
-import { getMoment } from "@/utils/Time";
 import APIClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
-import useProduct from "@/hooks/useProduct";
+import { DateTime } from "@/utils/Time";
 
 interface OrderItem {
   id: number;
@@ -51,22 +50,17 @@ interface OrderWithRelations {
   location: string;
   deliveryFee: number;
   orderPlacedOn: {
-      year: number;
-      month: number;
-      day: number;
-      hour: number;
-      minute: number;
-      second: number;
+    year: number;
+    month: number;
+    day: number;
+    hour: number;
+    minute: number;
+    second: number;
   };
 }
 
 const AdminOverview = () => {
-
-
-  
-  const [consumerQuery, setConsumerQuery] = useState<ConsumerQuery>(
-    {} as ConsumerQuery
-  );
+  const [consumerQuery] = useState<ConsumerQuery>({} as ConsumerQuery);
   const consumers = useConsumers(consumerQuery);
 
   const totalConsumers = consumers.data?.results.length || 0;
@@ -74,20 +68,21 @@ const AdminOverview = () => {
   const activeConsumers =
     consumers.data?.results.filter((consumer) =>
       consumer.user.lastLogin !== null
-        ? getMoment(consumer.user.lastLogin).isAfter(30, "days")
+        ? DateTime.getMoment(consumer.user.lastLogin).isAfter(30, "days")
         : false
     ).length || 0;
 
   const churnedCustomers = totalConsumers - activeConsumers;
 
-//   const earnings=useSupermarketEarnings();
-//   //console.log("earnings",earnings.data?.results);
-// const totalSales=earnings.data?.results.map((results)=>results.earnings).reduce((a,b)=>a+b,0);
+  //   const earnings=useSupermarketEarnings();
+  //   //console.log("earnings",earnings.data?.results);
+  // const totalSales=earnings.data?.results.map((results)=>results.earnings).reduce((a,b)=>a+b,0);
   //console.log("sales",totalSales);
 
-
   const salesData = () => {
-    const apiClient = new APIClient<OrderWithRelations>("stats/supermarket_sales");
+    const apiClient = new APIClient<OrderWithRelations>(
+      "stats/supermarket_sales"
+    );
     return useQuery({
       queryKey: ["sales"],
       queryFn: () => apiClient.getAll({}),
@@ -95,7 +90,7 @@ const AdminOverview = () => {
     });
   };
 
-  console.log("sales",salesData().data?.results);
+  console.log("sales", salesData().data?.results);
 
   let totalSales = 0;
   const monthlySales: { [key: number]: number } = {};
@@ -103,51 +98,61 @@ const AdminOverview = () => {
 
   salesData().data?.results.forEach((order) => {
     const { month, year } = order.orderPlacedOn;
-    if (year === 2024) {  // Replace with the year you want to filter by
-        const orderTotal = order.orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        totalSales += orderTotal;
-        if (monthlySales[month]) {
-            monthlySales[month] += orderTotal;
+    if (year === 2024) {
+      // Replace with the year you want to filter by
+      const orderTotal = order.orderItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+      totalSales += orderTotal;
+      if (monthlySales[month]) {
+        monthlySales[month] += orderTotal;
+      } else {
+        monthlySales[month] = orderTotal;
+      }
+
+      // Update product sales
+      order.orderItems.forEach((item) => {
+        if (productSales[item.productId]) {
+          productSales[item.productId] += item.quantity;
         } else {
-            monthlySales[month] = orderTotal;
+          productSales[item.productId] = item.quantity;
         }
-
-        // Update product sales
-        order.orderItems.forEach((item) => {
-          if (productSales[item.productId]) {
-            productSales[item.productId] += item.quantity;
-          } else {
-            productSales[item.productId] = item.quantity;
-          }
-        });
+      });
     }
-
-});
-const monthNames = [
-  "January", "February", "March", "April", "May", "June", 
-  "July", "August", "September", "October", "November", "December"
-];
-  const months = Object.keys(monthlySales).map((monthNum) => monthNames[Number(monthNum) - 1]);
+  });
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const months = Object.keys(monthlySales).map(
+    (monthNum) => monthNames[Number(monthNum) - 1]
+  );
   const sales = Object.values(monthlySales);
-
 
   //products with id and quantity
   const topProducts = Object.entries(productSales)
     .sort(([, qtyA], [, qtyB]) => qtyB - qtyA)
     .slice(0, 5); // Get top 5 products
 
+  console.log("topProducts", topProducts);
 
-    console.log("topProducts",topProducts);
+  //for each for get data of top products
+  // topProducts.forEach(([productId, quantity]) => {
+  //   console.log("productId",productId);
+  //   const productDetail=useProduct(Number(productId));
 
-    //for each for get data of top products
-    // topProducts.forEach(([productId, quantity]) => {
-    //   console.log("productId",productId);
-    //   const productDetail=useProduct(Number(productId));
-
-    // });
-    
-
-
+  // });
 
   const customerCards = [
     {
@@ -182,7 +187,6 @@ const monthNames = [
     },
   ];
 
-
   return (
     <VStack gap={"8vh"} fontWeight="bold" my="5vh" px={10}>
       <Flex w="full" gap={5}>
@@ -194,7 +198,7 @@ const monthNames = [
             Monthly Sales
           </Heading>
           <Heading as="h3" size="sm" mb={4}>
-            Total Sales -  {totalSales.toLocaleString()} LKR
+            Total Sales - {totalSales.toLocaleString()} LKR
           </Heading>
           <BarGraph chartData={sales} labels={months} />
         </Box>

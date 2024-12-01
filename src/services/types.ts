@@ -172,6 +172,7 @@ export interface BaseCartItem {
   quantity: number;
   consumerId: number;
   productId: number;
+  orderId: number; // if the item is in an order, default -1
 }
 
 export interface CartItem extends BaseCartItem {
@@ -303,9 +304,20 @@ export interface PayhereRequest {
   address: string;
   city: string;
   country: string;
-  order_id: number;
+  order_id: string;
   items: string;
   currency: string;
-  amount: number;
+  amount: string;
   hash: string;
+}
+
+// ---------------------------------------------- Address ---------------------------------------------------
+export interface BaseAddress {
+  id: number;
+  addressName: string; // home, work, etc
+  address: string; // actual address
+  city: string;
+  location: string; // coordinates [latitude, longitude]
+  priority: number;
+  consumerId: number;
 }
