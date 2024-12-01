@@ -261,10 +261,10 @@ export interface DriverRegistrationDetails {
 
 // ---------------------------------------------- Non Verified Driver ---------------------------------------------------
 export enum NonVerifiedDriverStatus {
-  OTPPending,
-  OTPVerified,
-  Accepted,
-  Declined,
+  OTPPending="OTPPending",
+  OTPVerified="OTPVerified",
+  Accepted="Accepted",
+  Declined="Declined",
 }
 
 export interface NonVerifiedDriver {
