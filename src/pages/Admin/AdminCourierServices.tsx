@@ -161,7 +161,7 @@ const AdminCourierServices = () => {
       <VStack gap={"8vh"} fontWeight="bold" my="5vh" px={10}>
         <Flex w="full" gap={5}>
           {/* ------- Courier Company Earnings ------- */}
-          <Box p={5} shadow="md" borderWidth="1px" w="55%" borderRadius={15}>
+          <Box p={5} shadow="md" borderWidth="1px" w="52%" borderRadius={15}>
             <Heading size="md">Courier Company Earnings</Heading>
 
            
@@ -170,34 +170,37 @@ const AdminCourierServices = () => {
           </Box>
 
           {/* ------- Number of Drivers Card ------- */}
-          <Box p={5} shadow="md" borderWidth="1px" w="45%" borderRadius={15}>
-            <Heading size="md">Number of Drivers</Heading>
-            {companyDriverCounts && companyDriverCounts.slice(0, 3).map((company, index) => (
-        <VStack mt={5} key={index}>
-          <HStack
-            w="full"
-            px="1vw"
-            h="10vh"
-            rounded={10}
-            borderWidth="1px"
-            borderColor="background"
-            shadow="md"
-          >
-            <Image
-                    src={company.profilePic}
-                    alt="Product Image"
-                    boxSize="40px"
-                    objectFit="cover"
-                  />
-                  <Text ml="0.3rem">{company.name}</Text>
-                  <Text ml="auto">{company.count}</Text>
-                </HStack>
-              </VStack>
-            ))}
-            <ActionButton inverted={true} className="!w-full mt-5">
-              View All
-            </ActionButton>
-          </Box>
+          <Box p={5} shadow="md" borderWidth="1px" w="48%" borderRadius={15} display="flex" flexDirection="column">
+  <Heading size="md">Number of Drivers</Heading>
+  <VStack mt={5} flex="1" spacing={4}>
+    {companyDriverCounts &&
+      companyDriverCounts.slice(0, 3).map((company, index) => (
+        <HStack
+          key={index}
+          w="full"
+          px="1vw"
+          h="10vh"
+          rounded={10}
+          borderWidth="1px"
+          borderColor="background"
+          shadow="md"
+        >
+          <Image
+            src={company.profilePic}
+            alt="Product Image"
+            boxSize="40px"
+            objectFit="cover"
+          />
+          <Text ml="0.3rem">{company.name}</Text>
+          <Text ml="auto">{company.count}</Text>
+        </HStack>
+      ))}
+  </VStack>
+  <ActionButton inverted={true} className="!w-full mt-5">
+    View All
+  </ActionButton>
+</Box>
+
         </Flex>
         <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
           <Flex justifyContent="space-between" px={20} py={10}>

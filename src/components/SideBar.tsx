@@ -35,7 +35,7 @@ const SideBar = () => {
       path: "/courier-services",
     },
     { icon: FaCartFlatbed, label: "Orders", path: "/orders" },
-    { icon: TbTransactionDollar, label: "Transactions", path: "/transactions" },
+    // { icon: TbTransactionDollar, label: "Transactions", path: "/transactions" },
     {
       icon: RiAdvertisementFill,
       label: "Advertisements",

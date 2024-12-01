@@ -100,7 +100,7 @@ const AdminSuperMarkets = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <PieChart chartData={earnings} labels={names} />
+            <PieChart chartData={earnings} labels={names} textPosition="bottom"/>
           </Box>
 
           {/*

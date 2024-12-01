@@ -31,7 +31,7 @@ import APIClient from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
 import useProduct from "@/services/Products/useProduct";
 
-interface OrderItem {
+export interface OrderItem {
   id: number;
   supermarketId: number;
   productId: number;
@@ -40,7 +40,7 @@ interface OrderItem {
   _orderId: number;
 }
 
-interface OrderWithRelations {
+export interface OrderWithRelations {
   orderItems: OrderItem[];
   id: number;
   consumerId: number;

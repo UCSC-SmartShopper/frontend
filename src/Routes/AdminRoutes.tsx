@@ -9,14 +9,15 @@ const AdminCourierServices = loadable(
 const AdminCustomers = loadable(() => import("@/pages/Admin/AdminCustomers"));
 const AdminOverview = loadable(() => import("@/pages/Admin/AdminOverview"));
 const AdminSettings = loadable(() => import("@/pages/Admin/AdminSettings"));
-const AdminTransactions = loadable(
-  () => import("@/pages/Admin/AdminTransactions")
-);
+// const AdminTransactions = loadable(
+//   () => import("@/pages/Admin/AdminTransactions")
+// );
 const AdminReports = loadable(() => import("@/pages/Admin/AdminReports"));
+const AdminOrders = loadable(() => import("@/pages/Admin/AdminOrders"));
 
 import AdminLayout from "./Layouts/AdminLayout";
 import Supermarkets from "@/pages/Admin/Supermarkets";
-import path from "path";
+//import path from "path";
 
 const AdminRoutes = [
   {
@@ -25,11 +26,12 @@ const AdminRoutes = [
       { path: "overview", element: <AdminOverview /> },
       { path: "customers", element: <AdminCustomers /> },
       { path: "courier-services", element: <AdminCourierServices /> },
-      { path: "transactions", element: <AdminTransactions /> },
+      // { path: "transactions", element: <AdminTransactions /> },
       { path: "advertisements", element: <AdminAdvertisements /> },
       {path: "reports", element: <AdminReports />},
       { path: "settings", element: <AdminSettings /> },
       { path: "supermarketList", element: <Supermarkets /> },
+      {path: "orders", element: <AdminOrders />},
     ],
   },
 ];
