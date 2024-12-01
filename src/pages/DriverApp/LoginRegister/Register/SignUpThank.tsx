@@ -11,7 +11,7 @@ const SignUpThank = () => {
   const driverDetails = useDriverRegisterStore((state) => state.driverDetails);
   const driver=useNonVerifiedDriver([driverDetails?.id]);  
   console.log(driver[0].data?.status);
-  const isButtonEnabled = false;
+  const driverAccepted = driver[0]?.data?.status === "Accepted" ? true : false;
 
   return (
     <VStack py="6vh" h="100vh" gap="4vh">
@@ -38,7 +38,7 @@ const SignUpThank = () => {
         </Text>
         <Box w="full">
           <Link to="/driver/login">
-            <SubmitButton disabled={!isButtonEnabled} borderRadius={10}>
+            <SubmitButton disabled={!driverAccepted} borderRadius={10}>
               Continue
             </SubmitButton>
           </Link>

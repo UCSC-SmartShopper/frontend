@@ -28,6 +28,7 @@ import useDriverRegisterStore from "@/state-management/DriverRegisterStore";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -45,6 +46,8 @@ const PersonalDetails = () => {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
+  const navigate = useNavigate();
+
   const { driverDetails, setDriverDetails, sendPersonalData } =
     useDriverRegisterStore();
 
@@ -52,7 +55,13 @@ const PersonalDetails = () => {
 
   return (
     <VStack py="6vh" h="100vh" gap="4vh">
-      <Box position="absolute" top="2" left="2" cursor="pointer">
+      <Box
+        position="absolute"
+        top="2"
+        left="2"
+        cursor="pointer"
+        onClick={() => navigate("/driver/login_register")}
+      >
         <Icon as={IoIosArrowBack} w={10} h={10} p={1} />
       </Box>
       <VStack>
