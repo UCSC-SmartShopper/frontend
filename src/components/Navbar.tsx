@@ -146,19 +146,13 @@ const Navbar = () => {
                     borderColor={"primary"}
                     borderWidth={3}
                     color={"white"}
+                    boxShadow="lg"
+                    borderRadius={5}
                   >
                     <MenuItem
                       bg={isActive("/overview") ? "orange.500" : "white"}
                       color={isActive("/overview") ? "white" : "primary"}
-                      _hover={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
-                      }}
                       _focus={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
                         bg: "primary",
                         color: "white",
                       }}
@@ -169,15 +163,7 @@ const Navbar = () => {
                     <MenuItem
                       bg={isActive("/orders") ? "orange.500" : "white"}
                       color={isActive("/orders") ? "white" : "primary"}
-                      _hover={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
-                      }}
                       _focus={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
                         bg: "primary",
                         color: "white",
                       }}
@@ -188,15 +174,7 @@ const Navbar = () => {
                     <MenuItem
                       bg={isActive("/feedbacks") ? "orange.500" : "white"}
                       color={isActive("/feedbacks") ? "white" : "primary"}
-                      _hover={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
-                      }}
                       _focus={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
                         bg: "primary",
                         color: "white",
                       }}
@@ -207,15 +185,7 @@ const Navbar = () => {
                     <MenuItem
                       bg={isActive("/profile") ? "orange.500" : "white"}
                       color={isActive("/profile") ? "white" : "primary"}
-                      _hover={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
-                      }}
                       _focus={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
                         bg: "primary",
                         color: "white",
                       }}
@@ -226,15 +196,7 @@ const Navbar = () => {
                     <MenuItem
                       bg="white"
                       color="primary"
-                      _hover={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
-                      }}
                       _focus={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
                         bg: "primary",
                         color: "white",
                       }}
