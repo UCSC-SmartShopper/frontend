@@ -1,5 +1,6 @@
 import SubmitButton from "@/components/Buttons/SubmitButton";
 import useOpportunities from "@/hooks/useOpportunities";
+import { getDecimal } from "@/lib/utils";
 import { Box, HStack, Icon, Spacer, Text, VStack } from "@chakra-ui/react";
 import { FaLocationDot } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
@@ -35,12 +36,12 @@ const Opportunities = () => {
               <HStack w="full">
                 <Text>Total Distance </Text>
                 <Spacer />
-                <Text>{opportunity.totalDistance} km</Text>
+                <Text>{getDecimal(opportunity.totalDistance)} km</Text>
               </HStack>
               <HStack w="full">
                 <Text>Trip Cost </Text>
                 <Spacer />
-                <Text>{opportunity.tripCost}</Text>
+                <Text> Rs. {getDecimal(opportunity.tripCost)}</Text>
               </HStack>
 
               <SubmitButton

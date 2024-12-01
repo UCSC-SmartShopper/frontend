@@ -42,6 +42,13 @@ export const getPrice = (price: number | string) => {
   return (Math.round(price * 100) / 100).toFixed(2);
 };
 
+export const getDecimal = (value: number | string) => {
+  if (typeof value === "string") {
+    value = parseFloat(value);
+  }
+  return (Math.round(value * 100) / 100).toFixed(1);
+};
+
 export const getDefaultAddressId = (addresses: BaseAddress[] = []) => {
   let defaultAddressId: number = -1;
   if (addresses.length > 0) {

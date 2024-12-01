@@ -19,21 +19,22 @@ import APIClient from "@/services/api-client";
 import useOpportunities from "@/hooks/useOpportunities";
 import Map from "@/pages/Public/Map";
 import useSupermarket from "@/services/Supermarket/useSupermarket";
+import { getDecimal } from "@/lib/utils";
 
 interface SupermarketRowInterface {
   supermarketIds: number[];
 }
 const ViewPendingMap = ({ supermarketIds }: SupermarketRowInterface) => {
   const supermarkets = useSupermarket(supermarketIds);
- 
-  const centers=supermarkets
-  .map((supermarket) => supermarket.data?.location)
-  .filter(Boolean)
-  .map((location) => {
-    const [lat, lng] = location?.split(",").map(Number) || [];
-    return { lat, lng };
-  });
-    return <Map centers={centers} />;
+
+  const centers = supermarkets
+    .map((supermarket) => supermarket.data?.location)
+    .filter(Boolean)
+    .map((location) => {
+      const [lat, lng] = location?.split(",").map(Number) || [];
+      return { lat, lng };
+    });
+  return <Map centers={centers} />;
 };
 
 const ViewOpportunity = () => {
@@ -60,8 +61,18 @@ const ViewOpportunity = () => {
       label: "Number of Stops",
       value: supermarketsLength,
     },
-    { label: "Total Distance", value: `${opportunity.data?.totalDistance} km` },
-    { label: "Trip Cost", value: `Rs.${opportunity.data?.tripCost}` },
+    {
+      label: "Total Distance",
+      value: opportunity.data?.totalDistance
+        ? `${getDecimal(opportunity.data?.totalDistance)} km`
+        : "N/A",
+    },
+    {
+      label: "Trip Cost",
+      value: opportunity.data?.tripCost
+        ? `Rs. ${getDecimal(opportunity.data?.tripCost)}`
+        : "N/A",
+    },
   ];
 
   const orderDetails = [
@@ -69,8 +80,8 @@ const ViewOpportunity = () => {
       label: "Order Placed on",
       value: formatDateTime(opportunity.data?.orderPlacedOn),
     },
-    { label: "Delivery Cost", value: `${opportunity.data?.deliveryCost}` },
-    { label: "Start Location", value: `${opportunity.data?.startLocation}` },
+    { label: "Delivery Cost", value:opportunity.data?.deliveryCost ? `Rs. ${getDecimal(opportunity.data?.deliveryCost)}`: "N/A" },
+    // { label: "Start Location", value: `${opportunity.data?.startLocation}` },
     {
       label: "Delivery Location",
       value: `${opportunity.data?.deliveryLocation}`,
@@ -173,7 +184,11 @@ const ViewOpportunity = () => {
       <Box shadow="xl" borderWidth={1} p={2} w="full" borderRadius="10">
         <AspectRatio ratio={16 / 9}>
           <ViewPendingMap
-            supermarketIds={opportunity.data?.opportunitysupermarket?.map(s => s.supermarketId) || []}
+            supermarketIds={
+              opportunity.data?.opportunitysupermarket?.map(
+                (s) => s.supermarketId
+              ) || []
+            }
           />
         </AspectRatio>
       </Box>
