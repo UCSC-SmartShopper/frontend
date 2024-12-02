@@ -29,7 +29,7 @@ const AdminRoutes = [
       { path: "reports", element: <AdminReports /> },
       { path: "settings", element: <AdminSettings /> },
       { path: "supermarketList", element: <Supermarkets /> },
-      { path: "orders", element: <AdminOrders /> },
+      { path: "admin-orders", element: <AdminOrders /> },
     ],
   },
 ];
