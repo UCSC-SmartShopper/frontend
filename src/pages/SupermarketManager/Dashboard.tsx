@@ -12,9 +12,15 @@ import OrderTable from "@/components/OrderTable";
 import DashboardCard from "./DashboardCard";
 
 import { useSupermarketOrderStats } from "@/services/Supermarket/useSupermarketOrderStat";
+import useAuthStore from "@/state-management/auth/store";
 
 const AdminMain = () => {
-  const { data, error} = useSupermarketOrderStats(1);
+
+  const user = useAuthStore((state) => state.user);
+
+
+
+  const { data, error} = useSupermarketOrderStats(user?.supermarketId || 1);
   console
 
 

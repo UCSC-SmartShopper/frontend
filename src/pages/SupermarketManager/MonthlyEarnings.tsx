@@ -14,9 +14,13 @@ import {
   import { useSupermarketEarningsStats } from "@/services/Supermarket/useSupermarketOrderStat";
   import { useSupermarketMonthlyEarnings } from "@/services/Supermarket/useSupermarketMonthlyEarnings";
 import BarGraph from "@/components/Charts/BarGraph";
+import useAuthStore from "@/state-management/auth/store";
   
   const SupermarketEarnings = () => {
-    const { data, error } = useSupermarketEarningsStats(1); // Replace with your actual supermarket ID
+
+  const user = useAuthStore((state) => state.user);
+
+    const { data, error } = useSupermarketEarningsStats(user?.supermarketId || 1); // Replace with your actual supermarket ID
     const monthlyData = [
       0, 400, 0, 0, 0, 300, 450, 111, 111, 0, 0, 2700,
 
