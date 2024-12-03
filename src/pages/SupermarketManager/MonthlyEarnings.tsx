@@ -12,7 +12,6 @@ import {
   import DashboardCard from "./DashboardCard";
   
   import { useSupermarketEarningsStats } from "@/services/Supermarket/useSupermarketOrderStat";
-  import { useSupermarketMonthlyEarnings } from "@/services/Supermarket/useSupermarketMonthlyEarnings";
 import BarGraph from "@/components/Charts/BarGraph";
   
   const SupermarketEarnings = () => {

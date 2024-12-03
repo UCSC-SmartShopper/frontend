@@ -2,7 +2,6 @@ import useAuthStore from "@/state-management/auth/store";
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   Flex,
   Grid,
@@ -24,7 +23,6 @@ const Profile = () => {
 
   const {
     isOpen: isForgetPassword,
-    onOpen: onForgetPassword,
     onClose: onForgetPasswordClose,
   } = useDisclosure();
 
