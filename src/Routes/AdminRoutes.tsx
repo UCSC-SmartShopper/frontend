@@ -16,6 +16,7 @@ const AdminReports = loadable(() => import("@/pages/Admin/AdminReports"));
 const AdminOrders = loadable(() => import("@/pages/Admin/AdminOrders"));
 const AdminLayout = loadable(() => import("@/Routes/Layouts/AdminLayout"));
 const Supermarkets = loadable(() => import("@/pages/Admin/Supermarkets"));
+import AddSuperMarket from "@/pages/Admin/AddSuperMarket";
 
 const AdminRoutes = [
   {
@@ -30,6 +31,7 @@ const AdminRoutes = [
       { path: "settings", element: <AdminSettings /> },
       { path: "supermarketList", element: <Supermarkets /> },
       { path: "admin-orders", element: <AdminOrders /> },
+      {path:"/add-supermarket",element:<AddSuperMarket/>}
     ],
   },
 ];
