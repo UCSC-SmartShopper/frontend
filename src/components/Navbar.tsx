@@ -30,7 +30,7 @@ interface NavItem {
 }
 
 const Navbar = () => {
-  const { user:authUser, logout } = useAuthStore();
+  const { user: authUser, logout } = useAuthStore();
   const user = useUser([authUser?.id || 0])[0].data;
 
   const { data: cartItems } = useCartItems();
@@ -60,6 +60,7 @@ const Navbar = () => {
   const adminNavItems: NavItem[] = [];
 
   let navItems: NavItem[];
+  
 
   switch (user?.role) {
     case "Courier Company Manager":
@@ -78,6 +79,11 @@ const Navbar = () => {
 
   // Function to determine if the menu item is active
   const isActive = (path: string) => pathname === path;
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <>
@@ -146,19 +152,13 @@ const Navbar = () => {
                     borderColor={"primary"}
                     borderWidth={3}
                     color={"white"}
+                    boxShadow="lg"
+                    borderRadius={5}
                   >
                     <MenuItem
                       bg={isActive("/overview") ? "orange.500" : "white"}
                       color={isActive("/overview") ? "white" : "primary"}
-                      _hover={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
-                      }}
                       _focus={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
                         bg: "primary",
                         color: "white",
                       }}
@@ -169,15 +169,7 @@ const Navbar = () => {
                     <MenuItem
                       bg={isActive("/orders") ? "orange.500" : "white"}
                       color={isActive("/orders") ? "white" : "primary"}
-                      _hover={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
-                      }}
                       _focus={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
                         bg: "primary",
                         color: "white",
                       }}
@@ -188,15 +180,7 @@ const Navbar = () => {
                     <MenuItem
                       bg={isActive("/feedbacks") ? "orange.500" : "white"}
                       color={isActive("/feedbacks") ? "white" : "primary"}
-                      _hover={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
-                      }}
                       _focus={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
                         bg: "primary",
                         color: "white",
                       }}
@@ -207,15 +191,7 @@ const Navbar = () => {
                     <MenuItem
                       bg={isActive("/profile") ? "orange.500" : "white"}
                       color={isActive("/profile") ? "white" : "primary"}
-                      _hover={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
-                      }}
                       _focus={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
                         bg: "primary",
                         color: "white",
                       }}
@@ -226,19 +202,11 @@ const Navbar = () => {
                     <MenuItem
                       bg="white"
                       color="primary"
-                      _hover={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
-                      }}
                       _focus={{
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: "orange.500",
                         bg: "primary",
                         color: "white",
                       }}
-                      onClick={logout}
+                      onClick={handleLogout}
                     >
                       Logout
                     </MenuItem>
@@ -314,7 +282,7 @@ const Navbar = () => {
                         bg: "primary",
                         color: "white",
                       }}
-                      onClick={logout}
+                      onClick={handleLogout}
                     >
                       Logout
                     </MenuItem>

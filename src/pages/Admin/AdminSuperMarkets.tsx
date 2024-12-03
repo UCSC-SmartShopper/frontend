@@ -28,7 +28,7 @@ import {
 } from "@chakra-ui/react";
 
 import useOrders from "@/services/Orders/useOrders";
-import useSuperMarkets from "@/services/Supermarket/useSupermarkets";
+import useSuperMarkets, { SupermarketQuery } from "@/services/Supermarket/useSupermarkets";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { FaCartFlatbed, FaLocationDot } from "react-icons/fa6";
@@ -36,27 +36,22 @@ import { GrUserWorker } from "react-icons/gr";
 import { IoStarSharp } from "react-icons/io5";
 import { MdFeedback, MdNavigateNext } from "react-icons/md";
 import { SiCashapp } from "react-icons/si";
-import LineChart from "../../components/Charts/LineChart";
-// import { Order } from "@/hooks/useOrder";
+//import LineChart from "../../components/Charts/LineChart";
 import useSupermarketEarning from "@/hooks/useSupermarketEarning";
-//import Earnings from "../DriverApp/Dashboard/Earnings";
 import PieChart from "@/components/Charts/PieChart";
 import useSupermarketEarnings from "@/hooks/useSupermarketEarnings";
 import { Supermarket } from "@/services/types";
-// import APIClient from "@/services/api-client";
-// import { Review } from "@/hooks/reviews/useReview";
-import { SupermarketQuery } from "@/hooks/useSupermarkets";
+import SearchBar from "@/components/SearchBar";
+import BarGraph from "@/components/Charts/BarGraph";
 const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  
-  
+
   const [supermarketQuery, setSupermarketQuery] = useState<SupermarketQuery>(
     {} as SupermarketQuery
   );
   const supermarkets = useSuperMarkets(supermarketQuery);
 
-  const [selectedSm, setSelectedSm] =
-    useState<Supermarket | null>();
+  const [selectedSm, setSelectedSm] = useState<Supermarket | null>();
 
   const handleEditClick = (supermarket: Supermarket) => {
     setSelectedSm(supermarket);
@@ -64,6 +59,7 @@ const AdminSuperMarkets = () => {
   };
 
   const earningBySupermarket = useSupermarketEarnings();
+  console.log(earningBySupermarket.data)
   // console.log("earningBYSU",earningBySupermarket.data);
   // const { data: earningsData } = useSupermarketEarnings();
   // console.log("Earnings Data:", earningsData);
@@ -76,6 +72,12 @@ const AdminSuperMarkets = () => {
   // Log or use the extracted arrays
   console.log("Names:", names);
   console.log("Earnings:", earnings);
+
+  const [visibleRows, setVisibleRows] = useState(5);
+
+  const handleViewMore = () => {
+    setVisibleRows(visibleRows + 3);
+  };
 
   return (
     <>
@@ -97,7 +99,7 @@ const AdminSuperMarkets = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <PieChart chartData={earnings} labels={names} />
+            <PieChart chartData={earnings} labels={names} textPosition="bottom"/>
           </Box>
 
           {/*
@@ -109,9 +111,7 @@ const AdminSuperMarkets = () => {
               Customers
               </Heading> */}
 
-              <Center>
-                <LineChart width="80%" />
-              </Center>
+              <BarGraph chartData={earnings} labels={names} />
             </Box>
           </Box>
         </Flex>
@@ -122,12 +122,13 @@ const AdminSuperMarkets = () => {
               Super Market Details
             </Heading>
             <SearchBar
-            width="65%"
-            value={supermarketQuery.searchText || ""}
-            setValue={(value) => {
-              setSupermarketQuery({ searchText: value });
-            }}
-          />
+              width="65%"
+              value={supermarketQuery.searchText || ""}
+              setValue={(value: any) => {
+                if (value != supermarketQuery.searchText)
+                  setSupermarketQuery({ ...supermarketQuery, searchText: value });
+              }}
+            />
             <Flex>
               <Box px={2}>
                 <Select placeholder="Select option" defaultValue={"August"}>
@@ -150,45 +151,59 @@ const AdminSuperMarkets = () => {
                   <Tr>
                     <Th>Name</Th>
                     <Th>Address</Th>
-                    <Th>Manager Name</Th>
+                    {/* <Th>Manager Name</Th> */}
                     <Th>Contact Number</Th>
                     <Th></Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {supermarkets.data?.results.map((supermarket, index) => (
-                    <Tr key={index}>
-                      <Td>
-                        <HStack>
-                          <Image
-                            src={supermarket.logo}
-                            alt="SM Image"
-                            boxSize="30px"
-                            objectFit="contain"
-                            aspectRatio={16 / 9}
-                            borderRadius="50%"
-                            mr={4}
-                          />
-                          <Text>{supermarket.name}</Text>
-                        </HStack>
-                      </Td>
-                      <Td>{supermarket.address}</Td>
-                      <Td>{supermarket.supermarketManager.name}</Td>
-                      <Td>{supermarket.contactNo}</Td>
-                      <Td>
-                        <Button
-                          bg="primary"
-                          size="sm"
-                          onClick={() => handleEditClick(supermarket)}
-                          color={"white"}
-                        >
-                          View More
-                        </Button>
-                      </Td>
-                    </Tr>
-                  ))}
+                  {supermarkets.data?.results
+                    .slice(0, visibleRows)
+                    .map((supermarket, index) => (
+                      <Tr key={index}>
+                        <Td>
+                          <HStack>
+                            <Image
+                              src={supermarket.logo|| "https://via.placeholder.com/150"}
+                              alt="SM Image"
+                              boxSize="30px"
+                              objectFit="contain"
+                              aspectRatio={16 / 9}
+                              borderRadius="50%"
+                              mr={4}
+                            />
+                            <Text>{supermarket.name}</Text>
+                          </HStack>
+                        </Td>
+                        <Td>{supermarket.address}</Td>
+                        {/* <Td>{supermarket.supermarketManager.name}</Td> */}
+                        <Td>{supermarket.contactNo}</Td>
+                        <Td>
+                          <Button
+                            bg="primary"
+                            size="sm"
+                            onClick={() => handleEditClick(supermarket)}
+                            color={"white"}
+                          >
+                            View More
+                          </Button>
+                        </Td>
+                      </Tr>
+                    ))}
                 </Tbody>
               </Table>
+
+              {/* Position the "More Data" button below the table */}
+              {supermarkets.data && supermarkets.data.count > visibleRows && (                
+                <Button
+                  size="md" mt={8} fontWeight="bold" bg="background"
+                  onClick={handleViewMore}
+                  
+                >
+                  More
+                  
+             </Button>
+)}
             </TableContainer>
           </Center>
         </Box>
@@ -215,7 +230,6 @@ const Popup = ({ onClose, isOpen, selectedSm }: PopupProps) => {
   console.log(orders);
   const earingBySupermarket = useSupermarketEarning(selectedSm.id);
   console.log("earningBYSU", earingBySupermarket);
-
 
   return (
     <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>

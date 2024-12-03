@@ -1,5 +1,5 @@
 import { baseURL } from "@/services/api-client";
-import { CartItem } from "@/services/types";
+import { BaseAddress, CartItem } from "@/services/types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -39,5 +39,12 @@ export const getPrice = (price: number | string) => {
   if (typeof price === "string") {
     price = parseFloat(price);
   }
-  return  (Math.round(price * 100) / 100).toFixed(2);
+  return (Math.round(price * 100) / 100).toFixed(2);
+};
+
+export const getDefaultAddress = (addresses: BaseAddress[] = []) : BaseAddress | null => {
+  if (addresses.length > 0) {
+    return addresses.sort((a, b) => b.priority - a.priority)[0];
+  }
+  return null;
 };

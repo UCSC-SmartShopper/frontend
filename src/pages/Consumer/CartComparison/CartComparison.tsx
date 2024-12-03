@@ -13,7 +13,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { CiBookmark } from "react-icons/ci";
 import ComparisonItem from "./ComparisonItem";
 import OptimizedInfo from "./OptimizedInfo";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +35,9 @@ const CartComparison = () => {
   //const optimizedCart=useOptimizer();
 
   const uniqueSupermarketIds = Array.from(
-    new Set(cartItems?.results?.map((item) => item.supermarketItem.supermarketId))
+    new Set(
+      cartItems?.results?.map((item) => item.supermarketItem.supermarketId)
+    )
   );
 
   const supermarkets = useSupermarket(uniqueSupermarketIds);
@@ -89,9 +90,6 @@ const CartComparison = () => {
                     </Text>
                   </HStack>
                 </Stack>
-                <Box>
-                  <CiBookmark size={30} />
-                </Box>
               </Flex>
 
               <VStack
@@ -150,9 +148,6 @@ const CartComparison = () => {
                     </Text>
                   </HStack>
                 </Stack>
-                <Box>
-                  <CiBookmark size={30} />
-                </Box>
               </Flex>
 
               <VStack
@@ -230,6 +225,7 @@ const CartComparison = () => {
             transform: "scale(0.98)",
             borderColor: "primary",
           }}
+          onClick={() => navigate("/cart")}
         >
           Back
         </Button>

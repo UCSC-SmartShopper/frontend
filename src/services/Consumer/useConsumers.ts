@@ -1,11 +1,12 @@
 import APIClient, { FetchResponse } from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
-import { Consumer } from "./useConsumer";
+import { Consumer } from "../../hooks/useConsumer";
+import { CACHE_KEY_CONSUMERS } from "../cache-keys";
 
 const apiClient = new APIClient<Consumer>("/consumers");
 
 export interface ConsumerQuery {
-  searchText?: string;
+  searchText: string;
   month?: number;
   page?: number;
   limit?: number;
@@ -13,7 +14,7 @@ export interface ConsumerQuery {
 
 const useConsumers = (consumerQuery: ConsumerQuery) => {
   return useQuery<FetchResponse<Consumer>, Error>({
-    queryKey: ["consumers", consumerQuery],
+    queryKey: [CACHE_KEY_CONSUMERS, consumerQuery],
     queryFn: () =>
       apiClient.getAll({
         params: {
@@ -23,6 +24,7 @@ const useConsumers = (consumerQuery: ConsumerQuery) => {
           _limit: consumerQuery.limit || 10,
         },
       }),
+      staleTime: 1000 * 5, // 5 seconds
   });
 };
 
