@@ -32,7 +32,7 @@ const AdminMain = () => {
   }
 
   // Destructure the values from the data object (replace these with actual values from the API response)
-  const { totOrders, totOrdersPaid, totOrdersMonth, Prepared, Processing } = data || {};
+  const { totOrders, totOrdersPaid,Prepared} = data || {};
 
   return (
     <Flex w="full">
