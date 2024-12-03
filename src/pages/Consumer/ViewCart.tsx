@@ -3,6 +3,9 @@ import IconButton from "@/components/Buttons/IconButton";
 import TextButton from "@/components/Buttons/TextButton";
 import CartItemCard from "@/components/CartItemCard";
 import MiddleContainer from "@/components/Containers/MiddleContainer";
+import { getSuperMarketIdList } from "@/lib/utils";
+import useAddresses from "@/services/Addresses/useAddresses";
+import useCartItems from "@/services/Cart/useCartItems";
 import { AddIcon } from "@chakra-ui/icons";
 import {
   Accordion,
@@ -18,23 +21,16 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import cartImage from "../../assets/cart.png";
-import useCartItems from "@/services/Cart/useCartItems";
 
 const ViewCart = () => {
   const navigate = useNavigate();
   const { data: cartItems } = useCartItems();
+  const addresses = useAddresses();
 
   // generate a list of unique supermarket ids
-  const supermarketIdList: number[] = [];
-  cartItems?.results.forEach((item) => {
-    const supermarketId = item.supermarketItem?.supermarketId;
-    if (supermarketId) {
-      if (!supermarketIdList.includes(supermarketId)) {
-        supermarketIdList.push(supermarketId);
-      }
-    }
-  });
+  const supermarketIdList = getSuperMarketIdList(cartItems?.results);
 
   let totalAmount: number =
     cartItems?.results.reduce(
@@ -42,6 +38,15 @@ const ViewCart = () => {
       0
     ) || 0;
   totalAmount = Number((Math.round(totalAmount * 100) / 100).toFixed(2));
+
+  const proceedToCheckout = () => {
+    if (addresses.data?.results.length || -1 > 0) {
+      navigate("/cart-comparison");
+    } else {
+      toast.error("Please add an address to proceed to checkout");
+      navigate("/profile/addresses/create");
+    }
+  };
 
   return (
     <MiddleContainer width="90vw" bg="background" height="fit-content">
@@ -108,7 +113,7 @@ const ViewCart = () => {
             <TextButton
               text="Proceed to checkout"
               hoverColor="primary"
-              onClick={() => navigate("/cart-comparison")}
+              onClick={proceedToCheckout}
             />
           </GridItem>
         </Grid>

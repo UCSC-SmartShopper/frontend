@@ -24,7 +24,7 @@ import useLikedProducts from "@/services/LikedProducts/useLikedProducts";
 import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CartItem, Product, SupermarketItem } from "@/services/types";
 import useCreateUserPreference from "@/services/UserPreference/useCreateUserPreference";
 import useAuthStore from "@/state-management/auth/store";
@@ -32,6 +32,7 @@ import useUser from "@/services/User/useUser";
 
 const ViewProduct = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const productId = Number(id);
 
   if (!productId) return null;
@@ -56,8 +57,8 @@ const ViewProduct = () => {
   const updateCartItems = useUpdateCartItems();
   const deleteCartItems = useDeleteCartItems();
 
-  const createPreference=useCreateUserPreference();
-  const { user:authUser, logout } = useAuthStore();
+  const createPreference = useCreateUserPreference();
+  const { user: authUser } = useAuthStore();
   const user = useUser([authUser?.id || 0])[0].data;
 
   const [selectedSupermarketItem, setSupermarketItem] =
@@ -103,12 +104,13 @@ const ViewProduct = () => {
         quantity: 1,
         supermarketitemId: selectedSupermarketItem?.id || -1,
         consumerId: -1,
+        orderId: -1,
       });
 
       createPreference.mutate({
-        userId: user?.id||0,
+        userId: user?.id || 0,
         preferenceType: "Cart",
-        referenceId: productId
+        referenceId: productId,
       });
     }
     // Update the cart item
@@ -119,6 +121,7 @@ const ViewProduct = () => {
         quantity: 1,
         productId: productId,
         consumerId: -1,
+        orderId: -1,
       });
     }
 
@@ -150,25 +153,38 @@ const ViewProduct = () => {
     <MiddleContainer width="90vw">
       <Box pt="4vh" px="6vw" pos={"relative"}>
         <Flex justifyContent={"space-between"}>
-          <HStack>
-            <Text fontSize="3xl" fontWeight="bold" mb={4}>
-              {product.data?.name}
-            </Text>
-            <VStack
-              px={3}
-              py={2}
-              as="button"
-              color={isLiked ? "red" : "black"}
-              onClick={toggleLiked}
-              _hover={{ color: "red", transform: "scale(1.10)" }}
-            >
-              {isLiked ? (
-                <FaHeart fontSize={35} />
-              ) : (
-                <FaRegHeart fontSize={35} />
-              )}
-            </VStack>
-          </HStack>
+          <VStack spacing={0} paddingBottom={2}>
+            <HStack>
+              <Text fontSize="3xl" fontWeight="bold" mb={4}>
+                {product.data?.name}
+              </Text>
+              <VStack
+                px={3}
+                py={2}
+                as="button"
+                color={isLiked ? "red" : "black"}
+                onClick={toggleLiked}
+                _hover={{ color: "red", transform: "scale(1.10)" }}
+              >
+                {isLiked ? (
+                  <FaHeart fontSize={35} />
+                ) : (
+                  <FaRegHeart fontSize={35} />
+                )}
+              </VStack>
+            </HStack>
+            <HStack w={"full"}>
+              <Text>Not ready to checkout?</Text>
+              <Text
+                onClick={() => navigate("/")}
+                color="primary"
+                cursor="pointer"
+                _hover={{ textDecoration: "underline" }}
+              >
+                Continue Shopping
+              </Text>
+            </HStack>
+          </VStack>
           <Box mt={5}>
             <AddToCartButton
               text={

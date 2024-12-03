@@ -26,28 +26,6 @@ const OrderItems = ({ order }: Props) => {
     onClose: onAddReviewClose,
   } = useDisclosure();
 
-  const totalCost = order.orderItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-
-  // const items = [
-  //   {
-  //     image: "https://via.placeholder.com/50",
-  //     name: "Munchee Super Cream Cracker",
-  //     price: 145,
-  //     supermarket: "Keells",
-  //     supermarketLogo: "https://via.placeholder.com/50",
-  //   },
-  //   {
-  //     image: "https://via.placeholder.com/50",
-  //     name: "Gradient Graphic T-shirt",
-  //     price: 145,
-  //     supermarket: "Spar",
-  //     supermarketLogo: "https://via.placeholder.com/50",
-  //   },
-  // ];
-
   return (
     <Box
       bg="white"
@@ -75,7 +53,6 @@ const OrderItems = ({ order }: Props) => {
         <Text>
           Delivery Fee:{" "}
           <Text as="span" fontWeight="bold">
-            200 LKR
             {order.deliveryFee} LKR
           </Text>
         </Text>
@@ -84,7 +61,7 @@ const OrderItems = ({ order }: Props) => {
         <Text>
           Total:{" "}
           <Text as="span" fontWeight="bold">
-            {totalCost} LKR
+            {order.totalCost} LKR
           </Text>
         </Text>
       </Flex>

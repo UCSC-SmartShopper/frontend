@@ -12,6 +12,7 @@ import { DateTime } from "@/utils/Time";
 // This table is used to store all the products in the system.
 
 export interface BaseProduct {
+  category: string;
   id: number;
   name: string;
   description: string;
@@ -36,8 +37,9 @@ export interface LikedProducts {
 
 export interface Activity {
   id: number;
+  userId: number;
   description: string;
-  dateTime: string;
+  dateTime: DateTime;
 }
 
 // ---------------------------------------------- Supermarket ----------------------------------------------
@@ -85,11 +87,9 @@ export interface Review {
 // ---------------------------------------------- Order ----------------------------------------------
 export enum OrderStatus {
   ToPay = "ToPay",
-  Placed = "Placed",
   Processing = "Processing",
   Prepared = "Prepared",
-  Ready = "Ready",
-  Delivered = "Delivered",
+  Delivered = "Completed", // Delivered or Picked up
   Cancelled = "Cancelled",
 }
 
@@ -102,6 +102,9 @@ export interface BaseOrder {
   location: string;
   deliveryFee: number;
   orderPlacedOn: DateTime;
+
+  subTotal: number;
+  totalCost: number;
 }
 
 export interface Order extends BaseOrder {
@@ -172,6 +175,7 @@ export interface BaseCartItem {
   quantity: number;
   consumerId: number;
   productId: number;
+  orderId: number; // if the item is in an order, default -1
 }
 
 export interface CartItem extends BaseCartItem {
@@ -257,10 +261,10 @@ export interface DriverRegistrationDetails {
 
 // ---------------------------------------------- Non Verified Driver ---------------------------------------------------
 export enum NonVerifiedDriverStatus {
-  OTPPending,
-  OTPVerified,
-  Accepted,
-  Declined,
+  OTPPending="OTPPending",
+  OTPVerified="OTPVerified",
+  Accepted="Accepted",
+  Declined="Declined",
 }
 
 export interface NonVerifiedDriver {
@@ -286,4 +290,44 @@ export interface NonVerifiedDriver {
   status?: NonVerifiedDriverStatus;
 
   createdAt: DateTime;
+}
+
+// ---------------------------------------------- Payhere Request ---------------------------------------------------
+export interface PayhereRequest {
+  merchant_id: string;
+
+  return_url: string;
+  cancel_url: string;
+  notify_url: string;
+
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  country: string;
+  order_id: string;
+  items: string;
+  currency: string;
+  amount: string;
+  hash: string;
+}
+
+// ---------------------------------------------- Address ---------------------------------------------------
+export interface BaseAddress {
+  id: number;
+  addressName: string; // home, work, etc
+  address: string; // actual address
+  city: string;
+  location: string; // coordinates [latitude, longitude]
+  priority: number;
+  consumerId: number;
+}
+
+// ------------------------------------ Optimized Route ------------------------------------
+export interface OptimizedRoute {
+  supermarketIds: number[];
+  totalDistance: number;
+  deliveryCost: number;
 }

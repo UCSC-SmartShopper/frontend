@@ -24,7 +24,6 @@ const useSuperMarkets = (supermarketQuery?: SupermarketQuery) => {
           _limit: supermarketQuery?.limit || 10,
         },
       }),
-    
   });
 };
 

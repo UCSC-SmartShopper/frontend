@@ -28,7 +28,7 @@ import {
 } from "@chakra-ui/react";
 
 import useOrders from "@/services/Orders/useOrders";
-import useSuperMarkets from "@/services/Supermarket/useSupermarkets";
+import useSuperMarkets, { SupermarketQuery } from "@/services/Supermarket/useSupermarkets";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { FaCartFlatbed, FaLocationDot } from "react-icons/fa6";
@@ -41,7 +41,6 @@ import useSupermarketEarning from "@/hooks/useSupermarketEarning";
 import PieChart from "@/components/Charts/PieChart";
 import useSupermarketEarnings from "@/hooks/useSupermarketEarnings";
 import { Supermarket } from "@/services/types";
-import { SupermarketQuery } from "@/services/Supermarket/useSupermarkets";
 import SearchBar from "@/components/SearchBar";
 import BarGraph from "@/components/Charts/BarGraph";
 import { Navigate, useNavigate } from "react-router-dom";

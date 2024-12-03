@@ -1,3 +1,7 @@
+import APIClient from "@/services/api-client";
+import useConsumers, { ConsumerQuery } from "@/services/Consumer/useConsumers";
+import useProduct from "@/services/Products/useProduct";
+import { DateTime } from "@/utils/Time";
 import {
   Box,
   Button,
@@ -18,18 +22,14 @@ import {
   Tr,
   VStack,
 } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { AiOutlineFall, AiOutlineRise } from "react-icons/ai";
 import { CgWebsite } from "react-icons/cg";
 import { FcSalesPerformance } from "react-icons/fc";
 import { IoMdPeople } from "react-icons/io";
 import BarGraph from "../../components/Charts/BarGraph";
 import DoughnutChart from "../../components/Charts/DoughnutChart";
-import useConsumers, { ConsumerQuery } from "@/hooks/useConsumers";
-import { useEffect, useState } from "react";
-import { getMoment } from "@/utils/Time";
-import APIClient from "@/services/api-client";
-import { useQuery } from "@tanstack/react-query";
-import useProduct from "@/services/Products/useProduct";
 
 export interface OrderItem {
   id: number;
@@ -49,14 +49,7 @@ export interface OrderWithRelations {
   shippingMethod: string;
   location: string;
   deliveryFee: number;
-  orderPlacedOn: {
-    year: number;
-    month: number;
-    day: number;
-    hour: number;
-    minute: number;
-    second: number;
-  };
+  orderPlacedOn: DateTime;
 }
 
 const AdminOverview = () => {
@@ -70,8 +63,8 @@ const AdminOverview = () => {
   const totalConsumers = consumers.data?.results.length || 0;
   const activeConsumers =
     consumers.data?.results.filter((consumer) =>
-      consumer.user.lastLogin
-        ? getMoment(consumer.user.lastLogin).isAfter(30, "days")
+      consumer.user.lastLogin !== null
+        ? DateTime.getMoment(consumer.user.lastLogin).isAfter(30, "days")
         : false
     ).length || 0;
   const churnedCustomers = totalConsumers - activeConsumers;

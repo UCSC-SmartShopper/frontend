@@ -1,12 +1,21 @@
 import delHome from "@/assets/delHome.png";
 import pickupImg from "@/assets/Grocery shopping-rafiki.svg";
 import CheckoutAccordion from "@/components/CheckoutAccordion";
+import {
+  getDefaultAddress,
+  getPrice,
+  getSuperMarketIdList,
+} from "@/lib/utils";
+import useAddresses from "@/services/Addresses/useAddresses";
 import useCartCheckout, {
   CheckoutRequest,
 } from "@/services/Cart/useCartCheckout";
 import useCartItems from "@/services/Cart/useCartItems";
+import useDeliveryCost from "@/services/Location/useDeliveryCost";
+import useSupermarket from "@/services/Supermarket/useSupermarket";
+import useCreateUserPreference from "@/services/UserPreference/useCreateUserPreference";
 import useAuthStore from "@/state-management/auth/store";
-import { EditIcon } from "@chakra-ui/icons";
+import { EditIcon, SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -18,6 +27,7 @@ import {
   Image,
   Input,
   InputGroup,
+  InputLeftAddon,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -31,59 +41,87 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdOutlineLocationOn } from "react-icons/md";
-import useCreateUserPreference from "@/services/UserPreference/useCreateUserPreference";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Checkout = () => {
-  const cartCheckout = useCartCheckout();
   const user = useAuthStore((state) => state.user);
+  const { data: cartItems } = useCartItems();
+  const navigate = useNavigate();
+  const addresses = useAddresses();
 
-  const { data: cart } = useCartItems();
+  useEffect(() => {
+    if (addresses.data?.results) {
+      // If there are no addresses, redirect to add address page
+      if (addresses.data?.results.length <= 0) {
+        toast.error("Please add an address to proceed to checkout");
+        navigate("/profile/addresses/create");
+      }
+    }
+  }, [addresses.data]);
 
-  const [checkoutRequest, setCheckoutRequest] = useState<CheckoutRequest>({
-    consumerId: user?.consumerId || -1,
-    shippingAddress: "66 Pandura Rd, Bandaragama",
-    shippingMethod: "Home Delivery",
-  });
+  const cartCheckout = useCartCheckout();
 
-  // const { mutate } = useMutation({
+  const supermarketIdList = getSuperMarketIdList(cartItems?.results);
+  const supermarketLocationList = useSupermarket(supermarketIdList).map(
+    (supermarket) => supermarket.data?.location || ""
+  );
 
-  
-  
-  //   onSuccess: (res) => {
-  //     navigate("/payment-success/" + res.id);
-  //   },
-  // });
-  const createPreference=useCreateUserPreference();
+  const allAddresses = addresses.data?.results || [];
+  const defaultAddress = getDefaultAddress(allAddresses);
+
+  const [checkoutRequest, setCheckoutRequest] = useState<CheckoutRequest>(
+    {} as CheckoutRequest
+  );
+
+  useEffect(() => {
+    setCheckoutRequest({
+      shippingMethod: "Home Delivery",
+      shippingLocation: defaultAddress?.location || "Bandaragama",
+      shippingAddress: defaultAddress?.address || "66 Pandura Rd, Bandaragama",
+      consumerId: user?.consumerId || -1,
+    });
+  }, [allAddresses, cartItems, user]);
+
+  const deliveryCost = useDeliveryCost(
+    supermarketLocationList,
+    checkoutRequest?.shippingLocation || "6.961174, 79.965387"
+  );
+
+  const deliveryFee =
+    checkoutRequest?.shippingMethod === "Home Delivery"
+      ? deliveryCost.data || 250
+      : 0;
+
+  const createPreference = useCreateUserPreference();
 
   const handleCheckout = () => {
-    const res = cartCheckout.mutate(checkoutRequest);
-    cart?.results.map((item) => {
+    cartCheckout.mutate(checkoutRequest);
+    cartItems?.results.map((item) => {
       createPreference.mutate({
-        userId: user?.id||0,
+        userId: user?.id || 0,
         preferenceType: "Purchases",
         referenceId: item.productId,
       });
       console.log(item.productId);
     });
-
-    console.log(res);
   };
 
-  const deliveryFee = 250;
+  if (cartCheckout.isSuccess) {
+    navigate("/payments/orders/" + cartCheckout.data);
+  }
 
   // --------------------------------------- Calculate Subtotal ---------------------------------------
-  let subTotal =
-    cart?.results.reduce(
+  const subTotal =
+    cartItems?.results.reduce(
       (acc, item) => acc + (item.supermarketItem?.price || 1) * item.quantity,
       0
     ) || 0;
-
-  subTotal = Number((Math.round(subTotal * 100) / 100).toFixed(2));
 
   const {
     isOpen: isOpen1,
@@ -106,11 +144,9 @@ const Checkout = () => {
         </Flex>
 
         <Flex flexDirection={["column", "column", "row"]} gap={4}>
-
           {/* Left Column */}
           <Box flex="2">
             <VStack align="stretch" spacing={4}>
-
               {/* Shipping  Method */}
               <Box border="1px" borderRadius="md" padding="4">
                 <HStack justify="space-between">
@@ -248,16 +284,20 @@ const Checkout = () => {
                 <Stack spacing={1}>
                   <HStack justify="space-between">
                     <Text>Subtotal</Text>
-                    <Text>LKR {subTotal}</Text>
+                    <Text>LKR {getPrice(subTotal)}</Text>
                   </HStack>
-                  <HStack justify="space-between">
-                    <Text>Delivery Fee</Text>
-                    <Text>LKR {deliveryFee}</Text>
-                  </HStack>
+                  {checkoutRequest.shippingMethod === "Home Delivery" && (
+                    <HStack justify="space-between">
+                      <Text>Delivery Fee</Text>
+                      <Text>LKR {getPrice(deliveryFee)}</Text>
+                    </HStack>
+                  )}
                   <Divider my={2} />
                   <HStack justify="space-between">
                     <Text fontWeight="bold">Total</Text>
-                    <Text fontWeight="bold">LKR {subTotal + deliveryFee}</Text>
+                    <Text fontWeight="bold">
+                      LKR {getPrice(subTotal + deliveryFee)}
+                    </Text>
                   </HStack>
                 </Stack>
               </Box>
@@ -279,9 +319,9 @@ const Checkout = () => {
 
               <Box mb={3}>
                 <InputGroup>
-                  {/* <InputLeftAddon>
+                  <InputLeftAddon>
                     <Icon as={SearchIcon} boxSize={5} />
-                  </InputLeftAddon> */}
+                  </InputLeftAddon>
                   <Input
                     variant="filled"
                     placeholder="Search for an address"
@@ -299,23 +339,34 @@ const Checkout = () => {
               <Heading fontSize={"lg"} my={2}>
                 Saved Addresses
               </Heading>
-              <Flex bg="gray.100" shadow={"sm"} px={2} py={2} borderRadius={5}>
-                <HStack
+              {addresses.data?.results.map((address, index) => (
+                <Flex
+                  key={index}
+                  bg="gray.100"
+                  shadow={"sm"}
+                  px={2}
+                  py={2}
+                  my={1}
+                  borderRadius={5}
+                  cursor={"pointer"}
                   onClick={() =>
                     setCheckoutRequest({
                       ...checkoutRequest,
-                      shippingAddress: "66 Pandura Rd, Bandaragama",
+                      shippingAddress: address.address,
+                      shippingLocation: address.location,
                     })
                   }
                 >
-                  <Icon as={FaLocationDot} boxSize={5} />
-                  <Text>Bandaragama</Text>
-                </HStack>
-                <Spacer />
-                <Box>
+                  <HStack>
+                    <Icon as={FaLocationDot} boxSize={5} />
+                    <Text>{address.addressName}</Text>
+                  </HStack>
+                  <Spacer />
+                  {/* <Box>
                   <Icon as={EditIcon} boxSize={5} />
-                </Box>
-              </Flex>
+                  </Box> */}
+                </Flex>
+              ))}
             </Flex>
           </ModalBody>
         </ModalContent>

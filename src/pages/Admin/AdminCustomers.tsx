@@ -1,6 +1,6 @@
 import SearchBar from "@/components/SearchBar";
 import { lastMonths } from "@/data/months";
-import useConsumers, { ConsumerQuery } from "@/hooks/useConsumers";
+import useConsumers, { ConsumerQuery } from "@/services/Consumer/useConsumers";
 import {
   Box,
   Button,

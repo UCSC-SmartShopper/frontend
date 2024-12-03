@@ -1,5 +1,14 @@
 import loadable from "@loadable/component";
 
+const CreateAddressPopup = loadable(
+  () => import("@/pages/Consumer/Addresses/CreateAddressPopup")
+);
+
+const ManageAddresses = loadable(
+  () => import("@/pages/Consumer/Addresses/ManageAddresses")
+);
+const OrderPayment = loadable(() => import("@/pages/Payments/OrderPayment"));
+
 const ConsumerCartDetails = loadable(() => import("@/pages/Consumer/ViewCart"));
 const ConsumerProfile = loadable(
   () => import("@/pages/Consumer/ConsumerProfile")
@@ -38,6 +47,9 @@ const ConsumerRoutes = [
       { path: "Consumer_overview", element: <ConsumerOverview /> },
       { path: "about", element: <AboutUs /> },
       { path: "reviews/supermarket_items/:id", element: <ProductReview /> },
+      { path: "payments/orders/:id", element: <OrderPayment /> },
+      { path: "profile/addresses", element: <ManageAddresses /> },
+      { path: "profile/addresses/create", element: <CreateAddressPopup /> },
     ],
   },
 ];

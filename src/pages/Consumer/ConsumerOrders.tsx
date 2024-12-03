@@ -22,17 +22,13 @@ import { DateTime } from "@/utils/Time";
 
 const statusColor: Record<Order["status"], string> = {
   ToPay: "red",
+  Processing: "purple",
   Prepared: "green",
   Cancelled: "yellow",
-  Ready: "orange",
-  Delivered: "blue",
-  Processing: "purple",
-  Placed: "gray",
+  Completed: "blue",
 };
 
 const ConsumerOrders = () => {
-  // const orders = useOrders();
-  // console.log(orders.data);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("View All");
 
@@ -50,7 +46,7 @@ const ConsumerOrders = () => {
     );
   }
 
-  const filteredOrders = (): Order[] => {
+  const filteredOrders = () => {
     switch (activeTab) {
       case "To Pay":
         return data?.results.filter((order) => order.status === "ToPay") || [];
@@ -60,9 +56,6 @@ const ConsumerOrders = () => {
         return data?.results || [];
     }
   };
-
-  const getTotalCost = (order: Order) =>
-    order.orderItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
   return (
     <Box
@@ -144,7 +137,7 @@ const ConsumerOrders = () => {
                     {order.shippingMethod}
                   </Td>
                   <Td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    RS {getTotalCost(order)}
+                    RS {order.totalCost}
                   </Td>
                   <Td className="p-3 text-sm text-gray-700 whitespace-nowrap flex">
                     <IconButton
@@ -165,6 +158,15 @@ const ConsumerOrders = () => {
                 </Tr>
               ))}
             </Tbody>
+            {filteredOrders().length === 0 && (
+              <Tbody>
+                <Tr>
+                  <Td colSpan={6} className="p-3 text-sm text-gray-700 ">
+                    No orders found
+                  </Td>
+                </Tr>
+              </Tbody>
+            )}
           </Table>
         </Box>
       </Box>

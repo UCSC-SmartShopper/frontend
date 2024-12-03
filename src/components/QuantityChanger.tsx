@@ -1,6 +1,5 @@
-import { BaseCartItem } from "@/services/Cart/useCreateCartItems";
 import useUpdateCartItems from "@/services/Cart/useUpdateCartItem";
-import { CartItem } from "@/services/types";
+import { BaseCartItem, CartItem } from "@/services/types";
 import useDebounce from "@/utils/useDebounce";
 import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -25,6 +24,7 @@ const QuantityChanger = ({ cartItem }: Props) => {
         productId: debouncedCartItem.productId,
         supermarketitemId: debouncedCartItem.supermarketItem.id || -1,
         quantity: debouncedCartItem.quantity,
+        orderId: debouncedCartItem.orderId,
       };
       if (newBaseCartItem.quantity > 0) updateCartItem.mutate(newBaseCartItem);
     }
@@ -32,10 +32,17 @@ const QuantityChanger = ({ cartItem }: Props) => {
 
   // // -------------------------------------------- Increase Quantity ------------------------------------------------
   const handleIncrement = () => {
-    setNewBaseCartItem({
-      ...newBaseCartItem,
-      quantity: newBaseCartItem.quantity + 1,
-    });
+    if (newBaseCartItem.quantity >= availableQuantity) {
+      setNewBaseCartItem({
+        ...newBaseCartItem,
+        quantity: availableQuantity,
+      });
+    } else {
+      setNewBaseCartItem({
+        ...newBaseCartItem,
+        quantity: newBaseCartItem.quantity + 1,
+      });
+    }
   };
 
   // // -------------------------------------------- Decrease Quantity ------------------------------------------------
@@ -90,7 +97,10 @@ const QuantityChanger = ({ cartItem }: Props) => {
         fontWeight={600}
         color={availableQuantity < 10 ? "red" : "black"}
       >
-        Available : {availableQuantity < 99 ? availableQuantity : "99+"}
+        Available :{" "}
+        {availableQuantity < 99
+          ? availableQuantity - newBaseCartItem.quantity
+          : "99+"}
       </Text>
     </Flex>
   );
