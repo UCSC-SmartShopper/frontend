@@ -18,7 +18,7 @@ import BarGraph from "@/components/Charts/BarGraph";
   const SupermarketEarnings = () => {
     const { data, error } = useSupermarketEarningsStats(1); // Replace with your actual supermarket ID
     const monthlyData = [
-      0, 400, 0, 0, 0, 300, 450, 111, 111, 0, 0, 0,
+      0, 400, 0, 0, 0, 300, 450, 111, 111, 0, 0, 2700,
 
     ];
     
