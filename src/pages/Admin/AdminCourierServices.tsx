@@ -123,24 +123,24 @@ const AdminCourierServices = () => {
       {
         icon: <Icon as={SiCashapp} boxSize={5} color={"primary"} />,
         title: "Earning",
-        //value: driverEarningData.data,
+        value: `${(Math.random() * 4000).toFixed(0)}`,
       },
       {
         icon: <Icon as={MdFeedback} boxSize={5} color={"primary"} />,
         title: "Feedbacks",
-        value: "23",
+        value: `${(Math.random() * 30).toFixed(0)}`,
       },
     ],
     [
       {
         icon: <Icon as={TbTruckDelivery} boxSize={6} color={"primary"} />,
         title: "Deliveries",
-        value: "80",
+        value: `${(Math.random() * 20).toFixed(0)}`,
       },
       {
         icon: <Icon as={IoStarSharp} boxSize={6} color={"primary"} />,
         title: "Ratings",
-        value: "4/5",
+        value: `${(Math.random() * 5).toFixed(1)}/5`,
       },
     ],
     [

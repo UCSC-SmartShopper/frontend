@@ -76,6 +76,8 @@ const AdminOverview = () => {
     staleTime: 1000 * 5,
   });
 
+  console.log('salesData', salesData);
+
   let totalSales = 0;
   const monthlySales: { [key: number]: number } = {};
   const productSales: { [key: string]: number } = {};
