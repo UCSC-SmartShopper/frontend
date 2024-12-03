@@ -267,7 +267,7 @@ const AdminOverview = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {topProducts.map(([productId, quantity], index) => {
+              {topProducts.slice(0,visibleCount).map(([productId, quantity], index) => {
                 console.log(productId); // Properly log the productId
                 return (
                   <Tr key={index}>

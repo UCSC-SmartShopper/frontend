@@ -36,7 +36,7 @@ import { IoIosColorPalette } from "react-icons/io";
 import { AiOutlineFieldNumber } from "react-icons/ai";
 // import LineChart from "../../components/Charts/LineChart";
 import { IoStarSharp } from "react-icons/io5";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useDrivers from "@/services/Driver/useDrivers";
 import { Driver } from "@/services/types";
 import useOpportunities, { OpportunityQuery } from "@/hooks/useOpportunities";
@@ -110,6 +110,12 @@ const AdminCourierServices = () => {
   
   console.log("Data:", data);
   console.log('labels',labels);
+  
+
+  const driverBoxRef = useRef<HTMLDivElement>(null);
+  const scrollToBox = () => {
+    driverBoxRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
 
   const deliveryPersonPopup = [
@@ -196,13 +202,13 @@ const AdminCourierServices = () => {
         </HStack>
       ))}
   </VStack>
-  <ActionButton inverted={true} className="!w-full mt-5">
+  <ActionButton inverted={true} className="!w-full mt-5" onClick={scrollToBox}>
     View All
   </ActionButton>
 </Box>
 
         </Flex>
-        <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
+        <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15} ref={driverBoxRef}>
           <Flex justifyContent="space-between" px={20} py={10}>
             <Heading as="h3" size="md">
               Delivery Person Details
@@ -280,7 +286,7 @@ const AdminCourierServices = () => {
             bg="background"
             onClick={handleClickMore}
           >
-            View More
+             More
           </Button>
         )}
         </Box>
