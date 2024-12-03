@@ -13,12 +13,22 @@ import {
   
   import { useSupermarketEarningsStats } from "@/services/Supermarket/useSupermarketOrderStat";
   import { useSupermarketMonthlyEarnings } from "@/services/Supermarket/useSupermarketMonthlyEarnings";
+import BarGraph from "@/components/Charts/BarGraph";
   
   const SupermarketEarnings = () => {
     const { data, error } = useSupermarketEarningsStats(1); // Replace with your actual supermarket ID
-    const { data: monthlyData} = useSupermarketMonthlyEarnings(1); // Replace with your actual supermarket ID
+    const monthlyData = [
+      0, 400, 0, 0, 0, 300, 450, 111, 111, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ];
+    
+    const months = [
+      "January", "February", "March", "April", "May", "June", "July", 
+      "August", "September", "October", "November", "December"
+    ];
+    
 
-    console.log(monthlyData, "data");
+    // console.log(monthlyData, "data");
   
     // Handle error state
     if (error) {
@@ -62,6 +72,9 @@ import {
                 <Heading as="h3" size="lg" mb={4}>
                   Monthly Earnings
                 </Heading>
+                <Box>
+                  <BarGraph chartData={monthlyData} labels={months} />
+                </Box>
                 
                 
               </Flex>
