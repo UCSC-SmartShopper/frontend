@@ -44,6 +44,7 @@ import { Supermarket } from "@/services/types";
 import { SupermarketQuery } from "@/services/Supermarket/useSupermarkets";
 import SearchBar from "@/components/SearchBar";
 import BarGraph from "@/components/Charts/BarGraph";
+import { Navigate, useNavigate } from "react-router-dom";
 const AdminSuperMarkets = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -79,6 +80,8 @@ const AdminSuperMarkets = () => {
   const handleViewMore = () => {
     setVisibleRows(visibleRows + 3);
   };
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -117,7 +120,7 @@ const AdminSuperMarkets = () => {
           </Box>
         </Flex>
 
-        <Box p={5} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
+        <Box p={5} pl={2} shadow="md" borderWidth="1px" w="full" borderRadius={15}>
           <Flex justifyContent="space-between" px={20} py={10}>
             <Heading as="h3" size="md">
               Super Market Details
@@ -140,6 +143,11 @@ const AdminSuperMarkets = () => {
               </Box>
               {/* <ActionButton url="/addcustomer">Add Customer</ActionButton> */}
             </Flex>
+
+            <Button py={2} px={5}
+            onClick={()=>navigate("/add-supermarket")}>
+              Add SuperMarket
+            </Button>
           </Flex>
 
           <Center>
