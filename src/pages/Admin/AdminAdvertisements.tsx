@@ -209,7 +209,7 @@ const AdminAdvertisements: React.FC = () => {
                 <Text fontSize="md">To: {ad.endDate}</Text>
                 <Text fontSize="md">Priority: {ad.priority}</Text>
                 <Image
-                  src="https://via.placeholder.com/150"
+                  src={ad.image}
                   alt="Advertisement Banner"
                   borderRadius={10}
                   mb={4}
