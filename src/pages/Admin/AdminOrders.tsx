@@ -455,6 +455,7 @@ const AdminOrders = () => {
               {supermarketDetails.map((query, index) => (
                 query.data && (
                   <><Image
+                    key={index}
                     src={query.data.logo}
                     alt="Product Image"
                     boxSize="30px"
